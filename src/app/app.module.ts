@@ -1,10 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from './core/core.module';
-
 import { AppComponent } from './app.component';
+
+import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
+import { GantgileModule } from './gantgile/gantgile.module';
+import { UpdaterModule } from './updater/updater.module';
 
 
 @NgModule({
@@ -14,7 +17,10 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CoreModule
+    SharedModule,
+    CoreModule,
+    GantgileModule,
+    UpdaterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
