@@ -7,6 +7,7 @@ import { UpdaterModule } from '../updater/updater.module';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { LoginPage } from './pages/login/login.page';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { LoginPage } from './pages/login/login.page';
     GantgileModule,
     UpdaterModule
   ],
-  declarations: [LoginPage]
+  declarations: [LoginPage, HeaderComponent]
 })
 export class CoreModule { }
