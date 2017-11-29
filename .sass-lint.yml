@@ -1,0 +1,7 @@
+files:
+  include:
+    - 'src/**/*.s+(a|c)ss'
+  ignore:
+    - 'node_modules/**/*'
+rules:
+  single-line-per-selector: 0
