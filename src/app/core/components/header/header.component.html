@@ -86,18 +86,18 @@
         </li>
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu" dropdown
-            *ngIf="currentUser.isLoggedIn(); else elseBlock">
+             *ngIf="currentUser.isLoggedIn(); else elseBlock">
           <a href="#" class="dropdown-toggle" dropdownToggle>
-            <img src="/assets/adminlte/user2-160x160.jpg" class="user-image" alt="User Image">
-            <span class="hidden-xs">Alexander Pierce</span>
+            <img [src]="currentUser.avatarUrl" class="user-image" alt="User Image">
+            <span class="hidden-xs">{{currentUser.name}}</span>
           </a>
           <ul class="dropdown-menu" *dropdownMenu>
             <!-- User image -->
             <li class="user-header">
-              <img src="/assets/adminlte/user2-160x160.jpg" class="img-circle" alt="User Image">
+              <img [src]="currentUser.avatarUrl" class="img-circle" alt="User Image">
 
               <p>
-                Alexander Pierce - Web Developer
+                {{currentUser.name}} - Web Developer
                 <small>Member since Nov. 2012</small>
               </p>
             </li>
