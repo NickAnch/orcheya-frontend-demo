@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { GantgileModule } from '../gantgile/gantgile.module';
 import { UpdaterModule } from '../updater/updater.module';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { LoginPage } from './pages/login/login.page';
@@ -18,7 +19,8 @@ import { CurrentUserService } from './services/current-user.service';
     CoreRoutingModule,
     SharedModule,
     GantgileModule,
-    UpdaterModule
+    UpdaterModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [
     CurrentUserService
