@@ -10,6 +10,8 @@ import { LoginPage } from './pages/login/login.page';
 import { HeaderComponent } from './components/header/header.component';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
 
+import { CurrentUserService } from './services/current-user.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +19,9 @@ import { WrapperPage } from './pages/wrapper/wrapper.page';
     SharedModule,
     GantgileModule,
     UpdaterModule
+  ],
+  providers: [
+    CurrentUserService
   ],
   declarations: [
     LoginPage,
