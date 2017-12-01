@@ -2,6 +2,10 @@ import { Component, Inject, Renderer2 } from '@angular/core';
 import { CurrentUserService } from '../../services/current-user.service';
 import { DOCUMENT } from '@angular/common';
 
+/**
+ * This's header.
+ */
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
