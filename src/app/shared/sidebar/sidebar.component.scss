@@ -1,0 +1,12 @@
+.active > .treeview-menu {
+  display: none;
+}
+
+.treeview {
+  &.menu-open {
+    .treeview-menu {
+      display: block;
+    }
+  }
+}
+
