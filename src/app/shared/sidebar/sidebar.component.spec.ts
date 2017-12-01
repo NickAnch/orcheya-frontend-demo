@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LeftMenuComponent } from './sidebar.component';
+import { SidebarComponent } from './sidebar.component';
 
 describe('LeftMenuComponent', () => {
   let component: LeftMenuComponent;
