@@ -92,7 +92,7 @@
              *ngIf="currentUser.isLoggedIn(); else elseBlock">
           <a href="#" class="dropdown-toggle" dropdownToggle>
             <img [src]="currentUser.avatarUrl" class="user-image" alt="User Image">
-            <span class="hidden-xs">{{currentUser.name}}</span>
+            <span class="hidden-xs">{{ currentUser.name }}</span>
           </a>
           <ul class="dropdown-menu" *dropdownMenu>
             <!-- User image -->
@@ -100,7 +100,7 @@
               <img [src]="currentUser.avatarUrl" class="img-circle" alt="User Image">
 
               <p>
-                {{currentUser.name}} - Web Developer
+                {{ currentUser.name }} - Web Developer
                 <small>Member since Nov. 2012</small>
               </p>
             </li>

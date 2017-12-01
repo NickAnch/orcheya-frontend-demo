@@ -7,12 +7,12 @@
           *ngFor="let group of sidebarService.menu"
           [class.menu-open]="group === currentGroup">
         <a (click)="toggleGroup(group)">
-          <i class="fa" [ngClass]="group.icon"></i> <span>{{group.name}}</span>
+          <i class="fa" [ngClass]="group.icon"></i> <span>{{ group.name }}</span>
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
         </a>
         <ul class="treeview-menu">
           <li *ngFor="let item of group.items" routerLinkActive="active">
-            <a [routerLink]="item.link"><i class="fa fa-circle-o"></i> {{item.name}}</a>
+            <a [routerLink]="item.link"><i class="fa fa-circle-o"></i> {{ item.name }}</a>
           </li>
         </ul>
       </li>
