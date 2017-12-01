@@ -10,12 +10,11 @@ const routes: Routes = [
     path: '',
     component: WrapperPage,
     canActivate: [CurrentUserGuard],
-    children: []
+    children: [
+  { path: 'login', component: LoginPage }
+
+    ]
   },
-  {
-    path: 'login',
-    component: LoginPage
-  }
 ];
 
 @NgModule({
