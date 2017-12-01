@@ -1,0 +1,22 @@
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <ul class="sidebar-menu tree">
+      <li class="header">MAIN MENU</li>
+      <li class="treeview"
+          routerLinkActive="active"
+          *ngFor="let group of menuGroups"
+          (click)="currentGroup = group"
+          [class.menu-open]="group === currentGroup">
+        <a>
+          <i class="fa" [ngClass]="group.icon"></i> <span>{{group.name}}</span>
+          <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+        </a>
+        <ul class="treeview-menu" routerLinkActive="active">
+          <li *ngFor="let item of group.items">
+            <a [routerLink]="item.link"><i class="fa fa-circle-o"></i> {{item.name}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</aside>
