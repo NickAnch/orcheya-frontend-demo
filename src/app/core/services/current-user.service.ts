@@ -21,7 +21,6 @@ export class CurrentUserService extends User {
           .subscribe(
             (res: any) => {
               this._fromJSON(res);
-              console.log(res, this);
               observer.next(this);
               observer.complete();
             },

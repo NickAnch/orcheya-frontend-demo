@@ -4,12 +4,13 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config ./proxy.conf.json",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "scss-lint": "./node_modules/sass-lint/bin/sass-lint.js --verbose",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start-server": "json-server json-server/db.json"
   },
   "private": true,
   "dependencies": {
@@ -41,6 +42,7 @@
     "codelyzer": "^4.0.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
+    "json-server": "^0.12.1",
     "karma": "~1.7.0",
     "karma-chrome-launcher": "~2.1.1",
     "karma-cli": "~1.0.1",
