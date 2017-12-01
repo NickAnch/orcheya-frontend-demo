@@ -7,6 +7,7 @@
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --prod",
     "test": "ng test",
+    "ci-test": "ng test --single-run",
     "lint": "ng lint",
     "scss-lint": "./node_modules/sass-lint/bin/sass-lint.js --verbose",
     "e2e": "ng e2e",
