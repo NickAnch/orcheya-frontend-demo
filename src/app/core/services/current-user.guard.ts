@@ -5,6 +5,10 @@ import { Observer } from 'rxjs/Observer';
 
 import { CurrentUserService } from './current-user.service';
 
+/**
+ * This component, which can to give permissions for load another component.
+ */
+
 @Injectable()
 export class CurrentUserGuard implements CanActivate {
 
