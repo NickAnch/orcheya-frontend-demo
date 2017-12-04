@@ -12,7 +12,7 @@
     "scss-lint": "./node_modules/sass-lint/bin/sass-lint.js --verbose",
     "e2e": "ng e2e",
     "start-server": "json-server json-server/db.json",
-    "doc": "typedoc --name 'Team Tools' --exclude '**/*.spec.ts' --out ./src/assets/docs --hideGenerator ./src/app"
+    "doc": "typedoc --name 'Team Tools' --exclude '**/*.spec.ts' --out ./dist/docs --hideGenerator ./src/app"
   },
   "private": true,
   "dependencies": {
