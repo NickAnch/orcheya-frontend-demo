@@ -13,7 +13,7 @@ import { CurrentUserService } from '../../services/current-user.service';
   styleUrls: ['./sign-in.page.scss']
 })
 export class SignInPage {
-  private errors: boolean = false;
+  private errors = false;
 
   constructor(private _currentUser: CurrentUserService,
               private _router: Router) {

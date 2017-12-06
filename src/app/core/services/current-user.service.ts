@@ -59,4 +59,21 @@ export class CurrentUserService extends User {
         );
     });
   }
+
+  public signOut(): Observable<boolean> {
+    const url = '/api/sign-out';
+    return Observable.create((observer: Observer<boolean>) => {
+      this._http
+        .delete(url)
+        .subscribe(
+          resp => {
+            // this.dispose();
+            localStorage.setItem('token', resp['token']);
+            observer.next(true);
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+    });
+  }
 }
