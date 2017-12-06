@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
@@ -11,10 +11,11 @@ import { UpdaterModule } from '../updater/updater.module';
 
 import { CurrentUserService } from './services/current-user.service';
 import { CurrentUserGuard } from './services/current-user.guard';
+import { JWTTokenInterceptor } from './services/jwt-token-Interceptor.service';
 
 import { HeaderComponent } from './components/header/header.component';
 
-import { LoginPage } from './pages/login/login.page';
+import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
 
 @NgModule({
@@ -30,11 +31,16 @@ import { WrapperPage } from './pages/wrapper/wrapper.page';
   ],
   providers: [
     CurrentUserService,
-    CurrentUserGuard
+    CurrentUserGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JWTTokenInterceptor,
+      multi: true
+    }
   ],
   declarations: [
     HeaderComponent,
-    LoginPage,
+    SignInPage,
     WrapperPage,
   ]
 })

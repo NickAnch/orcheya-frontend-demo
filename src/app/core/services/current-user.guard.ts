@@ -23,12 +23,12 @@ export class CurrentUserGuard implements CanActivate {
     return Observable.create((observer: Observer<boolean>) => {
       this._currentUser.load()
         .subscribe(
-          user => {
+          () => {
             observer.next(true);
             observer.complete();
           },
-          error => {
-            this._router.navigate(['/login']);
+          () => {
+            this._router.navigate(['/sign-in']);
             observer.next(false);
           }
         );

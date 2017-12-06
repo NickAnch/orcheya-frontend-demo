@@ -15,7 +15,7 @@ export class SidebarService {
         items: [
           { name: 'test 1', link: ['test1'] },
           { name: 'test 2', link: ['test2'] },
-          { name: 'test 3', link: ['/login'] },
+          { name: 'test 3', link: ['/sign-in'] },
           { name: 'test 4', link: ['test4'] },
         ]
       },
