@@ -12,7 +12,7 @@ const routes: Routes = [
     canActivate: [CurrentUserGuard],
     children: []
   },
-  { path: 'login', component: SignInPage }
+  { path: 'sign-in', component: SignInPage }
 ];
 
 @NgModule({

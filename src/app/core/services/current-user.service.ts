@@ -13,7 +13,7 @@ export class CurrentUserService extends User {
    }
 
   /**
-   * @returns Is user loggined in.
+   * @returns Is user logged in.
    */
   public isLoggedIn(): boolean {
     return !!this.id;
@@ -21,14 +21,14 @@ export class CurrentUserService extends User {
 
  /**
   * Loading current user's data from server.
-  * This's necessary for firsting load of head-page.
+  * This is necessary for first load of head-page.
   *
-  * @returns Current user, if this is exist.
+  * @returns Current user, if exists
   */
   public load(): Observable<User> {
    return Observable.create((observer: Observer<User>) => {
      this._http
-       .get('api/profile')
+       .get('/api/profile')
        .subscribe(
          res => {
            this._fromJSON(res);
@@ -41,9 +41,9 @@ export class CurrentUserService extends User {
    );
  }
 
-  public login(email: string, password: string): Observable<boolean> {
+  public signIn(email: string, password: string): Observable<boolean> {
     const data = { email: email, password: password };
-    const url = '/api/sign_in';
+    const url = '/api/sign-in';
 
     return Observable.create((observer: Observer<boolean>) => {
       this._http

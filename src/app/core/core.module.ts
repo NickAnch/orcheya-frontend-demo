@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -21,6 +22,7 @@ import { WrapperPage } from './pages/wrapper/wrapper.page';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
     CoreRoutingModule,

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
 import { CurrentUserService } from '../../services/current-user.service';
@@ -9,25 +8,26 @@ import { CurrentUserService } from '../../services/current-user.service';
  */
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-sign-in',
   templateUrl: './sign-in.page.html',
   styleUrls: ['./sign-in.page.scss']
 })
 export class SignInPage {
-
-  public email = 'ikasparov.dev@gmail.com';
-  public password = 'qweqwe123';
+  private errors: boolean = false;
 
   constructor(private _currentUser: CurrentUserService,
-              private _router: Router,
-              private _http: HttpClient) {}
-  public logIn(): void {
-    this._currentUser
-      .login(this.email, this.password)
-      .subscribe();
+              private _router: Router) {
   }
 
-  public getSecret(): void {
-    // this._currentUser.secret();
+  public signIn(formValue: Object): void {
+    this._currentUser
+      .signIn(formValue['email'], formValue['password'])
+      .subscribe(
+        () => {
+          this._router.navigate(['/']);
+          this.errors = false;
+        },
+        err => this.errors = true
+      );
   }
 }
