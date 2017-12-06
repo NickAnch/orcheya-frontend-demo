@@ -1,11 +1,13 @@
 import { Component, Inject, Renderer2 } from '@angular/core';
-import { CurrentUserService } from '../../services/current-user.service';
+import { Router } from '@angular/router';
+
 import { DOCUMENT } from '@angular/common';
 
-/**
- * This's header.
- */
+import { CurrentUserService } from '../../services/current-user.service';
 
+/**
+ * This's header component.
+ */
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,6 +18,7 @@ export class HeaderComponent {
 
   constructor(public currentUser: CurrentUserService,
               private _renderer: Renderer2,
+              private _router: Router,
               @Inject(DOCUMENT) public _document: Document) {
   }
 
@@ -28,5 +31,11 @@ export class HeaderComponent {
     }
 
     this._sidebarOpen = !this._sidebarOpen;
+  }
+
+  public signOut(): void {
+    this.currentUser
+      .signOut()
+      .subscribe(() => this._router.navigate(['/sign-in']));
   }
 }

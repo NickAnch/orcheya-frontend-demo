@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CurrentUserGuard } from './services/current-user.guard';
 
 import { WrapperPage } from './pages/wrapper/wrapper.page';
-import { LoginPage } from './pages/login/login.page';
+import { SignInPage } from './pages/sign-in/sign-in.page';
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
     canActivate: [CurrentUserGuard],
     children: []
   },
-  { path: 'login', component: LoginPage }
+  { path: 'sign-in', component: SignInPage }
 ];
 
 @NgModule({
