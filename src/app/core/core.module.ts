@@ -43,7 +43,7 @@ import { WrapperPage } from './pages/wrapper/wrapper.page';
   declarations: [
     HeaderComponent,
     SignInPage,
-    WrapperPage,
+    WrapperPage
   ]
 })
 export class CoreModule { }
