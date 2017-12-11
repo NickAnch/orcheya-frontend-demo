@@ -4,7 +4,6 @@ import { SidebarComponent } from './sidebar.component';
 import { RouterModule } from '@angular/router';
 import { SidebarService } from './sidebar.service';
 import { IMenuGroup } from './menu-group.interface';
-import { noComponentFactoryError } from '@angular/core/src/linker/component_factory_resolver';
 
 class SidebarServiceStub { }
 
