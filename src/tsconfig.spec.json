@@ -16,6 +16,6 @@
   "include": [
     "**/*.spec.ts",
     "**/*.d.ts",
-    "../node_modules/tsmodels/index.ts"
+    "../node_modules/tsmodels/**/*.ts"
   ]
 }

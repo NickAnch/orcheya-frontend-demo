@@ -19,6 +19,6 @@
   },
   "include": [
     "src/**/*",
-    "node_modules/tsmodels/index.ts"
+    "node_modules/tsmodels/**/*.ts"
   ]
 }
