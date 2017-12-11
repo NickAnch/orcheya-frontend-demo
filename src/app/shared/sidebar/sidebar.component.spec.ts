@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SidebarComponent } from './sidebar.component';
+import { RouterModule } from '@angular/router';
+import { SidebarService } from './sidebar.service';
+import { IMenuGroup } from './menu-group.interface';
+import { noComponentFactoryError } from '@angular/core/src/linker/component_factory_resolver';
+
+class SidebarServiceStub { }
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -8,9 +14,12 @@ describe('SidebarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SidebarComponent ]
-    })
-    .compileComponents();
+      declarations: [SidebarComponent],
+      providers: [
+        { provide: SidebarService, useValue: SidebarServiceStub }
+      ],
+      imports: [RouterModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +28,32 @@ describe('SidebarComponent', () => {
     fixture.detectChanges();
   });
 
+  it('currentGroup should be defined', () => {
+    expect(component.currentGroup).toBeUndefined();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('toggleGroup()', () => {
+    const menuGroupStub: IMenuGroup = { name: '', icon: '', single: true };
+
+    it('should be defined', () => {
+      expect(component.toggleGroup).toBeDefined();
+    });
+
+    it('should contain the current selected menu group', () => {
+      component.currentGroup = null;
+      component.toggleGroup(menuGroupStub);
+      expect(component.currentGroup).toBe(menuGroupStub);
+    });
+
+    it('should close tab if it is already opened', () => {
+      component.currentGroup = menuGroupStub;
+      component.toggleGroup(menuGroupStub);
+      expect(component.currentGroup).toBeNull();
+    });
+  });
+
 });
