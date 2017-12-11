@@ -43,7 +43,9 @@ describe('SidebarComponent', () => {
       expect(component.toggleGroup).toBeDefined();
     });
 
-    it('should contain the current selected menu group', () => {
+    it(
+      'should contain the current selected menu group',
+      () => {
       component.currentGroup = null;
       component.toggleGroup(menuGroupStub);
       expect(component.currentGroup).toBe(menuGroupStub);
