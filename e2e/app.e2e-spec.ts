@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('team-tools-client App', () => {
+describe('orcheya-client App', () => {
   let page: AppPage;
 
   beforeEach(() => {

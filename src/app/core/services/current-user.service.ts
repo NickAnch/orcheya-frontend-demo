@@ -42,16 +42,18 @@ export class CurrentUserService extends User {
  }
 
   public signIn(email: string, password: string): Observable<boolean> {
-    const data = { email: email, password: password };
-    const url = '/api/sign-in';
+    const data = { user: { email: email, password: password } };
+    const url = '/api/users/sign_in';
 
     return Observable.create((observer: Observer<boolean>) => {
       this._http
-        .post(url, data)
+        .post(url, data, { observe: 'response' })
         .subscribe(
           resp => {
-            this._fromJSON(resp['user']);
-            localStorage.setItem('token', resp['token']);
+            this._fromJSON(resp.body);
+            let token = resp.headers.get('authorization');
+            token = token.substr(token.indexOf(" ") + 1);
+            localStorage.setItem('token', token);
             observer.next(true);
             observer.complete();
           },
@@ -61,14 +63,14 @@ export class CurrentUserService extends User {
   }
 
   public signOut(): Observable<boolean> {
-    const url = '/api/sign-out';
+    const url = '/api/users/sign_out';
     return Observable.create((observer: Observer<boolean>) => {
       this._http
         .delete(url)
         .subscribe(
           resp => {
             // this.dispose();
-            localStorage.setItem('token', resp['token']);
+            localStorage.setItem('token', null);
             observer.next(true);
             observer.complete();
           },
