@@ -18,6 +18,7 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
+import { UsersListPage } from './pages/users-list/users-list.page';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { WrapperPage } from './pages/wrapper/wrapper.page';
   declarations: [
     HeaderComponent,
     SignInPage,
-    WrapperPage
+    WrapperPage,
+    UsersListPage
   ]
 })
 export class CoreModule { }
