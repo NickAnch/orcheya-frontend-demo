@@ -1,11 +1,12 @@
 <section class="content">
-  <div class="col-md-offset-1 col-md-5">
+  <div class="col-md-offset-2 col-md-3">
     <div class="box box-info">
       <div class="box-body">
         <img src="assets/i.jpeg" class="center-block img-responsive" />
       </div>
       <div class="box-footer">
-        <button class="btn btn-info center-block">Change img</button>
+        <input type="file" class="hidden" #upload>
+        <p class="pointer" (click)="inputClickEmitter()">Change img</p>
       </div>
     </div>
   </div>
@@ -74,6 +75,17 @@
           </div>
 
           <div class="form-group">
+            <label for="time" class="col-sm-4 control-label">Time</label>
+            <div class="col-sm-8">
+              <select id="time" class="form-control">
+                <option>08:00 - 17:00</option>
+                <option>09:00 - 18:00</option>
+                <option>10:00 - 19:00</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label for="github" class="col-sm-4 control-label">Github</label>
             <div class="col-sm-8">
               <input type="text" id="github" class="form-control" placeholder="Enter your GitHub username" />
@@ -97,7 +109,7 @@
           <div class="form-group">
             <label for="phonenumber" class="col-sm-4 control-label">Phone</label>
             <div class="col-sm-8">
-              <input type="text" id="phonenumber" class="form-control" placeholder="Enter your phonenumber" />
+              <input type="text" id="phonenumber" class="form-control" placeholder="Enter your phone" />
             </div>
           </div>
 
