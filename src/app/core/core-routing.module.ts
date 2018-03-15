@@ -10,6 +10,7 @@ const routes: Routes = [
   {
     path: '',
     component: WrapperPage,
+    canActivate: [CurrentUserGuard],
     children: [
       { path: 'edit-user', component: EditUserPage }
     ]
