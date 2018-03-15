@@ -1,27 +1,34 @@
-# TeamToolsClient
+# Orcheya project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.0-rc.0.
+The client of MVP internal gaming platform for the organizations
 
-## Development server
+## Our technologies
+- `NVM`
+- `NodeJS ^9.x`
+- `TypeScript`, `ES6`, `ES7`, `ES8`
+- `Angular 5`
+- `yarn`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## To start contributing run:
+- `git clone ...` - clone git repository
+- `yarn install` - install the packages
+- `yarn start` - start development server
 
-## Code scaffolding
+## Available scripts
+- `yarn start` - start the development server
+- `yarn build` - run production build
+- `yarn lint` - lint the code through tslint
+- `yarn test` - test the code through karma and jasmine
+- -`yarn deploy`- - not working yet
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Deploy information
+// todo
 
-## Build
+## Additional Tools
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+### Template
 
-## Running unit tests
+We are using free admin template `AdminLTE` as a done markup parts.
+You need to minimize the use of your pieces of layout and use what is already in the template to the maximum
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+[demo](https://adminlte.io/themes/AdminLTE/)
