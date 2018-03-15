@@ -14,7 +14,6 @@ import { CurrentUserService } from '../../services/current-user.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  private _sidebarOpen = true;
 
   constructor(public currentUser: CurrentUserService,
               private _renderer: Renderer2,
@@ -22,15 +21,10 @@ export class HeaderComponent {
               @Inject(DOCUMENT) public _document: Document) {
   }
 
-  // TODO : Костылек :)
   public sidebarToggle(): void {
-    if (this._sidebarOpen) {
-      this._renderer.addClass(this._document.body, 'sidebar-collapse');
-    } else {
-      this._renderer.removeClass(this._document.body, 'sidebar-collapse');
-    }
-
-    this._sidebarOpen = !this._sidebarOpen;
+    this._document.body.clientWidth < 768 ?
+      this._document.body.classList.toggle('sidebar-open') :
+      this._document.body.classList.toggle('sidebar-collapse');
   }
 
   public signOut(): void {
