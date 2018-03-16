@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersListService } from '../../services/users-list.service';
 
 @Component({
   selector: 'app-users-list',
@@ -7,9 +8,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersListPage implements OnInit {
 
-  constructor() { }
+  throttle = 300;
+  scrollDistance = 2;
+  protected searchField = '';
+  protected usersList;
+  private _page = 1;
 
-  ngOnInit() {
+  constructor(private _usersListService: UsersListService) {
   }
 
+  ngOnInit() {
+    this._usersListService.getUsersList(this._page)
+      .subscribe((data) => {
+        this.usersList = data.users;
+      });
+  }
+
+  onScrollDown() {
+    this._usersListService.getUsersList(++this._page)
+      .subscribe((data) => {
+        data.users.forEach((element) => {
+          this.usersList.push(element);
+        });
+      });
+  }
+
+  onButtonClick() {
+    this._usersListService.getSearch(this.searchField)
+      .subscribe((data) => {
+        this.usersList = data.users;
+      });
+  }
 }

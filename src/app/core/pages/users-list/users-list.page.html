@@ -13,17 +13,27 @@
   </section>
 
   <br>
-  <br>
 
 
   <section class="content">
+
     <div class="row">
       <div class="col-lg-10 col-lg-offset-1">
-        <form action="#" method="get">
+        <form action="#"
+              method="get"
+              (ngSubmit)="onButtonClick()">
           <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Search...">
+            <input type="text"
+                   name="name"
+                   class="form-control"
+                   placeholder="Search..."
+                   [(ngModel)]="searchField">
             <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                <button type="submit"
+                        name="search"
+                        id="search-btn"
+                        class="btn btn-flat">
+                  <i class="fa fa-search"></i>
                 </button>
               </span>
           </div>
@@ -34,215 +44,24 @@
     <br>
     <br>
 
-    <div class="box-body no-padding">
+
+    <div class="box-body no-padding search-results"
+         data-infinite-scroll
+         [infiniteScrollDistance]="scrollDistance"
+         [infiniteScrollThrottle]="throttle"
+         [scrollWindow]="false"
+         (scrolled)="onScrollDown()">
       <ul class="users-list clearfix text-center">
-        <li>
+        <li *ngFor="let user of usersList">
           <img
             src="https://cdn.iconscout.com/public/images/icon/premium/png-256/avatar-administrator-consultant-business-man-user-3d14ab04026b3d1c-256x256.png"
-            alt="User Image">
-          <a class="users-list-name" href="#">Norman Borman</a>
-          <span class="users-list-date">Frontend Developer</span>
-        </li>
-        <li>
-          <img
-            src="https://cdn.iconscout.com/public/images/icon/premium/png-256/avatar-administrator-consultant-business-man-user-3d14ab04026b3d1c-256x256.png"
-            alt="User Image">
-          <a class="users-list-name" href="#">Norman Borman</a>
-          <span class="users-list-date">Frontend Developer</span>
-        </li>
-        <li>
-          <img
-            src="https://cdn.iconscout.com/public/images/icon/premium/png-256/avatar-administrator-consultant-business-man-user-3d14ab04026b3d1c-256x256.png"
-            alt="User Image">
-          <a class="users-list-name" href="#">Norman Borman</a>
-          <span class="users-list-date">Frontend Developer</span>
-        </li>
-        <li>
-          <img
-            src="https://cdn.iconscout.com/public/images/icon/premium/png-256/avatar-administrator-consultant-business-man-user-3d14ab04026b3d1c-256x256.png"
-            alt="User Image">
-          <a class="users-list-name" href="#">Norman Borman</a>
-          <span class="users-list-date">Frontend Developer</span>
-        </li>
-        <li>
-          <img
-            src="https://cdn.iconscout.com/public/images/icon/premium/png-256/avatar-administrator-consultant-business-man-user-3d14ab04026b3d1c-256x256.png"
-            alt="User Image">
-          <a class="users-list-name" href="#">Norman Borman</a>
-          <span class="users-list-date">Frontend Developer</span>
-        </li>
-        <li>
-          <img
-            src="https://cdn.iconscout.com/public/images/icon/premium/png-256/avatar-administrator-consultant-business-man-user-3d14ab04026b3d1c-256x256.png"
-            alt="User Image">
-          <a class="users-list-name" href="#">Norman Borman</a>
-          <span class="users-list-date">Frontend Developer</span>
-        </li>
-        <li>
-          <img
-            src="https://cdn.iconscout.com/public/images/icon/premium/png-256/avatar-administrator-consultant-business-man-user-3d14ab04026b3d1c-256x256.png"
-            alt="User Image">
-          <a class="users-list-name" href="#">Norman Borman</a>
-          <span class="users-list-date">Frontend Developer</span>
-        </li>
-        <li>
-          <img
-            src="https://cdn.iconscout.com/public/images/icon/premium/png-256/avatar-administrator-consultant-business-man-user-3d14ab04026b3d1c-256x256.png"
-            alt="User Image">
-          <a class="users-list-name" href="#">Norman Borman</a>
-          <span class="users-list-date">Frontend Developer</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user7-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Jane</a>
-          <span class="users-list-date">12 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user6-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">John</a>
-          <span class="users-list-date">12 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user8-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Alexander</a>
-          <span class="users-list-date">13 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user5-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Sarah</a>
-          <span class="users-list-date">14 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user4-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Nora</a>
-          <span class="users-list-date">15 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user3-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Nadia</a>
-          <span class="users-list-date">15 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Alexander Pierce</a>
-          <span class="users-list-date">Today</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user8-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Norman Borman</a>
-          <span class="users-list-date">Frontend Developer</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user7-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Jane</a>
-          <span class="users-list-date">12 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user6-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">John</a>
-          <span class="users-list-date">12 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user8-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Alexander</a>
-          <span class="users-list-date">13 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user5-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Sarah</a>
-          <span class="users-list-date">14 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user4-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Nora</a>
-          <span class="users-list-date">15 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user3-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Nadia</a>
-          <span class="users-list-date">15 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Alexander Pierce</a>
-          <span class="users-list-date">Today</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user8-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Norman Borman</a>
-          <span class="users-list-date">Frontend Developer</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user7-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Jane</a>
-          <span class="users-list-date">12 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user6-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">John</a>
-          <span class="users-list-date">12 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user8-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Alexander</a>
-          <span class="users-list-date">13 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user5-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Sarah</a>
-          <span class="users-list-date">14 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user4-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Nora</a>
-          <span class="users-list-date">15 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user3-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Nadia</a>
-          <span class="users-list-date">15 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Alexander Pierce</a>
-          <span class="users-list-date">Today</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user8-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Norman Borman</a>
-          <span class="users-list-date">Frontend Developer</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user7-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Jane</a>
-          <span class="users-list-date">12 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user6-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">John</a>
-          <span class="users-list-date">12 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user8-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Alexander</a>
-          <span class="users-list-date">13 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user5-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Sarah</a>
-          <span class="users-list-date">14 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user4-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Nora</a>
-          <span class="users-list-date">15 Jan</span>
-        </li>
-        <li>
-          <img src="https://adminlte.io/themes/AdminLTE/dist/img/user3-128x128.jpg" alt="User Image">
-          <a class="users-list-name" href="#">Nadia</a>
-          <span class="users-list-date">15 Jan</span>
+            alt="{{user.image}}">
+          <a class="users-list-name" href="#">{{user.name}} {{user.surname}}</a>
+          <span class="users-list-date">{{user.position}}</span>
         </li>
       </ul>
     </div>
+
   </section>
+
 </div>

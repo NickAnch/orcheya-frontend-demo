@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: '',
     component: WrapperPage,
-    // canActivate: [CurrentUserGuard],
+    canActivate: [CurrentUserGuard],
     children: [
       { path: 'users-list', component: UsersListPage }
     ]
