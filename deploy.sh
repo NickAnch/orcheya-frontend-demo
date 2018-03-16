@@ -3,7 +3,7 @@
 export SERVER_IP="46.254.19.100"
 export SERVER_PORT="42777"
 export USERNAME="deploy"
-export BRANCH_NAME="ORC-19"
+export BRANCH_NAME="master"
 
 ssh -A $USERNAME@$SERVER_IP -p $SERVER_PORT '
   cd /srv/orcheya-client;
