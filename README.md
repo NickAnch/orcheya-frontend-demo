@@ -19,10 +19,16 @@ The client of MVP internal gaming platform for the organizations
 - `yarn build` - run production build
 - `yarn lint` - lint the code through tslint
 - `yarn test` - test the code through karma and jasmine
-- -`yarn deploy`- - not working yet
+- `yarn deploy` - deploy to test server
 
 ## Deploy information
-// todo
+You need the access to the test server using ssh-key to deploy.
+
+To deploy the project you need to run yarn script.
+
+```
+$ yarn deploy
+```
 
 ## Additional Tools
 
