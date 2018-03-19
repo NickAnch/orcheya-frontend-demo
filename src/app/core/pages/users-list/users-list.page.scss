@@ -1,0 +1,20 @@
+.users-list > li {
+  width: unset;
+  min-width: 25%;
+}
+
+.users-list-name {
+  margin: 5px;
+}
+
+@media only screen and (max-width: 767px) {
+  li {
+    float: unset;
+    padding: 15px
+  }
+}
+
+.search-results {
+  height: stretch;
+  overflow: scroll;
+}
