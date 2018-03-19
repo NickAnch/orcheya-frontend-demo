@@ -31,7 +31,7 @@ export class CurrentUserService extends User {
        .get('/api/profile')
        .subscribe(
          res => {
-           this._fromJSON(res);
+           this._fromJSON(res['user']);
            observer.next(this);
            observer.complete();
          },

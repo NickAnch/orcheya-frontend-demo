@@ -19,6 +19,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
 import { EditUserPage } from './pages/edit-user/edit-user.page';
+import { UserProfilePage } from './pages/user-profile/user-profile.page';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { UserActivityComponent } from './components/user-activity/user-activity.component';
+import { UserTimelineComponent } from './components/user-timeline/user-timeline.component';
 
 @NgModule({
   imports: [
@@ -45,7 +49,11 @@ import { EditUserPage } from './pages/edit-user/edit-user.page';
     HeaderComponent,
     SignInPage,
     WrapperPage,
-    EditUserPage
+    EditUserPage,
+    UserProfilePage,
+    UserSettingsComponent,
+    UserActivityComponent,
+    UserTimelineComponent
   ]
 })
 export class CoreModule { }
