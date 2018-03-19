@@ -10,6 +10,7 @@ export class UsersListPage implements OnInit {
 
   throttle = 300;
   scrollDistance = 2;
+  protected scrollWindow = false;
   protected searchField = '';
   protected usersList;
   private _page = 1;
@@ -34,6 +35,8 @@ export class UsersListPage implements OnInit {
   }
 
   onButtonClick() {
+    this._page = 1;
+    this.scrollWindow = false;
     this._usersListService.getSearch(this.searchField)
       .subscribe((data) => {
         this.usersList = data.users;

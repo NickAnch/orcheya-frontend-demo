@@ -49,7 +49,7 @@
          data-infinite-scroll
          [infiniteScrollDistance]="scrollDistance"
          [infiniteScrollThrottle]="throttle"
-         [scrollWindow]="false"
+         [scrollWindow]="scrollWindow"
          (scrolled)="onScrollDown()">
       <ul class="users-list clearfix text-center">
         <li *ngFor="let user of usersList">
