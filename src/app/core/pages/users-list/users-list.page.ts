@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersListService } from '../../services/users-list.service';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
 
 @Component({
   selector: 'app-users-list',
@@ -19,7 +21,12 @@ export class UsersListPage implements OnInit {
   ngOnInit() {
     this._usersListService
       .getUsersList(this._page)
-      .subscribe(data => this.usersList = data.users);
+      .subscribe((data) => {
+        console.log(data, 'jdf');
+        this.usersList = data.users;
+      });
+
+    let source = Observable.fromEvent(document.body, 'keyup');
   }
 
   onScrollDown() {
