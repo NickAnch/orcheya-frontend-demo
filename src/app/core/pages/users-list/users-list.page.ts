@@ -10,9 +10,10 @@ export class UsersListPage implements OnInit {
 
   throttle = 300;
   scrollDistance = 2;
-  protected scrollWindow = false;
-  protected searchField = '';
-  protected usersList;
+
+  public scrollWindow = false;
+  public searchField = '';
+  public usersList;
   private _page = 1;
 
   constructor(private _usersListService: UsersListService) {
