@@ -51,8 +51,8 @@ export class CurrentUserService extends User {
         .subscribe(
           resp => {
             this._fromJSON(resp.body);
-            let token = resp.headers.get('authorization');
-            token = token.substr(token.indexOf(" ") + 1);
+            let token: string = resp.headers.get('authorization');
+            token = token.substr(token.indexOf(' ') + 1);
             localStorage.setItem('token', token);
             observer.next(true);
             observer.complete();
