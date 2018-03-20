@@ -18,6 +18,7 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
+import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { WrapperPage } from './pages/wrapper/wrapper.page';
   declarations: [
     HeaderComponent,
     SignInPage,
+    AcceptInvitePage,
     WrapperPage
   ]
 })

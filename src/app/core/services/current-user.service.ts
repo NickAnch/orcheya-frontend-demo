@@ -41,6 +41,27 @@ export class CurrentUserService extends User {
    );
  }
 
+  public acceptInvite(invToken: string, password: string) {
+    const params = { invitation_token: invToken, password: password };
+    const url = '/api/users/invitation';
+
+    return Observable.create((observer: Observer<boolean>) => {
+      this._http
+        .put(url, params, { observe: 'response' })
+        .subscribe(
+          resp => {
+            console.log(resp);
+            let token = resp.headers.get('authorization');
+            token = token.substr(token.indexOf(' ') + 1);
+            localStorage.setItem('token', token);
+            observer.next(true);
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+    });
+  }
+
   public signIn(email: string, password: string): Observable<boolean> {
     const data = { user: { email: email, password: password } };
     const url = '/api/users/sign_in';

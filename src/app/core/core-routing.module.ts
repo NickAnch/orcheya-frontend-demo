@@ -4,6 +4,7 @@ import { CurrentUserGuard } from './services/current-user.guard';
 
 import { WrapperPage } from './pages/wrapper/wrapper.page';
 import { SignInPage } from './pages/sign-in/sign-in.page';
+import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 
 const routes: Routes = [
   {
@@ -12,7 +13,11 @@ const routes: Routes = [
     canActivate: [CurrentUserGuard],
     children: []
   },
-  { path: 'sign-in', component: SignInPage }
+  { path: 'sign-in', component: SignInPage },
+  {
+    path: 'invitation/:token',
+    component: AcceptInvitePage
+  }
 ];
 
 @NgModule({
