@@ -19,4 +19,5 @@ export class User extends AppModel {
   @Alias() public timing: string;
   @Alias() public employment_at: string;
   @Alias() public position: string;
+  @Alias() public avatarUrl?: string;
 }
