@@ -8,9 +8,6 @@ import { UsersListService } from '../../services/users-list.service';
 })
 export class UsersListPage implements OnInit {
 
-  throttle = 300;
-  scrollDistance = 2;
-
   public scrollWindow = false;
   public searchField = '';
   public usersList;
@@ -20,27 +17,23 @@ export class UsersListPage implements OnInit {
   }
 
   ngOnInit() {
-    this._usersListService.getUsersList(this._page)
-      .subscribe((data) => {
-        this.usersList = data.users;
-      });
+    this._usersListService
+      .getUsersList(this._page)
+      .subscribe(data => this.usersList = data.users);
   }
 
   onScrollDown() {
-    this._usersListService.getUsersList(++this._page)
-      .subscribe((data) => {
-        data.users.forEach((element) => {
-          this.usersList.push(element);
-        });
-      });
+    this._usersListService
+      .getUsersList(++this._page)
+      .subscribe(data => data.users
+        .forEach(item => this.usersList.push(item)));
   }
 
   onButtonClick() {
     this._page = 1;
     this.scrollWindow = false;
-    this._usersListService.getSearch(this.searchField)
-      .subscribe((data) => {
-        this.usersList = data.users;
-      });
+    this._usersListService
+      .getSearch(this.searchField)
+      .subscribe(data => this.usersList = data.users);
   }
 }
