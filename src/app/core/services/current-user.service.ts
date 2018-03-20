@@ -28,10 +28,10 @@ export class CurrentUserService extends User {
   public load(): Observable<User> {
    return Observable.create((observer: Observer<User>) => {
      this._http
-       .get('/api/profile')
+       .get('/api/profile', { observe: 'response' })
        .subscribe(
          res => {
-           this._fromJSON(res['user']);
+           this._fromJSON(res.body['user']);
            observer.next(this);
            observer.complete();
          },
@@ -40,6 +40,33 @@ export class CurrentUserService extends User {
      }
    );
  }
+
+  /**
+   * Update current user data.
+   *
+   * @param user User
+   * @returns void
+   */
+  public updateUser(user: User): Observable<User> {
+    const url = '/api/profile';
+    const data = { user };
+
+    return Observable.create((observer: Observer<User>) => {
+      this._http
+        .put(url, data, { observe: 'response' })
+        .subscribe(
+          res => {
+            this._fromJSON(res.body['user']);
+            observer.next(this);
+            observer.complete();
+          },
+          err => {
+            return observer.error(err);
+          }
+        )
+      ;
+    });
+  }
 
   public signIn(email: string, password: string): Observable<boolean> {
     const data = { user: { email: email, password: password } };

@@ -1,33 +1,86 @@
 <div class="active tab-pane" id="settings">
 
-  <form role="form">
+  <form role="form" [formGroup]="form" (submit)="updateUser()">
     <div class="box-body">
 
-      <div class="form-group">
-        <label for="exampleInputEmail1">Name</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+      <div class="form-group" [ngClass]="{ 'has-error': hasError('name') }">
+        <label for="name">Name</label>
+        <input class="form-control" id="name" placeholder="Enter name"
+               formControlName="name">
+        <span class="help-block">{{ textError('name') }}</span>
       </div>
 
-      <div class="form-group">
-        <label for="exampleInputPassword1">Surname</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      <div class="form-group" [ngClass]="{ 'has-error': hasError('surname') }">
+        <label for="surname">Surname</label>
+        <input class="form-control" id="surname" placeholder="Enter surname"
+               formControlName="surname">
+        <span class="help-block">{{ textError('surname') }}</span>
       </div>
 
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+      <div class="form-group" [ngClass]="{ 'has-error': hasError('birthday') }">
+        <label for="birthday">Birth date</label>
+        <input type="date" class="form-control" id="birthday" placeholder="Enter birth date"
+               formControlName="birthday">
+        <span class="help-block">{{ textError('birthday') }}</span>
       </div>
 
-      <div class="form-group">
-        <label for="exampleInputPassword1">Position</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      <div class="form-group" [ngClass]="{ 'has-error': hasError('sex') }">
+        <input type="radio" id="sex-male" value="male"
+               formControlName="sex">
+        <label for="sex-male">Male</label>
+        <input type="radio" id="sex-female" value="female"
+               formControlName="sex">
+        <label for="sex-female">Female</label>
+        <span class="help-block">{{ textError('sex') }}</span>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': hasError('email') }">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email"
+               formControlName="email">
+        <span class="help-block">{{ textError('email') }}</span>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': hasError('employment_at') }">
+        <label for="recruitment">Recruitment</label>
+        <input type="date" class="form-control" id="recruitment" placeholder="Enter recruitment"
+               formControlName="employment_at">
+        <span class="help-block">{{ textError('employment_at') }}</span>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': hasError('github') }">
+        <label for="github">Github</label>
+        <input class="form-control" id="github" placeholder="Enter github"
+               formControlName="github">
+        <span class="help-block">{{ textError('github') }}</span>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': hasError('bitbucket') }">
+        <label for="bitbucket">Bitbucket</label>
+        <input class="form-control" id="bitbucket" placeholder="Enter bitbucket"
+               formControlName="bitbucket">
+        <span class="help-block">{{ textError('bitbucket') }}</span>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': hasError('skype') }">
+        <label for="skype">Skype</label>
+        <input class="form-control" id="skype" placeholder="Enter skype"
+               formControlName="skype">
+        <span class="help-block">{{ textError('skype') }}</span>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': hasError('phone') }">
+        <label for="phone">Phone</label>
+        <input class="form-control" id="phone" placeholder="Enter phone"
+               formControlName="phone">
+        <span class="help-block">{{ textError('phone') }}</span>
       </div>
 
     </div>
 
     <div class="form-group">
-      <label for="exampleInputFile">File input</label>
-      <input type="file" id="exampleInputFile">
+      <label for="file">File input</label>
+      <input type="file" id="file">
 
       <p class="help-block">Example block-level help text here.</p>
     </div>
@@ -39,7 +92,8 @@
     <!-- /.box-body -->
 
     <div class="box-footer">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button class="btn btn-primary"
+              [disabled]="!form.valid">Submit</button>
     </div>
   </form>
 </div>

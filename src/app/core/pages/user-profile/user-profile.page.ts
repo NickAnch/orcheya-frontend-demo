@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { CurrentUserService } from '../../services/current-user.service';
 import { User } from '../../models/user';
 
@@ -9,23 +10,24 @@ import { User } from '../../models/user';
 })
 export class UserProfilePage implements OnInit {
 
-  protected currentSheet = 'activity';
-  protected currentUser: User;
+  public currentSheet = 'activity';
+  public currentUser: User;
 
-  constructor(private _currentUserService: CurrentUserService) {
-  }
+  constructor(private _currentUserService: CurrentUserService) {}
 
   ngOnInit() {
     this._currentUserService
       .load()
-      .subscribe((user: User) => {
-        this.currentUser = user;
-        console.log(this.currentUser, 'user');
-      });
+      .subscribe((user: User) => this.currentUser = user)
+    ;
   }
 
-  public selectSheet(sheet: string): void {
+  public selectSheet(sheet: string) {
     this.currentSheet = sheet;
+  }
+
+  public onUserUpdate(user: User) {
+    this.currentUser = user;
   }
 }
 

@@ -21,9 +21,9 @@
                src="https://cdn.iconscout.com/public/images/icon/premium/png-256/avatar-administrator-consultant-business-man-user-3d14ab04026b3d1c-256x256.png"
                alt="User profile picture">
 
-          <h3 class="profile-username text-center">{{currentUser.name}} {{currentUser.surname}}</h3>
+          <h3 class="profile-username text-center">{{currentUser?.name}} {{currentUser?.surname}}</h3>
 
-          <p class="text-muted text-center">{{currentUser.position}}</p>
+          <p class="text-muted text-center">{{currentUser?.position}}</p>
 
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
@@ -88,11 +88,14 @@
     <div class="col-md-9">
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li [class.active]="currentSheet === 'activity'"><a (click)="selectSheet('activity')" data-toggle="tab">Activity</a>
+          <li [class.active]="currentSheet === 'activity'">
+            <a (click)="selectSheet('activity')" data-toggle="tab">Activity</a>
           </li>
-          <li [class.active]="currentSheet === 'timeline'"><a (click)="selectSheet('timeline')" data-toggle="tab">Timeline</a>
+          <li [class.active]="currentSheet === 'timeline'">
+            <a (click)="selectSheet('timeline')" data-toggle="tab">Timeline</a>
           </li>
-          <li [class.active]="currentSheet === 'settings'"><a (click)="selectSheet('settings')" data-toggle="tab">Settings</a>
+          <li [class.active]="currentSheet === 'settings'">
+            <a (click)="selectSheet('settings')" data-toggle="tab">Settings</a>
           </li>
         </ul>
         <div class="tab-content" [ngSwitch]="currentSheet">
@@ -100,7 +103,9 @@
           <!-- /.tab-pane -->
           <app-user-activity *ngSwitchDefault></app-user-activity>
           <app-user-timeline *ngSwitchCase="'timeline'"></app-user-timeline>
-          <app-user-settings *ngSwitchCase="'settings'"></app-user-settings>
+          <app-user-settings *ngSwitchCase="'settings'"
+              [user]="currentUser"
+              (userUpdate)="onUserUpdate($event)"></app-user-settings>
           <!-- /.tab-pane -->
         </div>
         <!-- /.tab-content -->
