@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -24,6 +25,8 @@ import { UserProfilePage } from './pages/user-profile/user-profile.page';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { UserActivityComponent } from './components/user-activity/user-activity.component';
 import { UserTimelineComponent } from './components/user-timeline/user-timeline.component';
+import { UsersListPage } from './pages/users-list/users-list.page';
+import { UsersListService } from './services/users-list.service';
 
 @NgModule({
   imports: [
@@ -36,7 +39,8 @@ import { UserTimelineComponent } from './components/user-timeline/user-timeline.
     SharedModule,
     GantgileModule,
     UpdaterModule,
-    UpdaterModule
+    UpdaterModule,
+    InfiniteScrollModule
   ],
   providers: [
     CurrentUserService,
@@ -45,7 +49,8 @@ import { UserTimelineComponent } from './components/user-timeline/user-timeline.
       provide: HTTP_INTERCEPTORS,
       useClass: JWTTokenInterceptor,
       multi: true
-    }
+    },
+    UsersListService
   ],
   declarations: [
     HeaderComponent,
@@ -55,7 +60,8 @@ import { UserTimelineComponent } from './components/user-timeline/user-timeline.
     UserProfilePage,
     UserSettingsComponent,
     UserActivityComponent,
-    UserTimelineComponent
+    UserTimelineComponent,
+    UsersListPage,
   ]
 })
 export class CoreModule { }

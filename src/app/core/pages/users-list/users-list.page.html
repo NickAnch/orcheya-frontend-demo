@@ -1,0 +1,67 @@
+<div class="container-fluid">
+
+  <section class="content-header">
+    <h1>
+      Members List
+      <small>Preview</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="#">Forms</a></li>
+      <li class="active">Members List</li>
+    </ol>
+  </section>
+
+  <br>
+
+
+  <section class="content">
+
+    <div class="row">
+      <div class="col-lg-10 col-lg-offset-1">
+        <form action="#"
+              method="get"
+              (ngSubmit)="onButtonClick()">
+          <div class="input-group">
+            <input type="text"
+                   name="name"
+                   class="form-control"
+                   placeholder="Search..."
+                   [(ngModel)]="searchField">
+            <span class="input-group-btn">
+                <button type="submit"
+                        name="search"
+                        id="search-btn"
+                        class="btn btn-flat">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+
+    <div class="box-body no-padding search-results"
+         data-infinite-scroll
+         [infiniteScrollDistance]="scrollDistance"
+         [infiniteScrollThrottle]="throttle"
+         [scrollWindow]="scrollWindow"
+         (scrolled)="onScrollDown()">
+      <ul class="users-list clearfix text-center">
+        <li *ngFor="let user of usersList">
+          <img
+            src="https://cdn.iconscout.com/public/images/icon/premium/png-256/avatar-administrator-consultant-business-man-user-3d14ab04026b3d1c-256x256.png"
+            alt="{{user.image}}">
+          <a class="users-list-name" href="#">{{user.name}} {{user.surname}}</a>
+          <span class="users-list-date">{{user.position}}</span>
+        </li>
+      </ul>
+    </div>
+
+  </section>
+
+</div>
