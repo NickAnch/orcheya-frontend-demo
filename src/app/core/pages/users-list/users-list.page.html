@@ -22,7 +22,8 @@
                  name="name"
                  class="form-control"
                  placeholder="Search..."
-                 [(ngModel)]="searchField">
+                 [(ngModel)]="searchField"
+                 (keyup)="onDelayedSearch()">
         </div>
       </form>
     </div>

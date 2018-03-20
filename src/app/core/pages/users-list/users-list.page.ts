@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
 import { UsersListService } from '../../services/users-list.service';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
 
 @Component({
   selector: 'app-users-list',
@@ -21,26 +20,25 @@ export class UsersListPage implements OnInit {
   ngOnInit() {
     this._usersListService
       .getUsersList(this._page)
-      .subscribe((data) => {
-        console.log(data, 'jdf');
-        this.usersList = data.users;
-      });
-
-    let source = Observable.fromEvent(document.body, 'keyup');
+      .subscribe(data => this.usersList = data.users);
   }
 
-  onScrollDown() {
+  public onScrollDown() {
     this._usersListService
       .getUsersList(++this._page)
       .subscribe(data => data.users
         .forEach(item => this.usersList.push(item)));
   }
 
-  onButtonClick() {
+  public onButtonClick() {
     this._page = 1;
     this.scrollWindow = false;
     this._usersListService
       .getSearch(this.searchField)
       .subscribe(data => this.usersList = data.users);
+  }
+
+  public onDelayedSearch() {
+    setTimeout(() => this.onButtonClick(), 1000);
   }
 }
