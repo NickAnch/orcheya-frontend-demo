@@ -25,6 +25,7 @@ import { UserProfilePage } from './pages/user-profile/user-profile.page';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { UserActivityComponent } from './components/user-activity/user-activity.component';
 import { UserTimelineComponent } from './components/user-timeline/user-timeline.component';
+import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
 
@@ -56,6 +57,7 @@ import { UsersListService } from './services/users-list.service';
   declarations: [
     HeaderComponent,
     SignInPage,
+    AcceptInvitePage,
     WrapperPage,
     UserProfilePage,
     UserSettingsComponent,

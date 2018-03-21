@@ -1,0 +1,37 @@
+<div class="login-box">
+  <div class="login-logo">
+    <a>Orcheya</a>
+  </div>
+  <div class="login-box-body">
+    <p class="login-box-msg">Please enter new password:</p>
+
+    <form (ngSubmit)="inviteAccept(loginForm.value)" #loginForm="ngForm">
+      <div class="form-group has-feedback" [class.has-error]="errors">
+        <input type="password"
+               class="form-control"
+               placeholder="Password"
+               name="password"
+               required
+               ngModel
+               #password="ngModel">
+      </div>
+      <div class="form-group has-feedback" [class.has-error]="errors">
+        <input type="password"
+               class="form-control"
+               placeholder="Password"
+               name="password_confirmation"
+               required
+               ngModel
+               #password="ngModel">
+        <span class="help-block" *ngIf="errors">{{ error }}</span>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-8"></div>
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

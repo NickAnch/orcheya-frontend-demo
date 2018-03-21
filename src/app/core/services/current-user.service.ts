@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -26,6 +26,12 @@ export class CurrentUserService extends User {
   constructor(private _http: HttpClient) {
     super();
    }
+
+  static setTokenByHeaders(headers: object) {
+    let token = headers.get('authorization');
+    token = token.substr(token.indexOf(' ') + 1);
+    localStorage.setItem('token', token);
+  }
 
   /**
    * @returns Is user logged in.
@@ -72,8 +78,25 @@ export class CurrentUserService extends User {
           err => {
             return observer.error(err);
           }
-        )
-      ;
+        );
+    });
+  }
+
+  public acceptInvite(invToken: string, password: string) {
+    const params = { invitation_token: invToken, password: password };
+    const url = '/api/users/invitation';
+
+    return Observable.create((observer: Observer<boolean>) => {
+      this._http
+        .put(url, params, { observe: 'response' })
+        .subscribe(
+          resp => {
+            CurrentUserService.setTokenByHeaders(resp.headers);
+            observer.next(true);
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
     });
   }
 
@@ -87,9 +110,7 @@ export class CurrentUserService extends User {
         .subscribe(
           resp => {
             this._fromJSON(resp.body);
-            let token: string = resp.headers.get('authorization');
-            token = token.substr(token.indexOf(' ') + 1);
-            localStorage.setItem('token', token);
+            CurrentUserService.setTokenByHeaders(resp.headers);
             observer.next(true);
             observer.complete();
           },
