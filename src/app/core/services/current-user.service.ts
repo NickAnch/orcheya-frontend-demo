@@ -12,6 +12,12 @@ export class CurrentUserService extends User {
     super();
    }
 
+  static setTokenByHeaders(headers: object) {
+    let token = headers.get('authorization');
+    token = token.substr(token.indexOf(' ') + 1);
+    localStorage.setItem('token', token);
+  }
+
   /**
    * @returns Is user logged in.
    */
@@ -50,10 +56,7 @@ export class CurrentUserService extends User {
         .put(url, params, { observe: 'response' })
         .subscribe(
           resp => {
-            console.log(resp);
-            let token = resp.headers.get('authorization');
-            token = token.substr(token.indexOf(' ') + 1);
-            localStorage.setItem('token', token);
+            CurrentUserService.setTokenByHeaders(resp.headers);
             observer.next(true);
             observer.complete();
           },
@@ -72,9 +75,7 @@ export class CurrentUserService extends User {
         .subscribe(
           resp => {
             this._fromJSON(resp.body);
-            let token = resp.headers.get('authorization');
-            token = token.substr(token.indexOf(" ") + 1);
-            localStorage.setItem('token', token);
+            CurrentUserService.setTokenByHeaders(resp.headers);
             observer.next(true);
             observer.complete();
           },

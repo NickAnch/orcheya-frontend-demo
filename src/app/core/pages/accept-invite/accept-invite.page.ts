@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { Router, ActivatedRoute } from '@angular/router';
 import { CurrentUserService } from '../../services/current-user.service';
 
@@ -41,14 +40,14 @@ export class AcceptInvitePage {
           this._router.navigate(['/']);
         },
         error => {
-          console.log(error);
           this.errors = true;
           switch (error.status) {
             case  422:
               this.error = error.error[0];
               break;
             case 406:
-              this.error = `Invite "${this.token}" not found`;
+              this.error = 'Invite not found';
+              console.error('Invite not found:\n' + this.token);
           }
         }
       );
