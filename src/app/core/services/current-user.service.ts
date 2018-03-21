@@ -92,7 +92,7 @@ export class CurrentUserService extends User {
         .subscribe(
           resp => {
             // this.dispose();
-            localStorage.setItem('token', null);
+            localStorage.removeItem('token');
             observer.next(true);
             observer.complete();
           },
