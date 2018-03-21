@@ -29,7 +29,7 @@ export class UsersListPage implements OnInit, OnDestroy {
   public usersList;
   private _page = 1;
   private ngOnInitSubscription: Subscription;
-  private ngAfterViewInitSubscription: Subscription;
+  private onSearchDelaySubscription: Subscription;
   private onScrollDownSubscription: Subscription;
   private onButtonClickSubscription: Subscription;
 
@@ -47,19 +47,18 @@ export class UsersListPage implements OnInit, OnDestroy {
     if (this.ngOnInitSubscription) {
       this.ngOnInitSubscription.unsubscribe();
     }
-    if (this.ngAfterViewInitSubscription) {
-      this.ngAfterViewInitSubscription.unsubscribe();
-    }
     if (this.onScrollDownSubscription) {
       this.onScrollDownSubscription.unsubscribe();
     }
     if (this.onButtonClickSubscription) {
       this.onButtonClickSubscription.unsubscribe();
     }
+    if (this.onSearchDelaySubscription) {
+      this.onSearchDelaySubscription.unsubscribe();
+    }
   }
 
   public onScrollDown() {
-    console.log(this._page, 'page');
     this.onScrollDownSubscription = this._usersListService
       .getUsersList(++this._page)
       .subscribe(data => data.users
@@ -77,7 +76,7 @@ export class UsersListPage implements OnInit, OnDestroy {
   public onSearchDelay() {
     this._page = 1;
     this.scrollWindow = false;
-    this.ngAfterViewInitSubscription = Observable
+    this.onSearchDelaySubscription = Observable
       .fromEvent(this.inputField.nativeElement, 'keyup')
       .debounceTime(1000)
       .distinctUntilChanged()
