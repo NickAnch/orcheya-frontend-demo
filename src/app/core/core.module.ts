@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { CoreRoutingModule } from './core-routing.module';
@@ -19,6 +21,10 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
+import { UserProfilePage } from './pages/user-profile/user-profile.page';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { UserActivityComponent } from './components/user-activity/user-activity.component';
+import { UserTimelineComponent } from './components/user-timeline/user-timeline.component';
 import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
@@ -27,8 +33,10 @@ import { UsersListService } from './services/users-list.service';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
     CoreRoutingModule,
     SharedModule,
     GantgileModule,
@@ -51,7 +59,11 @@ import { UsersListService } from './services/users-list.service';
     SignInPage,
     AcceptInvitePage,
     WrapperPage,
-    UsersListPage
+    UserProfilePage,
+    UserSettingsComponent,
+    UserActivityComponent,
+    UserTimelineComponent,
+    UsersListPage,
   ]
 })
 export class CoreModule { }
