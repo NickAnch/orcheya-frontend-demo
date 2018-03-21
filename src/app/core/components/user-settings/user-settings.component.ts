@@ -23,16 +23,19 @@ export class UserSettingsComponent implements OnInit {
 
   ngOnInit() {
     this.form = this._formBuilder.group({
-      name: [this._user.name, [Validators.required]],
-      surname: [this._user.surname, [Validators.required]],
-      birthday: [this._user.birthday, []],
-      sex: [this._user.sex, []],
-      email: [this._user.email, [Validators.required, Validators.email]],
-      employment_at: [this._user.employment_at, []],
-      github: [this._user.github, []],
-      bitbucket: [this._user.bitbucket, []],
-      skype: [this._user.skype, []],
-      phone: [this._user.phone, []],
+      name: [this._user ? this._user.name : null, [Validators.required]],
+      surname: [this._user ? this._user.surname : null, [Validators.required]],
+      birthday: [this._user ? this._user.birthday : null, []],
+      sex: [this._user ? this._user.sex : null, []],
+      email: [
+        this._user ? this._user.email : null,
+        [Validators.required, Validators.email]
+      ],
+      employmentAt: [this._user ? this._user.employmentAt : null, []],
+      github: [this._user ? this._user.github : null, []],
+      bitbucket: [this._user ? this._user.bitbucket : null, []],
+      skype: [this._user ? this._user.skype : null, []],
+      phone: [this._user ? this._user.phone : null, []],
     });
   }
 
@@ -41,15 +44,12 @@ export class UserSettingsComponent implements OnInit {
   }
 
   public updateUser() {
-    if (!this.form.valid) return;
-
-    const timelessUser = {
-      ...this._user,
-      ...this.form.value
-    } as User;
+    if (!this.form.valid) {
+      return;
+    }
 
     this._currentUserService
-      .updateUser(timelessUser)
+      .updateUser(this.form.value)
       .subscribe(
         user => {
           this._respErrors = {};
@@ -74,6 +74,8 @@ export class UserSettingsComponent implements OnInit {
       }
     }
 
-    if (this._respErrors[controlName]) return this._respErrors[controlName];
+    if (this._respErrors[controlName]) {
+      return this._respErrors[controlName];
+    }
   }
 }

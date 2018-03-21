@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { CoreRoutingModule } from './core-routing.module';
@@ -20,7 +21,6 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
-import { EditUserPage } from './pages/edit-user/edit-user.page';
 import { UserProfilePage } from './pages/user-profile/user-profile.page';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { UserActivityComponent } from './components/user-activity/user-activity.component';
@@ -35,6 +35,7 @@ import { UsersListService } from './services/users-list.service';
     ReactiveFormsModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
     CoreRoutingModule,
     SharedModule,
     GantgileModule,
@@ -56,7 +57,6 @@ import { UsersListService } from './services/users-list.service';
     HeaderComponent,
     SignInPage,
     WrapperPage,
-    EditUserPage,
     UserProfilePage,
     UserSettingsComponent,
     UserActivityComponent,

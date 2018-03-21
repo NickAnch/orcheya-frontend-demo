@@ -17,7 +17,7 @@ export class User extends AppModel {
   @Alias() public bitbucket: string;
   @Alias() public photo: string;
   @Alias() public timing: string;
-  @Alias() public employment_at: string;
+  @Alias('employment_at') public employmentAt: string;
   @Alias() public position: string;
   @Alias() public avatarUrl?: string;
 }

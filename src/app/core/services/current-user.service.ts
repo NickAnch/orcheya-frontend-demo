@@ -5,6 +5,21 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
+import { formHelper } from '../../shared/helpers/form.helper';
+
+interface UserUpdate {
+  name?: string;
+  surname?: string;
+  birthday?: string;
+  sex?: string;
+  email?: string;
+  employmentAt?: string;
+  github?: string;
+  bitbucket?: string;
+  skype?: string;
+  phone?: string;
+}
+
 @Injectable()
 export class CurrentUserService extends User {
 
@@ -41,15 +56,9 @@ export class CurrentUserService extends User {
    );
  }
 
-  /**
-   * Update current user data.
-   *
-   * @param user User
-   * @returns void
-   */
-  public updateUser(user: User): Observable<User> {
+  public updateUser(userData: UserUpdate): Observable<User> {
     const url = '/api/profile';
-    const data = { user };
+    const data = { user: formHelper.objToUnderscore(userData) };
 
     return Observable.create((observer: Observer<User>) => {
       this._http

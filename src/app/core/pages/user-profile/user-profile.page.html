@@ -3,8 +3,8 @@
     User Profile
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Examples</a></li>
+    <li><a><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a>Examples</a></li>
     <li class="active">User profile</li>
   </ol>
 </section>
@@ -18,7 +18,7 @@
       <div class="box box-primary">
         <div class="box-body box-profile">
           <img class="profile-user-img img-responsive img-circle"
-               src="https://cdn.iconscout.com/public/images/icon/premium/png-256/avatar-administrator-consultant-business-man-user-3d14ab04026b3d1c-256x256.png"
+               src="assets/adminlte/avatar-business-man-user-256x256.png"
                alt="User profile picture">
 
           <h3 class="profile-username text-center">{{currentUser?.name}} {{currentUser?.surname}}</h3>
@@ -37,7 +37,7 @@
             </li>
           </ul>
 
-          <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+          <a class="btn btn-primary btn-block"><b>Follow</b></a>
         </div>
         <!-- /.box-body -->
       </div>
@@ -86,31 +86,27 @@
     </div>
     <!-- /.col -->
     <div class="col-md-9">
-      <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-          <li [class.active]="currentSheet === 'activity'">
-            <a (click)="selectSheet('activity')" data-toggle="tab">Activity</a>
-          </li>
-          <li [class.active]="currentSheet === 'timeline'">
-            <a (click)="selectSheet('timeline')" data-toggle="tab">Timeline</a>
-          </li>
-          <li [class.active]="currentSheet === 'settings'">
-            <a (click)="selectSheet('settings')" data-toggle="tab">Settings</a>
-          </li>
-        </ul>
-        <div class="tab-content" [ngSwitch]="currentSheet">
-          <!-- /.tab-pane -->
-          <!-- /.tab-pane -->
-          <app-user-activity *ngSwitchDefault></app-user-activity>
-          <app-user-timeline *ngSwitchCase="'timeline'"></app-user-timeline>
-          <app-user-settings *ngSwitchCase="'settings'"
-              [user]="currentUser"
-              (userUpdate)="onUserUpdate($event)"></app-user-settings>
-          <!-- /.tab-pane -->
-        </div>
-        <!-- /.tab-content -->
+      <div>
+        <tabset>
+          <tab heading="Activity" class="nav-tabs-custom">
+            <div class="tab-content">
+              <app-user-activity></app-user-activity>
+            </div>
+          </tab>
+          <tab heading="Timeline" class="nav-tabs-custom">
+            <div class="tab-content">
+              <app-user-timeline></app-user-timeline>
+            </div>
+          </tab>
+          <tab heading="Settings" class="nav-tabs-custom">
+            <div class="tab-content">
+              <app-user-settings *ngIf="currentUser"
+                                 [user]="currentUser"
+                                 (userUpdate)="onUserUpdate($event)"></app-user-settings>
+            </div>
+          </tab>
+        </tabset>
       </div>
-      <!-- /.nav-tabs-custom -->
     </div>
     <!-- /.col -->
   </div>
