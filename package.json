@@ -26,7 +26,6 @@
     "@angular/platform-browser": "^5.1.0",
     "@angular/platform-browser-dynamic": "^5.1.0",
     "@angular/router": "^5.1.0",
-    "angular2-virtual-scroll": "^0.3.2",
     "bootstrap-sass": "^3.3.7",
     "core-js": "^2.5.2",
     "font-awesome": "^4.7.0",
