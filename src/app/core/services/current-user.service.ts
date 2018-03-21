@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -27,8 +27,8 @@ export class CurrentUserService extends User {
     super();
    }
 
-  static setTokenByHeaders(headers: object) {
-    let token = headers.get('authorization');
+  static setTokenByHeaders(headers: HttpHeaders) {
+    let token: string = headers.get('authorization');
     token = token.substr(token.indexOf(' ') + 1);
     localStorage.setItem('token', token);
   }
