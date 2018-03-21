@@ -19,6 +19,7 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
+import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
 
@@ -48,6 +49,7 @@ import { UsersListService } from './services/users-list.service';
   declarations: [
     HeaderComponent,
     SignInPage,
+    AcceptInvitePage,
     WrapperPage,
     UsersListPage
   ]
