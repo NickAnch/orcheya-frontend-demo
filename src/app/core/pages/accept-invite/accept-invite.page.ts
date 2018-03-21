@@ -12,7 +12,7 @@ import { CurrentUserService } from '../../services/current-user.service';
   styleUrls: ['./accept-invite.page.scss']
 })
 export class AcceptInvitePage {
-  private errors = false;
+  public errors = false;
   private error: string;
   private token: string;
 
