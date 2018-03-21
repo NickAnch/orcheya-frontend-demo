@@ -1,0 +1,5 @@
+.form-group {
+  [type="radio"]:not(:first-child) {
+    margin-left: 15px;
+  }
+}

@@ -3,3 +3,13 @@
 a {
   cursor: pointer;
 }
+
+.nav-tabs {
+  .nav-item {
+    .nav-link {
+      &.active {
+        border-top: 3px solid #3c8dbc;
+      }
+    }
+  }
+}
