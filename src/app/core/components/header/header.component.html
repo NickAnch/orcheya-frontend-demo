@@ -23,23 +23,30 @@
               <div *dropdownMenu class="menu">123</div>
             </li>
             <li class="footer">
-              <a href="#">View all tasks</a>
+              <a>View all tasks</a>
             </li>
           </ul>
         </li>
         <li class="dropdown user user-menu" dropdown>
-          <a href="#" class="dropdown-toggle" dropdownToggle>
+          <a class="dropdown-toggle" dropdownToggle>
             <img [src]="currentUser.avatarUrl" class="user-image" alt="User Image">
             <span class="hidden-xs">{{ currentUser.name }}</span>
           </a>
           <ul class="dropdown-menu" *dropdownMenu>
             <!-- User image -->
             <li class="user-header">
-              <img [src]="currentUser.avatarUrl" class="img-circle">
+              <img [src]="currentUser.avatarUrl" class="img-circle" alt="">
               <p>{{ currentUser.name }}</p>
             </li>
             <!--<li class="user-body"></li>-->
             <li class="user-footer">
+              <div class="pull-left">
+                <a class="btn btn-default btn-flat"
+                   routerLink="/user-profile"
+                   [queryParams]="{ tab: 'settings' }">
+                  <i class="fa fa-cog"></i>
+                </a>
+              </div>
               <div class="pull-right">
                 <a (click)="signOut()" class="btn btn-default btn-flat">Sign out</a>
               </div>
