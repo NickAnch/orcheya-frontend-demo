@@ -7,19 +7,6 @@ import { Observer } from 'rxjs/Observer';
 
 import { formHelper } from '../../shared/helpers/form.helper';
 
-interface UserUpdate {
-  name?: string;
-  surname?: string;
-  birthday?: string;
-  sex?: string;
-  email?: string;
-  employmentAt?: string;
-  github?: string;
-  bitbucket?: string;
-  skype?: string;
-  phone?: string;
-}
-
 @Injectable()
 export class CurrentUserService extends User {
 
@@ -62,9 +49,9 @@ export class CurrentUserService extends User {
    );
  }
 
-  public updateUser(userData: UserUpdate): Observable<User> {
+  public updateUser(userData: User): Observable<User> {
     const url = '/api/profile';
-    const data = { user: formHelper.objToUnderscore(userData) };
+    const data = { user: userData };
 
     return Observable.create((observer: Observer<User>) => {
       this._http

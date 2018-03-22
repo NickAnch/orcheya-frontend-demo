@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { CurrentUserService } from '../../services/current-user.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-user-settings',
@@ -12,6 +13,7 @@ import { CurrentUserService } from '../../services/current-user.service';
 export class UserSettingsComponent implements OnInit {
   public form: FormGroup;
   private _respErrors: Object = {};
+  private _updatedUser = new User();
 
   constructor(public currentUser: CurrentUserService,
               private _formBuilder: FormBuilder) {
@@ -44,13 +46,12 @@ export class UserSettingsComponent implements OnInit {
       return;
     }
 
+    this._updatedUser._fromJSON(this.form.value);
+
     this.currentUser
-      .updateUser(this.form.value)
+      .updateUser(this._updatedUser)
       .subscribe(
-        user => {
-          this._respErrors = {};
-          this.currentUser._fromJSON(user);
-        },
+        () => this._respErrors = {},
         (err: HttpErrorResponse) => {
           if (!err.error['status'] && !err.error['exception']) {
             this._respErrors = err.error;
