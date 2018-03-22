@@ -13,10 +13,9 @@ export class UserSettingsComponent implements OnInit {
   public form: FormGroup;
   private _respErrors: Object = {};
 
-  constructor(
-    public currentUser: CurrentUserService,
-    private _formBuilder: FormBuilder,
-  ) {}
+  constructor(public currentUser: CurrentUserService,
+              private _formBuilder: FormBuilder) {
+  }
 
   ngOnInit() {
     this.form = this._formBuilder.group({

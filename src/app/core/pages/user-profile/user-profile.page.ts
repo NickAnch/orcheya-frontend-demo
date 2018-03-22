@@ -1,26 +1,41 @@
 import {
-  Component, ViewChild, AfterViewChecked, AfterViewInit, ChangeDetectorRef
+  Component, ViewChild, AfterViewChecked, AfterViewInit, ChangeDetectorRef,
+  OnInit
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap';
 
 import { CurrentUserService } from '../../services/current-user.service';
+import { UsersListService } from '../../services/users-list.service';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.page.html',
   styleUrls: ['./user-profile.page.scss']
 })
-export class UserProfilePage implements AfterViewInit, AfterViewChecked {
+export class UserProfilePage implements OnInit, AfterViewInit, AfterViewChecked {
 
   @ViewChild('tabset')
   public tabset: TabsetComponent;
+  public _routeParams = 1;
+  public user;
 
-  constructor(
-    public currentUser: CurrentUserService,
-    private _route: ActivatedRoute,
-    private _cdr: ChangeDetectorRef,
-  ) {}
+  constructor(public currentUser: CurrentUserService,
+              private _userListService: UsersListService,
+              private _route: ActivatedRoute,
+              private _cdr: ChangeDetectorRef) {
+  }
+
+  ngOnInit() {
+    this._routeParams = this._route.snapshot.params['id'];
+    if (this._routeParams) {
+      this.user = this._userListService
+        .getUserById(this._routeParams)
+        .subscribe(data => this.user = data.user);
+    } else {
+      this.user = this.currentUser;
+    }
+  }
 
   ngAfterViewInit() {
     this._checkActiveTab();

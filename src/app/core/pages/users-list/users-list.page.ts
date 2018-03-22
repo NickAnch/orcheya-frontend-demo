@@ -86,8 +86,4 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
     this._page = 1;
     this.scrollWindow = false;
   }
-
-  public getUserById() {
-
-  }
 }

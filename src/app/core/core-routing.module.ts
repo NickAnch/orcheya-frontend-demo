@@ -14,6 +14,7 @@ const routes: Routes = [
     canActivate: [CurrentUserGuard],
     children: [
       { path: 'user-profile', component: UserProfilePage },
+      { path: 'user-profile/:id', component: UserProfilePage },
       { path: 'users-list', component: UsersListPage },
       { path: '', component: UsersListPage },
       { path: 'users-list', component: UsersListPage }
