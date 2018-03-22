@@ -21,9 +21,9 @@
                src="assets/adminlte/avatar-business-man-user-256x256.png"
                alt="User profile picture">
 
-          <h3 class="profile-username text-center">{{currentUser?.name}} {{currentUser?.surname}}</h3>
+          <h3 class="profile-username text-center">{{currentUser.name}} {{currentUser.surname}}</h3>
 
-          <p class="text-muted text-center">{{currentUser?.position}}</p>
+          <p class="text-muted text-center">{{currentUser.position}}</p>
 
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
@@ -106,9 +106,7 @@
                id="settings"
                heading="Settings">
             <div class="tab-content">
-              <app-user-settings *ngIf="currentUser"
-                                 [user]="currentUser"
-                                 (userUpdate)="onUserUpdate($event)"></app-user-settings>
+              <app-user-settings></app-user-settings>
             </div>
           </tab>
         </tabset>

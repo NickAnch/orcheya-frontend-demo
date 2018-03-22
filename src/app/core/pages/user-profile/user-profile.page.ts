@@ -1,35 +1,26 @@
 import {
-  Component, OnInit, ViewChild,
-  AfterViewChecked, AfterViewInit, ChangeDetectorRef
+  Component, ViewChild, AfterViewChecked, AfterViewInit, ChangeDetectorRef
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap';
 
 import { CurrentUserService } from '../../services/current-user.service';
-import { User } from '../../models/user';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.page.html',
   styleUrls: ['./user-profile.page.scss']
 })
-export class UserProfilePage implements OnInit, AfterViewInit, AfterViewChecked {
+export class UserProfilePage implements AfterViewInit, AfterViewChecked {
 
-  @ViewChild('tabset') public tabset: TabsetComponent;
-  public currentUser: User;
+  @ViewChild('tabset')
+  public tabset: TabsetComponent;
 
   constructor(
+    public currentUser: CurrentUserService,
     private _route: ActivatedRoute,
     private _cdr: ChangeDetectorRef,
-    private _currentUserService: CurrentUserService
   ) {}
-
-  ngOnInit() {
-    this._currentUserService
-      .load()
-      .subscribe((user: User) => this.currentUser = user)
-    ;
-  }
 
   ngAfterViewInit() {
     this._checkActiveTab();
@@ -37,10 +28,6 @@ export class UserProfilePage implements OnInit, AfterViewInit, AfterViewChecked 
 
   ngAfterViewChecked() {
     this._cdr.detectChanges();
-  }
-
-  public onUserUpdate(user: User) {
-    this.currentUser = user;
   }
 
   private _checkActiveTab() {
@@ -58,4 +45,3 @@ export class UserProfilePage implements OnInit, AfterViewInit, AfterViewChecked 
     }
   }
 }
-

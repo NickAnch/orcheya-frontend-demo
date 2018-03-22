@@ -1,9 +1,8 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { CurrentUserService } from '../../services/current-user.service';
-import { User } from '../../models/user';
 
 @Component({
   selector: 'app-user-settings',
@@ -11,31 +10,29 @@ import { User } from '../../models/user';
   styleUrls: ['./user-settings.component.scss']
 })
 export class UserSettingsComponent implements OnInit {
-  @Input('user') private _user: User;
-  @Output() public userUpdate = new EventEmitter<User>();
   public form: FormGroup;
   private _respErrors: Object = {};
 
   constructor(
+    public currentUser: CurrentUserService,
     private _formBuilder: FormBuilder,
-    private _currentUserService: CurrentUserService
   ) {}
 
   ngOnInit() {
     this.form = this._formBuilder.group({
-      name: [this._user ? this._user.name : null, [Validators.required]],
-      surname: [this._user ? this._user.surname : null, [Validators.required]],
-      birthday: [this._user ? this._user.birthday : null, []],
-      sex: [this._user ? this._user.sex : null, []],
+      name: [this.currentUser.name, [Validators.required]],
+      surname: [this.currentUser.surname, [Validators.required]],
+      birthday: [this.currentUser.birthday, []],
+      sex: [this.currentUser.sex, []],
       email: [
-        this._user ? this._user.email : null,
+        this.currentUser.email,
         [Validators.required, Validators.email]
       ],
-      employmentAt: [this._user ? this._user.employmentAt : null, []],
-      github: [this._user ? this._user.github : null, []],
-      bitbucket: [this._user ? this._user.bitbucket : null, []],
-      skype: [this._user ? this._user.skype : null, []],
-      phone: [this._user ? this._user.phone : null, []],
+      employmentAt: [this.currentUser.employmentAt, []],
+      github: [this.currentUser.github, []],
+      bitbucket: [this.currentUser.bitbucket, []],
+      skype: [this.currentUser.skype, []],
+      phone: [this.currentUser.phone, []],
     });
   }
 
@@ -48,13 +45,12 @@ export class UserSettingsComponent implements OnInit {
       return;
     }
 
-    this._currentUserService
+    this.currentUser
       .updateUser(this.form.value)
       .subscribe(
         user => {
           this._respErrors = {};
-          this._user = user;
-          this.userUpdate.emit(user);
+          this.currentUser._fromJSON(user);
         },
         (err: HttpErrorResponse) => {
           if (!err.error['status'] && !err.error['exception']) {
