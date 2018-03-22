@@ -87,18 +87,24 @@
     <!-- /.col -->
     <div class="col-md-9">
       <div>
-        <tabset>
-          <tab heading="Activity" class="nav-tabs-custom">
+        <tabset #tabset>
+          <tab class="nav-tabs-custom"
+               id="activity"
+               heading="Activity">
             <div class="tab-content">
               <app-user-activity></app-user-activity>
             </div>
           </tab>
-          <tab heading="Timeline" class="nav-tabs-custom">
+          <tab class="nav-tabs-custom"
+               id="timeline"
+               heading="Timeline">
             <div class="tab-content">
               <app-user-timeline></app-user-timeline>
             </div>
           </tab>
-          <tab heading="Settings" class="nav-tabs-custom">
+          <tab class="nav-tabs-custom"
+               id="settings"
+               heading="Settings">
             <div class="tab-content">
               <app-user-settings *ngIf="currentUser"
                                  [user]="currentUser"
