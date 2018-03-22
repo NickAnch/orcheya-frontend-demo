@@ -50,7 +50,7 @@ export class UserSettingsComponent implements OnInit {
     this._updatedUser._fromJSON(this.form.value);
 
     this.currentUser
-      .updateUser(this._updatedUser)
+      .updateSettings(this._updatedUser)
       .subscribe(
         () => this._respErrors = {},
         (err: HttpErrorResponse) => {

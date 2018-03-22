@@ -49,7 +49,7 @@ export class CurrentUserService extends User {
    );
  }
 
-  public updateUser(userData: User): Observable<User> {
+  public updateSettings(userData: User = this): Observable<User> {
     const url = '/api/profile';
     const data = { user: userData };
 
@@ -62,9 +62,7 @@ export class CurrentUserService extends User {
             observer.next(this);
             observer.complete();
           },
-          err => {
-            return observer.error(err);
-          }
+          err =>  observer.error(err)
         );
     });
   }
@@ -112,7 +110,7 @@ export class CurrentUserService extends User {
       this._http
         .delete(url)
         .subscribe(
-          resp => {
+          () => {
             // this.dispose();
             localStorage.removeItem('token');
             observer.next(true);
