@@ -15,4 +15,8 @@ export class UsersListService {
   public getSearch(searchString): Observable<any> {
     return this._http.get(`/api/users?search=${searchString}`);
   }
+
+  public getUserById(id): Observable<any> {
+    return this._http.get(`/api/users${id}`);
+  }
 }

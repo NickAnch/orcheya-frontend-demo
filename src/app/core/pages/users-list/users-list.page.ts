@@ -83,4 +83,8 @@ export class UsersListPage implements OnInit, OnDestroy {
       .switchMap(() => this._usersListService.getSearch(this.searchField))
       .subscribe(data => this.usersList = data.users);
   }
+
+  public getUserById() {
+
+  }
 }
