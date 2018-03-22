@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   OnDestroy,
@@ -14,13 +15,12 @@ import 'rxjs/add/observable/fromEvent';
 
 import { UsersListService } from '../../services/users-list.service';
 
-
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.page.html',
   styleUrls: ['./users-list.page.scss']
 })
-export class UsersListPage implements OnInit, OnDestroy {
+export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('input') private inputField: ElementRef;
 
@@ -29,7 +29,7 @@ export class UsersListPage implements OnInit, OnDestroy {
   public usersList;
   private _page = 1;
   private ngOnInitSubscription: Subscription;
-  private onSearchDelaySubscription: Subscription;
+  private ngAfterViewInitSubscription: Subscription;
   private onScrollDownSubscription: Subscription;
   private onButtonClickSubscription: Subscription;
 
@@ -43,18 +43,27 @@ export class UsersListPage implements OnInit, OnDestroy {
       .subscribe(data => this.usersList = data.users);
   }
 
+  ngAfterViewInit() {
+    this.ngAfterViewInitSubscription = Observable
+      .fromEvent(this.inputField.nativeElement, 'keyup')
+      .debounceTime(1000)
+      .distinctUntilChanged()
+      .switchMap(() => this._usersListService.getSearch(this.searchField))
+      .subscribe(data => this.usersList = data.users);
+  }
+
   ngOnDestroy() {
     if (this.ngOnInitSubscription) {
       this.ngOnInitSubscription.unsubscribe();
+    }
+    if (this.ngAfterViewInitSubscription) {
+      this.ngAfterViewInitSubscription.unsubscribe();
     }
     if (this.onScrollDownSubscription) {
       this.onScrollDownSubscription.unsubscribe();
     }
     if (this.onButtonClickSubscription) {
       this.onButtonClickSubscription.unsubscribe();
-    }
-    if (this.onSearchDelaySubscription) {
-      this.onSearchDelaySubscription.unsubscribe();
     }
   }
 
@@ -76,11 +85,5 @@ export class UsersListPage implements OnInit, OnDestroy {
   public onSearchDelay() {
     this._page = 1;
     this.scrollWindow = false;
-    this.onSearchDelaySubscription = Observable
-      .fromEvent(this.inputField.nativeElement, 'keyup')
-      .debounceTime(1000)
-      .distinctUntilChanged()
-      .switchMap(() => this._usersListService.getSearch(this.searchField))
-      .subscribe(data => this.usersList = data.users);
   }
 }
