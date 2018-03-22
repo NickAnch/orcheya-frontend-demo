@@ -13,13 +13,12 @@ ssh -A $USERNAME@$SERVER_IP -p $SERVER_PORT '
   git fetch;
   git checkout $BRANCH_NAME --force;
   git pull origin master --force;
-  mv dist dist_timeless;
+  rm -rf dist_timeless;
   yarn install;
   yarn build;
-  if [ -d "./dist" ]
+  if [ -d "./dist_timeless" ]
   then
-    rm -rf dist_timeless;
-  else
+    rm -rf dist;
     mv dist_timeless dist;
   fi
 '
