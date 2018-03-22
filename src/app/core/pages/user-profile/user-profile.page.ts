@@ -1,33 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component, ViewChild, AfterViewChecked, AfterViewInit, ChangeDetectorRef
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TabDirective, TabsetComponent } from 'ngx-bootstrap';
 
 import { CurrentUserService } from '../../services/current-user.service';
-import { User } from '../../models/user';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.page.html',
   styleUrls: ['./user-profile.page.scss']
 })
-export class UserProfilePage implements OnInit {
+export class UserProfilePage implements AfterViewInit, AfterViewChecked {
 
-  public currentSheet = 'activity';
-  public currentUser: User;
+  @ViewChild('tabset')
+  public tabset: TabsetComponent;
 
-  constructor(private _currentUserService: CurrentUserService) {}
+  constructor(
+    public currentUser: CurrentUserService,
+    private _route: ActivatedRoute,
+    private _cdr: ChangeDetectorRef,
+  ) {}
 
-  ngOnInit() {
-    this._currentUserService
-      .load()
-      .subscribe((user: User) => this.currentUser = user)
+  ngAfterViewInit() {
+    this._checkActiveTab();
+  }
+
+  ngAfterViewChecked() {
+    this._cdr.detectChanges();
+  }
+
+  private _checkActiveTab() {
+    if (!this._route.snapshot.queryParamMap.has('tab')) {
+      return;
+    }
+
+    const activeTabName = this._route.snapshot.queryParamMap.get('tab');
+    const currentTab = this.tabset.tabs
+      .find((tab: TabDirective) => tab.id === activeTabName)
     ;
-  }
 
-  public selectSheet(sheet: string) {
-    this.currentSheet = sheet;
-  }
-
-  public onUserUpdate(user: User) {
-    this.currentUser = user;
+    if (currentTab) {
+      currentTab.active = true;
+    }
   }
 }
-
