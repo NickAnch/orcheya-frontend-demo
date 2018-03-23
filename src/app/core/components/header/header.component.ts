@@ -1,6 +1,5 @@
 import { Component, Inject, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { DOCUMENT } from '@angular/common';
 
 import { CurrentUserService } from '../../services/current-user.service';
@@ -21,11 +20,11 @@ export class HeaderComponent {
               @Inject(DOCUMENT) public _document: Document) {
   }
 
-  public sidebarToggle(): void {
-    this._document.body.clientWidth < 768 ?
-      this._document.body.classList.toggle('sidebar-open') :
-      this._document.body.classList.toggle('sidebar-collapse');
-  }
+  // public sidebarToggle(): void {
+  //   this._document.body.clientWidth < 768 ?
+  //     this._document.body.classList.toggle('sidebar-open') :
+  //     this._document.body.classList.toggle('sidebar-collapse');
+  // }
 
   public signOut(): void {
     this.currentUser
