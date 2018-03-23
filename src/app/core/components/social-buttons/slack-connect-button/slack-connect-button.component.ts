@@ -8,11 +8,11 @@ import { SlackConnectorService } from '../../../services/slack-connector.service
 })
 export class SlackConnectButtonComponent {
 
-  constructor(private SlackConnector: SlackConnectorService) { }
+  constructor(private slackConnector: SlackConnectorService) { }
 
   @Input() connected: boolean
 
   connect() {
-    this.SlackConnector.connect()
+    this.slackConnector.connect()
   }
 }
