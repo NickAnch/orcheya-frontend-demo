@@ -5,15 +5,15 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class UsersListService {
 
-  constructor(private _http: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   public getUsersList(page): Observable<any> {
-    return this._http.get(`/api/users?page=${page}`);
+    return this.http.get(`/api/users?page=${page}`);
   }
 
   public getSearch(searchString): Observable<any> {
-    return this._http.get(`/api/users?search=${searchString}`);
+    return this.http.get(`/api/users?search=${searchString}`);
   }
 
   public getUserById(id): Observable<any> {

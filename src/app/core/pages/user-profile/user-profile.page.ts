@@ -18,20 +18,20 @@ export class UserProfilePage implements OnInit, AfterViewInit, AfterViewChecked 
 
   @ViewChild('tabset')
   public tabset: TabsetComponent;
-  public _routeParams: number;
+  public routeParams: number;
   public user: User;
 
   constructor(public currentUser: CurrentUserService,
-              private _userListService: UsersListService,
-              private _route: ActivatedRoute,
-              private _cdr: ChangeDetectorRef) {
+              private userListService: UsersListService,
+              private route: ActivatedRoute,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    this._routeParams = this._route.snapshot.params['id'];
-    if (this._routeParams) {
-      this._userListService
-        .getUserById(this._routeParams)
+    this.routeParams = this.route.snapshot.params['id'];
+    if (this.routeParams) {
+      this.userListService
+        .getUserById(this.routeParams)
         .subscribe(data => this.user = data.user);
     } else {
       this.user = this.currentUser;
@@ -39,19 +39,19 @@ export class UserProfilePage implements OnInit, AfterViewInit, AfterViewChecked 
   }
 
   ngAfterViewInit() {
-    this._checkActiveTab();
+    this.checkActiveTab();
   }
 
   ngAfterViewChecked() {
-    this._cdr.detectChanges();
+    this.cdr.detectChanges();
   }
 
-  private _checkActiveTab() {
-    if (!this._route.snapshot.queryParamMap.has('tab')) {
+  private checkActiveTab() {
+    if (!this.route.snapshot.queryParamMap.has('tab')) {
       return;
     }
 
-    const activeTabName = this._route.snapshot.queryParamMap.get('tab');
+    const activeTabName = this.route.snapshot.queryParamMap.get('tab');
     const currentTab = this.tabset.tabs
       .find((tab: TabDirective) => tab.id === activeTabName);
 
