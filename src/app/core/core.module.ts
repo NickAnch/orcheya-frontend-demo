@@ -28,6 +28,8 @@ import { UserTimelineComponent } from './components/user-timeline/user-timeline.
 import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
+import { SlackConnectorService } from './services/slack-connector.service';
+import { SlackConnectButtonComponent } from './components/social-buttons/slack-connect-button/slack-connect-button.component';
 
 @NgModule({
   imports: [
@@ -52,7 +54,8 @@ import { UsersListService } from './services/users-list.service';
       useClass: JWTTokenInterceptor,
       multi: true
     },
-    UsersListService
+    UsersListService,
+    SlackConnectorService
   ],
   declarations: [
     HeaderComponent,
@@ -64,6 +67,7 @@ import { UsersListService } from './services/users-list.service';
     UserActivityComponent,
     UserTimelineComponent,
     UsersListPage,
+    SlackConnectButtonComponent,
   ]
 })
 export class CoreModule { }
