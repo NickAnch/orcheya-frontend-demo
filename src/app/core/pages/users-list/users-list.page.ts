@@ -52,15 +52,6 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(data => this.usersList = data.users);
   }
 
-  ngAfterViewInit() {
-    this.ngAfterViewInitSubscription = Observable
-      .fromEvent(this.inputField.nativeElement, 'keyup')
-      .debounceTime(1000)
-      .distinctUntilChanged()
-      .switchMap(() => this._usersListService.getSearch(this.searchField))
-      .subscribe(data => this.usersList = data.users);
-  }
-
   ngOnDestroy() {
     if (this.ngOnInitSubscription) {
       this.ngOnInitSubscription.unsubscribe();
