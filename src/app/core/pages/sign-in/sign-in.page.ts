@@ -15,16 +15,16 @@ import { CurrentUserService } from '../../services/current-user.service';
 export class SignInPage {
   public errors = false;
 
-  constructor(private _currentUser: CurrentUserService,
-              private _router: Router) {
+  constructor(private currentUser: CurrentUserService,
+              private router: Router) {
   }
 
   public signIn(formValue: Object): void {
-    this._currentUser
+    this.currentUser
       .signIn(formValue['email'], formValue['password'])
       .subscribe(
         () => {
-          this._router.navigate(['/']);
+          this.router.navigate(['/']);
           this.errors = false;
         },
         err => this.errors = true

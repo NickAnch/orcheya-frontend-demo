@@ -18,24 +18,24 @@ export class UserProfilePage implements AfterViewInit, AfterViewChecked {
 
   constructor(
     public currentUser: CurrentUserService,
-    private _route: ActivatedRoute,
-    private _cdr: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngAfterViewInit() {
-    this._checkActiveTab();
+    this.checkActiveTab();
   }
 
   ngAfterViewChecked() {
-    this._cdr.detectChanges();
+    this.cdr.detectChanges();
   }
 
-  private _checkActiveTab() {
-    if (!this._route.snapshot.queryParamMap.has('tab')) {
+  private checkActiveTab() {
+    if (!this.route.snapshot.queryParamMap.has('tab')) {
       return;
     }
 
-    const activeTabName = this._route.snapshot.queryParamMap.get('tab');
+    const activeTabName = this.route.snapshot.queryParamMap.get('tab');
     const currentTab = this.tabset.tabs
       .find((tab: TabDirective) => tab.id === activeTabName)
     ;
