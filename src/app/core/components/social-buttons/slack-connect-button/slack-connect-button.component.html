@@ -1,0 +1,11 @@
+<div *ngIf="connected; else notconnected">
+  <div>
+    <i class="fa fa-slack"></i> Slack connected
+  </div>
+</div>
+
+<ng-template #notconnected>
+  <a class="btn bg-olive margin" (click)="connect()">
+    <i class="fa fa-slack"></i> Connect to Slack
+  </a>
+</ng-template>

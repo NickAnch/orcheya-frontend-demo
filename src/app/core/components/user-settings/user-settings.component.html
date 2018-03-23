@@ -3,7 +3,7 @@
   <form role="form"
         class="form-horizontal"
         [formGroup]="form"
-        (submit)="updateUser()">
+        (submit)="updateSettings()">
     <div class="box-body">
 
       <div class="form-group"
@@ -150,7 +150,9 @@
         </div>
       </div>
 
+      <app-slack-connect-button [connected]="_user.slackConnected"></app-slack-connect-button>
     </div>
+
     <!-- /.box-body -->
   </form>
 </div>

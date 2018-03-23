@@ -27,19 +27,28 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
   public scrollWindow = false;
   public searchField = '';
   public usersList;
-  private _page = 1;
+  private page = 1;
   private ngOnInitSubscription: Subscription;
   private ngAfterViewInitSubscription: Subscription;
   private onScrollDownSubscription: Subscription;
   private onButtonClickSubscription: Subscription;
 
 
-  constructor(private _usersListService: UsersListService) {
+  constructor(private usersListService: UsersListService) {
   }
 
   ngOnInit() {
-    this.ngOnInitSubscription = this._usersListService
-      .getUsersList(this._page)
+    this.ngOnInitSubscription = this.usersListService
+      .getUsersList(this.page)
+      .subscribe(data => this.usersList = data.users);
+  }
+
+  ngAfterViewInit() {
+    this.ngAfterViewInitSubscription = Observable
+      .fromEvent(this.inputField.nativeElement, 'keyup')
+      .debounceTime(1000)
+      .distinctUntilChanged()
+      .switchMap(() => this.usersListService.getSearch(this.searchField))
       .subscribe(data => this.usersList = data.users);
   }
 
@@ -68,22 +77,22 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public onScrollDown() {
-    this.onScrollDownSubscription = this._usersListService
-      .getUsersList(++this._page)
+    this.onScrollDownSubscription = this.usersListService
+      .getUsersList(++this.page)
       .subscribe(data => data.users
         .forEach(item => this.usersList.push(item)));
   }
 
   public onButtonClick() {
-    this._page = 1;
+    this.page = 1;
     this.scrollWindow = false;
-    this.onButtonClickSubscription = this._usersListService
+    this.onButtonClickSubscription = this.usersListService
       .getSearch(this.searchField)
       .subscribe(data => this.usersList = data.users);
   }
 
   public onSearchDelay() {
-    this._page = 1;
+    this.page = 1;
     this.scrollWindow = false;
   }
 }

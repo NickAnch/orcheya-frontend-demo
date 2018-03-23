@@ -10,7 +10,7 @@ import { formHelper } from '../../shared/helpers/form.helper';
 @Injectable()
 export class CurrentUserService extends User {
 
-  constructor(private _http: HttpClient) {
+  constructor(private http: HttpClient) {
     super();
    }
 
@@ -35,7 +35,7 @@ export class CurrentUserService extends User {
   */
   public load(): Observable<User> {
    return Observable.create((observer: Observer<User>) => {
-     this._http
+     this.http
        .get('/api/profile', { observe: 'response' })
        .subscribe(
          res => {
@@ -49,12 +49,12 @@ export class CurrentUserService extends User {
    );
  }
 
-  public updateUser(userData: User): Observable<User> {
+  public updateSettings(userData: User = this): Observable<User> {
     const url = '/api/profile';
     const data = { user: userData };
 
     return Observable.create((observer: Observer<User>) => {
-      this._http
+      this.http
         .put(url, data, { observe: 'response' })
         .subscribe(
           res => {
@@ -62,9 +62,7 @@ export class CurrentUserService extends User {
             observer.next(this);
             observer.complete();
           },
-          err => {
-            return observer.error(err);
-          }
+          err =>  observer.error(err)
         );
     });
   }
@@ -74,7 +72,7 @@ export class CurrentUserService extends User {
     const url = '/api/users/invitation';
 
     return Observable.create((observer: Observer<boolean>) => {
-      this._http
+      this.http
         .put(url, params, { observe: 'response' })
         .subscribe(
           resp => {
@@ -92,7 +90,7 @@ export class CurrentUserService extends User {
     const url = '/api/users/sign_in';
 
     return Observable.create((observer: Observer<boolean>) => {
-      this._http
+      this.http
         .post(url, data, { observe: 'response' })
         .subscribe(
           resp => {
@@ -109,10 +107,10 @@ export class CurrentUserService extends User {
   public signOut(): Observable<boolean> {
     const url = '/api/users/sign_out';
     return Observable.create((observer: Observer<boolean>) => {
-      this._http
+      this.http
         .delete(url)
         .subscribe(
-          resp => {
+          () => {
             // this.dispose();
             localStorage.removeItem('token');
             observer.next(true);
