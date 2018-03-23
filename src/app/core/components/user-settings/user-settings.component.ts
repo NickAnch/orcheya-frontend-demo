@@ -42,7 +42,7 @@ export class UserSettingsComponent implements OnInit {
     return !(this.form.get(controlName).valid && !this._respErrors[controlName]);
   }
 
-  public updateUser() {
+  public updateSettings() {
     if (!this.form.valid) {
       return;
     }
