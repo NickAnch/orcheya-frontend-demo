@@ -12,16 +12,16 @@ import { User } from '../../models/user';
 })
 export class UserSettingsComponent implements OnInit {
   public form: FormGroup;
-  private _respErrors: Object = {};
-  private _updatedUser = new User();
+  private respErrors: Object = {};
+  private updatedUser = new User();
 
   constructor(
     public currentUser: CurrentUserService,
-    private _formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,
   ) {}
 
   ngOnInit() {
-    this.form = this._formBuilder.group({
+    this.form = this.formBuilder.group({
       name: [this.currentUser.name, [Validators.required]],
       surname: [this.currentUser.surname, [Validators.required]],
       birthday: [this.currentUser.birthday, []],
@@ -39,7 +39,7 @@ export class UserSettingsComponent implements OnInit {
   }
 
   public hasError(controlName: string): boolean {
-    return !(this.form.get(controlName).valid && !this._respErrors[controlName]);
+    return !(this.form.get(controlName).valid && !this.respErrors[controlName]);
   }
 
   public updateSettings() {
@@ -47,15 +47,15 @@ export class UserSettingsComponent implements OnInit {
       return;
     }
 
-    this._updatedUser._fromJSON(this.form.value);
+    this.updatedUser._fromJSON(this.form.value);
 
     this.currentUser
-      .updateSettings(this._updatedUser)
+      .updateSettings(this.updatedUser)
       .subscribe(
-        () => this._respErrors = {},
+        () => this.respErrors = {},
         (err: HttpErrorResponse) => {
           if (!err.error['status'] && !err.error['exception']) {
-            this._respErrors = err.error;
+            this.respErrors = err.error;
           }
         }
       )
@@ -71,8 +71,8 @@ export class UserSettingsComponent implements OnInit {
       }
     }
 
-    if (this._respErrors[controlName]) {
-      return this._respErrors[controlName];
+    if (this.respErrors[controlName]) {
+      return this.respErrors[controlName];
     }
   }
 }

@@ -12,23 +12,23 @@ import { CurrentUserService } from './current-user.service';
 @Injectable()
 export class CurrentUserGuard implements CanActivate {
 
-  constructor(private _currentUser: CurrentUserService,
-              private _router: Router) {}
+  constructor(private currentUser: CurrentUserService,
+              private router: Router) {}
 
   public canActivate(): Observable<boolean> | boolean {
-    if (this._currentUser.isLoggedIn()) {
+    if (this.currentUser.isLoggedIn()) {
       return true;
     }
 
     return Observable.create((observer: Observer<boolean>) => {
-      this._currentUser.load()
+      this.currentUser.load()
         .subscribe(
           () => {
             observer.next(true);
             observer.complete();
           },
           () => {
-            this._router.navigate(['/sign-in']);
+            this.router.navigate(['/sign-in']);
             observer.next(false);
           }
         );

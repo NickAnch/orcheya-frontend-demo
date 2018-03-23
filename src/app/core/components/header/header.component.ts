@@ -1,4 +1,4 @@
-import { Component, Inject, Renderer2 } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 
@@ -15,9 +15,8 @@ import { CurrentUserService } from '../../services/current-user.service';
 export class HeaderComponent {
 
   constructor(public currentUser: CurrentUserService,
-              private _renderer: Renderer2,
-              private _router: Router,
-              @Inject(DOCUMENT) public _document: Document) {
+              private router: Router,
+              @Inject(DOCUMENT) public document: Document) {
   }
 
   // public sidebarToggle(): void {
@@ -29,6 +28,6 @@ export class HeaderComponent {
   public signOut(): void {
     this.currentUser
       .signOut()
-      .subscribe(() => this._router.navigate(['/sign-in']));
+      .subscribe(() => this.router.navigate(['/sign-in']));
   }
 }
