@@ -13,7 +13,8 @@ import { CurrentUserService } from './current-user.service';
 export class CurrentUserGuard implements CanActivate {
 
   constructor(private currentUser: CurrentUserService,
-              private router: Router) {}
+              private router: Router) {
+  }
 
   public canActivate(): Observable<boolean> | boolean {
     if (this.currentUser.isLoggedIn()) {

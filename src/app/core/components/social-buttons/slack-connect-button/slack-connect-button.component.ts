@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SlackConnectorService } from '../../../services/slack-connector.service';
 
 @Component({
@@ -8,11 +8,12 @@ import { SlackConnectorService } from '../../../services/slack-connector.service
 })
 export class SlackConnectButtonComponent {
 
-  constructor(private slackConnector: SlackConnectorService) { }
+  @Input() connected: boolean;
 
-  @Input() connected: boolean
+  constructor(private slackConnector: SlackConnectorService) {
+  }
 
   connect() {
-    this.slackConnector.connect()
+    this.slackConnector.connect();
   }
 }

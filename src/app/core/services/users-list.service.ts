@@ -17,6 +17,6 @@ export class UsersListService {
   }
 
   public getUserById(id): Observable<any> {
-    return this._http.get(`/api/users/${id}`);
+    return this.http.get(`/api/users/${id}`);
   }
 }
