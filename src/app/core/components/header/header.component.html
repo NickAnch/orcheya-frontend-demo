@@ -31,7 +31,7 @@
           <a class="dropdown-toggle" dropdownToggle>
             <img class="user-image"
                  alt="User Avatar"
-                 [src]="currentUser.avatarUrl || 'assets/adminlte/avatar-business-man-user-256x256.png'">
+                 [src]="currentUser.avatar.medium.url|| 'assets/adminlte/avatar-business-man-user-256x256.png'">
             <span class="hidden-xs">{{ currentUser.name }}</span>
           </a>
           <ul class="dropdown-menu" *dropdownMenu>
@@ -39,7 +39,7 @@
             <li class="user-header">
               <img class="img-circle"
                    alt="User Avatar"
-                   [src]="currentUser.avatarUrl || 'assets/adminlte/avatar-business-man-user-256x256.png'">
+                   [src]="currentUser.avatar.small.url || 'assets/adminlte/avatar-business-man-user-256x256.png'">
               <p>{{ currentUser.name }}</p>
             </li>
             <!--<li class="user-body"></li>-->

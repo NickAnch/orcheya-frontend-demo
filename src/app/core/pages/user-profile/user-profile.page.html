@@ -3,8 +3,7 @@
     User Profile
   </h1>
   <ol class="breadcrumb">
-    <li><a><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a>Examples</a></li>
+    <li><a>Home</a></li>
     <li class="active">User profile</li>
   </ol>
 </section>
@@ -18,7 +17,7 @@
       <div class="box box-primary">
         <div class="box-body box-profile">
           <img class="profile-user-img img-responsive img-circle"
-               src="assets/adminlte/avatar-business-man-user-256x256.png"
+               src="{{user?.avatar.small.url}}"
                alt="User profile picture">
 
           <h3 class="profile-username text-center">{{user?.name}} {{user?.surname}}</h3>
