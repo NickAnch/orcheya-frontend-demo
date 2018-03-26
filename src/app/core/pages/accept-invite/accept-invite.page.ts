@@ -16,10 +16,10 @@ export class AcceptInvitePage {
   private error: string;
   private token: string;
 
-  constructor(private _currentUser: CurrentUserService,
-              private _router: Router,
-              private _route: ActivatedRoute ) {
-    this._route.params.subscribe(params => {
+  constructor(private currentUser: CurrentUserService,
+              private router: Router,
+              private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
       this.token = params['token'];
     });
   }
@@ -33,11 +33,11 @@ export class AcceptInvitePage {
       return;
     }
 
-    this._currentUser
+    this.currentUser
       .acceptInvite(this.token, formValue['password'])
       .subscribe(
         () => {
-          this._router.navigate(['/']);
+          this.router.navigate(['/']);
         },
         error => {
           this.errors = true;

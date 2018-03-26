@@ -9,20 +9,20 @@ import { User } from '../models/user';
 export class UsersListService {
   private apiPath = '/api/users';
 
-  constructor(private _http: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   public getUsersList(page): Observable<any> {
-    return this._http.get(`${this.apiPath}?page=${page}`);
+    return this.http.get(`${this.apiPath}?page=${page}`);
   }
 
   public getSearch(searchString): Observable<any> {
-    return this._http.get(`${this.apiPath}?search=${searchString}`);
+    return this.http.get(`${this.apiPath}?search=${searchString}`);
   }
 
   public getUserById(id: number): Observable<User> {
     return Observable.create((observer: Observer<User>) => {
-      this._http
+      this.http
           .get(`${this.apiPath}/${id}`)
           .subscribe(
             (data: { user: User }) => {
