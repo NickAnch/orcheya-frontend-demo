@@ -150,7 +150,8 @@
         </div>
       </div>
 
-      <app-slack-connect-button [connected]="_user.slackConnected"></app-slack-connect-button>
+      <app-slack-connect-button [connected]="currentUser.slackConnected"></app-slack-connect-button>
+      <app-timedoctor-connect-button [connected]="currentUser.timedoctorConnected"></app-timedoctor-connect-button>
     </div>
 
     <!-- /.box-body -->
