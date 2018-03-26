@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-import { formHelper } from '../../shared/helpers/form.helper';
 
 @Injectable()
 export class CurrentUserService extends User {
@@ -62,7 +61,7 @@ export class CurrentUserService extends User {
             observer.next(this);
             observer.complete();
           },
-          err =>  observer.error(err)
+          err => observer.error(err)
         );
     });
   }

@@ -38,10 +38,12 @@
        (scrolled)="onScrollDown()">
     <ul class="users-list clearfix text-center">
       <li *ngFor="let user of usersList">
-        <img
-          src="/assets/dummy-avatar.png"
-          alt="{{user.image}}">
-        <a class="users-list-name" href="#">{{user.name}} {{user.surname}}</a>
+        <a [routerLink]="['/user-profile', user.id]">
+          <img
+            src="assets/dummy-avatar.png"
+            alt="{{user.image}}">
+        </a>
+        <a class="users-list-name" [routerLink]="['/user-profile', user.id]">{{user.name}} {{user.surname}}</a>
         <span class="users-list-date">{{user.position}}</span>
       </li>
     </ul>
