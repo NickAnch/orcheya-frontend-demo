@@ -9,6 +9,6 @@ export class TimeDoctorConnectorService {
   connect() {
     this.http.get('/api/integration/timedoctor').subscribe(
       resp => window.location.href = resp['uri']
-    )
+    );
   }
 }

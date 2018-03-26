@@ -28,16 +28,17 @@ import {
   UserActivityComponent,
   UserTimelineComponent,
   HeaderComponent,
-  SlackConnectButtonComponent
+  SlackConnectButtonComponent,
+  TimeDoctorConnectButtonComponent
 } from './components';
 
 import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
 import { SlackConnectorService } from './services/slack-connector.service';
-import { SlackConnectButtonComponent } from './components/social-buttons/slack-connect-button/slack-connect-button.component';
-import { TimeDoctorConnectorService } from './services/timedoctor-connector.service';
-import { TimeDoctorConnectButtonComponent } from './components/social-buttons/timedoctor-connect-button/timedoctor-connect-button.component';
+import {
+  TimeDoctorConnectorService
+} from './services/timedoctor-connector.service';
 
 @NgModule({
   imports: [
