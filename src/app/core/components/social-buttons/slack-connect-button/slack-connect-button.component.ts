@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { SlackConnectorService } from '../../../services/slack-connector.service';
+import {
+  SlackConnectorService
+} from '../../../services/slack-connector.service';
 
 @Component({
   selector: 'app-slack-connect-button',

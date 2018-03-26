@@ -17,19 +17,25 @@ import { CurrentUserService } from './services/current-user.service';
 import { CurrentUserGuard } from './services/current-user.guard';
 import { JWTTokenInterceptor } from './services/jwt-token-Interceptor.service';
 
-import { HeaderComponent } from './components/header/header.component';
+
 
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
 import { UserProfilePage } from './pages/user-profile/user-profile.page';
-import { UserSettingsComponent } from './components/user-settings/user-settings.component';
-import { UserActivityComponent } from './components/user-activity/user-activity.component';
-import { UserTimelineComponent } from './components/user-timeline/user-timeline.component';
+
+import {
+  UserSettingsComponent,
+  UserActivityComponent,
+  UserTimelineComponent,
+  HeaderComponent,
+  SlackConnectButtonComponent
+} from './components';
+
 import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
 import { SlackConnectorService } from './services/slack-connector.service';
-import { SlackConnectButtonComponent } from './components/social-buttons/slack-connect-button/slack-connect-button.component';
+
 
 @NgModule({
   imports: [
