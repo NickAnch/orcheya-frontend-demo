@@ -28,11 +28,11 @@ export class UserProfilePage implements OnInit, AfterViewInit, AfterViewChecked 
   }
 
   ngOnInit() {
-    this._routeParams = this._route.snapshot.params['id'];
+    this._routeParams = +this._route.snapshot.params['id'];
     if (this._routeParams) {
       this._userListService
         .getUserById(this._routeParams)
-        .subscribe(data => this.user = data.user);
+        .subscribe(user => this.user = user);
     } else {
       this.user = this.currentUser;
     }
