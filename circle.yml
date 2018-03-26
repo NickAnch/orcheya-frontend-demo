@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:9.2
+      - image: circleci/node:9.5
         environment:
           CHROME_BIN: "/usr/bin/google-chrome"
     working_directory: ~/repo
@@ -22,7 +22,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: orcheya-client-{{ checksum "package.json" }}
       - run: yarn ci-test
       - run: yarn lint
       - run: yarn sass-lint
