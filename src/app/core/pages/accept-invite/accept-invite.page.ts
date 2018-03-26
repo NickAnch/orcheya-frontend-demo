@@ -18,7 +18,7 @@ export class AcceptInvitePage {
 
   constructor(private currentUser: CurrentUserService,
               private router: Router,
-              private route: ActivatedRoute ) {
+              private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       this.token = params['token'];
     });

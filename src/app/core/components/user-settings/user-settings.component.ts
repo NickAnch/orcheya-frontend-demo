@@ -15,10 +15,9 @@ export class UserSettingsComponent implements OnInit {
   private respErrors: Object = {};
   private updatedUser = new User();
 
-  constructor(
-    public currentUser: CurrentUserService,
-    private formBuilder: FormBuilder,
-  ) {}
+  constructor(public currentUser: CurrentUserService,
+              private formBuilder: FormBuilder) {
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -30,7 +29,6 @@ export class UserSettingsComponent implements OnInit {
         this.currentUser.email,
         [Validators.required, Validators.email]
       ],
-      employmentAt: [this.currentUser.employmentAt, []],
       github: [this.currentUser.github, []],
       bitbucket: [this.currentUser.bitbucket, []],
       skype: [this.currentUser.skype, []],
