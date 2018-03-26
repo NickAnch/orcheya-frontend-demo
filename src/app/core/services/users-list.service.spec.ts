@@ -11,7 +11,9 @@ describe('UsersListService', () => {
     });
   });
 
-  it('should be created', inject([UsersListService], (service: UsersListService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should be created', inject(
+    [UsersListService],
+    (service: UsersListService) => {
+        expect(service).toBeTruthy();
+    }));
 });

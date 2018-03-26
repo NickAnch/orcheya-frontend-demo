@@ -14,7 +14,8 @@ import { User } from '../../models/user';
   templateUrl: './user-profile.page.html',
   styleUrls: ['./user-profile.page.scss']
 })
-export class UserProfilePage implements OnInit, AfterViewInit, AfterViewChecked {
+export class UserProfilePage implements OnInit,
+                                        AfterViewInit, AfterViewChecked {
 
   @ViewChild('tabset')
   public tabset: TabsetComponent;
