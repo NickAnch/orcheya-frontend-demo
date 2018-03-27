@@ -1,5 +1,6 @@
 <header class="main-header">
-  <a class="logo">
+  <a class="logo"
+     [routerLink]="['/']">
     <span class="logo-mini"><b>ORC</b></span>
     <span class="logo-lg">Orcheya</span>
   </a>
@@ -31,7 +32,7 @@
           <a class="dropdown-toggle" dropdownToggle>
             <img class="user-image"
                  alt="User Avatar"
-                 [src]="currentUser.avatar.medium.url|| 'assets/adminlte/avatar-business-man-user-256x256.png'">
+                 [src]="currentUser.avatar.thumbnail.url">
             <span class="hidden-xs">{{ currentUser.name }}</span>
           </a>
           <ul class="dropdown-menu" *dropdownMenu>
@@ -39,7 +40,7 @@
             <li class="user-header">
               <img class="img-circle"
                    alt="User Avatar"
-                   [src]="currentUser.avatar.small.url || 'assets/adminlte/avatar-business-man-user-256x256.png'">
+                   [src]="currentUser.avatar.small.url">
               <p>{{ currentUser.name }}</p>
             </li>
             <!--<li class="user-body"></li>-->

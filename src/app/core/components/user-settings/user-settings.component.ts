@@ -29,7 +29,6 @@ export class UserSettingsComponent implements OnInit {
         this.currentUser.email,
         [Validators.required, Validators.email]
       ],
-      employmentAt: [this.currentUser.employmentAt, []],
       github: [this.currentUser.github, []],
       bitbucket: [this.currentUser.bitbucket, []],
       skype: [this.currentUser.skype, []],
