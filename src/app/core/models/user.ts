@@ -22,5 +22,6 @@ export class User extends AppModel {
   @Alias() public position: string;
   @Alias() public avatar: Image;
   @Alias('slack_connected') public slackConnected: boolean;
+  @Alias('timedoctor_connected') public timedoctorConnected: boolean;
 }
 
