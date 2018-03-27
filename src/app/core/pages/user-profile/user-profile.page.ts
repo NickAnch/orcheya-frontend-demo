@@ -15,12 +15,13 @@ import { User } from '../../models/user';
   styleUrls: ['./user-profile.page.scss']
 })
 export class UserProfilePage implements OnInit,
-                                        AfterViewInit, AfterViewChecked {
+  AfterViewInit, AfterViewChecked {
 
   @ViewChild('tabset')
   public tabset: TabsetComponent;
   public routeParams: number;
   public user: User;
+  private _fullName: string;
 
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
@@ -28,12 +29,18 @@ export class UserProfilePage implements OnInit,
               private cdr: ChangeDetectorRef) {
   }
 
+  get fullName(): string {
+    return this._fullName = this.user.name + ' ' + this.user.surname;
+  }
+
   ngOnInit() {
     this.routeParams = +this.route.snapshot.params['id'];
     if (this.routeParams) {
       this.userListService
         .getUserById(this.routeParams)
-        .subscribe(user => this.user = user);
+        .subscribe(user => {
+          this.user = user;
+        });
     } else {
       this.user = this.currentUser;
     }
