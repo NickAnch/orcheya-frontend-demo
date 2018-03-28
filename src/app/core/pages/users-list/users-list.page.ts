@@ -41,7 +41,9 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     this.ngOnInitSubscription = this.usersListService
       .getUsersList(this.page)
-      .subscribe(data => this.usersList = data.users);
+      .subscribe(data => {
+        this.usersList = data.users.map(user => new User(user));
+      });
   }
 
   ngAfterViewInit() {
@@ -50,7 +52,9 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
       .debounceTime(1000)
       .distinctUntilChanged()
       .switchMap(() => this.usersListService.getSearch(this.searchField))
-      .subscribe(data => this.usersList = data.users);
+      .subscribe(data => {
+        this.usersList = data.users.map(user => new User(user));
+      });
   }
 
   ngOnDestroy() {
@@ -71,7 +75,7 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
   public onScrollDown() {
     this.onScrollDownSubscription = this.usersListService
       .getUsersList(++this.page)
-      .subscribe(data => data.users
+      .subscribe(data => data.users.map(user => new User(user))
         .forEach(item => this.usersList.push(item)));
   }
 
@@ -80,15 +84,13 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
     this.scrollWindow = false;
     this.onButtonClickSubscription = this.usersListService
       .getSearch(this.searchField)
-      .subscribe(data => this.usersList = data.users);
+      .subscribe(data => {
+        this.usersList = data.users.map(user => new User(user));
+      });
   }
 
   public onSearchDelay() {
     this.page = 1;
     this.scrollWindow = false;
-  }
-
-  fullNameAppender(user: User): string {
-    return user.name + ' ' + user.surname;
   }
 }

@@ -29,7 +29,9 @@ export class UserProfilePage implements OnInit,
   }
 
   get fullName(): string {
-    return this.user.name + ' ' + this.user.surname;
+    if (this.user) {
+      return this.user.name + ' ' + this.user.surname;
+    }
   }
 
   ngOnInit() {
@@ -37,9 +39,7 @@ export class UserProfilePage implements OnInit,
     if (this.routeParams) {
       this.userListService
         .getUserById(this.routeParams)
-        .subscribe(user => {
-          this.user = user;
-        });
+        .subscribe(user => this.user = user);
     } else {
       this.user = this.currentUser;
     }

@@ -23,5 +23,17 @@ export class User extends AppModel {
   @Alias() public avatar: Image;
   @Alias('slack_connected') public slackConnected: boolean;
   @Alias('timedoctor_connected') public timedoctorConnected: boolean;
+
+  constructor(user?) {
+    super();
+
+    if (user) {
+      this._fromJSON(user);
+    }
+  }
+
+  get fullName(): string {
+    return this.name + ' ' + this.surname;
+  }
 }
 
