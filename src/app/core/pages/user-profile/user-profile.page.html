@@ -91,7 +91,10 @@
                id="activity"
                heading="Activity">
             <div class="tab-content">
-              <app-user-activity></app-user-activity>
+              <app-user-activity>
+                <app-time-activity [activityData]="activityData"></app-time-activity>
+                <hr>
+              </app-user-activity>
             </div>
           </tab>
           <tab class="nav-tabs-custom"

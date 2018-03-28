@@ -17,8 +17,6 @@ import { CurrentUserService } from './services/current-user.service';
 import { CurrentUserGuard } from './services/current-user.guard';
 import { JWTTokenInterceptor } from './services/jwt-token-Interceptor.service';
 
-
-
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
 import { UserProfilePage } from './pages/user-profile/user-profile.page';
@@ -29,7 +27,8 @@ import {
   UserTimelineComponent,
   HeaderComponent,
   SlackConnectButtonComponent,
-  TimeDoctorConnectButtonComponent
+  TimeDoctorConnectButtonComponent,
+  TimeActivityComponent,
 } from './components';
 
 import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
@@ -53,7 +52,7 @@ import {
     GantgileModule,
     UpdaterModule,
     UpdaterModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
   ],
   providers: [
     CurrentUserService,
@@ -79,6 +78,7 @@ import {
     UsersListPage,
     SlackConnectButtonComponent,
     TimeDoctorConnectButtonComponent,
+    TimeActivityComponent,
   ]
 })
 export class CoreModule { }
