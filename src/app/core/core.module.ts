@@ -35,6 +35,7 @@ import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
 import { SlackConnectorService } from './services/slack-connector.service';
+import { NgUploaderModule } from 'ngx-uploader';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { SlackConnectorService } from './services/slack-connector.service';
     GantgileModule,
     UpdaterModule,
     UpdaterModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NgUploaderModule
   ],
   providers: [
     CurrentUserService,

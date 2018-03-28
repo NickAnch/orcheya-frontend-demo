@@ -119,4 +119,11 @@ export class CurrentUserService extends User {
         );
     });
   }
+
+  public upload(fileToUpload: File) {
+    const input = new FormData();
+    input.append('file', fileToUpload);
+    console.log(input, 'input');
+    return this.http.post('/api/profile', input);
+  }
 }
