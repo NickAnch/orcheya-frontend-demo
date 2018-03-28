@@ -12,6 +12,14 @@ interface DayData {
   time: number;
 }
 
+interface ColorData {
+  color: string;
+  range: {
+    from: number;
+    to: number;
+  };
+}
+
 @Component({
   selector: 'app-time-activity',
   template: ``,
@@ -24,10 +32,17 @@ export class TimeActivityComponent implements OnInit {
   private activityDataCopy: TimeActivity[] = [];
   private params = {
     cellSize: 12,
-    hour: 60,
     textWeeks: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     dateFrom: null,
     dateTo: null,
+    colors: [
+      { color: '#ebedf0', range: { from: -1, to: 9 } },
+      { color: '#cfeec9', range: { from: 10, to: 179 } },
+      { color: '#c6e48b', range: { from: 180, to: 299 } },
+      { color: '#7bc96f', range: { from: 300, to: 419 } },
+      { color: '#239a3b', range: { from: 420, to: 719 } },
+      { color: '#196127', range: { from: 720, to: 1320 } },
+    ]
   };
   private d3Elements: {
     parent?: Selection<HTMLElement, any, null, undefined>,
@@ -119,18 +134,12 @@ export class TimeActivityComponent implements OnInit {
   private defineSvg() {
     this.d3Elements.svg = this.d3Elements.wrapper
       .append('svg');
-
-    // this.d3Elements.svg
-    //   .attr('width', this.params.width)
-    //   .attr('height', this.params.height);
   }
 
   private defineCanvas() {
     this.d3Elements.canvas = this.d3Elements.svg
       .append('g');
 
-    // const x = (this.params.width - this.params.cellSize * 53) / 2;
-    // const y = this.params.height - this.params.cellSize * 7;
     this.d3Elements.canvas
       .attr('class', 'canvas')
       .attr('transform', `translate(20, 15)`);
@@ -223,23 +232,12 @@ export class TimeActivityComponent implements OnInit {
       d.date.getDay() * this.params.cellSize
     );
     const getColor = (d: DayData): string => {
-      if (d.time >= this.params.hour * 0.1 && d.time < this.params.hour * 3) {
-        return '#eee';
-      }
-      if (d.time >= this.params.hour * 3 && d.time < this.params.hour * 5) {
-        return '#c6e48b';
-      }
-      if (d.time >= this.params.hour * 5 && d.time < this.params.hour * 7) {
-        return '#7bc96f';
-      }
-      if (d.time >= this.params.hour * 7 && d.time < this.params.hour * 9) {
-        return '#239a3b';
-      }
-      if (d.time > 9) {
-        return '#196127';
-      }
-
-      return '#ebedf0';
+      const time = d.time ? d.time : 0;
+      return (<ColorData>this.params.colors
+        .find((color: ColorData) => (
+          color.range.from <= time && color.range.to >= time
+        )))
+        .color;
     };
     const mouseOverHandler = function (d: DayData): void {
       const x = +(<HTMLElement>this).getAttribute('x');
