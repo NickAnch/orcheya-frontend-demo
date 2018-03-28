@@ -1,13 +1,11 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { BaseType, select, Selection } from 'd3-selection';
 import { timeMonths, timeWeek, timeDays } from 'd3-time';
 import { timeFormat } from 'd3-time-format';
 
-export interface ActivityData {
-  date: string;
-  time: number;
-}
+import { TimeActivity } from '../../models/time-activity.interface';
 
 interface DayData {
   date: Date;
@@ -20,10 +18,10 @@ interface DayData {
   styleUrls: ['./time-activity.component.scss']
 })
 export class TimeActivityComponent implements OnInit {
-  @Input() private activityData: ActivityData[] = [];
+  @Input() private activityData: Observable<TimeActivity[]>;
   @Input() private dateFrom: Date;
   @Input() private dateTo: Date;
-  private activityDataCopy: ActivityData[] = [];
+  private activityDataCopy: TimeActivity[] = [];
   private params = {
     cellSize: 12,
     hour: 60,
@@ -52,9 +50,18 @@ export class TimeActivityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activityDataCopy = [...this.activityData];
     this.setParamsDate();
-    this.initD3Logic();
+
+    this.activityData.subscribe(
+      activityData => {
+        this.activityDataCopy = activityData;
+        this.initD3Logic();
+      },
+      () => {
+        this.activityDataCopy = [];
+        this.initD3Logic();
+      }
+    );
   }
 
   private setParamsDate() {
