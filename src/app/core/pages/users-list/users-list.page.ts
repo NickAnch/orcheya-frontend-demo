@@ -14,6 +14,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/fromEvent';
 
 import { UsersListService } from '../../services/users-list.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-users-list',
@@ -85,5 +86,9 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
   public onSearchDelay() {
     this.page = 1;
     this.scrollWindow = false;
+  }
+
+  fullNameAppender(user: User): string {
+    return user.name + ' ' + user.surname;
   }
 }

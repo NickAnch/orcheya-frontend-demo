@@ -21,7 +21,6 @@ export class UserProfilePage implements OnInit,
   public tabset: TabsetComponent;
   public routeParams: number;
   public user: User;
-  private _fullName: string;
 
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
@@ -30,7 +29,7 @@ export class UserProfilePage implements OnInit,
   }
 
   get fullName(): string {
-    return this._fullName = this.user.name + ' ' + this.user.surname;
+    return this.user.name + ' ' + this.user.surname;
   }
 
   ngOnInit() {

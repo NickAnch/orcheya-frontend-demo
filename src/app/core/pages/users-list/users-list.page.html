@@ -43,7 +43,7 @@
             src="{{ user.avatar.medium.url }}"
             alt="User avatar">
         </a>
-        <a class="users-list-name" [routerLink]="['/user-profile', user.id]">{{ user.name + ' ' + user.surname }}</a>
+        <a class="users-list-name" [routerLink]="['/user-profile', user.id]">{{ fullNameAppender(user) }}</a>
         <span class="users-list-date">{{ user.position }}</span>
       </li>
     </ul>
