@@ -10,15 +10,21 @@
 
 <section class="content">
 
+
   <div class="row">
     <div class="col-md-3">
 
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
-          <img class="profile-user-img img-responsive img-circle"
-               src="assets/adminlte/avatar-business-man-user-256x256.png"
-               alt="User profile picture">
+          <div class="container">
+            <img class="profile-user-img img-responsive img-circle image"
+                 src="assets/adminlte/avatar-business-man-user-256x256.png"
+                 alt="User profile picture">
+            <div class="middle">
+              <div class="text">Change picture</div>
+            </div>
+          </div>
 
           <h3 class="profile-username text-center">{{ user?.name }} {{ user?.surname }}</h3>
 
