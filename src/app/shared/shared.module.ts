@@ -10,13 +10,13 @@ import { SidebarComponent, SidebarService } from './sidebar';
     RouterModule
   ],
   providers: [
-    SidebarService
+    SidebarService,
   ],
   declarations: [
-    SidebarComponent
+    SidebarComponent,
   ],
   exports: [
-    SidebarComponent
+    SidebarComponent,
   ]
 })
 export class SharedModule { }

@@ -26,7 +26,9 @@ import {
   UserActivityComponent,
   UserTimelineComponent,
   HeaderComponent,
-  SlackConnectButtonComponent
+  SlackConnectButtonComponent,
+  TimeDoctorConnectButtonComponent,
+  TimeActivityComponent,
 } from './components';
 
 import { ImageUploadDirective } from './directives/image-upload.directive';
@@ -35,7 +37,9 @@ import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
 import { SlackConnectorService } from './services/slack-connector.service';
-
+import {
+  TimeDoctorConnectorService
+} from './services/timedoctor-connector.service';
 
 @NgModule({
   imports: [
@@ -61,7 +65,8 @@ import { SlackConnectorService } from './services/slack-connector.service';
       multi: true
     },
     UsersListService,
-    SlackConnectorService
+    SlackConnectorService,
+    TimeDoctorConnectorService,
   ],
   declarations: [
     HeaderComponent,
@@ -75,6 +80,8 @@ import { SlackConnectorService } from './services/slack-connector.service';
     UsersListPage,
     SlackConnectButtonComponent,
     ImageUploadDirective,
+    TimeDoctorConnectButtonComponent,
+    TimeActivityComponent,
   ]
 })
 export class CoreModule { }

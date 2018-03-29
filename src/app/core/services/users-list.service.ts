@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { TimeActivity } from '../models/time-activity.interface';
 import { Observer } from 'rxjs/Observer';
-
-import { User } from '../models/user';
 
 @Injectable()
 export class UsersListService {
@@ -20,17 +19,24 @@ export class UsersListService {
     return this.http.get(`${this.apiPath}?search=${searchString}`);
   }
 
-  public getUserById(id: number): Observable<User> {
-    return Observable.create((observer: Observer<User>) => {
+
+  public getTimeActivity(
+    id: number, dateFrom: Date, dateTo: Date
+  ): Observable<TimeActivity[]> {
+    const params = new HttpParams()
+      .set('start_date', dateFrom.toISOString().substr(0, 10))
+      .set('end_date', dateTo.toISOString().substr(0, 10));
+
+    return Observable.create((observer: Observer<TimeActivity[]>) => {
       this.http
-          .get(`${this.apiPath}/${id}`)
-          .subscribe(
-            (data: { user: User }) => {
-              observer.next(data.user);
-              observer.complete();
-            },
-            err => observer.error(err)
-          );
+        .get(`${this.apiPath}/${id}/timegraph`, { params: params })
+        .subscribe(
+          (data: TimeActivity[]) => {
+            observer.next(data);
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
     });
   }
 }
