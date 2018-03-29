@@ -26,6 +26,7 @@ export class UserProfilePage implements OnInit,
   public activityData: Observable<TimeActivity[]>;
 
   constructor(public currentUser: CurrentUserService,
+              private userListService: UsersListService,
               private route: ActivatedRoute,
               private cdr: ChangeDetectorRef) {
   }

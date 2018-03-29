@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
 import { TimeActivity } from '../models/time-activity.interface';
+import { Observer } from 'rxjs/Observer';
 
 @Injectable()
 export class UsersListService extends User {

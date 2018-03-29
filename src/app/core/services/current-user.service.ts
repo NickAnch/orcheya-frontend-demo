@@ -125,9 +125,6 @@ export class CurrentUserService extends User {
       this.http
         .get(`/api/users/${id}`)
         .subscribe(
-          // (data: { user: User }) => {
-          //   observer.next(data.user);
-          //   observer.complete();
           res => {
             this._fromJSON(res['user']);
             observer.next(this);
