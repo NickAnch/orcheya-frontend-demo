@@ -97,7 +97,7 @@
             <tr>
               <td><i class="fa fa-fw fa-birthday-cake"></i></td>
               <td>Date of birth</td>
-              <td><span class="">{{ user.birthday | date:'dd-MM-yyyy' }}</span></td>
+              <td><span class="">{{ user?.birthday | date:'dd-MM-yyyy' }}</span></td>
             </tr>
             <tr>
               <td><i class="fa fa-fw fa-envelope"></i></td>
@@ -126,7 +126,7 @@
             </tr>
             </tbody>
           </table>
-          <div *ngIf="!routeParams">
+          <div *ngIf="isYou">
             <br>
             <a class="btn btn-lg btn-success btn-block"><b>Edit profile</b></a>
           </div>
