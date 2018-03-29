@@ -6,10 +6,6 @@ export class Image extends Model {
   @Alias() public small: string;
   @Alias() public thumbnail: string;
 
-  /**
-   * Код ниже не работает, надо привлечь Игоря
-   */
-
   public _fromJSON(data): Image {
     this.medium = data.medium.url;
     this.small = data.small.url;
