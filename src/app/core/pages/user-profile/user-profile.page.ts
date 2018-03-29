@@ -47,6 +47,12 @@ export class UserProfilePage implements OnInit,
     this.cdr.detectChanges();
   }
 
+  onChange(file: File) {
+    const formData = new FormData();
+    formData.append('avatar', file, file.name);
+    this.currentUser.uploadAvatar(formData);
+  }
+
   private checkActiveTab() {
     if (!this.route.snapshot.queryParamMap.has('tab')) {
       return;

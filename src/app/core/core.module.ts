@@ -17,8 +17,6 @@ import { CurrentUserService } from './services/current-user.service';
 import { CurrentUserGuard } from './services/current-user.guard';
 import { JWTTokenInterceptor } from './services/jwt-token-Interceptor.service';
 
-
-
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
 import { UserProfilePage } from './pages/user-profile/user-profile.page';
@@ -31,11 +29,12 @@ import {
   SlackConnectButtonComponent
 } from './components';
 
+import { ImageUploadDirective } from './directives/image-upload.directive';
+
 import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
 import { SlackConnectorService } from './services/slack-connector.service';
-import { NgUploaderModule } from 'ngx-uploader';
 
 
 @NgModule({
@@ -52,7 +51,6 @@ import { NgUploaderModule } from 'ngx-uploader';
     UpdaterModule,
     UpdaterModule,
     InfiniteScrollModule,
-    NgUploaderModule
   ],
   providers: [
     CurrentUserService,
@@ -76,6 +74,7 @@ import { NgUploaderModule } from 'ngx-uploader';
     UserTimelineComponent,
     UsersListPage,
     SlackConnectButtonComponent,
+    ImageUploadDirective,
   ]
 })
 export class CoreModule { }

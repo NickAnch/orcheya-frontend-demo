@@ -13,3 +13,28 @@ a {
     }
   }
 }
+
+.relative { position: relative !important }
+
+/* Directives */
+img[appImageUpload] {
+  transition: filter .3s ease-in-out;
+
+  & + .appImageUpload {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 85%;
+    color: #fff;
+    opacity: 0;
+    transition: bottom .5s cubic-bezier(0.46, 0.46, 0.6, 1.49), opacity .5s ease;
+    cursor: pointer;
+
+    &.open {
+      bottom: 40%;
+      opacity: 1;
+    }
+  }
+}
