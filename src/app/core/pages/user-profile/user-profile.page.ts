@@ -39,6 +39,7 @@ export class UserProfilePage implements OnInit,
         .subscribe(user => this.user = user);
     } else {
       this.user = this.currentUser;
+      console.log(this.user, 'log');
     }
 
     const id = this.routeParams ? this.routeParams : this.user.id;
