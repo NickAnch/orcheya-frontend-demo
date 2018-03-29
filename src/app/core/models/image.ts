@@ -1,7 +1,7 @@
-import { Alias, Model } from 'tsmodels';
+import { Alias, AppModel } from 'tsmodels';
 
 
-export class Image extends Model {
+export class Image extends AppModel {
   @Alias() public medium: string;
   @Alias() public small: string;
   @Alias() public thumbnail: string;
