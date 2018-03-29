@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../models/user';
+import { TimeActivity } from '../models/time-activity.interface';
 
 @Injectable()
 export class UsersListService extends User {
@@ -20,4 +21,23 @@ export class UsersListService extends User {
   }
 
 
+  public getTimeActivity(
+    id: number, dateFrom: Date, dateTo: Date
+  ): Observable<TimeActivity[]> {
+    const params = new HttpParams()
+      .set('start_date', dateFrom.toISOString().substr(0, 10))
+      .set('end_date', dateTo.toISOString().substr(0, 10));
+
+    return Observable.create((observer: Observer<TimeActivity[]>) => {
+      this.http
+        .get(`${this.apiPath}/${id}/timegraph`, { params: params })
+        .subscribe(
+          (data: TimeActivity[]) => {
+            observer.next(data);
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+    });
+  }
 }
