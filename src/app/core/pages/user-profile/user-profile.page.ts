@@ -17,7 +17,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./user-profile.page.scss']
 })
 export class UserProfilePage implements OnInit,
-                                        AfterViewInit, AfterViewChecked {
+  AfterViewInit, AfterViewChecked {
 
   @ViewChild('tabset')
   public tabset: TabsetComponent;
@@ -34,9 +34,9 @@ export class UserProfilePage implements OnInit,
   ngOnInit() {
     this.routeParams = +this.route.snapshot.params['id'];
     if (this.routeParams) {
-      this.userListService
-          .getUserById(this.routeParams)
-          .subscribe(user => this.user = user);
+      this.currentUser
+        .getUserById(this.routeParams)
+        .subscribe(user => this.user = user);
     } else {
       this.user = this.currentUser;
     }

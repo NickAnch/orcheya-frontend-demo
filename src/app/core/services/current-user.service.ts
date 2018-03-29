@@ -119,4 +119,19 @@ export class CurrentUserService extends User {
         );
     });
   }
+
+  public getUserById(id: number): Observable<User> {
+    return Observable.create((observer: Observer<User>) => {
+      this.http
+        .get(`/api/users/${id}`)
+        .subscribe(
+          res => {
+            this._fromJSON(res['user']);
+            observer.next(this);
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+    });
+  }
 }

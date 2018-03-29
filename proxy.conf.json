@@ -6,5 +6,13 @@
   "/system": {
     "target": "http://localhost:3000",
     "secure": false
+  },
+  "/images": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/uploads": {
+    "target": "http://localhost:3000",
+    "secure": false
   }
 }
