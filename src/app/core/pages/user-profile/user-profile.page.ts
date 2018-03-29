@@ -10,6 +10,8 @@ import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
 import { TimeActivity } from '../../models/time-activity.interface';
 import { Observable } from 'rxjs/Observable';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -24,6 +26,9 @@ export class UserProfilePage implements OnInit,
   public routeParams: number;
   public user: User;
   public activityData: Observable<TimeActivity[]>;
+
+  public startDate = moment().startOf('month').subtract(1, 'month');
+  public endDate = moment().startOf('month');
 
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
@@ -40,6 +45,11 @@ export class UserProfilePage implements OnInit,
     } else {
       this.user = this.currentUser;
     }
+
+    this.userListService
+      .getUserTimegraphsById(this.routeParams, this.startDate, this.endDate)
+      .subscribe(data => console.log(data));
+
 
     const id = this.routeParams ? this.routeParams : this.user.id;
     this.fetchActivityData(id);
