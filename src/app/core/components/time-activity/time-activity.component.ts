@@ -35,6 +35,10 @@ export class TimeActivityComponent implements OnInit {
     textWeeks: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     dateFrom: null,
     dateTo: null,
+    text: {
+      emptyTime: 'No worklogs',
+      datePrefix: 'on',
+    },
     colors: [
       { color: '#ebedf0', range: { from: -1, to: 9 } },
       { color: '#cfeec9', range: { from: 10, to: 179 } },
@@ -242,12 +246,14 @@ export class TimeActivityComponent implements OnInit {
     const mouseOverHandler = function (d: DayData): void {
       const x = +(<HTMLElement>this).getAttribute('x');
       const y = +(<HTMLElement>this).getAttribute('y');
-      const top = y - that.params.cellSize * 3;
-      const left = x - that.params.cellSize * 3.7;
+      // 15 - 45% height of tooltip; 12 - height of tooltip bottom arrow
+      const top = y - 15 - 12;
+      // 30 - calendar padding + width of weeks; 75 - 45% width of tooltip
+      const left = x + 30 - 75;
       const strDate = timeFormat('%b %d, %Y')(d.date);
       const getTooltipTime = (time: number): string => {
         if (!time) {
-          return '';
+          return that.params.text.emptyTime;
         }
 
         const hours = Math.floor(time / 60);
@@ -255,9 +261,6 @@ export class TimeActivityComponent implements OnInit {
 
         return `${hours}h ${minutes}m`;
       };
-      const getTooltipText = (textDate: string, time?: number): string => (
-        time ? ` on ${textDate}` : textDate
-      );
 
       that.d3Elements.tooltip
         .attr('style', `top: ${top}px; left: ${left}px`)
@@ -267,7 +270,7 @@ export class TimeActivityComponent implements OnInit {
         .text(getTooltipTime(d.time));
 
       that.d3Elements.tooltipDate
-        .text(getTooltipText(strDate, d.time));
+        .text(`${that.params.text.datePrefix} ${strDate}`);
     };
 
     this.d3Elements.gDays = this.d3Elements.canvas
