@@ -26,9 +26,12 @@ export class UserProfilePage implements OnInit,
   public routeParams: number;
   public user: User;
   public activityData: Observable<TimeActivity[]>;
+  public userStats;
 
-  public startDate = moment().startOf('month').subtract(1, 'month');
-  public endDate = moment().startOf('month');
+  public previousMonth = moment().subtract(1, 'month').startOf('month').format('MMMM');
+  public currentMonth = moment().startOf('month').format('MMMM');
+  public weekStartDate = moment().startOf('week').add(1, 'day').format('D MMM');
+  public weekEndDate = moment().endOf('week').add(1, 'day').format('D MMM YYYY');
 
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
@@ -46,13 +49,12 @@ export class UserProfilePage implements OnInit,
       this.user = this.currentUser;
     }
 
-    this.userListService
-      .getUserTimegraphsById(this.routeParams, this.startDate, this.endDate)
-      .subscribe(data => console.log(data));
-
-
     const id = this.routeParams ? this.routeParams : this.user.id;
     this.fetchActivityData(id);
+
+    this.userListService
+      .getUserTimegraphsById(this.routeParams)
+      .subscribe(data => this.userStats = data);
   }
 
   ngAfterViewInit() {

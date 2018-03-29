@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { TimeActivity } from '../models/time-activity.interface';
 import { Observer } from 'rxjs/Observer';
-import * as moment from 'moment';
 
 @Injectable()
 export class UsersListService {
@@ -39,8 +38,7 @@ export class UsersListService {
     });
   }
 
-  public getUserTimegraphsById(id: number, startDate: moment, endDate: moment) {
-    return this.http
-      .get(`${this.apiPath}/${id}/timegraph?${startDate}&${endDate}`);
+  public getUserTimegraphsById(id: number) {
+    return this.http.get(`${this.apiPath}/${id}/stats`);
   }
 }

@@ -29,13 +29,14 @@
 
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
-              <b>Followers</b> <a class="pull-right">1,323</a>
+              <!--<b>{{ currentWeek }} week</b> <a class="pull-right">14 h</a>-->
+              <b>{{ weekStartDate }} - {{ weekEndDate }}</b> <a class="pull-right">{{ userStats?.week.length }} h</a>
             </li>
             <li class="list-group-item">
-              <b>Following</b> <a class="pull-right">543</a>
+              <b>{{ currentMonth }}</b> <a class="pull-right">{{ userStats?.month.length }} h</a>
             </li>
             <li class="list-group-item">
-              <b>Friends</b> <a class="pull-right">13,287</a>
+              <b>{{ previousMonth }}</b> <a class="pull-right">{{ userStats?.prev_month.length }} h</a>
             </li>
           </ul>
 
