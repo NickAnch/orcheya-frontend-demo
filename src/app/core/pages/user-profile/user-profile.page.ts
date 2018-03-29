@@ -23,21 +23,14 @@ export class UserProfilePage implements OnInit,
   public user: User;
 
   constructor(public currentUser: CurrentUserService,
-              private userListService: UsersListService,
               private route: ActivatedRoute,
               private cdr: ChangeDetectorRef) {
-  }
-
-  get fullName(): string {
-    if (this.user) {
-      return this.user.name + ' ' + this.user.surname;
-    }
   }
 
   ngOnInit() {
     this.routeParams = +this.route.snapshot.params['id'];
     if (this.routeParams) {
-      this.userListService
+      this.currentUser
         .getUserById(this.routeParams)
         .subscribe(user => this.user = user);
     } else {

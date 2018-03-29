@@ -20,7 +20,7 @@ export class User extends AppModel {
   @Alias() public timing: string;
   @Alias('employment_at') public employmentAt: string;
   @Alias() public position: string;
-  @Alias() public avatar: Image;
+  @Alias('avatar', Image) public avatar: Image;
   @Alias('slack_connected') public slackConnected: boolean;
   @Alias('timedoctor_connected') public timedoctorConnected: boolean;
 

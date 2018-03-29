@@ -40,7 +40,7 @@
       <li *ngFor="let user of usersList">
         <a [routerLink]="['/user-profile', user.id]">
           <img
-            src="{{ user.avatar.medium.url }}"
+            src="{{ user.avatar.medium }}"
             alt="User avatar">
         </a>
         <a class="users-list-name" [routerLink]="['/user-profile', user.id]">{{ user?.fullName }}</a>

@@ -1,7 +1,7 @@
-import { Alias, AppModel } from 'tsmodels';
+import { Alias, Model } from 'tsmodels';
 
 
-export class Image extends AppModel {
+export class Image extends Model {
   @Alias() public medium: string;
   @Alias() public small: string;
   @Alias() public thumbnail: string;
@@ -10,10 +10,10 @@ export class Image extends AppModel {
    * Код ниже не работает, надо привлечь Игоря
    */
 
-  // public _fromJSON(data): Image {
-  //   this.medium = data.medium.url;
-  //   this.small = data.small.url;
-  //   this.thumbnail = data.thumbnail.url;
-  //   return this;
-  // }
+  public _fromJSON(data): Image {
+    this.medium = data.medium.url;
+    this.small = data.small.url;
+    this.thumbnail = data.thumbnail.url;
+    return this;
+  }
 }
