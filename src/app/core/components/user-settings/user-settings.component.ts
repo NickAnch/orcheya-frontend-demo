@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -11,13 +11,14 @@ import { User } from '../../models/user';
   styleUrls: ['./user-settings.component.scss']
 })
 export class UserSettingsComponent implements OnInit {
+
+  @ViewChild('fileInput') public fileInput;
   public form: FormGroup;
   private respErrors: Object = {};
   private updatedUser = new User();
 
   constructor(public currentUser: CurrentUserService,
-              private formBuilder: FormBuilder) {
-  }
+              private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -73,4 +74,5 @@ export class UserSettingsComponent implements OnInit {
       return this.respErrors[controlName];
     }
   }
+
 }
