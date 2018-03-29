@@ -17,13 +17,14 @@
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
-          <div class="container">
+          <div class="col-xs-12">
             <input type="file" name="avatar" #inputFile [style.display]="'none'">
-            <img class="profile-user-img img-responsive img-circle"
+            <img class="profile-user-img img-responsive img-circle avatar"
                  [src]="user?.avatar.small"
                  alt="User profile picture"
                  appImageUpload
                  [input]="inputFile"
+                 [disable]="!isYou"
                  (fileChange)="onChange($event)">
           </div>
 
@@ -111,7 +112,7 @@
               <app-user-timeline></app-user-timeline>
             </div>
           </tab>
-          <tab *ngIf="!routeParams"
+          <tab *ngIf="isYou"
                class="nav-tabs-custom"
                id="settings"
                heading="Settings">

@@ -118,13 +118,22 @@ export class CurrentUserService extends User {
     });
   }
 
-  public uploadAvatar(avatar: FormData): void {
-    this.http
-      .put(`${this.apiProfilePath}/update_avatar`, avatar)
-      .subscribe(
-        result => console.log('result', result),
-        error => console.log('error', error)
-      );
+  public uploadAvatar(image: File): Observable<User> {
+    const data = new FormData();
+    data.append('avatar', image, image.name);
+
+    return Observable.create((observer: Observer<User>) => {
+      this.http
+        .put(`${this.apiProfilePath}/update_avatar`, data)
+        .subscribe(
+          res => {
+            this._fromJSON(res['user']);
+            observer.next(this);
+            observer.complete();
+          },
+          error => observer.error(error)
+        );
+    });
   }
 
   public getUserById(id: number): Observable<User> {
