@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { User } from '../models/user';
 import { TimeActivity } from '../models/time-activity.interface';
 import { Observer } from 'rxjs/Observer';
 
 @Injectable()
-export class UsersListService extends User {
+export class UsersListService {
   private apiPath = '/api/users';
 
   constructor(private http: HttpClient) {
-    super();
   }
 
   public getUsersList(page): Observable<any> {
