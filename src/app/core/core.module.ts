@@ -31,6 +31,8 @@ import {
   TimeActivityComponent,
 } from './components';
 
+import { ImageUploadDirective } from './directives/image-upload.directive';
+
 import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
@@ -77,6 +79,7 @@ import {
     UserTimelineComponent,
     UsersListPage,
     SlackConnectButtonComponent,
+    ImageUploadDirective,
     TimeDoctorConnectButtonComponent,
     TimeActivityComponent,
   ]

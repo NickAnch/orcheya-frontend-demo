@@ -1,15 +1,15 @@
 import {
-  Component, ViewChild, AfterViewChecked, AfterViewInit, ChangeDetectorRef,
-  OnInit
+  Component, ViewChild, AfterViewChecked,
+  AfterViewInit, ChangeDetectorRef, OnInit
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap';
+import { Observable } from 'rxjs/Observable';
 
 import { CurrentUserService } from '../../services/current-user.service';
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
 import { TimeActivity } from '../../models/time-activity.interface';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-user-profile',
@@ -21,9 +21,9 @@ export class UserProfilePage implements OnInit,
 
   @ViewChild('tabset')
   public tabset: TabsetComponent;
-  public routeParams: number;
   public user: User;
   public activityData: Observable<TimeActivity[]>;
+  public isYou = true;
 
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
@@ -32,18 +32,19 @@ export class UserProfilePage implements OnInit,
   }
 
   ngOnInit() {
-    this.routeParams = +this.route.snapshot.params['id'];
-    if (this.routeParams) {
+    let userId = +this.route.snapshot.params['id'];
+
+    if (userId) {
+      this.isYou = false;
       this.currentUser
-        .getUserById(this.routeParams)
+        .getUserById(userId)
         .subscribe(user => this.user = user);
     } else {
       this.user = this.currentUser;
-      console.log(this.user, 'log');
+      userId = this.user.id;
     }
 
-    const id = this.routeParams ? this.routeParams : this.user.id;
-    this.fetchActivityData(id);
+    this.fetchActivityData(userId);
   }
 
   ngAfterViewInit() {
@@ -52,6 +53,12 @@ export class UserProfilePage implements OnInit,
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
+  }
+
+  onChange(file: File) {
+    this.currentUser
+      .uploadAvatar(file)
+      .subscribe();
   }
 
   private checkActiveTab() {
