@@ -55,43 +55,91 @@
         <div class="box-header with-border">
           <h3 class="box-title">About Me</h3>
         </div>
+
         <!-- /.box-header -->
-        <div class="box-body">
-          <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+        <!--<div class="box-body">-->
+        <!--<strong><i class="fa fa-book margin-r-5"></i> Education</strong>-->
 
-          <p class="text-muted">
-            B.S. in Computer Science from the University of Tennessee at Knoxville
-          </p>
+        <!--<p class="text-muted">-->
+        <!--B.S. in Computer Science from the University of Tennessee at Knoxville-->
+        <!--</p>-->
 
-          <hr>
+        <!--<hr>-->
 
-          <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+        <!--<strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>-->
 
-          <p class="text-muted">Malibu, California</p>
+        <!--<p class="text-muted">Malibu, California</p>-->
 
-          <hr>
+        <!--<hr>-->
 
-          <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+        <!--<strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>-->
 
-          <p>
-            <span class="label label-danger">UI Design</span>
-            <span class="label label-success">Coding</span>
-            <span class="label label-info">Javascript</span>
-            <span class="label label-warning">PHP</span>
-            <span class="label label-primary">Node.js</span>
-          </p>
+        <!--<p>-->
+        <!--<span class="label label-danger">UI Design</span>-->
+        <!--<span class="label label-success">Coding</span>-->
+        <!--<span class="label label-info">Javascript</span>-->
+        <!--<span class="label label-warning">PHP</span>-->
+        <!--<span class="label label-primary">Node.js</span>-->
+        <!--</p>-->
 
-          <hr>
+        <!--<hr>-->
 
-          <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+        <!--<strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>-->
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>-->
+        <!--</div>-->
+        <!-- /.box-body -->
+
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+          <table class="table table-striped">
+            <tbody>
+            <tr>
+              <td><i class="fa fa-fw fa-birthday-cake"></i></td>
+              <td>Date of birth</td>
+              <td><span class="">{{ user.birthday | date:'dd-MM-yyyy' }}</span></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-fw fa-envelope"></i></td>
+              <td>Email</td>
+              <td><span class="">{{ user?.email || 'ipsum' }}</span></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-fw fa-phone"></i></td>
+              <td>Phone number</td>
+              <td><span class="">{{ user?.phone || 'dolor' }}</span></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-fw fa-github"></i></td>
+              <td>Github</td>
+              <td><span class="">{{ user?.github || 'sit' }}</span></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-fw fa-bitbucket"></i></td>
+              <td>Bitbucket</td>
+              <td><span class="">{{ user?.bitbucket || 'amet' }}</span></td>
+            </tr>
+            <tr>
+              <td><i class="fa fa-fw fa-skype"></i></td>
+              <td>Skype</td>
+              <td><span class="">{{ user?.skype || 'consectetur' }}</span></td>
+            </tr>
+            </tbody>
+          </table>
+          <div *ngIf="!routeParams">
+            <br>
+            <a class="btn btn-lg btn-success btn-block"><b>Edit profile</b></a>
+          </div>
+
         </div>
         <!-- /.box-body -->
       </div>
-      <!-- /.box -->
+
     </div>
+    <!-- /.box -->
     <!-- /.col -->
+
+
     <div class="col-md-9">
       <div>
         <tabset #tabset>
