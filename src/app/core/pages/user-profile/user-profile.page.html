@@ -10,9 +10,6 @@
 
 <section class="content">
 
-  <p>{{ dateFrom | date:'dd/MM/yyyy' }}</p>
-  <p>{{ dateTo | date:'dd/MM/yyyy' }}</p>
-
   <div class="row">
     <div class="col-md-3">
 
@@ -29,7 +26,6 @@
 
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
-              <!--<b>{{ currentWeek }} week</b> <a class="pull-right">14 h</a>-->
               <b>{{ weekStartDate }} - {{ weekEndDate }}</b> <a class="pull-right">{{ userStats?.week.length }} h</a>
             </li>
             <li class="list-group-item">
