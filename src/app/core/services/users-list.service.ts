@@ -20,7 +20,9 @@ export class UsersListService {
   }
 
 
-  public getTimeActivity(id: number, dateFrom: Date, dateTo: Date): Observable<TimeActivity[]> {
+  public getTimeActivity(
+  id: number, dateFrom: Date, dateTo: Date
+  ): Observable<TimeActivity[]> {
     const params = new HttpParams()
       .set('start_date', dateFrom.toISOString().substr(0, 10))
       .set('end_date', dateTo.toISOString().substr(0, 10));
