@@ -10,8 +10,6 @@ import { CurrentUserService } from '../../services/current-user.service';
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
 import { TimeActivity } from '../../models/time-activity.interface';
-import { Observable } from 'rxjs/Observable';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-user-profile',
@@ -26,11 +24,6 @@ export class UserProfilePage implements OnInit,
   public user: User;
   public activityData: Observable<TimeActivity[]>;
   public userStats;
-
-  public previousMonth = moment().subtract(1, 'month').startOf('month').format('MMMM');
-  public currentMonth = moment().startOf('month').format('MMMM');
-  public weekStartDate = moment().startOf('week').add(1, 'day').format('D MMM');
-  public weekEndDate = moment().endOf('week').add(1, 'day').format('D MMM YYYY');
   public isYou = true;
 
 
@@ -53,13 +46,13 @@ export class UserProfilePage implements OnInit,
       userId = this.user.id;
     }
 
-    const id = this.routeParams ? this.routeParams : this.user.id;
-    this.fetchActivityData(id);
+    this.fetchActivityData(userId);
 
     this.userListService
-      .getUserTimegraphsById(this.routeParams)
-      .subscribe(data => this.userStats = data);
-
+      .getUserTimeStatsById(userId)
+      .subscribe(data => {
+        this.userStats = data;
+      });
   }
 
   ngAfterViewInit() {

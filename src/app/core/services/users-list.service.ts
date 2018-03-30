@@ -38,7 +38,7 @@ export class UsersListService {
     });
   }
 
-  public getUserTimegraphsById(id: number) {
+  public getUserTimeStatsById(id: number) {
     return this.http.get(`${this.apiPath}/${id}/stats`);
   }
 }
