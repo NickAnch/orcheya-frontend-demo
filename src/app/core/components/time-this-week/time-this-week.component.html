@@ -1,0 +1,18 @@
+<div class="app-wrapper" [style.width]="width">
+  <h4>
+    <span>All time this week {{ totalWeekTimeText }}</span>
+    <a href="https://roonyx.timedoctor.com" target="_blank">TimeDoctor</a>
+  </h4>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <td *ngFor="let week of weeks">{{ week }}</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td *ngFor="let time of times">{{ time }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

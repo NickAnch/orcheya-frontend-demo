@@ -29,6 +29,7 @@ import {
   SlackConnectButtonComponent,
   TimeDoctorConnectButtonComponent,
   TimeActivityComponent,
+  TimeThisWeekComponent,
 } from './components';
 
 import { ImageUploadDirective } from './directives/image-upload.directive';
@@ -82,6 +83,7 @@ import {
     ImageUploadDirective,
     TimeDoctorConnectButtonComponent,
     TimeActivityComponent,
+    TimeThisWeekComponent,
   ]
 })
 export class CoreModule { }
