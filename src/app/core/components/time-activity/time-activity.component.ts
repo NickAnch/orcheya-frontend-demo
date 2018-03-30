@@ -40,12 +40,12 @@ export class TimeActivityComponent implements OnInit {
       datePrefix: 'on',
     },
     colors: [
-      { color: '#ebedf0', range: { from: -1, to: 9 } },
+      { color: '#ebedf0', range: { to: 9 } },
       { color: '#cfeec9', range: { from: 10, to: 179 } },
       { color: '#c6e48b', range: { from: 180, to: 299 } },
       { color: '#7bc96f', range: { from: 300, to: 419 } },
       { color: '#239a3b', range: { from: 420, to: 719 } },
-      { color: '#196127', range: { from: 720, to: 1320 } },
+      { color: '#196127', range: { from: 720 } },
     ]
   };
   private d3Elements: {
@@ -242,7 +242,8 @@ export class TimeActivityComponent implements OnInit {
       const time = d.time ? d.time : 0;
       return (<ColorData>this.params.colors
         .find((color: ColorData) => (
-          color.range.from <= time && color.range.to >= time
+          (!color.range.from || color.range.from <= time) &&
+          (!color.range.to || color.range.to >= time)
         )))
         .color;
     };
