@@ -18,4 +18,8 @@ export class SlackConnectButtonComponent {
   connect() {
     this.slackConnector.connect();
   }
+
+  disconnect() {
+    this.slackConnector.disconnect().subscribe();
+  }
 }

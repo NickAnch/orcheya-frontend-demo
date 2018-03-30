@@ -17,4 +17,8 @@ export class TimeDoctorConnectButtonComponent {
   connect() {
     this.tdConnector.connect();
   }
+
+  disconnect() {
+    this.tdConnector.disconnect().subscribe();
+  }
 }
