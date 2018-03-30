@@ -19,13 +19,6 @@ export class TimeThisWeekComponent implements OnInit {
   public totalWeekTimeText: string;
   private totalWeekTime = 0;
 
-  ngOnInit() {
-    this.activity
-      .subscribe(data => (
-        this.updateTimes(data.splice(-7))
-      ));
-  }
-
   private static getMonday(): Date {
     const date = new Date();
     const day = date.getDay();
@@ -48,6 +41,13 @@ export class TimeThisWeekComponent implements OnInit {
     const minutes = time % 60;
 
     return `${hours}h ${minutes}m`;
+  }
+
+  ngOnInit() {
+    this.activity
+      .subscribe(data => (
+        this.updateTimes(data.splice(-7))
+      ));
   }
 
   private updateTimes(activity: TimeActivity[]) {
