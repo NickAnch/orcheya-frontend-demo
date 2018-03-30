@@ -40,12 +40,12 @@ export class TimeActivityComponent implements OnInit {
       datePrefix: 'on',
     },
     colors: [
-      { color: '#ebedf0', range: { from: -1, to: 9 } },
+      { color: '#ebedf0', range: { to: 9 } },
       { color: '#cfeec9', range: { from: 10, to: 179 } },
       { color: '#c6e48b', range: { from: 180, to: 299 } },
       { color: '#7bc96f', range: { from: 300, to: 419 } },
       { color: '#239a3b', range: { from: 420, to: 719 } },
-      { color: '#196127', range: { from: 720, to: 1320 } },
+      { color: '#196127', range: { from: 720 } },
     ]
   };
   private d3Elements: {
@@ -65,7 +65,10 @@ export class TimeActivityComponent implements OnInit {
   } = {};
 
   constructor(element: ElementRef) {
-    this.d3Elements.parent = select(element.nativeElement);
+    this.d3Elements.parent = select(element.nativeElement)
+      .append('div');
+    this.d3Elements.parent
+      .attr('class', 'time-activity-wrapper');
   }
 
   ngOnInit() {
@@ -239,17 +242,18 @@ export class TimeActivityComponent implements OnInit {
       const time = d.time ? d.time : 0;
       return (<ColorData>this.params.colors
         .find((color: ColorData) => (
-          color.range.from <= time && color.range.to >= time
+          (!color.range.from || color.range.from <= time) &&
+          (!color.range.to || color.range.to >= time)
         )))
         .color;
     };
     const mouseOverHandler = function (d: DayData): void {
       const x = +(<HTMLElement>this).getAttribute('x');
       const y = +(<HTMLElement>this).getAttribute('y');
-      // 15 - 45% height of tooltip; 12 - height of tooltip bottom arrow
-      const top = y - 15 - 12;
-      // 30 - calendar padding + width of weeks; 75 - 45% width of tooltip
-      const left = x + 30 - 75;
+      // 15 - 45% height of tooltip; 22 - height of tooltip bot arrow + padding
+      const top = y - 15 - 22;
+      // 25 - calendar padding + width of weeks; 75 - 45% width of tooltip
+      const left = x + 25 - 75;
       const strDate = timeFormat('%b %d, %Y')(d.date);
       const getTooltipTime = (time: number): string => {
         if (!time) {
