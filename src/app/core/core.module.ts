@@ -41,6 +41,7 @@ import { SlackConnectorService } from './services/slack-connector.service';
 import {
   TimeDoctorConnectorService
 } from './services/timedoctor-connector.service';
+import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
 
 @NgModule({
   imports: [
@@ -83,7 +84,8 @@ import {
     ImageUploadDirective,
     TimeDoctorConnectButtonComponent,
     TimeActivityComponent,
-    TimeThisWeekComponent,
+    HumanizeTimePipe,
+    TimeThisWeekComponent
   ]
 })
 export class CoreModule { }
