@@ -21,7 +21,7 @@ export class UsersListService {
 
 
   public getTimeActivity(
-    id: number, dateFrom: Date, dateTo: Date
+  id: number, dateFrom: Date, dateTo: Date
   ): Observable<TimeActivity[]> {
     const params = new HttpParams()
       .set('start_date', dateFrom.toISOString().substr(0, 10))
@@ -38,5 +38,9 @@ export class UsersListService {
           err => observer.error(err)
         );
     });
+  }
+
+  public getUserTimeStatsById(id: number) {
+    return this.http.get(`${this.apiPath}/${id}/stats`);
   }
 }

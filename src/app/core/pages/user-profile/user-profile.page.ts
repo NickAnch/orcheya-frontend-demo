@@ -23,7 +23,9 @@ export class UserProfilePage implements OnInit,
   public tabset: TabsetComponent;
   public user: User;
   public activityData: Observable<TimeActivity[]>;
+  public userStats;
   public isYou = true;
+
 
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
@@ -45,6 +47,12 @@ export class UserProfilePage implements OnInit,
     }
 
     this.fetchActivityData(userId);
+
+    this.userListService
+      .getUserTimeStatsById(userId)
+      .subscribe(data => {
+        this.userStats = data;
+      });
   }
 
   ngAfterViewInit() {
