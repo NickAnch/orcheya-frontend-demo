@@ -35,13 +35,14 @@
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
               <b>{{ userStats?.week.begin | date:'dd MMMM' }} - {{ userStats?.week.end | date:'dd MMMM yyyy' }}</b> <a
-              class="pull-right">{{ userStats?.week.length | time }}</a>
+              class="pull-right">{{ userStats?.week.length | humanizeTime }}</a>
             </li>
             <li class="list-group-item">
-              <b>{{ userStats?.month.name }}</b> <a class="pull-right">{{ userStats?.month.length | time }}</a>
+              <b>{{ userStats?.month.name }}</b> <a class="pull-right">{{ userStats?.month.length | humanizeTime }}</a>
             </li>
             <li class="list-group-item">
-              <b>{{ userStats?.prev_month.name }}</b> <a class="pull-right">{{ userStats?.prev_month.length | time }}</a>
+              <b>{{ userStats?.prev_month.name }}</b> <a class="pull-right">{{ userStats?.prev_month.length |
+              humanizeTime }}</a>
             </li>
           </ul>
 
