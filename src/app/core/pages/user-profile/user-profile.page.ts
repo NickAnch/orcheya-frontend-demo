@@ -50,9 +50,7 @@ export class UserProfilePage implements OnInit,
 
     this.userListService
       .getUserTimeStatsById(userId)
-      .subscribe(data => {
-        this.userStats = data;
-      });
+      .subscribe(data => this.userStats = data);
   }
 
   ngAfterViewInit() {
