@@ -1,7 +1,7 @@
 <div *ngIf="connected; else notconnected">
-  <div>
-    <i class="fa fa-clock-o"></i> TimeDoctor connected
-  </div>
+    <a class="btn bg-olive margin" (click)="disconnect()">
+      <i class="fa fa-clock-o"></i> Disconnect TimeDoctor
+    </a>
 </div>
 
 <ng-template #notconnected>
