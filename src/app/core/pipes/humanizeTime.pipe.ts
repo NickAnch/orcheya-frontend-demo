@@ -7,10 +7,10 @@ export class HumanizeTimePipe implements PipeTransform {
 
   transform(value: number): string {
     if (value == null) {
-      return '';
+      return '0m';
     }
     if (value <= 0) {
-      return '';
+      return '0m';
     }
     const hours = Math.floor(value / 60);
     const minutes = value % 60;
