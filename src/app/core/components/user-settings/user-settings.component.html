@@ -1,5 +1,4 @@
 <div class="active tab-pane" id="settings">
-
   <form role="form"
         class="form-horizontal"
         [formGroup]="form"
@@ -139,48 +138,57 @@
       </div>
 
 
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Integrations</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body no-padding">
-          <table class="table table-condensed">
-            <tbody>
-            <tr>
-              <th style="width: 10px">#</th>
-              <th>Service</th>
-              <th>Status</th>
-              <th style="width: 40px">Action</th>
-            </tr>
-            <tr>
-              <td><i class="fa fa-slack"></i></td>
-              <td>Slack</td>
-              <td><span class="label label-warning">Not connected</span></td>
-              <td>
-                <button type="button" class="btn btn-xs btn-block btn-success">Connect</button>
-              </td>
+    </div>
+    <!-- /.box-body -->
+  </form>
+</div>
 
+<div class="box integrations">
+  <div class="box-header">
+    <h3 class="box-title">Integrations</h3>
+  </div>
+
+  <div class="box-body">
+    <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+      <div class="row">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="example2" class="table table-bordered table-hover dataTable" role="grid"
+                 aria-describedby="example2_info">
+            <thead>
+            <tr role="row">
+              <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                  aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Service
+              </th>
+              <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                  aria-label="Browser: activate to sort column ascending">Action
+              </th>
             </tr>
-            <tr>
-              <td><i class="fa fa-clock-o"></i></td>
-              <td>Timedoctor</td>
-              <td><span class="label label-info">Connected</span></td>
+            </thead>
+            <tbody>
+            <tr role="row" class="odd">
+              <td class="sorting_1" style="vertical-align: middle"><b>Slack</b></td>
               <td>
-                <button type="button" class="btn btn-xs btn-block btn-danger">Disconnect</button>
+                <app-slack-connect-button
+                  [connected]="currentUser.slackConnected">
+                </app-slack-connect-button>
+              </td>
+            </tr>
+            <tr role="row" class="even">
+              <td class="sorting_1" style="vertical-align: middle"><b>Timedoctor</b></td>
+              <td>
+                <app-timedoctor-connect-button
+                  [connected]="currentUser.timedoctorConnected">
+                </app-timedoctor-connect-button>
               </td>
             </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <!-- /.box-body -->
-      <!-- /.box -->
-
-      <app-slack-connect-button [connected]="currentUser.slackConnected"></app-slack-connect-button>
-      <app-timedoctor-connect-button [connected]="currentUser.timedoctorConnected"></app-timedoctor-connect-button>
     </div>
-
-    <!-- /.box-body -->
-  </form>
+  </div>
 </div>
