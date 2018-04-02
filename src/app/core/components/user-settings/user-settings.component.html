@@ -138,6 +138,45 @@
         </div>
       </div>
 
+
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Integrations</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+          <table class="table table-condensed">
+            <tbody>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>Service</th>
+              <th>Status</th>
+              <th style="width: 40px">Action</th>
+            </tr>
+            <tr>
+              <td><i class="fa fa-slack"></i></td>
+              <td>Slack</td>
+              <td><span class="label label-warning">Not connected</span></td>
+              <td>
+                <button type="button" class="btn btn-xs btn-block btn-success">Connect</button>
+              </td>
+
+            </tr>
+            <tr>
+              <td><i class="fa fa-clock-o"></i></td>
+              <td>Timedoctor</td>
+              <td><span class="label label-info">Connected</span></td>
+              <td>
+                <button type="button" class="btn btn-xs btn-block btn-danger">Disconnect</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- /.box-body -->
+      <!-- /.box -->
+
       <app-slack-connect-button [connected]="currentUser.slackConnected"></app-slack-connect-button>
       <app-timedoctor-connect-button [connected]="currentUser.timedoctorConnected"></app-timedoctor-connect-button>
     </div>
