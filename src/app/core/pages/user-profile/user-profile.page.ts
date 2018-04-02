@@ -33,12 +33,18 @@ export class UserProfilePage implements OnInit,
               private cdr: ChangeDetectorRef) {
   }
 
+  get fullName(): string {
+    if (this.user) {
+      return this.user.name + ' ' + this.user.surname;
+    }
+  }
+
   ngOnInit() {
     let userId = +this.route.snapshot.params['id'];
 
     if (userId) {
       this.isYou = false;
-      this.currentUser
+      this.userListService
         .getUserById(userId)
         .subscribe(user => this.user = user);
     } else {

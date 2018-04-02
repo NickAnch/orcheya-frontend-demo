@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { TimeActivity } from '../models/time-activity.interface';
 import { Observer } from 'rxjs/Observer';
+import { User } from '../models/user';
 
 @Injectable()
 export class UsersListService {
@@ -21,7 +22,7 @@ export class UsersListService {
 
 
   public getTimeActivity(
-  id: number, dateFrom: Date, dateTo: Date
+    id: number, dateFrom: Date, dateTo: Date
   ): Observable<TimeActivity[]> {
     const params = new HttpParams()
       .set('start_date', dateFrom.toISOString().substr(0, 10))
@@ -42,5 +43,19 @@ export class UsersListService {
 
   public getUserTimeStatsById(id: number) {
     return this.http.get(`${this.apiPath}/${id}/stats`);
+  }
+
+  public getUserById(id: number): Observable<User> {
+    return Observable.create((observer: Observer<User>) => {
+      this.http
+        .get(`${this.apiPath}/${id}`)
+        .subscribe(
+          (res: { user: User }) => {
+            observer.next(res.user);
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+    });
   }
 }
