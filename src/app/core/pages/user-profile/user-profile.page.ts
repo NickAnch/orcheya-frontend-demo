@@ -94,12 +94,9 @@ export class UserProfilePage implements OnInit,
   }
 
   onTabSelect(tab) {
-    let path;
-    if (this.isYou) {
-      path = `/profile`;
-    } else {
-      path = `/user-profile/${this.user.id}`;
-    }
-    this.router.navigate([path], { queryParams: { tab: tab } });
+    this.router.navigate(['./'], {
+      relativeTo: this.route,
+      queryParams: { tab: tab }
+    });
   }
 }
