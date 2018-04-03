@@ -26,17 +26,10 @@ export class UserProfilePage implements OnInit,
   public userStats;
   public isYou = true;
 
-
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
               private route: ActivatedRoute,
               private cdr: ChangeDetectorRef) {
-  }
-
-  get fullName(): string {
-    if (this.user) {
-      return this.user.name + ' ' + this.user.surname;
-    }
   }
 
   ngOnInit() {

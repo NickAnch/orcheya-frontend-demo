@@ -51,7 +51,9 @@ export class UsersListService {
         .get(`${this.apiPath}/${id}`)
         .subscribe(
           (res: { user: User }) => {
-            observer.next(res.user);
+            const user = new User();
+            user._fromJSON(res.user);
+            observer.next(user);
             observer.complete();
           },
           err => observer.error(err)
