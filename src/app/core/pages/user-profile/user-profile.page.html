@@ -1,18 +1,23 @@
 <section class="content-header">
-  <h1>
-    User Profile
-  </h1>
-  <ol class="breadcrumb">
-    <li><a [routerLink]="['/']">Home</a></li>
-    <li class="active">User profile</li>
-  </ol>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h1>
+        User Profile
+      </h1>
+      <ol class="breadcrumb">
+        <li><a [routerLink]="['/']">Home</a></li>
+        <li class="active">User profile</li>
+      </ol>
+    </div>
+  </div>
+
 </section>
 
 <section class="content">
 
 
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 col-md-offset-1">
 
       <!-- Profile Image -->
       <div class="box box-primary">
@@ -95,8 +100,7 @@
             </tbody>
           </table>
           <div *ngIf="isYou">
-            <br>
-            <a class="btn btn-block btn-success"><b>Edit profile</b></a>
+            <a class="btn btn-block btn-primary margin" style="width: inherit"><b>Edit profile</b></a>
           </div>
 
         </div>
@@ -107,7 +111,8 @@
     <!-- /.box -->
     <!-- /.col -->
 
-    <div class="col-md-9">
+
+    <div class="col-md-7">
       <div>
         <tabset #tabset>
           <tab class="nav-tabs-custom"
