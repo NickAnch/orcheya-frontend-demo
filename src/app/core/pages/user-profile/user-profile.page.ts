@@ -26,7 +26,6 @@ export class UserProfilePage implements OnInit,
   public userStats;
   public isYou = true;
 
-
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
               private route: ActivatedRoute,
@@ -38,7 +37,7 @@ export class UserProfilePage implements OnInit,
 
     if (userId) {
       this.isYou = false;
-      this.currentUser
+      this.userListService
         .getUserById(userId)
         .subscribe(user => this.user = user);
     } else {
