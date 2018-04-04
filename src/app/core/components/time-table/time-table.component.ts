@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
 import { UsersListService } from '../../services/users-list.service';
@@ -40,6 +40,7 @@ interface Day {
   styleUrls: ['./time-table.component.scss']
 })
 export class TimeTableComponent implements OnInit {
+  @Input() public width = '100%';
   private yearTime: TimeActivity[] = [];
   public months: Month[] = [
     { title: 'January', position: 0 },
@@ -58,12 +59,14 @@ export class TimeTableComponent implements OnInit {
   public currentMonth = new Date().getMonth();
   public selectedMonth: Month;
   public totalMonthTime: string;
+  public nowMonth = new Date().getMonth();
+  public nowWeek = Math.ceil(new Date().getDate() / 7);
 
   constructor(private usersListService: UsersListService) {}
 
   private static convertTime(time: number): string {
     if (!time) {
-      return '0';
+      return '-';
     }
 
     const hours = Math.floor(time / 60);
