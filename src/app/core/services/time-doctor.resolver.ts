@@ -1,12 +1,12 @@
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot, Resolve, RouterStateSnapshot
+} from '@angular/router';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import 'rxjs/add/operator/skip';
 
 import { UsersListService } from './users-list.service';
 import { CurrentUserService } from './current-user.service';
-import { TimeActivity } from '../models/time-activity.interface';
 
 @Injectable()
 export class TimeDoctorResolver implements Resolve<void> {
@@ -17,7 +17,10 @@ export class TimeDoctorResolver implements Resolve<void> {
     public currentUser: CurrentUserService
   ) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<void> {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Promise<void> {
     const dateTo = new Date();
     const dateFrom = new Date(
       dateTo.getFullYear() - 1, dateTo.getMonth(), dateTo.getDate() - 1
