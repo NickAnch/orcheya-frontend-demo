@@ -96,7 +96,7 @@
           </table>
           <div *ngIf="isYou">
             <br>
-            <a class="btn btn-lg btn-success btn-block"><b>Edit profile</b></a>
+            <a class="btn btn-block btn-success"><b>Edit profile</b></a>
           </div>
 
         </div>
@@ -107,26 +107,28 @@
     <!-- /.box -->
     <!-- /.col -->
 
-
     <div class="col-md-9">
       <div>
         <tabset #tabset>
           <tab class="nav-tabs-custom"
                id="activity"
-               heading="Activity">
+               heading="Activity"
+               (select)="onTabSelect('activity')">
             <div class="tab-content">
               <app-user-activity>
                 <app-time-activity [activityData]="activityData"></app-time-activity>
                 <br>
                 <app-time-this-week width="690px"
                     [activity]="activityData"></app-time-this-week>
-                <hr>
+                <br>
+                <app-recent-update></app-recent-update>
               </app-user-activity>
             </div>
           </tab>
           <tab class="nav-tabs-custom"
                id="timeline"
-               heading="Timeline">
+               heading="Timeline"
+               (select)="onTabSelect('timeline')">
             <div class="tab-content">
               <app-user-timeline></app-user-timeline>
             </div>
@@ -134,7 +136,8 @@
           <tab *ngIf="isYou"
                class="nav-tabs-custom"
                id="settings"
-               heading="Settings">
+               heading="Settings"
+               (select)="onTabSelect('settings')">
             <div class="tab-content">
               <app-user-settings></app-user-settings>
             </div>
