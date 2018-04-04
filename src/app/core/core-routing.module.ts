@@ -20,15 +20,15 @@ const routes: Routes = [
       { path: 'user-profile/:id', component: UserProfilePage },
       { path: 'users-list', component: UsersListPage },
       { path: '', component: UsersListPage },
-      { path: 'users-list', component: UsersListPage },
-      { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
+      { path: 'users-list', component: UsersListPage }
     ]
   },
   { path: 'sign-in', component: SignInPage },
   {
     path: 'invitation/:token',
     component: AcceptInvitePage
-  }
+  },
+  { path: 'terms-and-conditions', component: TermsAndConditionsComponent }
 ];
 
 @NgModule({
