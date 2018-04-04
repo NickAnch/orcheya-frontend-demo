@@ -42,6 +42,9 @@ import {
   TimeDoctorConnectorService
 } from './services/timedoctor-connector.service';
 import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
+import {
+  TermsAndConditionsComponent
+} from './pages/terms-and-conditions/terms-and-conditions.component';
 
 @NgModule({
   imports: [
@@ -85,7 +88,8 @@ import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
     TimeDoctorConnectButtonComponent,
     TimeActivityComponent,
     HumanizeTimePipe,
-    TimeThisWeekComponent
+    TimeThisWeekComponent,
+    TermsAndConditionsComponent
   ]
 })
 export class CoreModule { }
