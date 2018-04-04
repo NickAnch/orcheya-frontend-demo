@@ -2,14 +2,12 @@ import {
   Component, ViewChild, AfterViewChecked,
   AfterViewInit, ChangeDetectorRef, OnInit
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap';
-import { Observable } from 'rxjs/Observable';
 
 import { CurrentUserService } from '../../services/current-user.service';
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
-import { TimeActivity } from '../../models/time-activity.interface';
 
 @Component({
   selector: 'app-user-profile',
@@ -28,7 +26,8 @@ export class UserProfilePage implements OnInit,
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
               private route: ActivatedRoute,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -36,7 +35,7 @@ export class UserProfilePage implements OnInit,
 
     if (userId) {
       this.isYou = false;
-      this.currentUser
+      this.userListService
         .getUserById(userId)
         .subscribe(user => this.user = user);
     } else {
@@ -46,9 +45,7 @@ export class UserProfilePage implements OnInit,
 
     this.userListService
       .getUserTimeStatsById(userId)
-      .subscribe(data => {
-        this.userStats = data;
-      });
+      .subscribe(data => this.userStats = data);
   }
 
   ngAfterViewInit() {
@@ -63,6 +60,13 @@ export class UserProfilePage implements OnInit,
     this.currentUser
       .uploadAvatar(file)
       .subscribe();
+  }
+
+  onTabSelect(tab) {
+    this.router.navigate(['./'], {
+      relativeTo: this.route,
+      queryParams: { tab: tab }
+    });
   }
 
   private checkActiveTab() {

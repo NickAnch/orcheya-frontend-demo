@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import { User } from '../models/user';
 
 import { TimeActivity } from '../models/time-activity.interface';
 
@@ -50,5 +51,21 @@ export class UsersListService {
 
   public getUserTimeStatsById(id: number) {
     return this.http.get(`${this.apiPath}/${id}/stats`);
+  }
+
+  public getUserById(id: number): Observable<User> {
+    return Observable.create((observer: Observer<User>) => {
+      this.http
+        .get(`${this.apiPath}/${id}`)
+        .subscribe(
+          (res: { user: User }) => {
+            const user = new User();
+            user._fromJSON(res.user);
+            observer.next(user);
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+    });
   }
 }
