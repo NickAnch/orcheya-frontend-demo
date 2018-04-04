@@ -2,7 +2,7 @@ import {
   Component, ViewChild, AfterViewChecked,
   AfterViewInit, ChangeDetectorRef, OnInit
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap';
 import { Observable } from 'rxjs/Observable';
 
@@ -19,6 +19,7 @@ import { TimeActivity } from '../../models/time-activity.interface';
 export class UserProfilePage implements OnInit,
   AfterViewInit, AfterViewChecked {
 
+
   @ViewChild('tabset')
   public tabset: TabsetComponent;
   public user: User;
@@ -29,7 +30,8 @@ export class UserProfilePage implements OnInit,
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
               private route: ActivatedRoute,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -88,5 +90,12 @@ export class UserProfilePage implements OnInit,
 
     this.activityData = this.userListService
       .getTimeActivity(id, dateFrom, dateTo);
+  }
+
+  onTabSelect(tab) {
+    this.router.navigate(['./'], {
+      relativeTo: this.route,
+      queryParams: { tab: tab }
+    });
   }
 }
