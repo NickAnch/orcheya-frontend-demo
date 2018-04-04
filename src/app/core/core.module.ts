@@ -45,6 +45,8 @@ import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
 import {
   TermsAndConditionsComponent
 } from './pages/terms-and-conditions/terms-and-conditions.component';
+  RecentUpdateComponent
+} from './components/recent-update/recent-update.component';
 
 @NgModule({
   imports: [
@@ -89,7 +91,8 @@ import {
     TimeActivityComponent,
     HumanizeTimePipe,
     TimeThisWeekComponent,
-    TermsAndConditionsComponent
+    TermsAndConditionsComponent,
+    RecentUpdateComponent
   ]
 })
 export class CoreModule { }
