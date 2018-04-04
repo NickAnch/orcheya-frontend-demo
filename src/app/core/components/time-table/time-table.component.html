@@ -1,0 +1,43 @@
+<div class="wrap">
+  <div class="control">
+    <span>Month Time: {{ totalMonthTime }}</span>
+    <select title="" #select [ngModel]="currentMonth"
+        (change)="onChange(select.value)">
+      <option *ngFor="let month of months"
+          [value]="month.position">{{ month.title }}</option>
+    </select>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <td>Monday</td>
+          <td>Tuesday</td>
+          <td>Wednesday</td>
+          <td>Thursday</td>
+          <td>Friday</td>
+          <td>Saturday</td>
+          <td>Sunday</td>
+          <td>Total</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let week of selectedMonth.weeks">
+          <ng-container *ngFor="let day of week.days; let i = index">
+            <td>
+              <div class="cell">
+                <div class="date">
+                  {{ day.day }}
+                </div>
+                <span>{{ day.textTime }}</span>
+              </div>
+            </td>
+            <td *ngIf="i + 1 === week.days.length">
+              <div class="cell">{{ week.totalText }}</div>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

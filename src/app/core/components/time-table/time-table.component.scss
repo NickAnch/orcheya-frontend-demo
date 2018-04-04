@@ -1,0 +1,31 @@
+.wrap {
+  .control {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+  }
+
+  table {
+    thead {
+      text-align: center;
+    }
+
+    tbody {
+      .cell {
+        position: relative;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .date {
+          position: absolute;
+          right: 0;
+          top: 0;
+          font-size: 85%;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

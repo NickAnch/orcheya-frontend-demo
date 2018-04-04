@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { CurrentUserGuard } from './services/current-user.guard';
+import { TimeDoctorResolver } from './services/time-doctor.resolver';
+
 import { WrapperPage } from './pages/wrapper/wrapper.page';
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { UserProfilePage } from './pages/user-profile/user-profile.page';
@@ -13,8 +16,16 @@ const routes: Routes = [
     component: WrapperPage,
     canActivate: [CurrentUserGuard],
     children: [
-      { path: 'profile', component: UserProfilePage },
-      { path: 'user-profile/:id', component: UserProfilePage },
+      {
+        path: 'profile',
+        resolve: { data: TimeDoctorResolver },
+        component: UserProfilePage
+      },
+      {
+        path: 'user-profile/:id',
+        resolve: { data: TimeDoctorResolver },
+        component: UserProfilePage
+      },
       { path: 'users-list', component: UsersListPage },
       { path: '', component: UsersListPage },
       { path: 'users-list', component: UsersListPage }

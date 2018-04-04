@@ -22,10 +22,8 @@ export class UserProfilePage implements OnInit,
   @ViewChild('tabset')
   public tabset: TabsetComponent;
   public user: User;
-  public activityData: Observable<TimeActivity[]>;
   public userStats;
   public isYou = true;
-
 
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
@@ -45,8 +43,6 @@ export class UserProfilePage implements OnInit,
       this.user = this.currentUser;
       userId = this.user.id;
     }
-
-    this.fetchActivityData(userId);
 
     this.userListService
       .getUserTimeStatsById(userId)
@@ -81,15 +77,5 @@ export class UserProfilePage implements OnInit,
     if (currentTab) {
       currentTab.active = true;
     }
-  }
-
-  private fetchActivityData(id: number) {
-    const dateTo = new Date();
-    const dateFrom = new Date(
-      dateTo.getFullYear() - 1, dateTo.getMonth(), dateTo.getDate() - 1
-    );
-
-    this.activityData = this.userListService
-      .getTimeActivity(id, dateFrom, dateTo);
   }
 }
