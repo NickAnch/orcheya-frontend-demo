@@ -6,6 +6,9 @@ import { SignInPage } from './pages/sign-in/sign-in.page';
 import { UserProfilePage } from './pages/user-profile/user-profile.page';
 import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
+import {
+  TermsAndConditionsComponent
+} from './pages/terms-and-conditions/terms-and-conditions.component';
 
 const routes: Routes = [
   {
@@ -24,7 +27,8 @@ const routes: Routes = [
   {
     path: 'invitation/:token',
     component: AcceptInvitePage
-  }
+  },
+  { path: 'terms-and-conditions', component: TermsAndConditionsComponent }
 ];
 
 @NgModule({
