@@ -30,6 +30,7 @@ import {
   TimeDoctorConnectButtonComponent,
   TimeActivityComponent,
   TimeThisWeekComponent,
+  UserSettingFormComponent,
 } from './components';
 
 import { ImageUploadDirective } from './directives/image-upload.directive';
@@ -48,6 +49,8 @@ import {
 import {
   RecentUpdateComponent
 } from './components/recent-update/recent-update.component';
+import { AboutMeComponent } from './pages/about-me/about-me.component';
+
 
 @NgModule({
   imports: [
@@ -93,7 +96,9 @@ import {
     HumanizeTimePipe,
     TimeThisWeekComponent,
     TermsAndConditionsComponent,
-    RecentUpdateComponent
+    RecentUpdateComponent,
+    AboutMeComponent,
+    UserSettingFormComponent,
   ]
 })
 export class CoreModule { }
