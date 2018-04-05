@@ -25,7 +25,7 @@ export class UserProfilePage implements OnInit,
   public user: User;
   public activityData: Observable<TimeActivity[]>;
   public userStats;
-  public isYou = true;
+  public isYou = false;
 
   constructor(public currentUser: CurrentUserService,
               private userListService: UsersListService,
@@ -36,15 +36,16 @@ export class UserProfilePage implements OnInit,
 
   ngOnInit() {
     let userId = +this.route.snapshot.params['id'];
+    this.isYou = userId === this.currentUser.id;
 
-    if (userId) {
-      this.isYou = false;
+    if (!this.isYou && userId) {
       this.userListService
         .getUserById(userId)
         .subscribe(user => this.user = user);
     } else {
       this.user = this.currentUser;
       userId = this.user.id;
+      this.isYou = true;
     }
 
     this.fetchActivityData(userId);
