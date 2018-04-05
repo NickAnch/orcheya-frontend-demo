@@ -37,7 +37,7 @@ export class AcceptInvitePage {
       .acceptInvite(this.token, formValue['password'])
       .subscribe(
         () => {
-          this.router.navigate(['/']);
+          this.router.navigate([`/terms-and-conditions`]);
         },
         error => {
           this.errors = true;

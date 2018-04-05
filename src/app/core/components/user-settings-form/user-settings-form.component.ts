@@ -4,6 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { CurrentUserService } from '../../services/current-user.service';
 import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-settings-form',
@@ -15,7 +16,9 @@ export class UserSettingFormComponent implements OnInit {
   private updatedUser = new User();
 
   constructor(public currentUser: CurrentUserService,
-              private formBuilder: FormBuilder) {}
+              private formBuilder: FormBuilder,
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -49,16 +52,15 @@ export class UserSettingFormComponent implements OnInit {
     this.updatedUser._fromJSON(this.form.value);
 
     this.currentUser
-        .updateSettings(this.updatedUser)
-        .subscribe(
-          () => this.respErrors = {},
-          (err: HttpErrorResponse) => {
-            if (!err.error['status'] && !err.error['exception']) {
-              this.respErrors = err.error;
-            }
+      .updateSettings(this.updatedUser)
+      .subscribe(
+        () => this.respErrors = {},
+        (err: HttpErrorResponse) => {
+          if (!err.error['status'] && !err.error['exception']) {
+            this.respErrors = err.error;
           }
-        )
-    ;
+        });
+    this.router.navigate(['/profile']);
   }
 
   public textError(controlName: string): string {
