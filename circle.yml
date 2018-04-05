@@ -24,5 +24,6 @@ jobs:
             - node_modules
           key: orcheya-client-{{ checksum "package.json" }}
       - run: yarn ci-test
+      - run: yarn build
       - run: yarn lint
       - run: yarn sass-lint

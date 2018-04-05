@@ -112,10 +112,9 @@
                (select)="onTabSelect('activity')">
             <div class="tab-content">
               <app-user-activity>
-                <app-time-activity [activityData]="activityData"></app-time-activity>
+                <app-time-activity></app-time-activity>
                 <br>
-                <app-time-this-week width="690px"
-                    [activity]="activityData"></app-time-this-week>
+                <app-time-table width="690px"></app-time-table>
                 <br>
                 <app-recent-update></app-recent-update>
               </app-user-activity>
