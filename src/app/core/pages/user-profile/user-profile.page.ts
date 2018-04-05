@@ -4,12 +4,10 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap';
-import { Observable } from 'rxjs/Observable';
 
 import { CurrentUserService } from '../../services/current-user.service';
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
-import { TimeActivity } from '../../models/time-activity.interface';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,11 +17,9 @@ import { TimeActivity } from '../../models/time-activity.interface';
 export class UserProfilePage implements OnInit,
   AfterViewInit, AfterViewChecked {
 
-
   @ViewChild('tabset')
   public tabset: TabsetComponent;
   public user: User;
-  public activityData: Observable<TimeActivity[]>;
   public userStats;
   public isYou = false;
 
@@ -48,8 +44,6 @@ export class UserProfilePage implements OnInit,
       this.isYou = true;
     }
 
-    this.fetchActivityData(userId);
-
     this.userListService
       .getUserTimeStatsById(userId)
       .subscribe(data => this.userStats = data);
@@ -69,6 +63,13 @@ export class UserProfilePage implements OnInit,
       .subscribe();
   }
 
+  onTabSelect(tab) {
+    this.router.navigate(['./'], {
+      relativeTo: this.route,
+      queryParams: { tab: tab }
+    });
+  }
+
   private checkActiveTab() {
     if (!this.route.snapshot.queryParamMap.has('tab')) {
       return;
@@ -81,22 +82,5 @@ export class UserProfilePage implements OnInit,
     if (currentTab) {
       currentTab.active = true;
     }
-  }
-
-  private fetchActivityData(id: number) {
-    const dateTo = new Date();
-    const dateFrom = new Date(
-      dateTo.getFullYear() - 1, dateTo.getMonth(), dateTo.getDate() - 1
-    );
-
-    this.activityData = this.userListService
-      .getTimeActivity(id, dateFrom, dateTo);
-  }
-
-  onTabSelect(tab) {
-    this.router.navigate(['./'], {
-      relativeTo: this.route,
-      queryParams: { tab: tab }
-    });
   }
 }

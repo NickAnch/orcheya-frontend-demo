@@ -16,6 +16,7 @@ import { UpdaterModule } from '../updater/updater.module';
 import { CurrentUserService } from './services/current-user.service';
 import { CurrentUserGuard } from './services/current-user.guard';
 import { JWTTokenInterceptor } from './services/jwt-token-Interceptor.service';
+import { TimeDoctorResolver } from './services/time-doctor.resolver';
 
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
@@ -29,7 +30,7 @@ import {
   SlackConnectButtonComponent,
   TimeDoctorConnectButtonComponent,
   TimeActivityComponent,
-  TimeThisWeekComponent,
+  TimeTableComponent,
 } from './components';
 
 import { ImageUploadDirective } from './directives/image-upload.directive';
@@ -75,6 +76,7 @@ import {
     UsersListService,
     SlackConnectorService,
     TimeDoctorConnectorService,
+    TimeDoctorResolver,
   ],
   declarations: [
     HeaderComponent,
@@ -91,9 +93,9 @@ import {
     TimeDoctorConnectButtonComponent,
     TimeActivityComponent,
     HumanizeTimePipe,
-    TimeThisWeekComponent,
+    TimeTableComponent,
     TermsAndConditionsComponent,
-    RecentUpdateComponent
+    RecentUpdateComponent,
   ]
 })
 export class CoreModule { }
