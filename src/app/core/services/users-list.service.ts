@@ -1,15 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { TimeActivity } from '../models/time-activity.interface';
 import { Observer } from 'rxjs/Observer';
 import { User } from '../models/user';
+
+import { TimeActivity } from '../models/time-activity.interface';
 
 @Injectable()
 export class UsersListService {
   private apiPath = '/api/users';
+  private _timeDoctorTime: TimeActivity[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
+
+  public get timeDoctorTime(): TimeActivity[] {
+    return this._timeDoctorTime.slice();
+  }
+
+  public set timeDoctorTime(data: TimeActivity[]) {
+    this._timeDoctorTime = data;
   }
 
   public getUsersList(page): Observable<any> {
@@ -19,7 +28,6 @@ export class UsersListService {
   public getSearch(searchString): Observable<any> {
     return this.http.get(`${this.apiPath}?search=${searchString}`);
   }
-
 
   public getTimeActivity(
     id: number, dateFrom: Date, dateTo: Date
