@@ -16,6 +16,7 @@ import { UpdaterModule } from '../updater/updater.module';
 import { CurrentUserService } from './services/current-user.service';
 import { CurrentUserGuard } from './services/current-user.guard';
 import { JWTTokenInterceptor } from './services/jwt-token-Interceptor.service';
+import { TimeDoctorResolver } from './services/time-doctor.resolver';
 
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { WrapperPage } from './pages/wrapper/wrapper.page';
@@ -29,8 +30,8 @@ import {
   SlackConnectButtonComponent,
   TimeDoctorConnectButtonComponent,
   TimeActivityComponent,
-  TimeThisWeekComponent,
   UserSettingFormComponent,
+  TimeTableComponent,
 } from './components';
 
 import { ImageUploadDirective } from './directives/image-upload.directive';
@@ -78,6 +79,7 @@ import { AboutMeComponent } from './pages/about-me/about-me.component';
     UsersListService,
     SlackConnectorService,
     TimeDoctorConnectorService,
+    TimeDoctorResolver,
   ],
   declarations: [
     HeaderComponent,
@@ -94,7 +96,7 @@ import { AboutMeComponent } from './pages/about-me/about-me.component';
     TimeDoctorConnectButtonComponent,
     TimeActivityComponent,
     HumanizeTimePipe,
-    TimeThisWeekComponent,
+    TimeTableComponent,
     TermsAndConditionsComponent,
     RecentUpdateComponent,
     AboutMeComponent,

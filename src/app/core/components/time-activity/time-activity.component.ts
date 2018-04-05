@@ -6,6 +6,7 @@ import { timeMonths, timeWeek, timeDays } from 'd3-time';
 import { timeFormat } from 'd3-time-format';
 
 import { TimeActivity } from '../../models/time-activity.interface';
+import { UsersListService } from '../../services/users-list.service';
 
 interface DayData {
   date: Date;
@@ -26,7 +27,6 @@ interface ColorData {
   styleUrls: ['./time-activity.component.scss']
 })
 export class TimeActivityComponent implements OnInit {
-  @Input() private activityData: Observable<TimeActivity[]>;
   @Input() private dateFrom: Date;
   @Input() private dateTo: Date;
   private activityDataCopy: TimeActivity[] = [];
@@ -64,7 +64,10 @@ export class TimeActivityComponent implements OnInit {
     days?: Selection<BaseType, any, BaseType, undefined>,
   } = {};
 
-  constructor(element: ElementRef) {
+  constructor(
+    element: ElementRef,
+    private usersListService: UsersListService,
+  ) {
     this.d3Elements.parent = select(element.nativeElement)
       .append('div');
     this.d3Elements.parent
@@ -73,17 +76,9 @@ export class TimeActivityComponent implements OnInit {
 
   ngOnInit() {
     this.setParamsDate();
+    this.activityDataCopy = this.usersListService.timeDoctorTime;
 
-    this.activityData.subscribe(
-      activityData => {
-        this.activityDataCopy = activityData;
-        this.initD3Logic();
-      },
-      () => {
-        this.activityDataCopy = [];
-        this.initD3Logic();
-      }
-    );
+    this.initD3Logic();
   }
 
   private setParamsDate() {
