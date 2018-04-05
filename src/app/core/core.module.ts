@@ -30,6 +30,7 @@ import {
   SlackConnectButtonComponent,
   TimeDoctorConnectButtonComponent,
   TimeActivityComponent,
+  UserSettingFormComponent,
   TimeTableComponent,
 } from './components';
 
@@ -49,6 +50,8 @@ import {
 import {
   RecentUpdateComponent
 } from './components/recent-update/recent-update.component';
+import { AboutMeComponent } from './pages/about-me/about-me.component';
+
 
 @NgModule({
   imports: [
@@ -96,6 +99,8 @@ import {
     TimeTableComponent,
     TermsAndConditionsComponent,
     RecentUpdateComponent,
+    AboutMeComponent,
+    UserSettingFormComponent,
   ]
 })
 export class CoreModule { }
