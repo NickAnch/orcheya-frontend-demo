@@ -38,10 +38,6 @@ import { ImageUploadDirective } from './directives/image-upload.directive';
 import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
-import { SlackConnectorService } from './services/slack-connector.service';
-import {
-  TimeDoctorConnectorService
-} from './services/timedoctor-connector.service';
 import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
 import {
   TermsAndConditionsComponent
@@ -49,6 +45,7 @@ import {
 import {
   RecentUpdateComponent
 } from './components/recent-update/recent-update.component';
+import { IntegrationsService } from './services/integrations.service';
 
 @NgModule({
   imports: [
@@ -74,8 +71,7 @@ import {
       multi: true
     },
     UsersListService,
-    SlackConnectorService,
-    TimeDoctorConnectorService,
+    IntegrationsService,
     TimeDoctorResolver,
   ],
   declarations: [
@@ -98,4 +94,4 @@ import {
     RecentUpdateComponent,
   ]
 })
-export class CoreModule { }
+export class CoreModule {}
