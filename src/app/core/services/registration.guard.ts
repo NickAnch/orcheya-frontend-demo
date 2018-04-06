@@ -17,7 +17,7 @@ export class RegistrationGuard implements CanActivate {
 
   public canActivate(): Promise<boolean> {
 
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.currentUser.load()
         .subscribe({
           next: () => {
@@ -26,13 +26,12 @@ export class RegistrationGuard implements CanActivate {
           complete: () => {
             if (this.currentUser.agreementAccepted) {
               if (this.currentUser.registrationFinished) {
-                this.router.navigate(['/profile']);
+                reject(this.router.navigate(['/profile']));
               } else {
-                console.log(this.currentUser, 'log');
                 resolve(true);
               }
             } else {
-              this.router.navigate(['/terms-and-conditions']);
+              reject(this.router.navigate(['/terms-and-conditions']));
             }
           }
         });
