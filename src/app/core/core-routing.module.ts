@@ -13,6 +13,7 @@ import {
   TermsAndConditionsComponent
 } from './pages/terms-and-conditions/terms-and-conditions.component';
 import { UpdatesPage } from './pages/updates/updates.page';
+import { AboutMeComponent } from './pages/about-me/about-me.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,6 @@ const routes: Routes = [
       },
       { path: 'users-list', component: UsersListPage },
       { path: '', component: UsersListPage },
-      { path: 'users-list', component: UsersListPage },
       { path: 'updates', component: UpdatesPage },
     ]
   },
@@ -41,7 +41,8 @@ const routes: Routes = [
     path: 'invitation/:token',
     component: AcceptInvitePage
   },
-  { path: 'terms-and-conditions', component: TermsAndConditionsComponent }
+  { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
+  { path: 'about-me', component: AboutMeComponent },
 ];
 
 @NgModule({

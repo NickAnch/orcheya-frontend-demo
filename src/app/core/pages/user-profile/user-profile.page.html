@@ -35,13 +35,13 @@
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
               <b>{{ userStats?.week.begin | date:'dd MMMM' }} - {{ userStats?.week.end | date:'dd MMMM yyyy' }}</b> <a
-              class="pull-right">{{ userStats?.week.length | humanizeTime }}</a>
+              class="pull-right">{{ userStats?.week.minutes | humanizeTime }}</a>
             </li>
             <li class="list-group-item">
-              <b>{{ userStats?.month.name }}</b> <a class="pull-right">{{ userStats?.month.length | humanizeTime }}</a>
+              <b>{{ userStats?.month.name }}</b> <a class="pull-right">{{ userStats?.month.minutes | humanizeTime }}</a>
             </li>
             <li class="list-group-item">
-              <b>{{ userStats?.prev_month.name }}</b> <a class="pull-right">{{ userStats?.prev_month.length |
+              <b>{{ userStats?.prev_month.name }}</b> <a class="pull-right">{{ userStats?.prev_month.minutes |
               humanizeTime }}</a>
             </li>
           </ul>
@@ -137,7 +137,9 @@
                heading="Settings"
                (select)="onTabSelect('settings')">
             <div class="tab-content">
-              <app-user-settings></app-user-settings>
+              <app-user-settings>
+                <app-user-settings-form></app-user-settings-form>
+              </app-user-settings>
             </div>
           </tab>
         </tabset>

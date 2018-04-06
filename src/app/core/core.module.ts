@@ -31,6 +31,7 @@ import {
   SlackConnectButtonComponent,
   TimeDoctorConnectButtonComponent,
   TimeActivityComponent,
+  UserSettingFormComponent,
   TimeTableComponent,
   UpdatesComponent,
 } from './components';
@@ -53,6 +54,8 @@ import {
 } from './components/recent-update/recent-update.component';
 import { UpdateService } from './services/update.service';
 import { UpdatesPage } from './pages/updates/updates.page';
+import { AboutMeComponent } from './pages/about-me/about-me.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -104,6 +107,9 @@ import { UpdatesPage } from './pages/updates/updates.page';
     RecentUpdateComponent,
     UpdatesComponent,
     UpdatesPage,
+    AboutMeComponent,
+    UserSettingFormComponent,
+    FooterComponent
   ]
 })
 export class CoreModule { }
