@@ -19,7 +19,6 @@ import {
 import { RegistrationGuard } from './services/registration.guard';
 import { PermissionGuard } from './services/permission.guard';
 import { UpdatesPage } from './pages/updates/updates.page';
-import { AboutMeComponent } from './pages/about-me/about-me.component';
 
 
 const routes: Routes = [
