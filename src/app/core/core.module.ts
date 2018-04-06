@@ -51,6 +51,7 @@ import {
   RecentUpdateComponent
 } from './components/recent-update/recent-update.component';
 import { AboutMeComponent } from './pages/about-me/about-me.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -101,6 +102,7 @@ import { AboutMeComponent } from './pages/about-me/about-me.component';
     RecentUpdateComponent,
     AboutMeComponent,
     UserSettingFormComponent,
+    FooterComponent
   ]
 })
 export class CoreModule { }
