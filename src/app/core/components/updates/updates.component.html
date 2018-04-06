@@ -1,13 +1,20 @@
 <div class="filter-controls">
-  <input class="form-control"
-         placeholder="Choose dates"
-         bsDaterangepicker
-         [(ngModel)]="filterDate"
-         (ngModelChange)="onDateChange()">
-  <input class="form-control"
-         placeholder="Search"
-         #searchInput
-         [(ngModel)]="filterText">
+  <div class="input-group">
+    <div class="input-group-addon">
+      <i class="fa fa-calendar"></i>
+    </div>
+    <input class="form-control"
+           placeholder="Choose dates"
+           bsDaterangepicker
+           [(ngModel)]="filterDate"
+           (ngModelChange)="onDateChange()">
+  </div>
+  <div class="input-group">
+    <input class="form-control"
+           placeholder="Search"
+           #searchInput
+           [(ngModel)]="filterText">
+  </div>
 </div>
 <ng-container *ngIf="data?.updates.length">
   <ul class="timeline timeline-inverse">
