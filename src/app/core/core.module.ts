@@ -7,6 +7,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -31,6 +32,7 @@ import {
   TimeDoctorConnectButtonComponent,
   TimeActivityComponent,
   TimeTableComponent,
+  UpdatesComponent,
 } from './components';
 
 import { ImageUploadDirective } from './directives/image-upload.directive';
@@ -49,6 +51,7 @@ import {
 import {
   RecentUpdateComponent
 } from './components/recent-update/recent-update.component';
+import { UpdateService } from './services/update.service';
 
 @NgModule({
   imports: [
@@ -58,6 +61,7 @@ import {
     HttpClientModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     CoreRoutingModule,
     SharedModule,
     GantgileModule,
@@ -77,6 +81,7 @@ import {
     SlackConnectorService,
     TimeDoctorConnectorService,
     TimeDoctorResolver,
+    UpdateService,
   ],
   declarations: [
     HeaderComponent,
@@ -96,6 +101,7 @@ import {
     TimeTableComponent,
     TermsAndConditionsComponent,
     RecentUpdateComponent,
+    UpdatesComponent,
   ]
 })
 export class CoreModule { }
