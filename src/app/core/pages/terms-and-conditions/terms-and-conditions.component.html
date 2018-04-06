@@ -86,7 +86,14 @@
                 <button type="submit" class="btn btn-success margin">Accept</button>
               </div>
             </div>
-            <div class="col-sm-12" *ngIf="currentUser.agreementAccepted">
+            <div class="col-sm-12" *ngIf="!currentUser.registrationFinished">
+              <div class="checkbox pull-right">
+                <button type="submit" class="btn btn-success margin" [routerLink]="['/registration']">Continue to
+                  registration
+                </button>
+              </div>
+            </div>
+            <div class="col-sm-12" *ngIf="currentUser.agreementAccepted && currentUser.registrationFinished">
               <div class="checkbox pull-right">
                 <button type="submit" class="btn btn-info margin" [routerLink]="['/profile']">Return to profile</button>
               </div>

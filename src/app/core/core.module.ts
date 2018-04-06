@@ -54,6 +54,7 @@ import {
   RegistrationComponent
 } from './pages/registration/registration.component';
 import { RegistrationGuard } from './services/registration.guard';
+import { PermissionGuard } from './services/permission.guard';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { RegistrationGuard } from './services/registration.guard';
       multi: true
     },
     RegistrationGuard,
+    PermissionGuard,
     UsersListService,
     SlackConnectorService,
     TimeDoctorConnectorService,

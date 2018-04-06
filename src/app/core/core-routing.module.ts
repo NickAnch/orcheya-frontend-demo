@@ -16,12 +16,14 @@ import {
   RegistrationComponent
 } from './pages/registration/registration.component';
 import { RegistrationGuard } from './services/registration.guard';
+import { PermissionGuard } from './services/permission.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: WrapperPage,
     canActivate: [CurrentUserGuard],
+    canActivateChild: [PermissionGuard],
     children: [
       {
         path: 'profile',

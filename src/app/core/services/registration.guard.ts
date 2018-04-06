@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   CanActivate, Router,
 } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 
 import { CurrentUserService } from './current-user.service';
 
@@ -16,24 +15,27 @@ export class RegistrationGuard implements CanActivate {
 
   }
 
-  public canActivate(): Observable<boolean> | boolean {
-    this.currentUser.load()
-      .subscribe({
-        next: () => {
-        },
-        error: error => console.log(error),
-        complete: () => {
-          if (this.currentUser.agreementAccepted) {
-            if (this.currentUser.registrationFinished) {
-              this.router.navigate(['/profile']);
+  public canActivate(): Promise<boolean> {
+
+    return new Promise(resolve => {
+      this.currentUser.load()
+        .subscribe({
+          next: () => {
+          },
+          error: error => console.log(error),
+          complete: () => {
+            if (this.currentUser.agreementAccepted) {
+              if (this.currentUser.registrationFinished) {
+                this.router.navigate(['/profile']);
+              } else {
+                console.log(this.currentUser, 'log');
+                resolve(true);
+              }
             } else {
-              console.log(this.currentUser, 'log');
-              return true;
+              this.router.navigate(['/terms-and-conditions']);
             }
-          } else {
-            this.router.navigate(['/terms-and-conditions']);
           }
-        }
-      });
+        });
+    });
   }
 }
