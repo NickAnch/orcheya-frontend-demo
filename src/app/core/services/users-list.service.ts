@@ -5,6 +5,12 @@ import { Observer } from 'rxjs/Observer';
 import { User } from '../models/user';
 
 import { TimeActivity } from '../models/time-activity.interface';
+import { Meta } from '../models/meta.interface';
+
+export interface UsersListResponse {
+  users: User[];
+  meta: Meta;
+}
 
 @Injectable()
 export class UsersListService {
@@ -21,8 +27,26 @@ export class UsersListService {
     this._timeDoctorTime = data;
   }
 
-  public getUsersList(page): Observable<any> {
-    return this.http.get(`${this.apiPath}?page=${page}`);
+  public getUsersList(page = 1, limit = 25): Observable<UsersListResponse> {
+    const params = new HttpParams()
+      .set('page', String(page))
+      .set('limit', String(limit));
+
+    return Observable.create((observer: Observer<UsersListResponse>) => {
+      this.http
+          .get(this.apiPath, { params })
+          .subscribe(
+            (data: UsersListResponse) => {
+              data.users = data.users.map(
+                user => new User(user)
+              );
+
+              observer.next(data);
+              observer.complete();
+            },
+            err => observer.error(err)
+          );
+    });
   }
 
   public getSearch(searchString): Observable<any> {

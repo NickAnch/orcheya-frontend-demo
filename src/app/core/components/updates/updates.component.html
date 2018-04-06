@@ -1,0 +1,58 @@
+<div class="filter-controls">
+  <input class="form-control"
+         placeholder="Choose dates"
+         bsDaterangepicker
+         [(ngModel)]="filterDate"
+         (ngModelChange)="onDateChange()">
+  <input class="form-control"
+         placeholder="Search"
+         #searchInput
+         [(ngModel)]="filterText">
+</div>
+<ng-container *ngIf="data?.updates.length">
+  <ul class="timeline timeline-inverse">
+    <ng-container *ngFor="let update of data.updates">
+      <li class="time-label">
+      <span class="bg-red">
+        {{ showDate(update.date, 'D MMM, YYYY') }}
+      </span>
+      </li>
+      <li>
+        <i class="fa fa-refresh bg-blue"></i>
+
+        <div class="timeline-item">
+          <span class="time"><i class="fa fa-clock-o"></i>{{ showDate(update.date, 'kk mm') }}</span>
+
+          <h3 class="timeline-header">Recent update - {{ showDate(update.date, 'MMMM D YYYY') }}</h3>
+
+          <div class="timeline-body">
+            <div class="row">
+              <div class="col-md-6">
+                <strong><i class="fa fa-thumbs-o-up margin-r-5"></i> Task(s) I did today:</strong>
+                <p class="text-muted">
+                  {{ update.made }}
+                </p>
+
+                <strong><i class="fa fa-check-square-o margin-r-5"></i> What I plan for tomorrow:</strong>
+                <p class="text-muted">
+                  {{ update.planning }}
+                </p>
+              </div>
+              <div class="col-md-6">
+                <strong><i class="fa fa-frown-o margin-r-5"></i> Any issues:</strong>
+                <p class="text-muted">
+                  {{ update.issues }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </li>
+    </ng-container>
+    <li>
+      <i class="fa fa-clock-o bg-gray"></i>
+    </li>
+  </ul>
+</ng-container>

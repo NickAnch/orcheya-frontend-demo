@@ -7,6 +7,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -19,7 +20,7 @@ import { JWTTokenInterceptor } from './services/jwt-token-Interceptor.service';
 import { TimeDoctorResolver } from './services/time-doctor.resolver';
 
 import { SignInPage } from './pages/sign-in/sign-in.page';
-import { WrapperPage } from './pages/wrapper/wrapper.page';
+import { CoreComponent } from './core.component';
 import { UserProfilePage } from './pages/user-profile/user-profile.page';
 
 import {
@@ -32,6 +33,7 @@ import {
   TimeActivityComponent,
   UserSettingFormComponent,
   TimeTableComponent,
+  UpdatesComponent,
 } from './components';
 
 import { ImageUploadDirective } from './directives/image-upload.directive';
@@ -50,12 +52,16 @@ import {
 import {
   RecentUpdateComponent
 } from './components/recent-update/recent-update.component';
+
 import {
   RegistrationComponent
 } from './pages/registration/registration.component';
 import { RegistrationGuard } from './services/registration.guard';
 import { PermissionGuard } from './services/permission.guard';
-
+import { UpdateService } from './services/update.service';
+import { UpdatesPage } from './pages/updates/updates.page';
+import { AboutMeComponent } from './pages/about-me/about-me.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -65,6 +71,7 @@ import { PermissionGuard } from './services/permission.guard';
     HttpClientModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     CoreRoutingModule,
     SharedModule,
     GantgileModule,
@@ -86,12 +93,13 @@ import { PermissionGuard } from './services/permission.guard';
     SlackConnectorService,
     TimeDoctorConnectorService,
     TimeDoctorResolver,
+    UpdateService,
   ],
   declarations: [
     HeaderComponent,
     SignInPage,
     AcceptInvitePage,
-    WrapperPage,
+    CoreComponent,
     UserProfilePage,
     UserSettingsComponent,
     UserActivityComponent,
@@ -106,7 +114,11 @@ import { PermissionGuard } from './services/permission.guard';
     TermsAndConditionsComponent,
     RecentUpdateComponent,
     RegistrationComponent,
+    UpdatesComponent,
+    UpdatesPage,
+    AboutMeComponent,
     UserSettingFormComponent,
+    FooterComponent
   ]
 })
 export class CoreModule { }
