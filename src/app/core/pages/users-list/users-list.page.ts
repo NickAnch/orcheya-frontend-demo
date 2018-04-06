@@ -15,6 +15,7 @@ import 'rxjs/add/observable/fromEvent';
 
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
+import { Meta } from '../../models/meta.interface';
 
 @Component({
   selector: 'app-users-list',
@@ -34,9 +35,7 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
   private onScrollDownSubscription: Subscription;
   private onButtonClickSubscription: Subscription;
 
-
-  constructor(private usersListService: UsersListService) {
-  }
+  constructor(private usersListService: UsersListService) {}
 
   ngOnInit() {
     this.ngOnInitSubscription = this.usersListService
@@ -75,8 +74,9 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
   public onScrollDown() {
     this.onScrollDownSubscription = this.usersListService
       .getUsersList(++this.page)
-      .subscribe(data => data.users.map(user => new User(user))
-        .forEach(item => this.usersList.push(item)));
+      .subscribe(
+        data => this.usersList = [...this.usersList, ...data.users]
+      );
   }
 
   public onButtonClick() {
@@ -84,9 +84,7 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
     this.scrollWindow = false;
     this.onButtonClickSubscription = this.usersListService
       .getSearch(this.searchField)
-      .subscribe(data => {
-        this.usersList = data.users.map(user => new User(user));
-      });
+      .subscribe(data => this.usersList = data.users);
   }
 
   public onSearchDelay() {

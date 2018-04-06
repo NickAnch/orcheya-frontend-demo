@@ -5,6 +5,7 @@ export * from './header/header.component';
 export * from './time-activity/time-activity.component';
 export * from './user-settings-form/user-settings-form.component';
 export * from './time-table/time-table.component';
+export * from './updates/updates.component';
 /* tslint:disable */
 export * from './social-buttons/slack-connect-button/slack-connect-button.component';
 export * from './social-buttons/timedoctor-connect-button/timedoctor-connect-button.component';

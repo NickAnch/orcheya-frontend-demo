@@ -1,0 +1,9 @@
+.filter-controls {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+
+  .form-control {
+    width: 200px;
+  }
+}

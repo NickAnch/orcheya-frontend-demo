@@ -1,20 +1,20 @@
 <section class="content-header">
-  <h1>
-    User Profile
-  </h1>
-  <ol class="breadcrumb">
-    <li><a [routerLink]="['/']">Home</a></li>
-    <li class="active">User profile</li>
-  </ol>
+      <h1>
+        User Profile
+      </h1>
+      <ol class="breadcrumb margin-bottom-none">
+        <li><a [routerLink]="['/']">Home</a></li>
+        <li class="active">User profile</li>
+      </ol>
+
 </section>
 
 <section class="content">
 
 
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-lg-3">
 
-      <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
           <div class="col-xs-12">
@@ -48,19 +48,15 @@
 
           <a class="btn btn-primary btn-block"><b>Follow</b></a>
         </div>
-        <!-- /.box-body -->
       </div>
-      <!-- /.box -->
 
-      <!-- About Me Box -->
       <div class="box box-primary">
         <div class="box-header with-border">
           <h3 class="box-title">About Me</h3>
         </div>
 
-        <!-- /.box-header -->
         <div class="box-body no-padding">
-          <table class="table table-striped">
+          <table class="table table-striped table-responsive">
             <tbody>
             <tr>
               <td><i class="fa fa-fw fa-birthday-cake"></i></td>
@@ -95,8 +91,7 @@
             </tbody>
           </table>
           <div *ngIf="isYou">
-            <br>
-            <a class="btn btn-block btn-success"><b>Edit profile</b></a>
+            <a class="btn btn-block btn-primary margin" style="width: inherit"><b>Edit profile</b></a>
           </div>
 
         </div>
@@ -107,7 +102,8 @@
     <!-- /.box -->
     <!-- /.col -->
 
-    <div class="col-md-9">
+
+    <div class="col-lg-9">
       <div>
         <tabset #tabset>
           <tab class="nav-tabs-custom"
@@ -129,7 +125,10 @@
                heading="Timeline"
                (select)="onTabSelect('timeline')">
             <div class="tab-content">
-              <app-user-timeline></app-user-timeline>
+              <app-user-timeline>
+                <app-updates *ngIf="user"
+                             [userId]="user.id"></app-updates>
+              </app-user-timeline>
             </div>
           </tab>
           <tab *ngIf="isYou"
@@ -146,7 +145,5 @@
         </tabset>
       </div>
     </div>
-    <!-- /.col -->
   </div>
-  <!-- /.row -->
 </section>
