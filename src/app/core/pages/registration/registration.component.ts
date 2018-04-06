@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   templateUrl: './registration.component.html',
@@ -10,9 +10,5 @@ import { Component, OnInit } from '@angular/core';
     }
   `]
 })
-export class RegistrationComponent implements OnInit {
-
-  ngOnInit() {
-
-  }
+export class RegistrationComponent {
 }

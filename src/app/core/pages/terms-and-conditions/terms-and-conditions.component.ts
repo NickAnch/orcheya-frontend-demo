@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CurrentUserService } from '../../services/current-user.service';
 import { Router } from '@angular/router';
-import { User } from '../../models/user';
 
 @Component({
   selector: 'app-terms-and-conditions',
@@ -22,14 +21,16 @@ export class TermsAndConditionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentUser.load().subscribe();
   }
 
   public submitAgreement(value) {
     if (value.agreed) {
       this.currentUser.acceptTerms()
         .subscribe({
-          next: () => console.log(`You just typed `),
-          error: error => console.log(`Oops... ${error}`),
+          next: () => {
+          },
+          error: error => console.log(error),
           complete: () => this.router.navigate(['/registration'])
         });
     }

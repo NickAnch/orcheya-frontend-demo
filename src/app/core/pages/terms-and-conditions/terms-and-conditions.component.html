@@ -88,7 +88,7 @@
             </div>
             <div class="col-sm-12" *ngIf="currentUser.agreementAccepted">
               <div class="checkbox pull-right">
-                <button type="submit" class="btn btn-info margin">Return to profile</button>
+                <button type="submit" class="btn btn-info margin" [routerLink]="['/profile']">Return to profile</button>
               </div>
             </div>
           </form>
