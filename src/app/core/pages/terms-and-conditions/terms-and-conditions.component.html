@@ -77,14 +77,28 @@
             </li>
           </ol>
 
-          <div class="col-sm-12">
-            <div class="checkbox pull-right">
-              <label>
-                <input type="checkbox"> I agree to the terms and conditions
-              </label>
-              <button type="submit" class="btn btn-success margin">Accept</button>
+          <form [formGroup]="form" (submit)="submitAgreement(form.value)">
+            <div class="col-sm-12" *ngIf="!currentUser.agreementAccepted">
+              <div class="checkbox pull-right">
+                <label>
+                  <input type="checkbox" formControlName="agreed"> I agree to the terms and conditions
+                </label>
+                <button type="submit" class="btn btn-success margin">Accept</button>
+              </div>
             </div>
-          </div>
+            <div class="col-sm-12" *ngIf="!currentUser.registrationFinished && currentUser.agreementAccepted">
+              <div class="checkbox pull-right">
+                <button type="submit" class="btn btn-success margin" [routerLink]="['/registration']">Continue to
+                  registration
+                </button>
+              </div>
+            </div>
+            <div class="col-sm-12" *ngIf="currentUser.agreementAccepted && currentUser.registrationFinished">
+              <div class="checkbox pull-right">
+                <button type="submit" class="btn btn-info margin" [routerLink]="['/profile']">Return to profile</button>
+              </div>
+            </div>
+          </form>
         </div>
         <!-- /.box-body -->
       </div>

@@ -12,14 +12,21 @@ import { UsersListPage } from './pages/users-list/users-list.page';
 import {
   TermsAndConditionsComponent
 } from './pages/terms-and-conditions/terms-and-conditions.component';
+
+import {
+  RegistrationComponent
+} from './pages/registration/registration.component';
+import { RegistrationGuard } from './services/registration.guard';
+import { PermissionGuard } from './services/permission.guard';
 import { UpdatesPage } from './pages/updates/updates.page';
-import { AboutMeComponent } from './pages/about-me/about-me.component';
+
 
 const routes: Routes = [
   {
     path: '',
     component: CoreComponent,
     canActivate: [CurrentUserGuard],
+    canActivateChild: [PermissionGuard],
     children: [
       {
         path: 'profile',
@@ -41,8 +48,13 @@ const routes: Routes = [
     path: 'invitation/:token',
     component: AcceptInvitePage
   },
-  { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
-  { path: 'about-me', component: AboutMeComponent },
+  {
+    path: 'terms-and-conditions', component: TermsAndConditionsComponent
+  },
+  {
+    path: 'registration', component: RegistrationComponent,
+    canActivate: [RegistrationGuard]
+  },
 ];
 
 @NgModule({

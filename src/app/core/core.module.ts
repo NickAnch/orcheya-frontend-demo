@@ -50,9 +50,17 @@ import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
 import {
   TermsAndConditionsComponent
 } from './pages/terms-and-conditions/terms-and-conditions.component';
+import {
+  RecentUpdateComponent
+} from './components/recent-update/recent-update.component';
+
+import {
+  RegistrationComponent
+} from './pages/registration/registration.component';
+import { RegistrationGuard } from './services/registration.guard';
+import { PermissionGuard } from './services/permission.guard';
 import { UpdateService } from './services/update.service';
 import { UpdatesPage } from './pages/updates/updates.page';
-import { AboutMeComponent } from './pages/about-me/about-me.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
@@ -79,6 +87,8 @@ import { FooterComponent } from './components/footer/footer.component';
       useClass: JWTTokenInterceptor,
       multi: true
     },
+    RegistrationGuard,
+    PermissionGuard,
     UsersListService,
     SlackConnectorService,
     TimeDoctorConnectorService,
@@ -103,9 +113,9 @@ import { FooterComponent } from './components/footer/footer.component';
     TimeTableComponent,
     TermsAndConditionsComponent,
     RecentUpdateComponent,
+    RegistrationComponent,
     UpdatesComponent,
     UpdatesPage,
-    AboutMeComponent,
     UserSettingFormComponent,
     FooterComponent
   ]
