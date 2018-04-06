@@ -5,22 +5,24 @@ import {
 import { Observable } from 'rxjs/Observable';
 
 import { CurrentUserService } from './current-user.service';
-import { User } from '../models/user';
 
 
 @Injectable()
 export class RegistrationGuard implements CanActivate {
 
-  public user: User;
+  public finished = true;
 
   constructor(public currentUser: CurrentUserService,
               private router: Router) {
-    this.user = this.currentUser;
   }
 
   public canActivate(): Observable<boolean> | boolean {
-    if (this.user.agreementAccepted) {
-      return true;
+    if (this.currentUser.agreementAccepted) {
+      if (this.currentUser.registrationFinished) {
+        this.router.navigate(['/profile']);
+      } else {
+        return true;
+      }
     } else {
       this.router.navigate(['/terms-and-conditions']);
     }

@@ -12,12 +12,9 @@ import { User } from '../../models/user';
 export class TermsAndConditionsComponent implements OnInit {
 
   public form: FormGroup;
-  public user: User;
 
   constructor(public currentUser: CurrentUserService,
               private router: Router) {
-    this.user = currentUser;
-    console.log(this.user);
 
     this.form = new FormGroup({
       agreed: new FormControl(false, [Validators.required])
