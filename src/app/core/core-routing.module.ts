@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CurrentUserGuard } from './services/current-user.guard';
 import { TimeDoctorResolver } from './services/time-doctor.resolver';
 
-import { WrapperPage } from './pages/wrapper/wrapper.page';
+import { CoreComponent } from './core.component';
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { UserProfilePage } from './pages/user-profile/user-profile.page';
 import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
@@ -12,11 +12,12 @@ import { UsersListPage } from './pages/users-list/users-list.page';
 import {
   TermsAndConditionsComponent
 } from './pages/terms-and-conditions/terms-and-conditions.component';
+import { UpdatesPage } from './pages/updates/updates.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: WrapperPage,
+    component: CoreComponent,
     canActivate: [CurrentUserGuard],
     children: [
       {
@@ -31,7 +32,8 @@ const routes: Routes = [
       },
       { path: 'users-list', component: UsersListPage },
       { path: '', component: UsersListPage },
-      { path: 'users-list', component: UsersListPage }
+      { path: 'users-list', component: UsersListPage },
+      { path: 'updates', component: UpdatesPage },
     ]
   },
   { path: 'sign-in', component: SignInPage },

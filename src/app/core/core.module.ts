@@ -20,7 +20,7 @@ import { JWTTokenInterceptor } from './services/jwt-token-Interceptor.service';
 import { TimeDoctorResolver } from './services/time-doctor.resolver';
 
 import { SignInPage } from './pages/sign-in/sign-in.page';
-import { WrapperPage } from './pages/wrapper/wrapper.page';
+import { CoreComponent } from './core.component';
 import { UserProfilePage } from './pages/user-profile/user-profile.page';
 
 import {
@@ -52,6 +52,7 @@ import {
   RecentUpdateComponent
 } from './components/recent-update/recent-update.component';
 import { UpdateService } from './services/update.service';
+import { UpdatesPage } from './pages/updates/updates.page';
 
 @NgModule({
   imports: [
@@ -87,7 +88,7 @@ import { UpdateService } from './services/update.service';
     HeaderComponent,
     SignInPage,
     AcceptInvitePage,
-    WrapperPage,
+    CoreComponent,
     UserProfilePage,
     UserSettingsComponent,
     UserActivityComponent,
@@ -102,6 +103,7 @@ import { UpdateService } from './services/update.service';
     TermsAndConditionsComponent,
     RecentUpdateComponent,
     UpdatesComponent,
+    UpdatesPage,
   ]
 })
 export class CoreModule { }

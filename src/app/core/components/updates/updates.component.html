@@ -1,21 +1,15 @@
 <div class="filter-controls">
-  <select class="form-control"
-      [(ngModel)]="userId"
-      (change)="onUserChanged()">
-    <option [ngValue]="null">All</option>
-    <option *ngFor="let user of users"
-            [ngValue]="user.id">{{ user.fullName }}</option>
-  </select>
   <input class="form-control"
-         placeholder="Daterangepicker"
+         placeholder="Choose dates"
          bsDaterangepicker
          [(ngModel)]="filterDate"
          (ngModelChange)="onDateChange()">
   <input class="form-control"
+         placeholder="Search"
          #searchInput
          [(ngModel)]="filterText">
 </div>
-<ng-container *ngIf="data?.updates.length; else elseUpdatesAreEmpty">
+<ng-container *ngIf="data?.updates.length">
   <ul class="timeline timeline-inverse">
     <ng-container *ngFor="let update of data.updates">
       <li class="time-label">
@@ -62,6 +56,3 @@
     </li>
   </ul>
 </ng-container>
-<ng-template #elseUpdatesAreEmpty>
-  <h3>Data not found</h3>
-</ng-template>

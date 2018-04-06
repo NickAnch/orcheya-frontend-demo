@@ -21,30 +21,16 @@ import { CurrentUserService } from '../../services/current-user.service';
 
 export class UpdatesComponent implements OnInit {
   @ViewChild('searchInput') private searchInput: ElementRef;
-  @Input() public userId: number = 1;
+  @Input() public userId: number;
   private subscription: Subscription;
   private filter = new UpdateFilter();
   public data: UpdatesResponse;
   public filterText = '';
   public filterDate: string[];
-  public users: User[] = [];
 
-  constructor(
-    private currentUser: CurrentUserService,
-    private updateService: UpdateService,
-    private usersListService: UsersListService,
-  ) {}
+  constructor(private updateService: UpdateService) {}
 
   ngOnInit() {
-    this.users.push(this.currentUser);
-
-    this.usersListService
-        .getUsersList(1, 1)
-        .subscribe(data => {
-          data.users.unshift(this.currentUser);
-          this.users = data.users;
-        });
-
     if (this.userId) {
       this.filter.userIds = [String(this.userId)];
     }
@@ -63,13 +49,6 @@ export class UpdatesComponent implements OnInit {
 
     this.filter.endDate = this.filterDate
       ? this.showDate(this.filterDate[1], 'YYYY-MM-DD') : null;
-
-    this.fetchData();
-  }
-
-  public onUserChanged() {
-    this.filter.userIds = this.userId
-      ? [String(this.userId)] : [];
 
     this.fetchData();
   }

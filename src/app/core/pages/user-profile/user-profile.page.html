@@ -125,7 +125,10 @@
                heading="Timeline"
                (select)="onTabSelect('timeline')">
             <div class="tab-content">
-              <app-user-timeline></app-user-timeline>
+              <app-user-timeline>
+                <app-updates *ngIf="user"
+                             [userId]="user.id"></app-updates>
+              </app-user-timeline>
             </div>
           </tab>
           <tab *ngIf="isYou"
