@@ -139,7 +139,7 @@ export class CurrentUserService extends User {
   public acceptTerms() {
     return Observable.create((observer: Observer<User>) => {
       this.http
-        .post(`/api/agreement/accept`, null)
+        .post(`/api/agreement/accept`, {})
         .subscribe(
           res => {
             this._fromJSON(res['user']);

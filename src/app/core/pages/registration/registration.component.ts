@@ -1,14 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
+  selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styles: [`
-    :host {
-      background: #d2d6de;
-      display: block;
-      min-height: 100%;
-    }
-  `]
+  styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent {
 }

@@ -28,7 +28,6 @@ export class UserProfilePage implements OnInit,
               private route: ActivatedRoute,
               private cdr: ChangeDetectorRef,
               private router: Router) {
-    console.log(this.currentUser, 'prof');
   }
 
   ngOnInit() {
