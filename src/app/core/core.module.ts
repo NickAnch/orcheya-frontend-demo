@@ -60,7 +60,6 @@ import { RegistrationGuard } from './services/registration.guard';
 import { PermissionGuard } from './services/permission.guard';
 import { UpdateService } from './services/update.service';
 import { UpdatesPage } from './pages/updates/updates.page';
-import { AboutMeComponent } from './pages/about-me/about-me.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
@@ -116,7 +115,6 @@ import { FooterComponent } from './components/footer/footer.component';
     RegistrationComponent,
     UpdatesComponent,
     UpdatesPage,
-    AboutMeComponent,
     UserSettingFormComponent,
     FooterComponent
   ]
