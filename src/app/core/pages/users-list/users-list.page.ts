@@ -28,7 +28,7 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
 
   public scrollWindow = false;
   public searchField = '';
-  public usersList;
+  public usersList: User[];
   private page = 1;
   private ngOnInitSubscription: Subscription;
   private ngAfterViewInitSubscription: Subscription;
@@ -40,9 +40,7 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     this.ngOnInitSubscription = this.usersListService
       .getUsersList(this.page)
-      .subscribe(data => {
-        this.usersList = data.users.map(user => new User(user));
-      });
+      .subscribe(data => this.usersList = data.users);
   }
 
   ngAfterViewInit() {
@@ -51,9 +49,7 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
       .debounceTime(1000)
       .distinctUntilChanged()
       .switchMap(() => this.usersListService.getSearch(this.searchField))
-      .subscribe(data => {
-        this.usersList = data.users.map(user => new User(user));
-      });
+      .subscribe(data => this.usersList = data.users);
   }
 
   ngOnDestroy() {
