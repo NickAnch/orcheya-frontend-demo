@@ -19,9 +19,7 @@ export class AcceptInvitePage {
   constructor(private currentUser: CurrentUserService,
               private router: Router,
               private route: ActivatedRoute) {
-    this.route.params.subscribe(params => {
-      this.token = params['token'];
-    });
+    this.route.params.subscribe(params => this.token = params['token']);
   }
 
   inviteAccept(formValue: Object) {
@@ -36,9 +34,7 @@ export class AcceptInvitePage {
     this.currentUser
       .acceptInvite(this.token, formValue['password'])
       .subscribe(
-        () => {
-          this.router.navigate([`/terms-and-conditions`]);
-        },
+        () => this.router.navigate([`/terms-and-conditions`]),
         error => {
           this.errors = true;
           switch (error.status) {
