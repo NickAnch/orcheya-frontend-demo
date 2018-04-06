@@ -116,7 +116,9 @@
                 <br>
                 <app-time-table width="690px"></app-time-table>
                 <br>
-                <app-recent-update></app-recent-update>
+                <app-recent-update
+                  *ngIf="user"
+                  [userId]="user.id"></app-recent-update>
               </app-user-activity>
             </div>
           </tab>
