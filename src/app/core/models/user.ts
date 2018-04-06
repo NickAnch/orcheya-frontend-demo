@@ -16,13 +16,14 @@ export class User extends AppModel {
   @Alias() public skype: string;
   @Alias() public github: string;
   @Alias() public bitbucket: string;
-  @Alias() public photo: string;
   @Alias() public timing: string;
   @Alias('employment_at') public employmentAt: string;
   @Alias() public position: string;
   @Alias('avatar', Image) public avatar: Image;
   @Alias('slack_connected') public slackConnected: boolean;
   @Alias('timedoctor_connected') public timedoctorConnected: boolean;
+  @Alias('agreement_accepted') public agreementAccepted: boolean;
+  @Alias('registration_finished') public registrationFinished: boolean;
 
   constructor(user?) {
     super();

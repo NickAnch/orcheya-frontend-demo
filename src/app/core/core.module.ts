@@ -50,7 +50,10 @@ import {
 import {
   RecentUpdateComponent
 } from './components/recent-update/recent-update.component';
-import { AboutMeComponent } from './pages/about-me/about-me.component';
+import {
+  RegistrationComponent
+} from './pages/registration/registration.component';
+import { RegistrationGuard } from './services/registration.guard';
 
 
 @NgModule({
@@ -76,6 +79,7 @@ import { AboutMeComponent } from './pages/about-me/about-me.component';
       useClass: JWTTokenInterceptor,
       multi: true
     },
+    RegistrationGuard,
     UsersListService,
     SlackConnectorService,
     TimeDoctorConnectorService,
@@ -99,7 +103,7 @@ import { AboutMeComponent } from './pages/about-me/about-me.component';
     TimeTableComponent,
     TermsAndConditionsComponent,
     RecentUpdateComponent,
-    AboutMeComponent,
+    RegistrationComponent,
     UserSettingFormComponent,
   ]
 })

@@ -22,6 +22,7 @@ export class AcceptInvitePage {
     this.route.params.subscribe(params => {
       this.token = params['token'];
     });
+    console.log(currentUser, 'invite');
   }
 
   inviteAccept(formValue: Object) {

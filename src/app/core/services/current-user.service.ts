@@ -135,4 +135,19 @@ export class CurrentUserService extends User {
         );
     });
   }
+
+  public acceptTerms() {
+    return Observable.create((observer: Observer<User>) => {
+      this.http
+        .post(`/api/agreement/accept`, null)
+        .subscribe(
+          res => {
+            this._fromJSON(res['user']);
+            observer.next(this);
+            observer.complete();
+          },
+          error => observer.error(error)
+        );
+    });
+  }
 }

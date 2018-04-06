@@ -12,7 +12,10 @@ import { UsersListPage } from './pages/users-list/users-list.page';
 import {
   TermsAndConditionsComponent
 } from './pages/terms-and-conditions/terms-and-conditions.component';
-import { AboutMeComponent } from './pages/about-me/about-me.component';
+import {
+  RegistrationComponent
+} from './pages/registration/registration.component';
+import { RegistrationGuard } from './services/registration.guard';
 
 const routes: Routes = [
   {
@@ -40,8 +43,13 @@ const routes: Routes = [
     path: 'invitation/:token',
     component: AcceptInvitePage
   },
-  { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
-  { path: 'about-me', component: AboutMeComponent },
+  {
+    path: 'terms-and-conditions', component: TermsAndConditionsComponent
+  },
+  {
+    path: 'registration', component: RegistrationComponent,
+    canActivate: [RegistrationGuard]
+  },
 ];
 
 @NgModule({
