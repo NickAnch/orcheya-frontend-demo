@@ -34,6 +34,7 @@ import {
   UserSettingFormComponent,
   TimeTableComponent,
   UpdatesComponent,
+  RecentUpdateComponent,
 } from './components';
 
 import { ImageUploadDirective } from './directives/image-upload.directive';
@@ -49,9 +50,6 @@ import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
 import {
   TermsAndConditionsComponent
 } from './pages/terms-and-conditions/terms-and-conditions.component';
-import {
-  RecentUpdateComponent
-} from './components/recent-update/recent-update.component';
 
 import {
   RegistrationComponent
