@@ -1,29 +1,38 @@
 import { Injectable } from '@angular/core';
-import { CanActivateChild, Router } from '@angular/router';
-import { Observer } from 'rxjs/Observer';
+import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { CurrentUserService } from './current-user.service';
+import { Observer } from 'rxjs/Observer';
 
 @Injectable()
-export class PermissionGuard implements CanActivateChild {
+export class PermissionGuard implements CanActivate {
 
 
   constructor(private currentUser: CurrentUserService,
               private router: Router) {
   }
 
-  public canActivateChild(): Observable<boolean> {
+  public canActivate(): Observable<boolean> | boolean {
 
     return Observable.create((observer: Observer<boolean>) => {
 
-      if (this.currentUser.registrationFinished) {
-        observer.next(true);
-        observer.complete();
-      } else {
-        this.router.navigate(['/terms-and-conditions']);
-        observer.next(false);
-      }
+      this.currentUser.load()
+        .subscribe(
+          () => {
+          },
+          () => {
+          },
+          () => {
+            if (this.currentUser.registrationFinished) {
+              observer.next(true);
+              observer.complete();
+            } else {
+              this.router.navigate(['/sign-in']);
+              observer.next(false);
+            }
+          }
+        );
     });
   }
 }
