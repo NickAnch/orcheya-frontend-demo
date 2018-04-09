@@ -59,6 +59,7 @@ import { PermissionGuard } from './services/permission.guard';
 import { UpdateService } from './services/update.service';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { FooterComponent } from './components/footer/footer.component';
+import { TreeviewModule } from 'ngx-treeview';
 
 @NgModule({
   imports: [
@@ -74,7 +75,8 @@ import { FooterComponent } from './components/footer/footer.component';
     GantgileModule,
     UpdaterModule,
     UpdaterModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    TreeviewModule.forRoot(),
   ],
   providers: [
     CurrentUserService,
