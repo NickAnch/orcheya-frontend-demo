@@ -59,8 +59,8 @@ export class UserSettingFormComponent implements OnInit {
           if (!err.error['status'] && !err.error['exception']) {
             this.respErrors = err.error;
           }
-        });
-    this.router.navigate(['/profile']);
+        },
+        () => this.router.navigate(['/profile']));
   }
 
   public textError(controlName: string): string {
