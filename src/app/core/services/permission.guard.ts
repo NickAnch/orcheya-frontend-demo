@@ -19,10 +19,8 @@ export class PermissionGuard implements CanActivate {
 
       this.currentUser.load()
         .subscribe(
-          () => {
-          },
-          () => {
-          },
+          () => null,
+          () => null,
           () => {
             if (this.currentUser.registrationFinished) {
               observer.next(true);
