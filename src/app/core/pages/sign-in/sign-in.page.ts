@@ -25,8 +25,6 @@ export class SignInPage {
       .subscribe(
         () => {
           this.currentUser.load().subscribe(
-            () => null,
-            () => null,
             () => {
               if (this.currentUser.registrationFinished) {
                 this.router.navigate(['/profile']);
