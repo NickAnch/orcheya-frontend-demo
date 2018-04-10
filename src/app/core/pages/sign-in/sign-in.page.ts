@@ -24,8 +24,19 @@ export class SignInPage {
       .signIn(formValue['email'], formValue['password'])
       .subscribe(
         () => {
-          this.router.navigate(['/']);
-          this.errors = false;
+          this.currentUser.load().subscribe(
+            () => null,
+            () => null,
+            () => {
+              if (this.currentUser.registrationFinished) {
+                this.router.navigate(['/profile']);
+                this.errors = false;
+              } else {
+                this.router.navigate(['/registration']);
+                this.errors = false;
+              }
+            }
+          );
         },
         err => this.errors = true
       );
