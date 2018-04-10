@@ -1,12 +1,17 @@
 <div class="filter-controls">
   <div class="input-group">
-    <ngx-dropdown-treeview
-      buttonClass="btn-dropdown-treeview"
-      [config]="{ hasFilter: true }"
-      [items]="selectedItems"
-      (filterChange)="onFilterChange($event)"
-      (selectedChange)="onSelectedChange($event)">
-    </ngx-dropdown-treeview>
+    <ng-select
+      bindLabel="fullName"
+      placeholder="Select users"
+      notFoundText="Users not found"
+      [items]="users | async"
+      [multiple]="true"
+      [typeahead]="typeahead"
+      [closeOnSelect]="false"
+      [hideSelected]="true"
+      [(ngModel)]="item"
+      (change)="onSelectChanged($event)">
+    </ng-select>
   </div>
   <div class="input-group">
     <div class="input-group-addon">

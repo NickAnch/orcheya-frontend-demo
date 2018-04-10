@@ -1,15 +1,15 @@
 import {
-  Component, ElementRef, Input,
-  OnDestroy, OnInit, ViewChild
+  Component, ElementRef, EventEmitter, Input,
+  OnDestroy, OnInit, ViewChild,
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
-import { TreeviewItem } from 'ngx-treeview';
 import * as moment from 'moment';
 
 import { UpdateService, UpdatesResponse } from '../../services/update.service';
@@ -30,12 +30,12 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   @Input() public user: User;
   private subscriptions: Subscription[] = [];
   private filter = new UpdateFilter();
-  private filterSubject = new Subject<string>();
-  private users: User[];
+  private users: Observable<User[]>;
   public data: UpdatesResponse;
   public filterText = '';
   public filterDate: string[];
-  public selectedItems: TreeviewItem[] = [];
+  public typeahead = new EventEmitter<string>();
+  public item: User[] = [];
 
   constructor(
     private updateService: UpdateService,
@@ -43,26 +43,15 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.selectedItems.push(
-      new TreeviewItem({
-        text: 'All',
-        value: 0,
-        checked: !this.user,
-      }),
-    );
-
     if (this.user) {
       this.filter.userIds = [String(this.user.id)];
-      this.selectedItems.push(
-        new TreeviewItem({
-          text: this.user.fullName,
-          value: this.user.id,
-          checked: true,
-        }),
-      );
+      this.item = [this.user];
     }
 
-    this.fetchData();
+    this.usersListService.getUsersList()
+      .subscribe(data => this.fetchUsers(data));
+
+    this.fetchUpdates();
     this.initLiveSearching();
   }
 
@@ -72,32 +61,16 @@ export class UpdatesComponent implements OnInit, OnDestroy {
     );
   }
 
-  onFilterChange(filter: string) {
-    if (!filter) {
-      return;
-    }
-
-    this.filterSubject.next(filter);
-  }
-
-  onSelectedChange(ids: number[]) {
-    if (!ids.length) {
-      return;
-    }
-
-    let userIds: string[];
-    if (ids.find(id => id === 0) === undefined) {
-      userIds = ids.map(id => String(id));
-    } else {
-      userIds = null;
-    }
-
-    this.filter.userIds = userIds;
-    this.fetchData();
-  }
-
   public showDate(strDate: string, format: string): string {
     return moment(strDate).format(format);
+  }
+
+  public onSelectChanged(users: User[]) {
+    this.filter.userIds = !users.length
+      ? []
+      : users.map(user => String(user.id));
+
+    this.fetchUpdates();
   }
 
   public onDateChange() {
@@ -107,7 +80,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
     this.filter.endDate = this.filterDate
       ? this.showDate(this.filterDate[1], 'YYYY-MM-DD') : null;
 
-    this.fetchData();
+    this.fetchUpdates();
   }
 
   private initLiveSearching() {
@@ -119,32 +92,26 @@ export class UpdatesComponent implements OnInit, OnDestroy {
       .subscribe(data => this.data = data)
     );
 
-    this.subscriptions.push(this.filterSubject
-      .debounceTime(500)
-      .switchMap(filterText => this.usersListService.getSearch(filterText))
-      .subscribe((data: UsersListResponse) => {
-        this.users = data.users;
-        this.convertUserToItems(this.users);
-      })
+    this.subscriptions.push(this.typeahead
+      .distinctUntilChanged()
+      .debounceTime(1000)
+      .switchMap(search => this.usersListService.getSearch(search))
+      .subscribe((data: UsersListResponse) => (
+        this.fetchUsers(data)
+      ))
     );
   }
 
-  private fetchData() {
+  private fetchUpdates() {
     this.updateService
       .getUpdates(this.filter)
       .subscribe(data => this.data = data);
   }
 
-  private convertUserToItems(users: User[]) {
-    this.selectedItems = users.map(
-      user => new TreeviewItem({
-        text: user.fullName,
-        value: user.id,
-        checked: false,
-      })
-    );
-    this.selectedItems.unshift(new TreeviewItem(
-      { text: 'All', value: 0, checked: false }
-    ));
+  private fetchUsers(data: UsersListResponse) {
+    this.users = Observable.create((observer: Observer<User[]>) => {
+      observer.next(data.users);
+      observer.complete();
+    });
   }
 }

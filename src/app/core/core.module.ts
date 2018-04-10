@@ -8,6 +8,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -59,7 +60,6 @@ import { PermissionGuard } from './services/permission.guard';
 import { UpdateService } from './services/update.service';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { FooterComponent } from './components/footer/footer.component';
-import { TreeviewModule } from 'ngx-treeview';
 
 @NgModule({
   imports: [
@@ -76,7 +76,7 @@ import { TreeviewModule } from 'ngx-treeview';
     UpdaterModule,
     UpdaterModule,
     InfiniteScrollModule,
-    TreeviewModule.forRoot(),
+    NgSelectModule,
   ],
   providers: [
     CurrentUserService,
