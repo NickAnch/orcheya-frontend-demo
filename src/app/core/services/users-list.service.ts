@@ -49,8 +49,25 @@ export class UsersListService {
     });
   }
 
-  public getSearch(searchString): Observable<any> {
-    return this.http.get(`${this.apiPath}?search=${searchString}`);
+  public getSearch(search: string): Observable<UsersListResponse> {
+    const params = new HttpParams()
+      .set('search', search);
+
+    return Observable.create((observer: Observer<UsersListResponse>) => {
+      this.http
+        .get(this.apiPath, { params })
+        .subscribe(
+          (data: UsersListResponse) => {
+            data.users = data.users.map(
+              user => new User(user)
+            );
+
+            observer.next(data);
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+    });
   }
 
   public getTimeActivity(
@@ -83,8 +100,7 @@ export class UsersListService {
         .get(`${this.apiPath}/${id}`)
         .subscribe(
           (res: { user: User }) => {
-            const user = new User();
-            user._fromJSON(res.user);
+            const user = new User(res.user);
             observer.next(user);
             observer.complete();
           },
