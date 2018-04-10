@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {
-  SlackConnectorService
-} from '../../../services/slack-connector.service';
+import { IntegrationsService } from '../../../services/integrations.service';
 
 @Component({
   selector: 'app-slack-connect-button',
@@ -9,17 +7,17 @@ import {
   styleUrls: ['./slack-connect-button.component.scss']
 })
 export class SlackConnectButtonComponent {
-
   @Input() connected: boolean;
 
-  constructor(private slackConnector: SlackConnectorService) {
-  }
+  constructor(private integrationService: IntegrationsService) {}
 
   connect() {
-    this.slackConnector.connect();
+    this.integrationService.slackConnect();
   }
 
   disconnect() {
-    this.slackConnector.disconnect().subscribe();
+    this.integrationService
+      .slackDisconnect()
+      .subscribe();
   }
 }

@@ -6,4 +6,11 @@
 
 .box.integrations {
   border-top: 3px solid #3c8dbc;
+
+  .integration-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+  }
 }
