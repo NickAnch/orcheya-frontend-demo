@@ -1,13 +1,13 @@
 <div class="integrations" *ngIf="connected; else notconnected">
   <a class="btn btn-block bg-red" (click)="disconnect()">
-    <i class="fa fa-slack pull-left"></i> Disconnect
+    Disconnect
   </a>
 </div>
 
 <ng-template #notconnected>
   <div class="integrations">
     <a class="btn btn-block bg-green" (click)="connect()">
-      <i class="fa fa-slack pull-left"></i> Connect
-      </a>
+      Connect
+    </a>
   </div>
 </ng-template>

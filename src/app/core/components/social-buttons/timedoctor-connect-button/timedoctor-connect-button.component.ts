@@ -1,7 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {
-  TimeDoctorConnectorService
-} from '../../../services/timedoctor-connector.service';
+import { Component, Input } from '@angular/core';
+import { IntegrationsService } from '../../../services/integrations.service';
 
 @Component({
   selector: 'app-timedoctor-connect-button',
@@ -9,16 +7,17 @@ import {
   styleUrls: ['./timedoctor-connect-button.component.scss']
 })
 export class TimeDoctorConnectButtonComponent {
-
-  constructor(private tdConnector: TimeDoctorConnectorService) { }
-
   @Input() connected: boolean;
 
+  constructor(private integrationService: IntegrationsService) {}
+
   connect() {
-    this.tdConnector.connect();
+    this.integrationService.timeDoctorConnect();
   }
 
   disconnect() {
-    this.tdConnector.disconnect().subscribe();
+    this.integrationService
+      .timeDoctorDisconnect()
+      .subscribe();
   }
 }
