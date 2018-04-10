@@ -43,10 +43,6 @@ import { ImageUploadDirective } from './directives/image-upload.directive';
 import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
 import { UsersListPage } from './pages/users-list/users-list.page';
 import { UsersListService } from './services/users-list.service';
-import { SlackConnectorService } from './services/slack-connector.service';
-import {
-  TimeDoctorConnectorService
-} from './services/timedoctor-connector.service';
 import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
 import {
   TermsAndConditionsComponent
@@ -60,6 +56,7 @@ import { PermissionGuard } from './services/permission.guard';
 import { UpdateService } from './services/update.service';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { FooterComponent } from './components/footer/footer.component';
+import { IntegrationsService } from './services/integrations.service';
 
 @NgModule({
   imports: [
@@ -89,8 +86,7 @@ import { FooterComponent } from './components/footer/footer.component';
     RegistrationGuard,
     PermissionGuard,
     UsersListService,
-    SlackConnectorService,
-    TimeDoctorConnectorService,
+    IntegrationsService,
     TimeDoctorResolver,
     UpdateService,
   ],
@@ -119,4 +115,4 @@ import { FooterComponent } from './components/footer/footer.component';
     FooterComponent
   ]
 })
-export class CoreModule { }
+export class CoreModule {}
