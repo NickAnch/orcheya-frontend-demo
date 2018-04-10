@@ -30,12 +30,12 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   @Input() public user: User;
   private subscriptions: Subscription[] = [];
   private filter = new UpdateFilter();
-  private users: Observable<User[]>;
+  public users: Observable<User[]>;
   public data: UpdatesResponse;
   public filterText = '';
   public filterDate: string[];
   public typeahead = new EventEmitter<string>();
-  public item: User[] = [];
+  public items: User[] = [];
 
   constructor(
     private updateService: UpdateService,
@@ -45,7 +45,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (this.user) {
       this.filter.userIds = [String(this.user.id)];
-      this.item = [this.user];
+      this.items = [this.user];
     }
 
     this.usersListService.getUsersList()
