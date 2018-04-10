@@ -1,11 +1,11 @@
 <section class="content-header">
-      <h1>
-        User Profile
-      </h1>
-      <ol class="breadcrumb margin-bottom-none">
-        <li><a [routerLink]="['/']">Home</a></li>
-        <li class="active">User profile</li>
-      </ol>
+  <h1>
+    User Profile
+  </h1>
+  <ol class="breadcrumb margin-bottom-none">
+    <li><a [routerLink]="['/']">Home</a></li>
+    <li class="active">User profile</li>
+  </ol>
 
 </section>
 
@@ -90,7 +90,10 @@
             </tbody>
           </table>
           <div *ngIf="isYou">
-            <a class="btn btn-block btn-primary margin" style="width: inherit"><b>Edit profile</b></a>
+            <a class="btn btn-block btn-primary margin set"
+               (click)="onButtonClick()">
+              <b>Edit profile</b>
+            </a>
           </div>
 
         </div>
@@ -98,12 +101,10 @@
       </div>
 
     </div>
-    <!-- /.box -->
-    <!-- /.col -->
-
 
     <div class="col-lg-9">
-      <div>
+      <div class="nav-tabs-custom">
+
         <tabset #tabset>
           <tab class="nav-tabs-custom"
                id="activity"
@@ -146,5 +147,6 @@
         </tabset>
       </div>
     </div>
+
   </div>
 </section>

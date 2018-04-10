@@ -15,7 +15,6 @@ import 'rxjs/add/observable/fromEvent';
 
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
-import { Meta } from '../../models/meta.interface';
 
 @Component({
   selector: 'app-users-list',
