@@ -1,5 +1,14 @@
 <div class="filter-controls">
   <div class="input-group">
+    <ngx-dropdown-treeview
+      buttonClass="btn-dropdown-treeview"
+      [config]="{ hasFilter: true }"
+      [items]="selectedItems"
+      (filterChange)="onFilterChange($event)"
+      (selectedChange)="onSelectedChange($event)">
+    </ngx-dropdown-treeview>
+  </div>
+  <div class="input-group">
     <div class="input-group-addon">
       <i class="fa fa-calendar"></i>
     </div>
