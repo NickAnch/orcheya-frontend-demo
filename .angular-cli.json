@@ -22,7 +22,6 @@
         "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss",
         "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
         "../node_modules/font-awesome/scss/font-awesome.scss",
-        "dropdown-treeview.scss",
         "styles.scss"
       ],
       "scripts": [],
