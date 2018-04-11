@@ -26,10 +26,12 @@ export class SidebarService {
   }
 
   public add(group: IMenuGroup[] | IMenuGroup): void {
-    if (Array.isArray(group)) {
-      this._menu = this._menu.concat(group);
-    } else {
-      this._menu.push(group);
+    if (this._menu.length <= Array(group).length) {
+      if (Array.isArray(group)) {
+        this._menu = this._menu.concat(group);
+      } else {
+        this._menu.push(group);
+      }
     }
   }
 }
