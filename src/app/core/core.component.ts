@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SidebarService } from '../shared/sidebar/sidebar.service';
+import { SidebarService } from '../shared/sidebar';
 
 @Component({
   selector: 'app-wrapper',
@@ -9,13 +9,19 @@ import { SidebarService } from '../shared/sidebar/sidebar.service';
 })
 export class CoreComponent implements OnInit {
 
-  constructor(private sideBarService: SidebarService) {}
+  constructor(private sideBarService: SidebarService) {
+  }
 
   ngOnInit() {
     this.sideBarService
       .add([
-        { single: true, icon: 'fa-dashboard', link: ['/'] },
-        { single: true, icon: 'fa-telegram', link: ['/updates'] },
+        { name: 'Test 1', single: true, icon: 'fa-dashboard', link: ['/'] },
+        {
+          name: 'Test 2',
+          single: true,
+          icon: 'fa-telegram',
+          link: ['/updates']
+        },
       ]);
   }
 }
