@@ -9,8 +9,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -69,9 +67,7 @@ import { IntegrationsService } from './services/integrations.service';
     HttpClientModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    ProgressbarModule.forRoot(),
     CoreRoutingModule,
     SharedModule,
     GantgileModule,

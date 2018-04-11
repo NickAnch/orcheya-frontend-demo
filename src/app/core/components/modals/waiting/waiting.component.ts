@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { timer } from 'rxjs/observable/timer';
 
 type Color = 'warning' | 'success';
 
@@ -43,9 +44,11 @@ export class WaitingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    WaitingComponent.unsubscribe(
-      [...this.subscriptions, ...this.imageSubscriptions]
-    );
+    timer(2000).subscribe(() => (
+      WaitingComponent.unsubscribe(
+        [...this.subscriptions, ...this.imageSubscriptions]
+      )
+    ));
   }
 
   public cancel() {
