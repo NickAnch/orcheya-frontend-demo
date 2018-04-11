@@ -4,12 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { NgSelectModule } from '@ng-select/ng-select';
-
 import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { GantgileModule } from '../gantgile/gantgile.module';
@@ -64,16 +58,11 @@ import { IntegrationsService } from './services/integrations.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
-    BsDatepickerModule.forRoot(),
     CoreRoutingModule,
     SharedModule,
     GantgileModule,
     UpdaterModule,
     UpdaterModule,
-    InfiniteScrollModule,
-    NgSelectModule,
   ],
   providers: [
     CurrentUserService,
