@@ -64,23 +64,35 @@ export class UserProfilePage implements OnInit,
   }
 
   onTabSelect(tab) {
-    this.router.navigate(['./'], {
-      relativeTo: this.route,
-      queryParams: { tab: tab }
-    });
+    this.changeTabUri(tab);
   }
 
-  private checkActiveTab() {
-    if (!this.route.snapshot.queryParamMap.has('tab')) {
+  onButtonClick() {
+    const tab = 'settings';
+    this.changeTabUri(tab);
+    this.checkActiveTab(tab);
+  }
+
+  private checkActiveTab(tab?: string) {
+    if (!tab || !this.route.snapshot.queryParamMap.has('tab')) {
       return;
     }
 
-    const activeTabName = this.route.snapshot.queryParamMap.get('tab');
+    const activeTabName = tab
+      ? tab : this.route.snapshot.queryParamMap.get('tab');
+
     const currentTab = this.tabset.tabs
-      .find((tab: TabDirective) => tab.id === activeTabName);
+      .find((tabDir: TabDirective) => tabDir.id === activeTabName);
 
     if (currentTab) {
       currentTab.active = true;
     }
+  }
+
+  private changeTabUri(tab: string) {
+    this.router.navigate(['./'], {
+      relativeTo: this.route,
+      queryParams: { tab }
+    });
   }
 }
