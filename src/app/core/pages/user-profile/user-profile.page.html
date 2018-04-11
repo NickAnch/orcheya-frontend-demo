@@ -60,32 +60,32 @@
             <tr>
               <td><i class="fa fa-fw fa-birthday-cake"></i></td>
               <td>Date of birth</td>
-              <td><span>{{ user?.birthday | date:'MMMM dd, yyyy' || 'Lorem' }}</span></td>
+              <td><span>{{ user?.birthday | date:'MMMM dd, yyyy' }}</span></td>
             </tr>
             <tr>
               <td><i class="fa fa-fw fa-envelope"></i></td>
               <td>Email</td>
-              <td><a href="mailto:{{ user?.email }}"><span>{{ user?.email || 'ipsum' }}</span></a></td>
+              <td><a href="mailto:{{ user?.email }}"><span>{{ user?.email }}</span></a></td>
             </tr>
             <tr>
               <td><i class="fa fa-fw fa-phone"></i></td>
               <td>Phone number</td>
-              <td><a href="tel:{{ user?.phone }}"><span>{{ user?.phone || 'dolor' }}</span></a></td>
+              <td><a href="tel:{{ user?.phone }}"><span>{{ user?.phone }}</span></a></td>
             </tr>
             <tr>
               <td><i class="fa fa-fw fa-github"></i></td>
               <td>Github</td>
-              <td><a href="{{ user?.github }}"><span>{{ user?.github || 'sit' }}</span></a></td>
+              <td><a href="{{ user?.github }}"><span>{{ user?.github }}</span></a></td>
             </tr>
             <tr>
               <td><i class="fa fa-fw fa-bitbucket"></i></td>
               <td>Bitbucket</td>
-              <td><a href="{{ user?.bitbucket }}"><span>{{ user?.bitbucket || 'amet' }}</span></a></td>
+              <td><a href="{{ user?.bitbucket }}"><span>{{ user?.bitbucket }}</span></a></td>
             </tr>
             <tr>
               <td><i class="fa fa-fw fa-skype"></i></td>
               <td>Skype</td>
-              <td><a href="skype:{{ user?.skype }}?call"><span>{{ user?.skype || 'consectetur' }}</span></a></td>
+              <td><a href="skype:{{ user?.skype }}?call"><span>{{ user?.skype }}</span></a></td>
             </tr>
             </tbody>
           </table>
