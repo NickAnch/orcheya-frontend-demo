@@ -25,8 +25,7 @@ const routes: Routes = [
   {
     path: '',
     component: CoreComponent,
-    canActivate: [CurrentUserGuard],
-    canActivateChild: [PermissionGuard],
+    canActivate: [CurrentUserGuard, PermissionGuard],
     children: [
       {
         path: 'profile',
