@@ -1,10 +1,10 @@
 <main [style.width]="width">
   <div class="toolbar">
-    <div class="current-month">
-      {{ selectedMonth.title + ' ' + selectedMonth.year }}
-    </div>
     <div class="total-month">
       Month Time: <span class="bold">{{ totalMonthTime }}</span>
+    </div>
+    <div class="current-month">
+      {{ selectedMonth.title + ' ' + selectedMonth.year }}
     </div>
     <div class="months">
       <select class="form-control" title=""
@@ -12,7 +12,9 @@
               [ngModel]="currentMonth"
               (change)="onChange(select.value)">
         <option *ngFor="let month of months"
-                [value]="month.position">{{ month.title }}</option>
+                [value]="month.position">
+          {{ month.title + ' ' + month.year }}
+        </option>
       </select>
     </div>
   </div>
