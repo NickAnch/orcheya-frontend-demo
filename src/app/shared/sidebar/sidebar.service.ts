@@ -27,8 +27,15 @@ export class SidebarService {
 
   public add(group: IMenuGroup[] | IMenuGroup): void {
     if (Array.isArray(group)) {
-      this._menu = this._menu.concat(group);
+      group.forEach(singleGroup => this.calc(singleGroup));
     } else {
+      this.calc(group);
+    }
+  }
+
+  private calc(group: IMenuGroup) {
+    const sameNameGroup = this._menu.find(x => x.name === group.name);
+    if (!sameNameGroup) {
       this._menu.push(group);
     }
   }
