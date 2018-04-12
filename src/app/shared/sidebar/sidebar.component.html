@@ -10,6 +10,7 @@
         <ng-container *ngIf="group.single; else multiGroup">
           <a [routerLink]="group.link">
             <i class="fa" [ngClass]="group.icon"></i>
+            <span>{{ group.name }}</span>
           </a>
         </ng-container>
         <ng-template #multiGroup>
