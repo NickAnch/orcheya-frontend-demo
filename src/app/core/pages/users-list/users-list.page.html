@@ -31,8 +31,7 @@
   <br>
 
   <div class="box-body no-padding search-results"
-       data-infinite-scroll
-       [scrollWindow]="scrollWindow"
+       infiniteScroll
        (scrolled)="onScrollDown()">
     <ul class="users-list clearfix text-center">
       <li *ngFor="let user of usersList">

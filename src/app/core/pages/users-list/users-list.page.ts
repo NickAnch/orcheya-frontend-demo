@@ -25,7 +25,6 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('input') private inputField: ElementRef;
 
-  public scrollWindow = false;
   public searchField = '';
   public usersList: User[];
   private page = 1;
@@ -34,7 +33,8 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
   private onScrollDownSubscription: Subscription;
   private onButtonClickSubscription: Subscription;
 
-  constructor(private usersListService: UsersListService) {}
+  constructor(private usersListService: UsersListService) {
+  }
 
   ngOnInit() {
     this.ngOnInitSubscription = this.usersListService
@@ -76,7 +76,6 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
 
   public onButtonClick() {
     this.page = 1;
-    this.scrollWindow = false;
     this.onButtonClickSubscription = this.usersListService
       .getSearch(this.searchField)
       .subscribe(data => this.usersList = data.users);
@@ -84,6 +83,5 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
 
   public onSearchDelay() {
     this.page = 1;
-    this.scrollWindow = false;
   }
 }
