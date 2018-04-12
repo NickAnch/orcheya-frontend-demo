@@ -31,8 +31,7 @@
   <br>
 
   <div class="box-body no-padding search-results"
-       infiniteScroll
-       (scrolled)="onScrollDown()">
+       (window:wheel)="onWindowScroll($event)">
     <ul class="users-list clearfix text-center">
       <li *ngFor="let user of usersList">
         <a [routerLink]="['/user-profile', user.id]">

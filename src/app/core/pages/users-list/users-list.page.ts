@@ -12,6 +12,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/fromEvent';
+import { Subject } from 'rxjs/Subject';
 
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
@@ -32,11 +33,17 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
   private ngAfterViewInitSubscription: Subscription;
   private onScrollDownSubscription: Subscription;
   private onButtonClickSubscription: Subscription;
+  public event = new Subject<WheelEvent>();
+
 
   constructor(private usersListService: UsersListService) {
   }
 
   ngOnInit() {
+    this.event
+      .debounceTime(500)
+      .subscribe(() => this.onScrollDown());
+
     this.ngOnInitSubscription = this.usersListService
       .getUsersList(this.page)
       .subscribe(data => this.usersList = data.users);
@@ -83,5 +90,9 @@ export class UsersListPage implements OnInit, OnDestroy, AfterViewInit {
 
   public onSearchDelay() {
     this.page = 1;
+  }
+
+  public onWindowScroll($event) {
+    this.event.next($event);
   }
 }
