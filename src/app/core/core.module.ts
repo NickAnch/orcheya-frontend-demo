@@ -6,7 +6,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -36,6 +35,7 @@ import {
   TimeTableComponent,
   UpdatesComponent,
   RecentUpdateComponent,
+  WaitingComponent,
 } from './components';
 
 import { ImageUploadDirective } from './directives/image-upload.directive';
@@ -57,6 +57,7 @@ import { UpdateService } from './services/update.service';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { FooterComponent } from './components/footer/footer.component';
 import { IntegrationsService } from './services/integrations.service';
+import { InViewportModule } from 'ng-in-viewport';
 
 @NgModule({
   imports: [
@@ -72,8 +73,8 @@ import { IntegrationsService } from './services/integrations.service';
     GantgileModule,
     UpdaterModule,
     UpdaterModule,
-    InfiniteScrollModule,
     NgSelectModule,
+    InViewportModule.forRoot()
   ],
   providers: [
     CurrentUserService,
@@ -112,7 +113,11 @@ import { IntegrationsService } from './services/integrations.service';
     UpdatesComponent,
     UpdatesPage,
     UserSettingFormComponent,
-    FooterComponent
+    FooterComponent,
+    WaitingComponent,
+  ],
+  entryComponents: [
+    WaitingComponent,
   ]
 })
 export class CoreModule {}
