@@ -1,9 +1,6 @@
 import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild
+  AfterViewInit, Component, ElementRef,
+  OnDestroy, OnInit, ViewChild,
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
@@ -13,19 +10,21 @@ import 'rxjs/add/observable/fromEvent';
 
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.page.html',
   styleUrls: ['./users-list.page.scss']
 })
-export class UsersListPage implements OnInit, AfterViewInit {
+export class UsersListPage implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('input') private inputField: ElementRef;
 
   public searchField = '';
   public usersList: User[];
   private page = 1;
+  private subscriptions: Subscription[] = [];
 
   constructor(private usersListService: UsersListService) {
   }
@@ -37,12 +36,19 @@ export class UsersListPage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    Observable
+    this.subscriptions.push(Observable
       .fromEvent(this.inputField.nativeElement, 'keyup')
       .debounceTime(1000)
       .distinctUntilChanged()
       .switchMap(() => this.usersListService.getSearch(this.searchField))
-      .subscribe(data => this.usersList = data.users);
+      .subscribe(data => this.usersList = data.users)
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(
+      subscription => subscription.unsubscribe()
+    );
   }
 
   public onButtonClick() {
