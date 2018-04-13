@@ -30,8 +30,7 @@
 
   <br>
 
-  <div class="box-body no-padding search-results"
-       (window:wheel)="onWindowScroll($event)">
+  <div class="box-body no-padding search-results">
     <ul class="users-list clearfix text-center">
       <li *ngFor="let user of usersList">
         <a [routerLink]="['/user-profile', user.id]">
@@ -43,6 +42,11 @@
         <span class="users-list-date">{{ user.position }}</span>
       </li>
     </ul>
+  </div>
+
+  <div in-viewport
+       [inViewportOptions]="{ partial: false }"
+       (inViewportAction)="action($event)">
   </div>
 
 </section>
