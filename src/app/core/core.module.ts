@@ -35,6 +35,7 @@ import {
   TimeTableComponent,
   UpdatesComponent,
   RecentUpdateComponent,
+  WaitingComponent,
 } from './components';
 
 import { ImageUploadDirective } from './directives/image-upload.directive';
@@ -112,7 +113,11 @@ import { InViewportModule } from 'ng-in-viewport';
     UpdatesComponent,
     UpdatesPage,
     UserSettingFormComponent,
-    FooterComponent
+    FooterComponent,
+    WaitingComponent,
+  ],
+  entryComponents: [
+    WaitingComponent,
   ]
 })
 export class CoreModule {}
