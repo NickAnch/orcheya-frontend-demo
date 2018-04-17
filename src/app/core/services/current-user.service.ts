@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient, HttpEvent, HttpEventType, HttpHeaders,
+  HttpProgressEvent, HttpRequest, HttpResponse,
+} from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-
+import { map, last, catchError } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class CurrentUserService extends User {
   private apiProfilePath = '/api/profile';
   private apiUsersPath = '/api/users';
+  public progressSubject = new Subject<number>();
+  public avatarSubscription: Subscription;
 
   constructor(private http: HttpClient) {
     super();
@@ -122,9 +129,29 @@ export class CurrentUserService extends User {
     const data = new FormData();
     data.append('avatar', image, image.name);
 
+    const req = new HttpRequest(
+      'PUT',
+      `${this.apiProfilePath}/update_avatar`,
+      data,
+      { reportProgress: true }
+    );
+
     return Observable.create((observer: Observer<User>) => {
-      this.http
-        .put(`${this.apiProfilePath}/update_avatar`, data)
+      this.avatarSubscription = this.http.request(req)
+        .pipe(
+          map((e: HttpEvent<any>) => {
+            if (e.type === HttpEventType.UploadProgress) {
+              const progress = e as HttpProgressEvent;
+              this.progressSubject.next(
+                Math.round(100 * progress.loaded / progress.total)
+              );
+            } else if (e.type === HttpEventType.Response) {
+              return (<HttpResponse<{ user: User }>>e).body;
+            }
+          }),
+          last(null),
+          catchError(error => error)
+        )
         .subscribe(
           res => {
             this._fromJSON(res['user']);

@@ -30,6 +30,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   @Input() public user: User;
   private subscriptions: Subscription[] = [];
   private filter = new UpdateFilter();
+  private firstUsers: User[] = [];
   public users: Observable<User[]>;
   public data: UpdatesResponse;
   public filterText = '';
@@ -49,7 +50,10 @@ export class UpdatesComponent implements OnInit, OnDestroy {
     }
 
     this.usersListService.getUsersList()
-      .subscribe(data => this.fetchUsers(data));
+      .subscribe(data => {
+        this.firstUsers = data.users;
+        this.fetchUsers(data);
+      });
 
     this.fetchUpdates();
     this.initLiveSearching();
@@ -110,7 +114,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
 
   private fetchUsers(data: UsersListResponse) {
     this.users = Observable.create((observer: Observer<User[]>) => {
-      observer.next(data.users);
+      observer.next(data.users.length ? data.users : this.firstUsers);
       observer.complete();
     });
   }
