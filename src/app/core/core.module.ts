@@ -52,7 +52,6 @@ import { UpdateService } from './services/update.service';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { FooterComponent } from './components/footer/footer.component';
 import { IntegrationsService } from './services/integrations.service';
-import { InViewportModule } from 'ng-in-viewport';
 
 @NgModule({
   imports: [
@@ -64,7 +63,6 @@ import { InViewportModule } from 'ng-in-viewport';
     SharedModule,
     GantgileModule,
     UpdaterModule,
-    InViewportModule.forRoot(),
   ],
   providers: [
     CurrentUserService,

@@ -10,7 +10,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InViewportModule } from 'ng-in-viewport';
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     TabsModule.forRoot(),
     BsDatepickerModule.forRoot(),
     NgSelectModule,
-    InfiniteScrollModule,
+    InViewportModule.forRoot(),
     ModalModule.forRoot(),
     ProgressbarModule.forRoot(),
   ],
@@ -36,7 +36,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     TabsModule,
     BsDatepickerModule,
     NgSelectModule,
-    InfiniteScrollModule,
+    InViewportModule,
     ModalModule,
     ProgressbarModule,
   ]
