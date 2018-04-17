@@ -14,6 +14,13 @@ export class UserSettingFormComponent implements OnInit {
   public form: FormGroup;
   private respErrors: Object = {};
   private updatedUser = new User();
+  public schedule = [
+    '08:00 - 17:00',
+    '09:00 - 18:00',
+    '10:00 - 19:00',
+    '11:00 - 20:00',
+    'flexible'
+  ];
 
   constructor(public currentUser: CurrentUserService,
               private formBuilder: FormBuilder,
@@ -34,6 +41,7 @@ export class UserSettingFormComponent implements OnInit {
       bitbucket: [this.currentUser.bitbucket, []],
       skype: [this.currentUser.skype, []],
       phone: [this.currentUser.phone, [Validators.required]],
+      timing: ['09:00 - 18:00', [Validators.required]]
     });
   }
 
