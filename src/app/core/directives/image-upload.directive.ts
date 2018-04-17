@@ -9,8 +9,8 @@ import {
 })
 export class ImageUploadDirective implements OnInit {
   @Output() public fileChange = new EventEmitter<File>();
-  @Input() private input: HTMLInputElement;
   @Input() private disable = false;
+  private input: HTMLInputElement;
   private parent: Element;
   private panel: Element;
   private cssClasses = {
@@ -39,6 +39,7 @@ export class ImageUploadDirective implements OnInit {
     this.renderer.listen(
       this.parent, 'mouseenter', this.onMouseEnter.bind(this)
     );
+
     this.renderer.listen(
       this.parent, 'mouseleave', this.onMouseLeave.bind(this)
     );
@@ -57,6 +58,10 @@ export class ImageUploadDirective implements OnInit {
     const icon = this.renderer.createElement('i');
     const span = this.renderer.createElement('span');
 
+    this.input = this.renderer.createElement('input');
+    this.renderer.setAttribute(this.input, 'type', 'file');
+    this.renderer.setAttribute(this.input, 'style', 'display: none');
+
     this.cssClasses.panel.split(' ')
       .forEach(cssClass => this.renderer.addClass(panel, cssClass));
 
@@ -70,6 +75,7 @@ export class ImageUploadDirective implements OnInit {
 
     this.renderer.appendChild(panel, icon);
     this.renderer.appendChild(panel, span);
+    this.renderer.appendChild(panel, this.input);
 
     return panel;
   }
@@ -93,6 +99,10 @@ export class ImageUploadDirective implements OnInit {
   }
 
   private onChange() {
-    this.fileChange.emit(this.input.files.item(0));
+    if (this.input.files.length) {
+      this.fileChange.emit(this.input.files.item(0));
+    }
+
+    this.input.value = null;
   }
 }

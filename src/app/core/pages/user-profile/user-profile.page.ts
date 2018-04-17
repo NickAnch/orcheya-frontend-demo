@@ -3,11 +3,15 @@ import {
   AfterViewInit, ChangeDetectorRef, OnInit
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TabDirective, TabsetComponent } from 'ngx-bootstrap';
+import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
+import { BsModalService, ModalOptions, BsModalRef } from 'ngx-bootstrap/modal';
 
 import { CurrentUserService } from '../../services/current-user.service';
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
+import {
+  WaitingComponent
+} from '../../components/modals/waiting/waiting.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -22,13 +26,17 @@ export class UserProfilePage implements OnInit,
   public user: User;
   public userStats;
   public isYou = false;
+  private modalOptions = new ModalOptions();
+  private modalRef: BsModalRef;
 
-  constructor(public currentUser: CurrentUserService,
-              private userListService: UsersListService,
-              private route: ActivatedRoute,
-              private cdr: ChangeDetectorRef,
-              private router: Router) {
-  }
+  constructor(
+    public currentUser: CurrentUserService,
+    private userListService: UsersListService,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private modalService: BsModalService,
+  ) {}
 
   ngOnInit() {
     let userId = +this.route.snapshot.params['id'];
@@ -47,6 +55,8 @@ export class UserProfilePage implements OnInit,
     this.userListService
       .getUserTimeStatsById(userId)
       .subscribe(data => this.userStats = data);
+
+    this.initModalOptions();
   }
 
   ngAfterViewInit() {
@@ -58,9 +68,16 @@ export class UserProfilePage implements OnInit,
   }
 
   onChange(file: File) {
-    this.currentUser
+    this.modalRef = this.modalService.show(WaitingComponent, this.modalOptions);
+
+    const subscription = this.currentUser
       .uploadAvatar(file)
       .subscribe();
+
+    this.modalRef.content['imageSubscriptions'] = [
+      this.currentUser.avatarSubscription,
+      subscription,
+    ];
   }
 
   onTabSelect(tab) {
@@ -94,5 +111,16 @@ export class UserProfilePage implements OnInit,
       relativeTo: this.route,
       queryParams: { tab }
     });
+  }
+
+  private initModalOptions() {
+    this.modalOptions.initialState = {
+      title: 'Image uploader',
+      progressSubject: this.currentUser.progressSubject,
+      successMessage: 'Image is successfully uploaded',
+    };
+    this.modalOptions.keyboard = false;
+    this.modalOptions.ignoreBackdropClick = true;
+    this.modalOptions.class = 'modal-center';
   }
 }
