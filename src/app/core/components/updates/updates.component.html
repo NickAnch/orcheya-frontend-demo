@@ -42,9 +42,10 @@
         <i class="fa fa-refresh bg-blue"></i>
 
         <div class="timeline-item">
-          <span class="time"><i class="fa fa-clock-o"></i>{{ showDate(update.date, 'kk mm') }}</span>
+          <span class="time"><i class="fa fa-clock-o"></i> {{ showDate(update.date, 'HH mm') }}</span>
 
-          <h3 class="timeline-header">Update - {{ showDate(update.date, 'MMMM D YYYY') }}</h3>
+          <h3 class="timeline-header"><b>{{ update.user.fullName }}</b> Update - {{ showDate(update.date, 'MMMM D YYYY')
+            }}</h3>
 
           <div class="timeline-body">
             <div class="row">
