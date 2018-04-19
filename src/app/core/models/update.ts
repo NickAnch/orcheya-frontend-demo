@@ -3,7 +3,7 @@ import { User } from './user';
 
 export class Update extends AppModel {
   @Alias() public id: number;
-  @Alias() public user: User;
+  @Alias('user', User) public user: User;
   @Alias() public date: string;
   @Alias() public made: string;
   @Alias() public planning: string;
