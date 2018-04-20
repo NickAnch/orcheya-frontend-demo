@@ -91,7 +91,7 @@ export class UserProfilePage implements OnInit,
   }
 
   private checkActiveTab(tab?: string) {
-    if (!tab || !this.route.snapshot.queryParamMap.has('tab')) {
+    if (!tab && !this.route.snapshot.queryParamMap.has('tab')) {
       return;
     }
 

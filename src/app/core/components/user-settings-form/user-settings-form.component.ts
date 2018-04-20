@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './user-settings-form.component.html'
 })
 export class UserSettingFormComponent implements OnInit {
+  @Input() private navigateTo: string[] = [];
   public form: FormGroup;
   private respErrors: Object = {};
   private updatedUser = new User();
@@ -33,10 +34,11 @@ export class UserSettingFormComponent implements OnInit {
     'COO'
   ];
 
-  constructor(public currentUser: CurrentUserService,
-              private formBuilder: FormBuilder,
-              private router: Router) {
-  }
+  constructor(
+    public currentUser: CurrentUserService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -80,7 +82,11 @@ export class UserSettingFormComponent implements OnInit {
             this.respErrors = err.error;
           }
         },
-        () => this.router.navigate(['/profile']));
+        () => {
+          if (this.navigateTo.length) {
+            this.router.navigate(this.navigateTo);
+          }
+        });
   }
 
   public textError(controlName: string): string {
