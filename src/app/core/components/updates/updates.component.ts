@@ -18,6 +18,7 @@ import { User } from '../../models/user';
 import {
   UsersListResponse, UsersListService
 } from '../../services/users-list.service';
+import { Project } from '../../models/project';
 
 @Component({
   selector: 'app-updates',
@@ -28,10 +29,12 @@ import {
 export class UpdatesComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput') private searchInput: ElementRef;
   @Input() public user: User;
+  @Input() public hideProjectFilter = false;
   private subscriptions: Subscription[] = [];
   private filter = new UpdateFilter();
   private firstUsers: User[] = [];
   public users: Observable<User[]>;
+  public projects: Observable<Project[]>;
   public data: UpdatesResponse;
   public filterText = '';
   public filterDate: string[];
@@ -55,6 +58,8 @@ export class UpdatesComponent implements OnInit, OnDestroy {
         this.fetchUsers(data);
       });
 
+    this.projects = this.usersListService.getProjectsList();
+
     this.fetchUpdates();
     this.initLiveSearching();
   }
@@ -69,10 +74,18 @@ export class UpdatesComponent implements OnInit, OnDestroy {
     return moment(strDate).format(format);
   }
 
-  public onSelectChanged(users: User[]) {
+  public onUserChanged(users: User[]) {
     this.filter.userIds = !users.length
       ? []
       : users.map(user => String(user.id));
+
+    this.fetchUpdates();
+  }
+
+  public onProjectChanged(projects: Project[]) {
+    this.filter.projectIds = !projects.length
+      ? []
+      : projects.map(project => String(project.id));
 
     this.fetchUpdates();
   }
