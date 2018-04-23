@@ -1,15 +1,16 @@
 .users-list > li {
-  width: unset;
-  min-width: 25%;
+  width: 220px;
+
+  @media only screen and (max-width: 767px) {
+    padding: 15px
+  }
+  @media only screen and (max-width: 470px) {
+    padding: 15px;
+    width: 170px;
+  }
 }
 
 .users-list-name {
   margin: 5px;
 }
 
-@media only screen and (max-width: 767px) {
-  li {
-    float: unset;
-    padding: 15px
-  }
-}
