@@ -19,6 +19,7 @@ import {
   UsersListResponse, UsersListService
 } from '../../services/users-list.service';
 import { Project } from '../../models/project';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-updates',
@@ -44,6 +45,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   constructor(
     private updateService: UpdateService,
     private usersListService: UsersListService,
+    private projectService: ProjectService,
   ) {}
 
   ngOnInit() {
@@ -58,7 +60,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
         this.fetchUsers(data);
       });
 
-    this.projects = this.usersListService.getProjectsList();
+    this.projects = this.projectService.getProjectsList();
 
     this.fetchUpdates();
     this.initLiveSearching();

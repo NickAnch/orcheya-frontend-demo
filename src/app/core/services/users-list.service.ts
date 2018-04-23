@@ -109,26 +109,4 @@ export class UsersListService {
         );
     });
   }
-
-  public getProjectsList(): Observable<Project[]> {
-    return Observable.create((observer: Observer<Project[]>) => {
-      const mock: Project[] = [
-        new Project({ id: 1, name: 'Orc' }),
-        new Project({ id: 2, name: 'Fab' }),
-        new Project({ id: 3, name: 'Tes' }),
-      ];
-      observer.next(mock);
-      observer.complete();
-      // this.http
-      //     .get('api/projects')
-      //     .subscribe(
-      //       (res: Project[]) => {
-      //         const projects = res.map(project => new Project(project));
-      //         observer.next(projects);
-      //         observer.complete();
-      //       },
-      //       err => observer.error(err)
-      //     );
-    });
-  }
 }
