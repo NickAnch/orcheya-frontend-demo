@@ -50,7 +50,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.user) {
-      this.filter.userIds = [String(this.user.id)];
+      this.filter.userIds = [this.user.id];
       this.items = [this.user];
     }
 
@@ -77,17 +77,13 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   }
 
   public onUserChanged(users: User[]) {
-    this.filter.userIds = !users.length
-      ? []
-      : users.map(user => String(user.id));
+    this.filter.userIds = users.map(user => user.id);
 
     this.fetchUpdates();
   }
 
   public onProjectChanged(projects: Project[]) {
-    this.filter.projectIds = !projects.length
-      ? []
-      : projects.map(project => String(project.id));
+    this.filter.projectIds = projects.map(project => project.id);
 
     this.fetchUpdates();
   }

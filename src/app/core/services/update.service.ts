@@ -16,35 +16,24 @@ export interface UpdatesResponse {
 export class UpdateService {
   private apiUrl = '/api/updates';
 
-
   constructor(private http: HttpClient) {}
 
   getUpdates(filter?: UpdateFilter): Observable<UpdatesResponse> {
-    let str = '?';
+    let params = new HttpParams();
 
     if (filter) {
-      const obj = filter._toJSON() as { [param: string]: string | string[]; };
+      const obj: Object = filter._toJSON();
 
-      Object.keys(obj).forEach(key => {
-        if (obj.hasOwnProperty(key) && !obj[key]) {
-          return;
-        }
-
-        if (Array.isArray(obj[key])) {
-          (<Array<string>>obj[key]).forEach(id => {
-            str += key + '[]=' + id + '&';
-          });
-        } else {
-          str += key + '=' + obj[key] + '&';
+      Object.keys(obj).forEach(prop => {
+        if (obj.hasOwnProperty(prop) && obj[prop]) {
+          params = params.set(prop, obj[prop]);
         }
       });
-
-      str = str.slice(0, -1);
     }
 
     return Observable.create((observer: Observer<UpdatesResponse>) => {
       this.http
-        .get(this.apiUrl + str)
+        .get(this.apiUrl, { params: params })
         .subscribe(
           (data: UpdatesResponse) => {
             const updates = data.updates
