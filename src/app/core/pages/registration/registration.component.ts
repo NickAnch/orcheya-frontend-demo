@@ -6,4 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent {
+  public navigateTo = ['/integrations'];
 }
