@@ -18,6 +18,8 @@ import { User } from '../../models/user';
 import {
   UsersListResponse, UsersListService
 } from '../../services/users-list.service';
+import { Project } from '../../models/project';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-updates',
@@ -28,10 +30,12 @@ import {
 export class UpdatesComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput') private searchInput: ElementRef;
   @Input() public user: User;
+  @Input() public hideProjectFilter = false;
   private subscriptions: Subscription[] = [];
   private filter = new UpdateFilter();
   private firstUsers: User[] = [];
   public users: Observable<User[]>;
+  public projects: Observable<Project[]>;
   public data: UpdatesResponse;
   public filterText = '';
   public filterDate: string[];
@@ -41,11 +45,12 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   constructor(
     private updateService: UpdateService,
     private usersListService: UsersListService,
+    private projectService: ProjectService,
   ) {}
 
   ngOnInit() {
     if (this.user) {
-      this.filter.userIds = [String(this.user.id)];
+      this.filter.userIds = [this.user.id];
       this.items = [this.user];
     }
 
@@ -54,6 +59,8 @@ export class UpdatesComponent implements OnInit, OnDestroy {
         this.firstUsers = data.users;
         this.fetchUsers(data);
       });
+
+    this.projects = this.projectService.getProjectsList();
 
     this.fetchUpdates();
     this.initLiveSearching();
@@ -69,10 +76,14 @@ export class UpdatesComponent implements OnInit, OnDestroy {
     return moment(strDate).format(format);
   }
 
-  public onSelectChanged(users: User[]) {
-    this.filter.userIds = !users.length
-      ? []
-      : users.map(user => String(user.id));
+  public onUserChanged(users: User[]) {
+    this.filter.userIds = users.map(user => user.id);
+
+    this.fetchUpdates();
+  }
+
+  public onProjectChanged(projects: Project[]) {
+    this.filter.projectIds = projects.map(project => project.id);
 
     this.fetchUpdates();
   }

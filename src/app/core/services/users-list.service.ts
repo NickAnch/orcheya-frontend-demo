@@ -6,6 +6,7 @@ import { User } from '../models/user';
 
 import { TimeActivity } from '../models/time-activity.interface';
 import { Meta } from '../models/meta.interface';
+import { Project } from '../models/project';
 
 export interface UsersListResponse {
   users: User[];
