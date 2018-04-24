@@ -1,6 +1,6 @@
-import { Alias, Model } from 'tsmodels';
+import { Alias, AppModel } from 'tsmodels';
 
-export class UpdateFilter extends Model {
+export class UpdateFilter extends AppModel {
   @Alias() public page?: string;
   @Alias() public limit?: string;
   @Alias() public query?: string;
