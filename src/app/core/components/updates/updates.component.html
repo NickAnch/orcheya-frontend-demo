@@ -10,7 +10,20 @@
       [closeOnSelect]="false"
       [hideSelected]="true"
       [(ngModel)]="items"
-      (change)="onSelectChanged($event)">
+      (change)="onUserChanged($event)">
+    </ng-select>
+  </div>
+  <div class="input-group"
+      *ngIf="!hideProjectFilter">
+    <ng-select
+      bindLabel="name"
+      placeholder="Select project"
+      notFoundText="Project not found"
+      [items]="projects | async"
+      [multiple]="true"
+      [closeOnSelect]="false"
+      [hideSelected]="true"
+      (change)="onProjectChanged($event)">
     </ng-select>
   </div>
   <div class="input-group">
