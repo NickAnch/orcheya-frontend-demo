@@ -2,4 +2,59 @@
   background: #d2d6de;
   display: block;
   min-height: 100%;
+
+  & * {
+    --x-height-multiplier: 0.375;
+    --baseline-multiplier: 0.17;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    letter-spacing: .01rem;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 21px;
+    line-height: 1.58;
+  }
+}
+
+.box-body {
+  width: 70%;
+  margin: 0 auto;
+
+  h4 {
+    font-weight: bold;
+  }
+
+  ol {
+    list-style: none;
+    counter-reset: li;
+    font-weight: normal;
+
+    li:before {
+      counter-increment: li;
+      content: counters(li, ".") ". ";
+      font-weight: bold;
+    }
+
+    &.main-list {
+      padding-left: 0;
+
+      &  > li {
+        font-weight: bold;
+        padding-bottom: 40px;
+      }
+
+      & ol {
+        padding-left: 15px;
+
+        li {
+          padding-bottom: 10px;
+        }
+      }
+    }
+  }
+}
+
+.box-footer {
+  & * {
+    font-size: 14px;
+  }
 }
