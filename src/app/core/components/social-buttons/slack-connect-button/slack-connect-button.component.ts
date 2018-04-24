@@ -7,15 +7,23 @@ import { IntegrationsService } from '../../../services/integrations.service';
   styleUrls: ['./slack-connect-button.component.scss']
 })
 export class SlackConnectButtonComponent {
-  @Input() connected: boolean;
+  @Input() connected = false;
+  @Input() connectName = 'Connect';
+  @Input() disconnectName = 'Disconnect';
 
   constructor(private integrationService: IntegrationsService) {}
 
-  connect() {
+  public onClick() {
+    this.connected
+      ? this.disconnect()
+      : this.connect();
+  }
+
+  private connect() {
     this.integrationService.slackConnect();
   }
 
-  disconnect() {
+  private disconnect() {
     this.integrationService
       .slackDisconnect()
       .subscribe();

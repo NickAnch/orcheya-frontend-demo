@@ -8,14 +8,22 @@ import { IntegrationsService } from '../../../services/integrations.service';
 })
 export class TimeDoctorConnectButtonComponent {
   @Input() connected: boolean;
+  @Input() connectName = 'Connect';
+  @Input() disconnectName = 'Disconnect';
 
   constructor(private integrationService: IntegrationsService) {}
 
-  connect() {
+  public onClick() {
+    this.connected
+      ? this.disconnect()
+      : this.connect();
+  }
+
+  private connect() {
     this.integrationService.timeDoctorConnect();
   }
 
-  disconnect() {
+  private disconnect() {
     this.integrationService
       .timeDoctorDisconnect()
       .subscribe();

@@ -1,13 +1,7 @@
-<div class="integrations" *ngIf="connected; else notconnected">
-  <a class="btn btn-block bg-red" (click)="disconnect()">
-    Disconnect
+<div class="integrations">
+  <a class="btn btn-block"
+     [ngClass]="connected ? 'btn-danger' : 'btn-success'"
+     (click)="onClick()">
+    {{ connected ? disconnectName : connectName }}
   </a>
 </div>
-
-<ng-template #notconnected>
-  <div class="integrations">
-    <a class="btn btn-block bg-green" (click)="connect()">
-      Connect
-    </a>
-  </div>
-</ng-template>

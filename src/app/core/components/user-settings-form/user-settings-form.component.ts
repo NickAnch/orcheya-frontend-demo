@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -11,10 +11,11 @@ import { Router } from '@angular/router';
   templateUrl: './user-settings-form.component.html'
 })
 export class UserSettingFormComponent implements OnInit {
+  @Input() private navigateTo: string[] = [];
   public form: FormGroup;
   private respErrors: Object = {};
   private updatedUser = new User();
-  public schedule = [
+  public timing = [
     '08:00 - 17:00',
     '09:00 - 18:00',
     '10:00 - 19:00',
@@ -22,10 +23,22 @@ export class UserSettingFormComponent implements OnInit {
     'flexible'
   ];
 
-  constructor(public currentUser: CurrentUserService,
-              private formBuilder: FormBuilder,
-              private router: Router) {
-  }
+  public role = [
+    'Developer',
+    'HR',
+    'Sales',
+    'Project Manager',
+    'Lead Generation',
+    'CEO',
+    'CTO',
+    'COO'
+  ];
+
+  constructor(
+    public currentUser: CurrentUserService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -41,7 +54,8 @@ export class UserSettingFormComponent implements OnInit {
       bitbucket: [this.currentUser.bitbucket, []],
       skype: [this.currentUser.skype, []],
       phone: [this.currentUser.phone, [Validators.required]],
-      timing: ['09:00 - 18:00', [Validators.required]]
+      timing: [this.currentUser.timing, [Validators.required]],
+      role: [this.currentUser.role, [Validators.required]]
     });
   }
 
@@ -68,7 +82,11 @@ export class UserSettingFormComponent implements OnInit {
             this.respErrors = err.error;
           }
         },
-        () => this.router.navigate(['/profile']));
+        () => {
+          if (this.navigateTo.length) {
+            this.router.navigate(this.navigateTo);
+          }
+        });
   }
 
   public textError(controlName: string): string {
