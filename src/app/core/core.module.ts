@@ -52,6 +52,7 @@ import { UpdateService } from './services/update.service';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { FooterComponent } from './components/footer/footer.component';
 import { IntegrationsService } from './services/integrations.service';
+import { IntegrationsPage } from './pages/integrations/integrations.page';
 
 @NgModule({
   imports: [
@@ -103,6 +104,7 @@ import { IntegrationsService } from './services/integrations.service';
     UserSettingFormComponent,
     FooterComponent,
     WaitingComponent,
+    IntegrationsPage,
   ],
   entryComponents: [
     WaitingComponent,
