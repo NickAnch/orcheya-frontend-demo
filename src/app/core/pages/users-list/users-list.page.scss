@@ -1,5 +1,6 @@
 .users-list > li {
   width: 220px;
+  min-height: 280px;
 
   @media only screen and (max-width: 767px) {
     padding: 15px
@@ -7,6 +8,7 @@
   @media only screen and (max-width: 470px) {
     padding: 15px;
     width: 170px;
+    min-height: 230px;
   }
 }
 
