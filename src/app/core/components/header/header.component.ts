@@ -30,4 +30,7 @@ export class HeaderComponent {
       .signOut()
       .subscribe(() => this.router.navigate(['/sign-in']));
   }
+  public goToProfile(): void {
+    this.router.navigate(['/profile']);
+  }
 }
