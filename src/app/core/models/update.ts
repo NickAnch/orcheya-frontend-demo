@@ -1,7 +1,7 @@
-import { Alias, AppModel } from 'tsmodels';
+import { Alias, Model } from 'tsmodels';
 import { User } from './user';
 
-export class Update extends AppModel {
+export class Update extends Model {
   @Alias() public id: number;
   @Alias('user', User) public user: User;
   @Alias() public date: string;

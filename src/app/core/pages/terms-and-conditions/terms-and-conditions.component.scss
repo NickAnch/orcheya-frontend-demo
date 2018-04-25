@@ -14,8 +14,24 @@
 }
 
 .box-body {
-  width: 70%;
+  width: 700px;
   margin: 0 auto;
+
+  @media only screen and (max-width: 800px) {
+    width: 80%;
+
+    * {
+      font-size: 19px;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 90%;
+
+    * {
+      font-size: 17px;
+    }
+  }
 
   h4 {
     font-weight: bold;
@@ -30,6 +46,10 @@
       counter-increment: li;
       content: counters(li, ".") ". ";
       font-weight: bold;
+    }
+
+    li:first-child {
+      padding-top: 10px;
     }
 
     &.main-list {

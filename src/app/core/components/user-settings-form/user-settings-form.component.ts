@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { CurrentUserService } from '../../services/current-user.service';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
+import { ValidateLatin } from '../../validators/latin.validator';
 
 @Component({
   selector: 'app-user-settings-form',
@@ -42,14 +43,11 @@ export class UserSettingFormComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      name: [this.currentUser.name, [Validators.required]],
-      surname: [this.currentUser.surname, [Validators.required]],
-      birthday: [this.currentUser.birthday, [Validators.required]],
+      name: [this.currentUser.name, [Validators.required, ValidateLatin]],
+      surname: [this.currentUser.surname, [Validators.required, ValidateLatin]],
+      birthday: [new Date(this.currentUser.birthday), [Validators.required]],
       sex: [this.currentUser.sex, []],
-      email: [
-        this.currentUser.email,
-        [Validators.required, Validators.email]
-      ],
+      email: [this.currentUser.email, [Validators.required, Validators.email]],
       github: [this.currentUser.github, []],
       bitbucket: [this.currentUser.bitbucket, []],
       skype: [this.currentUser.skype, []],
@@ -99,6 +97,8 @@ export class UserSettingFormComponent implements OnInit {
         return `${controlName} is required`;
       } else if (this.form.get(controlName).errors['email']) {
         return `${controlName} is not valid email`;
+      } else if (this.form.get(controlName).errors['validLatin']) {
+        return `${controlName} should contain only latin characters`;
       }
     }
 
