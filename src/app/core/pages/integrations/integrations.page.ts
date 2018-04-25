@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class IntegrationsPage implements OnInit {
 
+  public isAllowToProfilePage = false;
+
   constructor(
     public currentUser: CurrentUserService,
     private router: Router,
@@ -19,7 +21,8 @@ export class IntegrationsPage implements OnInit {
       this.currentUser.slackConnected
       && this.currentUser.timedoctorConnected
     ) {
-      this.router.navigate(['/profile']);
+      // this.router.navigate(['/profile']);
+      this.isAllowToProfilePage = true;
     }
   }
 
