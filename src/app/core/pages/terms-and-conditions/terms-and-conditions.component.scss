@@ -48,6 +48,10 @@
       font-weight: bold;
     }
 
+    li:first-child {
+      padding-top: 10px;
+    }
+
     &.main-list {
       padding-left: 0;
 
