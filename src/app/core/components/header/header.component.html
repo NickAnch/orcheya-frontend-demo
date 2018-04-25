@@ -40,7 +40,8 @@
             <li class="user-header">
               <img class="img-circle"
                    alt="User Avatar"
-                   [src]="currentUser.avatar.small">
+                   [src]="currentUser.avatar.small"
+                   (click)="goToProfile()">
               <p>{{ currentUser.name }}</p>
             </li>
             <!--<li class="user-body"></li>-->
