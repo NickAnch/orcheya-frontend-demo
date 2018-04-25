@@ -132,7 +132,8 @@
             <div class="tab-content">
               <app-user-timeline>
                 <app-updates *ngIf="user"
-                             [user]="user"></app-updates>
+                    [user]="user"
+                    [hideProjectFilter]="true"></app-updates>
               </app-user-timeline>
             </div>
           </tab>

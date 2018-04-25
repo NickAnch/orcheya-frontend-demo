@@ -52,7 +52,9 @@ import { UpdateService } from './services/update.service';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { FooterComponent } from './components/footer/footer.component';
 import { IntegrationsService } from './services/integrations.service';
+import { ProjectService } from './services/project.service';
 import { IntegrationsPage } from './pages/integrations/integrations.page';
+import { InputMaskDirective } from './directives/input-mask.directive';
 
 @NgModule({
   imports: [
@@ -79,6 +81,7 @@ import { IntegrationsPage } from './pages/integrations/integrations.page';
     IntegrationsService,
     TimeDoctorResolver,
     UpdateService,
+    ProjectService,
   ],
   declarations: [
     HeaderComponent,
@@ -105,6 +108,7 @@ import { IntegrationsPage } from './pages/integrations/integrations.page';
     FooterComponent,
     WaitingComponent,
     IntegrationsPage,
+    InputMaskDirective,
   ],
   entryComponents: [
     WaitingComponent,

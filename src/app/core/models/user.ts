@@ -1,11 +1,11 @@
-import { Alias, AppModel } from 'tsmodels';
+import { Alias, Model } from 'tsmodels';
 import { Image } from './image';
 
 /**
   This class describe of user model.
 */
 
-export class User extends AppModel {
+export class User extends Model {
   @Alias() public id: number;
   @Alias() public email: string;
   @Alias() public name: string;

@@ -16,12 +16,9 @@ export interface UpdatesResponse {
 export class UpdateService {
   private apiUrl = '/api/updates';
 
-
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getUpdates(filter?: UpdateFilter): Observable<UpdatesResponse> {
-    let params: HttpParams;
     let str = '?';
 
     if (filter) {
@@ -33,9 +30,6 @@ export class UpdateService {
         }
       }
 
-      params = new HttpParams({
-        fromObject: obj
-      });
       Object.keys(obj).forEach(key => {
         if (Array.isArray(obj[key])) {
           (<Array<string>>obj[key]).forEach(id => {
@@ -45,13 +39,13 @@ export class UpdateService {
           str += key + '=' + obj[key] + '&';
         }
       });
-    } else {
-      params = new HttpParams();
     }
+
+    str = str.slice(0, -1);
 
     return Observable.create((observer: Observer<UpdatesResponse>) => {
       this.http
-        .get(this.apiUrl + str)
+        .get(`${this.apiUrl}${str}`)
         .subscribe(
           (data: UpdatesResponse) => {
             const updates = data.updates

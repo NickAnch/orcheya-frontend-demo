@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 
-import { UpdateService, UpdatesResponse } from '../../services/update.service';
+import { UpdateService } from '../../services/update.service';
 import { UpdateFilter } from '../../models/update-filter';
 import { Update } from '../../models/update';
 
@@ -20,7 +19,7 @@ export class RecentUpdateComponent implements OnInit {
   constructor(private updateService: UpdateService) {}
 
   ngOnInit() {
-    this.updateFilter.userIds = [String(this.userId)];
+    this.updateFilter.userIds = [this.userId];
     this.updateFilter.limit = String(1);
 
     this.updateService
