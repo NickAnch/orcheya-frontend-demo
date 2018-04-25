@@ -7,20 +7,15 @@ import { Router } from '@angular/router';
   templateUrl: './integrations.page.html',
   styleUrls: ['./integrations.page.scss']
 })
-export class IntegrationsPage implements OnInit {
+export class IntegrationsPage  {
 
   constructor(
     public currentUser: CurrentUserService,
     private router: Router,
   ) {}
 
-  ngOnInit() {
-    if (
-      this.currentUser.slackConnected
-      && this.currentUser.timedoctorConnected
-    ) {
-      this.router.navigate(['/profile']);
-    }
+  public navigateToProfile() {
+    this.router.navigate(['/profile']);
   }
 
 }

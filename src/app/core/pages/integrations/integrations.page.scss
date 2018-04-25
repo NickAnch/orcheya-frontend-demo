@@ -6,7 +6,33 @@
 
 .btn-wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
-  width: 60%;
-  margin: 30px auto;
+  margin: 10px auto 30px auto;
+  width: 90%;
+}
+
+.icon {
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+}
+
+.box {
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+.btn-next {
+  margin-left: 48.5px;
+  margin-top: 10px;
+  min-width: 170px;
+  width: 50%;
+}
+
+@media (max-width: 767px) {
+  .box {
+    width: unset;
+  }
 }
