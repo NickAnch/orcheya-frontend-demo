@@ -16,8 +16,8 @@
                 src="../../../../assets/social-icons/slack-icon-round.png">
               <app-slack-connect-button
                 [connected]="currentUser.slackConnected"
-                connectName="Connect to Slack"
-                disconnectName="Disconnect from Slack">
+                connectName="Connect"
+                disconnectName="Disconnect">
               </app-slack-connect-button>
             </div>
             <div>
@@ -26,15 +26,16 @@
                 src="../../../../assets/social-icons/timedoctor-icon-round.png">
               <app-timedoctor-connect-button
                 [connected]="currentUser.timedoctorConnected"
-                connectName="Connect to TimeDoctor"
-                disconnectName="Disconnect from TimeDoctor">
+                connectName="Connect"
+                disconnectName="Disconnect">
               </app-timedoctor-connect-button>
             </div>
-            <button
-              class="btn"
-              [ngClass]="currentUser.slackConnected && currentUser.timedoctorConnected ? 'btn-success' : 'btn-danger'">
-              Next
-            </button>
+              <button
+                class="btn btn-primary btn-next"
+                [disabled]="!currentUser.slackConnected"
+                (click)="navigateToProfile()">
+                Next
+              </button>
           </div>
           <p class="text-center">
             If you <a routerLink="/profile">skip</a>

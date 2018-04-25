@@ -12,7 +12,9 @@
         <b>Slack</b>
       </span>
       <app-slack-connect-button class="pull-right"
-          [connected]="currentUser.slackConnected">
+          [connected]="currentUser.slackConnected"
+          connectName="Connect to Slack"
+          disconnectName="Disconnect from Slack">
       </app-slack-connect-button>
     </div>
     <div class="integration-row">
@@ -21,7 +23,9 @@
         <b>Timedoctor</b>
       </span>
       <app-timedoctor-connect-button class="pull-right"
-          [connected]="currentUser.timedoctorConnected">
+          [connected]="currentUser.timedoctorConnected"
+          connectName="Connect to Timedoctor"
+          disconnectName="Disconnect from Timedoctor">
       </app-timedoctor-connect-button>
     </div>
   </div>

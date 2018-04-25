@@ -7,23 +7,15 @@ import { Router } from '@angular/router';
   templateUrl: './integrations.page.html',
   styleUrls: ['./integrations.page.scss']
 })
-export class IntegrationsPage implements OnInit {
-
-  public isAllowToProfilePage = false;
+export class IntegrationsPage  {
 
   constructor(
     public currentUser: CurrentUserService,
     private router: Router,
   ) {}
 
-  ngOnInit() {
-    if (
-      this.currentUser.slackConnected
-      && this.currentUser.timedoctorConnected
-    ) {
-      // this.router.navigate(['/profile']);
-      this.isAllowToProfilePage = true;
-    }
+  public navigateToProfile() {
+    this.router.navigate(['/profile']);
   }
 
 }
