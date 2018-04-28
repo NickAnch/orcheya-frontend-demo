@@ -4415,6 +4415,14 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+libphonenumber-js@^1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.1.11.tgz#50114422db389d1d3086f4e9d6c2d8ada657944c"
+  dependencies:
+    minimist "^1.2.0"
+    semver-compare "^1.0.0"
+    xml2js "^0.4.17"
+
 license-webpack-plugin@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/license-webpack-plugin/-/license-webpack-plugin-1.1.1.tgz#76b2cedccc78f139fd7877e576f756cfc141b8c2"
@@ -6257,6 +6265,10 @@ selfsigned@^1.9.1:
   dependencies:
     node-forge "0.6.33"
 
+semver-compare@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/semver-compare/-/semver-compare-1.0.0.tgz#0dee216a1c941ab37e9efb1788f6afc5ff5537fc"
+
 semver-diff@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/semver-diff/-/semver-diff-2.1.0.tgz#4bbb8437c8d37e4b0cf1a68fd726ec6d645d6d36"
@@ -7065,9 +7077,9 @@ tslint@~5.8.0:
     tslib "^1.7.1"
     tsutils "^2.12.1"
 
-tsmodels@^0.2.6:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/tsmodels/-/tsmodels-0.2.6.tgz#5b6d43d433eb3bb1e83ca4cdfa23f806b1e09ef0"
+tsmodels@^0.4.6:
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/tsmodels/-/tsmodels-0.4.6.tgz#bee5dfbbde25094cac406b5cc1b6c57ccfd1a6a5"
 
 tsutils@^2.12.1:
   version "2.13.0"
