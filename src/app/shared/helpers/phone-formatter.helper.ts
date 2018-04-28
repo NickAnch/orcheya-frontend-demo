@@ -14,13 +14,13 @@ export const formatNumber = (value: string, phoneControl: AbstractControl) => {
     const result = format(parsedNumber, 'International');
     const formattedResult = result.split(' ').map((item, index) => {
       if (index === 1) {
-        return ` (${item})`
+        return ` (${item})`;
       } else if (index > 2) {
-        return `-${item}`
+        return `-${item}`;
       } else {
-        return ` ${item}`
+        return ` ${item}`;
       }
     }).join('').trim();
     phoneControl.patchValue(formattedResult);
   }
-}
+};

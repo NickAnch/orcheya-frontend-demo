@@ -16,6 +16,6 @@ export class InputMaskDirective {
   @HostListener('input', ['$event.target.value'])
 
   public onChange(event): void {
-    formatNumber(event, this.appMask)
+    formatNumber(event, this.appMask);
   }
 }

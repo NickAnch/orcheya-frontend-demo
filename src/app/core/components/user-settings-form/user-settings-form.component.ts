@@ -56,11 +56,11 @@ export class UserSettingFormComponent implements OnInit {
       timing: [this.currentUser.timing, [Validators.required]],
       role: [this.currentUser.role, [Validators.required]]
     });
-    this.formatCurrentUserNumber()
+    this.formatCurrentUserNumber();
   }
 
   private formatCurrentUserNumber() {
-    formatNumber(this.currentUser.phone, this.form.get('phone'))
+    formatNumber(this.currentUser.phone, this.form.get('phone'));
   }
 
   public hasError(controlName: string): boolean {
