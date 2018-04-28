@@ -6,6 +6,7 @@ import { CurrentUserService } from '../../services/current-user.service';
 import { User } from '../../models/user';
 import { Router } from '@angular/router';
 import { ValidateLatin } from '../../validators/latin.validator';
+import { formatNumber } from '../../../shared/helpers/phone-formatter.helper';
 
 @Component({
   selector: 'app-user-settings-form',
@@ -55,6 +56,11 @@ export class UserSettingFormComponent implements OnInit {
       timing: [this.currentUser.timing, [Validators.required]],
       role: [this.currentUser.role, [Validators.required]]
     });
+    this.formatCurrentUserNumber()
+  }
+
+  private formatCurrentUserNumber() {
+    formatNumber(this.currentUser.phone, this.form.get('phone'))
   }
 
   public hasError(controlName: string): boolean {
