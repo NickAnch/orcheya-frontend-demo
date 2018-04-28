@@ -55,7 +55,6 @@ import { IntegrationsService } from './services/integrations.service';
 import { ProjectService } from './services/project.service';
 import { IntegrationsPage } from './pages/integrations/integrations.page';
 import { InputMaskDirective } from './directives/input-mask.directive';
-import { NgxPhoneMaskModule } from 'ngx-phone-mask';
 
 @NgModule({
   imports: [
@@ -67,7 +66,6 @@ import { NgxPhoneMaskModule } from 'ngx-phone-mask';
     SharedModule,
     GantgileModule,
     UpdaterModule,
-    NgxPhoneMaskModule,
   ],
   providers: [
     CurrentUserService,
