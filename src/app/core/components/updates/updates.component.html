@@ -65,19 +65,22 @@
             <div class="row">
               <div class="col-md-6">
                 <strong><i class="fa fa-thumbs-o-up margin-r-5"></i> Task(s) I did today:</strong>
-                <p class="text-muted">
-                  {{ update.made }}
+                <p class="text-muted"
+                    *ngFor="let madeLine of update.made.split('\n')">
+                  {{ madeLine }}
                 </p>
 
                 <strong><i class="fa fa-check-square-o margin-r-5"></i> What I plan for tomorrow:</strong>
-                <p class="text-muted">
-                  {{ update.planning }}
+                <p class="text-muted"
+                   *ngFor="let planLine of update.planning.split('\n')">
+                  {{ planLine }}
                 </p>
               </div>
               <div class="col-md-6">
                 <strong><i class="fa fa-frown-o margin-r-5"></i> Any issues:</strong>
-                <p class="text-muted">
-                  {{ update.issues }}
+                <p class="text-muted"
+                   *ngFor="let issueLine of update.issues.split('\n')">
+                  {{ issueLine }}
                 </p>
               </div>
             </div>
