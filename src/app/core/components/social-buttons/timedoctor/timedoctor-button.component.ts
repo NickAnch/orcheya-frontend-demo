@@ -3,10 +3,10 @@ import { IntegrationsService } from '../../../services/integrations.service';
 
 @Component({
   selector: 'app-timedoctor-connect-button',
-  templateUrl: './timedoctor-connect-button.component.html',
-  styleUrls: ['./timedoctor-connect-button.component.scss']
+  templateUrl: './timedoctor-button.component.html',
+  styleUrls: ['./timedoctor-button.component.scss']
 })
-export class TimeDoctorConnectButtonComponent {
+export class TimedoctorButtonComponent {
   @Input() connected: boolean;
   @Input() connectName = 'Connect';
   @Input() disconnectName = 'Disconnect';

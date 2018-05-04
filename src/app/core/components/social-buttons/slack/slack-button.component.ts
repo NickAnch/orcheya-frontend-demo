@@ -3,10 +3,10 @@ import { IntegrationsService } from '../../../services/integrations.service';
 
 @Component({
   selector: 'app-slack-connect-button',
-  templateUrl: './slack-connect-button.component.html',
-  styleUrls: ['./slack-connect-button.component.scss']
+  templateUrl: './slack-button.component.html',
+  styleUrls: ['./slack-button.component.scss']
 })
-export class SlackConnectButtonComponent {
+export class SlackButtonComponent {
   @Input() connected = false;
   @Input() connectName = 'Connect';
   @Input() disconnectName = 'Disconnect';
