@@ -6,22 +6,25 @@
 
   <div class="box-body">
     <strong><i class="fa fa-thumbs-o-up margin-r-5"></i> Task(s) I did today:</strong>
-    <p class="text-muted">
-      {{ lastUpdate.made }}
+    <p class="text-muted"
+       *ngFor="let madeLine of lastUpdate.made.split('\n')">
+      {{ madeLine }}
     </p>
 
     <hr>
 
     <strong><i class="fa fa-check-square-o margin-r-5"></i> What I plan for tomorrow:</strong>
-    <p class="text-muted">
-      {{ lastUpdate.planning }}
+    <p class="text-muted"
+       *ngFor="let planLine of lastUpdate.planning.split('\n')">
+      {{ planLine }}
     </p>
 
     <hr>
 
     <strong><i class="fa fa-frown-o margin-r-5"></i> Any issues:</strong>
-    <p class="text-muted">
-      {{ lastUpdate.issues }}
+    <p class="text-muted"
+       *ngFor="let issueLine of lastUpdate.issues.split('\n')">
+      {{ issueLine }}
     </p>
 
   </div>
