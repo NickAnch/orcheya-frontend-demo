@@ -20,6 +20,7 @@ import {
 } from '../../services/users-list.service';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
+import { Update } from '../../models/update';
 
 @Component({
   selector: 'app-updates',
@@ -34,6 +35,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private filter = new UpdateFilter();
   private firstUsers: User[] = [];
+  private redLabelDate: string;
   public users: Observable<User[]>;
   public projects: Observable<Project[]>;
   public data: UpdatesResponse;
@@ -96,6 +98,21 @@ export class UpdatesComponent implements OnInit, OnDestroy {
       ? this.showDate(this.filterDate[1], 'YYYY-MM-DD') : null;
 
     this.fetchUpdates();
+  }
+
+  public isShouldShowRedLabel(update: Update): boolean {
+    let result = false;
+    const updateDate = update.date.substr(0, 10);
+    if (updateDate !== this.redLabelDate) {
+      this.redLabelDate = updateDate;
+      result = true;
+    }
+
+    if (update.id === this.data.updates[this.data.updates.length - 1].id) {
+      this.redLabelDate = null;
+    }
+
+    return result;
   }
 
   private initLiveSearching() {

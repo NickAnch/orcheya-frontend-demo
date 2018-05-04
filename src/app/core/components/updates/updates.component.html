@@ -46,19 +46,20 @@
 <ng-container *ngIf="data?.updates.length">
   <ul class="timeline timeline-inverse">
     <ng-container *ngFor="let update of data.updates">
-      <li class="time-label">
-      <span class="bg-red">
-        {{ showDate(update.date, 'D MMM, YYYY') }}
-      </span>
+      <li class="time-label"
+          *ngIf="isShouldShowRedLabel(update)">
+        <span class="bg-red">
+          {{ showDate(update.date, 'D MMM, YYYY') }}
+        </span>
       </li>
       <li>
-        <i class="fa fa-refresh bg-blue"></i>
+        <i class="fa fa-file-o bg-blue"></i>
 
         <div class="timeline-item">
           <span class="time"><i class="fa fa-clock-o"></i> {{ showDate(update.date, 'HH mm') }}</span>
 
           <h3 class="timeline-header">
-            <b>{{ update.user.fullName }}</b> Update - {{ showDate(update.date, 'MMMM D YYYY') }}
+            <b>{{ update.user.fullName }}</b> {{ showDate(update.date, 'MMMM D YYYY') }}
           </h3>
 
           <div class="timeline-body">
