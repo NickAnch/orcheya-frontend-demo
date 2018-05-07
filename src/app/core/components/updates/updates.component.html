@@ -56,10 +56,15 @@
         <i class="fa fa-file-o bg-blue"></i>
 
         <div class="timeline-item">
-          <span class="time"><i class="fa fa-clock-o"></i> {{ showDate(update.date, 'HH mm') }}</span>
+          <span class="time">
+            <i class="fa fa-clock-o"></i> {{ showDate(update.date, 'HH mm') }}
+          </span>
 
           <h3 class="timeline-header">
-            <b>{{ update.user.fullName }}</b> {{ showDate(update.date, 'MMMM D YYYY') }}
+            <b class="action"
+                (click)="goToProfile(update.user.id)">
+              {{ update.user.fullName }}
+            </b> {{ showDate(update.date, 'MMMM D YYYY') }}
           </h3>
 
           <div class="timeline-body">
