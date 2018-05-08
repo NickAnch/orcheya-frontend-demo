@@ -5,23 +5,19 @@
 
 /deep/ .time-activity-wrapper {
   padding: 20px;
-}
-
-/deep/ .time-activity-wrapper {
-  padding: 20px;
   border: solid thin #eee;
   border-radius: 5px;
+  @media screen and (max-width: 740px) {
+    overflow-x: auto;
+  }
 
   .calendar {
     position: relative;
     font-size: 12px;
-    @media screen and (max-width: 740px) {
-      display: none;
-    }
 
     /* SVG START */
     svg {
-      width: 100%;
+      width: 690px;
       height: 100px;
       rect.day {
         stroke: #fff;

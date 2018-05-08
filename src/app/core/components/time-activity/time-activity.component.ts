@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
 import { BaseType, select, Selection } from 'd3-selection';
 import { timeMonths, timeWeek, timeDays } from 'd3-time';
@@ -169,8 +168,20 @@ export class TimeActivityComponent implements OnInit {
           .text(filterWeeks);
   }
 
-  private defineMonths() {
+  private getMonths(): Date[] {
     const months = timeMonths(this.params.dateFrom, this.params.dateTo);
+    if (new Date().getDate() > 15) {
+      return months;
+    }
+
+    const lastMonth = months.pop();
+    lastMonth.setFullYear(lastMonth.getFullYear() - 1);
+    months.unshift(lastMonth);
+    return months;
+  }
+
+  private defineMonths() {
+    const months = this.getMonths();
     const formatDate = (date: Date): string => timeFormat('%b')(date);
     const calcX = (date: Date): number => {
       const nextMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);

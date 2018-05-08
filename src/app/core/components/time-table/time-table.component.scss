@@ -2,6 +2,11 @@ main {
   color: #A8B2B9;
   grid-area: content;
 
+  @media (max-width: 690px) {
+    width: unset !important;
+    font-size: 80%;
+  }
+
   .toolbar{
     display: flex;
     justify-content: space-between;
