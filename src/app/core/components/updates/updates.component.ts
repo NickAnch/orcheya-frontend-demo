@@ -106,7 +106,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
 
   public isShouldShowRedLabel(update: Update): boolean {
     let result = false;
-    const updateDate = update.date.substr(0, 10);
+    const updateDate = this.showDate(update.date, 'YYYY-MM-DD');
     if (updateDate !== this.redLabelDate) {
       this.redLabelDate = updateDate;
       result = true;
