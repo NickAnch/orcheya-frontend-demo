@@ -60,7 +60,7 @@ export class TimeTableComponent implements OnInit {
   public selectedMonth: Month;
   public totalMonthTime: string;
   public nowMonth = new Date().getMonth();
-  public nowWeek = Math.ceil(new Date().getDate() / 7);
+  public nowWeek: number;
 
   constructor(private usersListService: UsersListService) {}
 
@@ -75,8 +75,15 @@ export class TimeTableComponent implements OnInit {
     return `${hours}h ${minutes}m`;
   }
 
+  private static getWeekPositionOfMonth(date: Date): number {
+    const firstMonthDate = moment(date).startOf('month');
+
+    return moment().week() - firstMonthDate.week();
+  }
+
   ngOnInit() {
     this.yearTime = this.usersListService.timeDoctorTime;
+    this.nowWeek = TimeTableComponent.getWeekPositionOfMonth(new Date());
     this.yearTime.push({
       date: '2018-02-28',
       time: 700,

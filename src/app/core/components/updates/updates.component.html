@@ -46,38 +46,47 @@
 <ng-container *ngIf="data?.updates.length">
   <ul class="timeline timeline-inverse">
     <ng-container *ngFor="let update of data.updates">
-      <li class="time-label">
-      <span class="bg-red">
-        {{ showDate(update.date, 'D MMM, YYYY') }}
-      </span>
+      <li class="time-label"
+          *ngIf="isShouldShowRedLabel(update)">
+        <span class="bg-red">
+          {{ showDate(update.date, 'D MMM, YYYY') }}
+        </span>
       </li>
       <li>
-        <i class="fa fa-refresh bg-blue"></i>
+        <i class="fa fa-file-o bg-blue"></i>
 
         <div class="timeline-item">
-          <span class="time"><i class="fa fa-clock-o"></i> {{ showDate(update.date, 'HH mm') }}</span>
+          <span class="time">
+            <i class="fa fa-clock-o"></i> {{ showDate(update.date, 'HH mm') }}
+          </span>
 
           <h3 class="timeline-header">
-            <b>{{ update.user.fullName }}</b> Update - {{ showDate(update.date, 'MMMM D YYYY') }}
+            <b class="action"
+                (click)="goToProfile(update.user.id)">
+              {{ update.user.fullName }}
+            </b> {{ showDate(update.date, 'MMMM D YYYY') }}
           </h3>
 
           <div class="timeline-body">
             <div class="row">
               <div class="col-md-6">
                 <strong><i class="fa fa-thumbs-o-up margin-r-5"></i> Task(s) I did today:</strong>
-                <p class="text-muted">
-                  {{ update.made }}
+                <p class="text-muted"
+                    *ngFor="let madeLine of update.made.split('\n')"
+                    [innerHTML]="madeLine">
                 </p>
 
                 <strong><i class="fa fa-check-square-o margin-r-5"></i> What I plan for tomorrow:</strong>
-                <p class="text-muted">
-                  {{ update.planning }}
+                <p class="text-muted"
+                   *ngFor="let planLine of update.planning.split('\n')"
+                   [innerHTML]="planLine">
                 </p>
               </div>
               <div class="col-md-6">
                 <strong><i class="fa fa-frown-o margin-r-5"></i> Any issues:</strong>
-                <p class="text-muted">
-                  {{ update.issues }}
+                <p class="text-muted"
+                   *ngFor="let issueLine of update.issues.split('\n')"
+                   [innerHTML]="issueLine">
                 </p>
               </div>
             </div>

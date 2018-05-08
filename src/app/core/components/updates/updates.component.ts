@@ -2,6 +2,7 @@ import {
   Component, ElementRef, EventEmitter, Input,
   OnDestroy, OnInit, ViewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { Subscription } from 'rxjs/Subscription';
@@ -20,6 +21,8 @@ import {
 } from '../../services/users-list.service';
 import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
+import { Update } from '../../models/update';
+import { CurrentUserService } from '../../services/current-user.service';
 
 @Component({
   selector: 'app-updates',
@@ -34,6 +37,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private filter = new UpdateFilter();
   private firstUsers: User[] = [];
+  private redLabelDate: string;
   public users: Observable<User[]>;
   public projects: Observable<Project[]>;
   public data: UpdatesResponse;
@@ -46,6 +50,8 @@ export class UpdatesComponent implements OnInit, OnDestroy {
     private updateService: UpdateService,
     private usersListService: UsersListService,
     private projectService: ProjectService,
+    private currentUser: CurrentUserService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -96,6 +102,29 @@ export class UpdatesComponent implements OnInit, OnDestroy {
       ? this.showDate(this.filterDate[1], 'YYYY-MM-DD') : null;
 
     this.fetchUpdates();
+  }
+
+  public isShouldShowRedLabel(update: Update): boolean {
+    let result = false;
+    const updateDate = this.showDate(update.date, 'YYYY-MM-DD');
+    if (updateDate !== this.redLabelDate) {
+      this.redLabelDate = updateDate;
+      result = true;
+    }
+
+    if (update.id === this.data.updates[this.data.updates.length - 1].id) {
+      this.redLabelDate = null;
+    }
+
+    return result;
+  }
+
+  public goToProfile(id: number) {
+    const path = this.currentUser.id === id
+        ? ['/profile']
+        : ['/user-profile', id];
+
+    this.router.navigate(path);
   }
 
   private initLiveSearching() {

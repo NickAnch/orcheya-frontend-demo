@@ -1,5 +1,6 @@
 import { Alias, Model } from 'tsmodels';
 import { User } from './user';
+import { RegexpHelper } from '../../shared/helpers/regexp.helper';
 
 export class Update extends Model {
   @Alias() public id: number;
@@ -14,6 +15,28 @@ export class Update extends Model {
 
     if (update) {
       this._fromJSON(update);
+      this.checkLinks();
+    }
+  }
+
+  private checkLinks() {
+    const made = RegexpHelper.matchUrlsForSlack(this.made);
+    const planning = RegexpHelper.matchUrlsForSlack(this.planning);
+    const issues = RegexpHelper.matchUrlsForSlack(this.issues);
+
+    if (made) {
+      this.made = RegexpHelper
+        .getReplacedSlackUrls(this.made, made);
+    }
+
+    if (planning) {
+      this.planning = RegexpHelper
+        .getReplacedSlackUrls(this.planning, planning);
+    }
+
+    if (issues) {
+      this.issues = RegexpHelper
+        .getReplacedSlackUrls(this.issues, issues);
     }
   }
 }
