@@ -62,4 +62,27 @@ export class IntegrationsService {
       }
     );
   }
+
+  upworkConnect() {
+    this.http.get(`${this.apiUrl}/upwork`).subscribe(
+      resp => IntegrationsService.redirectByUrl(resp['uri'])
+    );
+  }
+
+  upworkDisconnect(): Observable<User> {
+    return Observable.create((observer: Observer<User>) => {
+      this.http
+        .get(`${this.apiUrl}/upwork/disconnect`)
+        .subscribe(
+          res => {
+            console.log('res', res);
+            this.user._fromJSON(res['user']);
+            observer.next(this.user);
+            observer.complete();
+          },
+          error => observer.error(error)
+        );
+      }
+    );
+  }
 }
