@@ -55,7 +55,9 @@ import { IntegrationsService } from './services/integrations.service';
 import { ProjectService } from './services/project.service';
 import { IntegrationsPage } from './pages/integrations/integrations.page';
 import { InputMaskDirective } from './directives/input-mask.directive';
-import { UpworkButtonComponent } from './components/social-buttons/upwork/upwork-button.component';
+import {
+  UpworkButtonComponent
+} from './components/social-buttons/upwork/upwork-button.component';
 
 @NgModule({
   imports: [
