@@ -13,29 +13,33 @@
             <div>
               <img
                 class="icon"
-                src="../../../../assets/social-icons/slack-icon-round.png">
+                src="/assets/social-icons/slack-icon-round.png">
               <app-slack-connect-button
-                [connected]="currentUser.slackConnected"
-                connectName="Connect"
-                disconnectName="Disconnect">
+                [connected]="currentUser.slackConnected">
               </app-slack-connect-button>
             </div>
             <div>
               <img
                 class="icon"
-                src="../../../../assets/social-icons/timedoctor-icon-round.png">
+                src="/assets/social-icons/timedoctor-icon-round.png">
               <app-timedoctor-connect-button
-                [connected]="currentUser.timedoctorConnected"
-                connectName="Connect"
-                disconnectName="Disconnect">
+                [connected]="currentUser.timedoctorConnected">
               </app-timedoctor-connect-button>
             </div>
-              <button
+            <div>
+              <img
+                class="icon"
+                src="/assets/social-icons/upwork-icon.png">
+              <app-upwork-connect-button
+                [connected]="currentUser.upworkConnected">
+              </app-upwork-connect-button>
+            </div>
+            <button
                 class="btn btn-primary btn-next"
                 [disabled]="!currentUser.slackConnected"
                 (click)="navigateToProfile()">
-                Next
-              </button>
+              Next
+            </button>
           </div>
           <p class="text-center">
             If you <a routerLink="/profile">skip</a>

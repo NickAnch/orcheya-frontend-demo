@@ -22,6 +22,7 @@ export class User extends Model {
   @Alias('avatar', Image) public avatar: Image;
   @Alias('slack_connected') public slackConnected: boolean;
   @Alias('timedoctor_connected') public timedoctorConnected: boolean;
+  @Alias('upwork_connected') public upworkConnected: boolean;
   @Alias('agreement_accepted') public agreementAccepted: boolean;
   @Alias('registration_finished') public registrationFinished: boolean;
 
