@@ -151,6 +151,18 @@
       </div>
     </div>
 
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('notifyUpdate') }">
+      <label for="notify-update" class="col-sm-2 control-label">Apply Slack Notifications</label>
+      <div class="col-sm-10">
+        <input type="checkbox"
+               class="form-control"
+               id="notify-update"
+               formControlName="notifyUpdate">
+        <span class="help-block">{{ textError('sex') }}</span>
+      </div>
+    </div>
+
     <div class="form-group">
       <div class="col-sm-10 col-sm-offset-2">
         <button class="btn btn-primary"

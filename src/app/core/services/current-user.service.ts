@@ -58,7 +58,7 @@ export class CurrentUserService extends User {
  }
 
   public updateSettings(userData: User = this): Observable<User> {
-    const data = { user: userData };
+    const data = { user: userData._toJSON() };
 
     return Observable.create((observer: Observer<User>) => {
       this.http

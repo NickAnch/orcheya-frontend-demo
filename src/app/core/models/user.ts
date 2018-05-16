@@ -17,7 +17,6 @@ export class User extends Model {
   @Alias() public github: string;
   @Alias() public bitbucket: string;
   @Alias() public timing: string;
-  @Alias('employment_at') public employmentAt: string;
   @Alias() public role: string;
   @Alias('avatar', Image) public avatar: Image;
   @Alias('slack_connected') public slackConnected: boolean;
@@ -25,6 +24,7 @@ export class User extends Model {
   @Alias('upwork_connected') public upworkConnected: boolean;
   @Alias('agreement_accepted') public agreementAccepted: boolean;
   @Alias('registration_finished') public registrationFinished: boolean;
+  @Alias('notify_update') public notifyUpdate: boolean;
 
   constructor(user?) {
     super();
@@ -35,7 +35,7 @@ export class User extends Model {
   }
 
   get fullName(): string {
-    return this.name + ' ' + this.surname;
+    return `${this.name} ${this.surname}`;
   }
 }
 

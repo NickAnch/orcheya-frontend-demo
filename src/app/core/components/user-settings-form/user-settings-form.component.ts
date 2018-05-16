@@ -10,13 +10,19 @@ import { formatNumber } from '../../../shared/helpers/phone-formatter.helper';
 
 @Component({
   selector: 'app-user-settings-form',
-  templateUrl: './user-settings-form.component.html'
+  templateUrl: './user-settings-form.component.html',
+  styles: [`
+    .form-group .form-control[type="checkbox"]:not(select) {
+      -webkit-appearance: checkbox;
+      -moz-appearance: checkbox;
+      appearance: checkbox;
+    }
+  `]
 })
 export class UserSettingFormComponent implements OnInit {
   @Input() private navigateTo: string[] = [];
   public form: FormGroup;
   private respErrors: Object = {};
-  private updatedUser = new User();
   public timing = [
     '08:00 - 17:00',
     '09:00 - 18:00',
@@ -54,7 +60,8 @@ export class UserSettingFormComponent implements OnInit {
       skype: [this.currentUser.skype, []],
       phone: [this.currentUser.phone, [Validators.required]],
       timing: [this.currentUser.timing, [Validators.required]],
-      role: [this.currentUser.role, [Validators.required]]
+      role: [this.currentUser.role, [Validators.required]],
+      notifyUpdate: [this.currentUser.notifyUpdate, []],
     });
     this.formatCurrentUserNumber();
   }
@@ -75,10 +82,11 @@ export class UserSettingFormComponent implements OnInit {
       return;
     }
 
-    this.updatedUser._fromJSON(this.form.value);
+    const updatedUser = new User(this.form.value);
+    updatedUser.notifyUpdate = this.form.value.notifyUpdate;
 
     this.currentUser
-      .updateSettings(this.updatedUser)
+      .updateSettings(updatedUser)
       .subscribe(
         () => this.respErrors = {},
         (err: HttpErrorResponse) => {
