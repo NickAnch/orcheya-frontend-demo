@@ -4916,6 +4916,10 @@ ngx-bootstrap@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-2.0.3.tgz#b8ca4be305be4e2e99f60d941cc8a3e906f198d7"
 
+ngx-ui-switch@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-ui-switch/-/ngx-ui-switch-2.1.0.tgz#8d858a74c8b6ac82c581f28864f9e77ad0156657"
+
 no-case@^2.2.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"

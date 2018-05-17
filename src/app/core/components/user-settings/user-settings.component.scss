@@ -4,18 +4,38 @@
   }
 }
 
+/deep/ accordion .panel-heading {
+  padding: 0 15px;
+}
+
 .integrations {
+  .integration-name {
+    display: inline-block;
+    margin-top: 15px;
+  }
 
-  .integration-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
+  .upwork-icon {
+    width: 14px;
+    height: 14px;
+  }
 
-    .upwork-icon {
-      width: 14px;
-      height: 14px;
+  .btn-wrapper {
+    display: inline-block;
+    margin: 10px;
+    .btn {
+      background-color: transparent;
+      font-weight: bold;
+      color: #c5c5c5;
+      &:hover {
+        color: rgba(0, 0, 0, .9);
+      }
     }
   }
 
+  .switch-wrapper {
+    float: right;
+    width: 190px;
+    display: flex;
+    justify-content: center;
+  }
 }

@@ -10,14 +10,7 @@ import { formatNumber } from '../../../shared/helpers/phone-formatter.helper';
 
 @Component({
   selector: 'app-user-settings-form',
-  templateUrl: './user-settings-form.component.html',
-  styles: [`
-    .form-group .form-control[type="checkbox"]:not(select) {
-      -webkit-appearance: checkbox;
-      -moz-appearance: checkbox;
-      appearance: checkbox;
-    }
-  `]
+  templateUrl: './user-settings-form.component.html'
 })
 export class UserSettingFormComponent implements OnInit {
   @Input() private navigateTo: string[] = [];

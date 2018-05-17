@@ -10,7 +10,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { InViewportModule } from 'ng-in-viewport';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import { InViewportModule } from 'ng-in-viewport';
     InViewportModule.forRoot(),
     ModalModule.forRoot(),
     ProgressbarModule.forRoot(),
+    AccordionModule.forRoot(),
+    UiSwitchModule,
   ],
   providers: [
     SidebarService,
@@ -39,6 +43,8 @@ import { InViewportModule } from 'ng-in-viewport';
     InViewportModule,
     ModalModule,
     ProgressbarModule,
+    AccordionModule,
+    UiSwitchModule,
   ]
 })
 export class SharedModule { }
