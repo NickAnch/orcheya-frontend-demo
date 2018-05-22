@@ -23,6 +23,7 @@ import { Project } from '../../models/project';
 import { ProjectService } from '../../services/project.service';
 import { Update } from '../../models/update';
 import { CurrentUserService } from '../../services/current-user.service';
+import { UserFilter } from '../../models/user-filter';
 
 @Component({
   selector: 'app-updates',
@@ -45,6 +46,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   public filterDate: string[];
   public typeahead = new EventEmitter<string>();
   public items: User[] = [];
+  private userFilter = new UserFilter();
 
   constructor(
     private updateService: UpdateService,
@@ -139,7 +141,10 @@ export class UpdatesComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.typeahead
       .distinctUntilChanged()
       .debounceTime(1000)
-      .switchMap(search => this.usersListService.getSearch(search))
+      .switchMap(search => {
+        this.userFilter.search = search;
+        return this.usersListService.getUsersList(this.userFilter);
+      })
       .subscribe((data: UsersListResponse) => (
         this.fetchUsers(data)
       ))

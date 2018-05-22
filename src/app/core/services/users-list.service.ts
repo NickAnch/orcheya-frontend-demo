@@ -6,7 +6,8 @@ import { User } from '../models/user';
 
 import { TimeActivity } from '../models/time-activity.interface';
 import { Meta } from '../models/meta.interface';
-import { Project } from '../models/project';
+import { UserFilter } from '../models/user-filter';
+import { FilterHttpHelper } from '../../shared/helpers/filter-http.helper';
 
 export interface UsersListResponse {
   users: User[];
@@ -28,14 +29,12 @@ export class UsersListService {
     this._timeDoctorTime = data;
   }
 
-  public getUsersList(page = 1, limit = 25): Observable<UsersListResponse> {
-    const params = new HttpParams()
-      .set('page', String(page))
-      .set('limit', String(limit));
+  public getUsersList(filter?: UserFilter): Observable<UsersListResponse> {
+    const query = FilterHttpHelper.getQueryStrByFilter(filter);
 
     return Observable.create((observer: Observer<UsersListResponse>) => {
       this.http
-          .get(this.apiPath, { params })
+          .get(`${this.apiPath}${query}`)
           .subscribe(
             (data: UsersListResponse) => {
               data.users = data.users.map(
@@ -47,27 +46,6 @@ export class UsersListService {
             },
             err => observer.error(err)
           );
-    });
-  }
-
-  public getSearch(search: string): Observable<UsersListResponse> {
-    const params = new HttpParams()
-      .set('search', search);
-
-    return Observable.create((observer: Observer<UsersListResponse>) => {
-      this.http
-        .get(this.apiPath, { params })
-        .subscribe(
-          (data: UsersListResponse) => {
-            data.users = data.users.map(
-              user => new User(user)
-            );
-
-            observer.next(data);
-            observer.complete();
-          },
-          err => observer.error(err)
-        );
     });
   }
 
