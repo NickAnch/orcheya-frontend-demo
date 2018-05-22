@@ -9,8 +9,10 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/fromEvent';
 
 import { UsersListService } from '../../services/users-list.service';
-import { User } from '../../models/user';
+import { User, positions } from '../../models/user';
 import { Subscription } from 'rxjs/Subscription';
+import { UserFilter } from '../../models/user-filter';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-users-list',
@@ -20,18 +22,19 @@ import { Subscription } from 'rxjs/Subscription';
 export class UsersListPage implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('input') private inputField: ElementRef;
+  @ViewChild('form') private form: NgForm;
 
-  public searchField = '';
   public usersList: User[];
-  private page = 1;
+  public positions = positions;
+  public positionKeys = Object.keys(positions);
+  public filter = new UserFilter();
   private subscriptions: Subscription[] = [];
 
-  constructor(private usersListService: UsersListService) {
-  }
+  constructor(private usersListService: UsersListService) {}
 
   ngOnInit() {
     this.usersListService
-      .getUsersList(this.page)
+      .getUsersList(this.filter)
       .subscribe(data => this.usersList = data.users);
   }
 
@@ -40,7 +43,7 @@ export class UsersListPage implements OnInit, AfterViewInit, OnDestroy {
       .fromEvent(this.inputField.nativeElement, 'keyup')
       .debounceTime(1000)
       .distinctUntilChanged()
-      .switchMap(() => this.usersListService.getSearch(this.searchField))
+      .switchMap(() => this.usersListService.getUsersList(this.filter))
       .subscribe(data => this.usersList = data.users)
     );
   }
@@ -51,21 +54,34 @@ export class UsersListPage implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  public onButtonClick() {
-    this.page = 1;
+  public onPositionChange(): void {
+    const position = this.form.value.position;
+    this.filter.page = 1;
+    this.filter.role = position ? position : undefined;
+
     this.usersListService
-      .getSearch(this.searchField)
+      .getUsersList(this.filter)
+      .subscribe(data => this.usersList = data.users);
+  }
+
+  public onButtonClick() {
+    this.filter.page = 1;
+
+    this.usersListService
+      .getUsersList(this.filter)
       .subscribe(data => this.usersList = data.users);
   }
 
   public onSearchDelay() {
-    this.page = 1;
+    this.filter.page = 1;
   }
 
   public action(event) {
     if (event.value && !this.inputField.nativeElement.value) {
+      this.filter.page += 1;
+
       this.usersListService
-        .getUsersList(++this.page)
+        .getUsersList(this.filter)
         .subscribe(
           data => this.usersList = [...this.usersList, ...data.users]
         );

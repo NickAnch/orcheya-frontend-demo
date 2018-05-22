@@ -39,3 +39,37 @@ export class User extends Model {
   }
 }
 
+export const positions = {
+  developer: {
+    title: 'Developer',
+    id: 1,
+  },
+  hr: {
+    title: 'HR',
+    id: 2,
+  },
+  sales: {
+    title: 'Sales',
+    id: 3,
+  },
+  projectManager: {
+    title: 'Project Manager',
+    id: 4,
+  },
+  leadGeneration: {
+    title: 'Lead Generation',
+    id: 5,
+  },
+  ceo: {
+    title: 'CEO',
+    id: 6,
+  },
+  cto: {
+    title: 'CTO',
+    id: 7,
+  },
+  coo: {
+    title: 'COO',
+    id: 8,
+  },
+};

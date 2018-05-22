@@ -13,19 +13,33 @@
 <section class="content">
 
   <div class="row">
-    <div class="col-lg-10 col-lg-offset-1">
-      <form (ngSubmit)="onButtonClick()">
+    <form #form="ngForm" (ngSubmit)="onButtonClick()">
+      <div class="col-lg-7 col-lg-offset-1">
         <div class="form-group">
           <input type="text"
                  #input
-                 name="name"
+                 name="search"
                  class="form-control"
                  placeholder="Search..."
-                 [(ngModel)]="searchField"
+                 [(ngModel)]="filter.search"
                  (keyup)="onSearchDelay()">
         </div>
-      </form>
-    </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="form-group">
+          <select name="position"
+                  class="form-control"
+                  ngModel
+                  (change)="onPositionChange()">
+            <option ngValue>All positions</option>
+            <option *ngFor="let position of positionKeys"
+                    [ngValue]="positions[position].id">
+              {{ positions[position].title }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </form>
   </div>
 
   <br>
