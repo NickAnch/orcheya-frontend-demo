@@ -82,15 +82,14 @@ export class TimeTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.yearTime = this.usersListService.timeDoctorTime;
-    this.nowWeek = TimeTableComponent.getWeekPositionOfMonth(new Date());
-    this.yearTime.push({
-      date: '2018-02-28',
-      time: 700,
-    });
+    this.usersListService.integrationTimeSubject
+      .subscribe(data => {
+        this.yearTime = data;
 
-    this.updateMonthsData();
-    this.setTotalMonthTime();
+        this.calcTime();
+      });
+
+    this.calcTime();
   }
 
   public onChange(value: string) {
@@ -207,5 +206,11 @@ export class TimeTableComponent implements OnInit {
         return 0;
       }
     });
+  }
+
+  private calcTime() {
+    this.nowWeek = TimeTableComponent.getWeekPositionOfMonth(new Date());
+    this.updateMonthsData();
+    this.setTotalMonthTime();
   }
 }

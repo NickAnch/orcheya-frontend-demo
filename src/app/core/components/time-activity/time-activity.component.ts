@@ -28,6 +28,7 @@ interface ColorData {
 export class TimeActivityComponent implements OnInit {
   @Input() private dateFrom: Date;
   @Input() private dateTo: Date;
+  @Input() private width = '100%';
   private activityDataCopy: TimeActivity[] = [];
   private params = {
     cellSize: 12,
@@ -62,6 +63,7 @@ export class TimeActivityComponent implements OnInit {
     gDays?: Selection<SVGSVGElement, any, null, undefined>,
     days?: Selection<BaseType, any, BaseType, undefined>,
   } = {};
+  private dataCount = 0;
 
   constructor(
     element: ElementRef,
@@ -69,15 +71,24 @@ export class TimeActivityComponent implements OnInit {
   ) {
     this.d3Elements.parent = select(element.nativeElement)
       .append('div');
-    this.d3Elements.parent
-      .attr('class', 'time-activity-wrapper');
   }
 
   ngOnInit() {
-    this.setParamsDate();
-    this.activityDataCopy = this.usersListService.timeDoctorTime;
+    this.d3Elements.parent
+      .attr('class', 'time-activity-wrapper')
+      .attr('style', `width: ${this.width}`);
 
-    this.initD3Logic();
+    this.setParamsDate();
+    this.usersListService.integrationTimeSubject
+      .subscribe(data => {
+        if (this.dataCount) {
+          this.d3Elements.wrapper.remove();
+        }
+
+        this.dataCount += 1;
+        this.activityDataCopy = [...data];
+        this.initD3Logic();
+      });
   }
 
   private setParamsDate() {

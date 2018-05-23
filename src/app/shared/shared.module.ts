@@ -13,20 +13,22 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { InViewportModule } from 'ng-in-viewport';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { ButtonsModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    NgSelectModule,
+    UiSwitchModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    NgSelectModule,
     InViewportModule.forRoot(),
     ModalModule.forRoot(),
     ProgressbarModule.forRoot(),
     AccordionModule.forRoot(),
-    UiSwitchModule,
+    ButtonsModule.forRoot(),
   ],
   providers: [
     SidebarService,
@@ -45,6 +47,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     ProgressbarModule,
     AccordionModule,
     UiSwitchModule,
+    ButtonsModule,
   ]
 })
 export class SharedModule { }

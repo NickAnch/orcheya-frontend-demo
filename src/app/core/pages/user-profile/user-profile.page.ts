@@ -12,6 +12,7 @@ import { User } from '../../models/user';
 import {
   WaitingComponent
 } from '../../components/modals/waiting/waiting.component';
+import { TimeGraphTypes, TimeGraphFilter } from '../../models/timegraph-filter';
 
 @Component({
   selector: 'app-user-profile',
@@ -25,7 +26,9 @@ export class UserProfilePage implements OnInit,
   public tabset: TabsetComponent;
   public user: User;
   public userStats;
-  public isYou = false;
+  public isCurrUser = false;
+  public filter = new TimeGraphFilter();
+  public tgTypes = TimeGraphTypes;
   private modalOptions = new ModalOptions();
   private modalRef: BsModalRef;
 
@@ -39,21 +42,21 @@ export class UserProfilePage implements OnInit,
   ) {}
 
   ngOnInit() {
-    let userId = +this.route.snapshot.params['id'];
-    this.isYou = userId === this.currentUser.id;
+    this.filter.id = +this.route.snapshot.params['id'];
+    this.isCurrUser = this.filter.id === this.currentUser.id;
 
-    if (!this.isYou && userId) {
+    if (!this.isCurrUser && this.filter.id) {
       this.userListService
-        .getUserById(userId)
+        .getUserById(this.filter.id)
         .subscribe(user => this.user = user);
     } else {
       this.user = this.currentUser;
-      userId = this.user.id;
-      this.isYou = true;
+      this.filter.id = this.user.id;
+      this.isCurrUser = true;
     }
 
     this.userListService
-      .getUserTimeStatsById(userId)
+      .getUserTimeStatsById(this.filter.id)
       .subscribe(data => this.userStats = data);
 
     this.initModalOptions();
@@ -61,6 +64,7 @@ export class UserProfilePage implements OnInit,
 
   ngAfterViewInit() {
     this.checkActiveTab();
+    this.userListService.getIntegrationTime(this.filter);
   }
 
   ngAfterViewChecked() {
@@ -78,6 +82,10 @@ export class UserProfilePage implements OnInit,
       this.currentUser.avatarSubscription,
       subscription,
     ];
+  }
+
+  onIntegrationChange() {
+    this.userListService.getIntegrationTime(this.filter);
   }
 
   onTabSelect(tab) {
@@ -106,10 +114,10 @@ export class UserProfilePage implements OnInit,
     }
   }
 
-  private changeTabUri(tab: string) {
+  private changeTabUri(tab: string): void {
     this.router.navigate(['./'], {
       relativeTo: this.route,
-      queryParams: { tab }
+      queryParams: { tab },
     });
   }
 
