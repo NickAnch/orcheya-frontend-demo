@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import * as moment from 'moment';
 
 import { UsersListService } from '../../services/users-list.service';
@@ -39,9 +40,10 @@ interface Day {
   templateUrl: './time-table.component.html',
   styleUrls: ['./time-table.component.scss']
 })
-export class TimeTableComponent implements OnInit {
+export class TimeTableComponent implements OnInit, OnDestroy {
   @Input() public width = '100%';
   private yearTime: TimeActivity[] = [];
+  private subscriptions: Subscription[] = [];
   public months: Month[] = [
     { title: 'January', position: 0 },
     { title: 'February', position: 1 },
@@ -82,14 +84,22 @@ export class TimeTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.usersListService.integrationTimeSubject
-      .subscribe(data => {
-        this.yearTime = data;
+    this.subscriptions.push(
+      this.usersListService.integrationTimeSubject
+        .subscribe(data => {
+          this.yearTime = data;
 
-        this.calcTime();
-      });
+          this.calcTime();
+        })
+    );
 
     this.calcTime();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(
+      subscription => subscription.unsubscribe()
+    );
   }
 
   public onChange(value: string) {

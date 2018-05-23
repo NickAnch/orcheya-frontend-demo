@@ -1,4 +1,5 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { BaseType, select, Selection } from 'd3-selection';
 import { timeMonths, timeWeek, timeDays } from 'd3-time';
@@ -25,7 +26,7 @@ interface ColorData {
   template: ``,
   styleUrls: ['./time-activity.component.scss']
 })
-export class TimeActivityComponent implements OnInit {
+export class TimeActivityComponent implements OnInit, OnDestroy {
   @Input() private dateFrom: Date;
   @Input() private dateTo: Date;
   @Input() private width = '100%';
@@ -64,6 +65,7 @@ export class TimeActivityComponent implements OnInit {
     days?: Selection<BaseType, any, BaseType, undefined>,
   } = {};
   private dataCount = 0;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     element: ElementRef,
@@ -79,16 +81,25 @@ export class TimeActivityComponent implements OnInit {
       .attr('style', `width: ${this.width}`);
 
     this.setParamsDate();
-    this.usersListService.integrationTimeSubject
-      .subscribe(data => {
-        if (this.dataCount) {
-          this.d3Elements.wrapper.remove();
-        }
 
-        this.dataCount += 1;
-        this.activityDataCopy = [...data];
-        this.initD3Logic();
-      });
+    this.subscriptions.push(
+      this.usersListService.integrationTimeSubject
+        .subscribe(data => {
+          if (this.dataCount) {
+            this.d3Elements.wrapper.remove();
+          }
+
+          this.dataCount += 1;
+          this.activityDataCopy = [...data];
+          this.initD3Logic();
+        })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(
+      subscription => subscription.unsubscribe()
+    );
   }
 
   private setParamsDate() {
