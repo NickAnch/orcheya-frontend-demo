@@ -2,10 +2,10 @@ import { Alias, Model } from 'tsmodels';
 
 export const TimeGraphTypes = {
   timeDoctor: {
-    id: 0, title: 'TimeDoctor'
+    id: 1, title: 'TimeDoctor'
   },
   upWork: {
-    id: 1, title: 'UpWork'
+    id: 2, title: 'UpWork'
   },
 };
 
