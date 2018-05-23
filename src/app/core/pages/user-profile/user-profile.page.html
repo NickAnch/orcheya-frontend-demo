@@ -21,7 +21,7 @@
                  [src]="user?.avatar.small"
                  alt="User profile picture"
                  appImageUpload
-                 [disable]="!isYou"
+                 [disable]="!isCurrUser"
                  (fileChange)="onChange($event)">
           </div>
 
@@ -92,7 +92,7 @@
             </tr>
             </tbody>
           </table>
-          <div *ngIf="isYou">
+          <div *ngIf="isCurrUser">
             <a class="btn btn-block btn-primary margin set"
                (click)="onButtonClick()">
               <b>Edit profile</b>
@@ -115,7 +115,18 @@
                (select)="onTabSelect('activity')">
             <div class="tab-content">
               <app-user-activity>
-                <app-time-activity></app-time-activity>
+                <div class="integration-switcher">
+                  <div class="btn-group"
+                       btnRadioGroup
+                       (click)="onIntegrationChange()"
+                       [(ngModel)]="filter.source">
+                    <label class="btn btn-primary" [btnRadio]="tgTypes.timeDoctor.id"
+                           uncheckable tabindex="0" role="button">TimeDoctor</label>
+                    <label class="btn btn-primary" [btnRadio]="tgTypes.upWork.id"
+                           uncheckable tabindex="0" role="button">UpWork</label>
+                  </div>
+                </div>
+                <app-time-activity width="690px"></app-time-activity>
                 <br>
                 <app-time-table width="690px"></app-time-table>
                 <br>
@@ -137,7 +148,7 @@
               </app-user-timeline>
             </div>
           </tab>
-          <tab *ngIf="isYou"
+          <tab *ngIf="isCurrUser"
                class="nav-tabs-custom"
                id="settings"
                heading="Settings"

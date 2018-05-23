@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CurrentUserGuard } from './services/current-user.guard';
-import { TimeDoctorResolver } from './services/time-doctor.resolver';
 
 import { CoreComponent } from './core.component';
 import { SignInPage } from './pages/sign-in/sign-in.page';
@@ -28,16 +27,8 @@ const routes: Routes = [
     component: CoreComponent,
     canActivate: [CurrentUserGuard, PermissionGuard],
     children: [
-      {
-        path: 'profile',
-        resolve: { data: TimeDoctorResolver },
-        component: UserProfilePage
-      },
-      {
-        path: 'user-profile/:id',
-        resolve: { data: TimeDoctorResolver },
-        component: UserProfilePage
-      },
+      { path: 'profile', component: UserProfilePage },
+      { path: 'user-profile/:id', component: UserProfilePage },
       { path: 'users-list', component: UsersListPage },
       { path: '', component: UsersListPage },
       { path: 'updates', component: UpdatesPage },

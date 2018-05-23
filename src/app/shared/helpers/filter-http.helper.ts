@@ -7,8 +7,14 @@ export class FilterHttpHelper {
     if (filter && '_toJSON' in filter) {
       const obj = filter._toJSON() as Object;
 
+      if ('id' in obj) {
+        delete(obj['id']);
+      }
+
       for (const key in obj) {
-        if (obj.hasOwnProperty(key) && !obj[key]) {
+        if (obj.hasOwnProperty(key) && (
+            obj[key] === undefined || obj[key] === null)
+        ) {
           delete(obj[key]);
         }
       }

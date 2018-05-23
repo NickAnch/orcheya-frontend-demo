@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { User } from '../models/user';
@@ -8,6 +8,8 @@ import { TimeActivity } from '../models/time-activity.interface';
 import { Meta } from '../models/meta.interface';
 import { UserFilter } from '../models/user-filter';
 import { FilterHttpHelper } from '../../shared/helpers/filter-http.helper';
+import { TimeGraphFilter } from '../models/timegraph-filter';
+import { Subject } from 'rxjs/Subject';
 
 export interface UsersListResponse {
   users: User[];
@@ -17,17 +19,10 @@ export interface UsersListResponse {
 @Injectable()
 export class UsersListService {
   private apiPath = '/api/users';
-  private _timeDoctorTime: TimeActivity[] = [];
 
   constructor(private http: HttpClient) {}
 
-  public get timeDoctorTime(): TimeActivity[] {
-    return this._timeDoctorTime.slice();
-  }
-
-  public set timeDoctorTime(data: TimeActivity[]) {
-    this._timeDoctorTime = data;
-  }
+  public integrationTimeSubject = new Subject<TimeActivity[]>();
 
   public getUsersList(filter?: UserFilter): Observable<UsersListResponse> {
     const query = FilterHttpHelper.getQueryStrByFilter(filter);
@@ -49,24 +44,14 @@ export class UsersListService {
     });
   }
 
-  public getTimeActivity(
-    id: number, dateFrom: Date, dateTo: Date
-  ): Observable<TimeActivity[]> {
-    const params = new HttpParams()
-      .set('start_date', dateFrom.toISOString().substr(0, 10))
-      .set('end_date', dateTo.toISOString().substr(0, 10));
+  public getIntegrationTime(filter: TimeGraphFilter): void {
+    const query = FilterHttpHelper.getQueryStrByFilter(filter);
 
-    return Observable.create((observer: Observer<TimeActivity[]>) => {
-      this.http
-        .get(`${this.apiPath}/${id}/timegraph`, { params: params })
-        .subscribe(
-          (data: TimeActivity[]) => {
-            observer.next(data);
-            observer.complete();
-          },
-          err => observer.error(err)
-        );
-    });
+    this.http
+      .get(`${this.apiPath}/${filter.id}/timegraph${query}`)
+      .subscribe((data: TimeActivity[]) => (
+        this.integrationTimeSubject.next(data)
+      ));
   }
 
   public getUserTimeStatsById(id: number) {
