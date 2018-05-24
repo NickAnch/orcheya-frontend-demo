@@ -2,11 +2,28 @@
   display: none;
 }
 
-.treeview {
-  &.menu-open {
-    .treeview-menu {
-      display: block;
+.main-sidebar {
+  position: fixed;
+  transition:
+    transform 0.3s ease-in-out,
+    width 0.3s ease-in-out,
+    -webkit-transform 0.3s ease-in-out,
+    padding-top .1s ease-in-out;
+
+  &.scrolled {
+    padding-top: 0;
+    transition:
+      transform 0.3s ease-in-out,
+      width 0.3s ease-in-out,
+      -webkit-transform 0.3s ease-in-out,
+      padding-top .5s ease-in-out;
+  }
+
+  .treeview {
+    &.menu-open {
+      .treeview-menu {
+        display: block;
+      }
     }
   }
 }
-
