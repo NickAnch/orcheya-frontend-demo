@@ -1,8 +1,8 @@
 import { Alias, Model } from 'tsmodels';
 
 export class UpdateFilter extends Model {
-  @Alias() public page?: string;
-  @Alias() public limit?: string;
+  @Alias() public page: number;
+  @Alias() public limit: number;
   @Alias() public query?: string;
   @Alias('user_ids') public userIds?: number[];
   @Alias('project_ids') public projectIds?: number[];
@@ -11,6 +11,9 @@ export class UpdateFilter extends Model {
 
   constructor(data?: Object) {
     super();
+
+    this.page = 1;
+    this.limit = 25;
 
     if (data) {
       this._fromJSON(data);

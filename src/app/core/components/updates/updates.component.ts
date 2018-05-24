@@ -35,6 +35,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput') private searchInput: ElementRef;
   @Input() public user: User;
   @Input() public hideProjectFilter = false;
+  @Input() public infinity = true;
   private subscriptions: Subscription[] = [];
   private filter = new UpdateFilter();
   private firstUsers: User[] = [];
@@ -47,6 +48,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   public typeahead = new EventEmitter<string>();
   public items: User[] = [];
   private userFilter = new UserFilter();
+  private enough = false;
 
   constructor(
     private updateService: UpdateService,
@@ -80,18 +82,38 @@ export class UpdatesComponent implements OnInit, OnDestroy {
     );
   }
 
+  public onScroll(event: boolean): void {
+    if (!event || this.enough) {
+      return;
+    }
+
+    this.filter.page += 1;
+
+    this.updateService
+      .getUpdates(this.filter)
+      .subscribe(data => {
+        if (data.updates.length) {
+          this.data.updates = [...this.data.updates, ...data.updates];
+        } else {
+          this.enough = true;
+        }
+      });
+  }
+
   public showDate(strDate: string, format: string): string {
     return moment(strDate).format(format);
   }
 
   public onUserChanged(users: User[]) {
     this.filter.userIds = users.map(user => user.id);
+    this.resetFilterPage();
 
     this.fetchUpdates();
   }
 
   public onProjectChanged(projects: Project[]) {
     this.filter.projectIds = projects.map(project => project.id);
+    this.resetFilterPage();
 
     this.fetchUpdates();
   }
@@ -103,6 +125,8 @@ export class UpdatesComponent implements OnInit, OnDestroy {
     this.filter.endDate = this.filterDate
       ? this.showDate(this.filterDate[1], 'YYYY-MM-DD') : null;
 
+
+    this.resetFilterPage();
     this.fetchUpdates();
   }
 
@@ -132,7 +156,10 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   private initLiveSearching() {
     this.subscriptions.push(Observable
       .fromEvent(this.searchInput.nativeElement, 'keyup')
-      .do(d => this.filter.query = this.filterText)
+      .do(() => {
+        this.filter.query = this.filterText;
+        this.resetFilterPage();
+      })
       .debounceTime(1000)
       .switchMap(() => this.updateService.getUpdates(this.filter))
       .subscribe(data => this.data = data)
@@ -162,5 +189,10 @@ export class UpdatesComponent implements OnInit, OnDestroy {
       observer.next(data.users.length ? data.users : this.firstUsers);
       observer.complete();
     });
+  }
+
+  private resetFilterPage(): void {
+    this.filter.page = 1;
+    this.enough = false;
   }
 }

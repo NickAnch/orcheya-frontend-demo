@@ -20,7 +20,7 @@ export class RecentUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.updateFilter.userIds = [this.userId];
-    this.updateFilter.limit = String(1);
+    this.updateFilter.limit = 1;
 
     this.updateService
       .getUpdates(this.updateFilter)
