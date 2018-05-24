@@ -97,7 +97,22 @@
       </li>
     </ng-container>
     <li>
+      <div class="spin-wrapper" *ngIf="infinity && !enough">
+        <div class="sk-folding-cube">
+          <div class="sk-cube1 sk-cube"></div>
+          <div class="sk-cube2 sk-cube"></div>
+          <div class="sk-cube4 sk-cube"></div>
+          <div class="sk-cube3 sk-cube"></div>
+        </div>
+      </div>
       <i class="fa fa-clock-o bg-gray"></i>
     </li>
   </ul>
+
+  <ng-container *ngIf="infinity">
+    <div in-viewport
+         [inViewportOptions]="{ partial: false }"
+         (inViewportAction)="onScroll($event.value)">
+    </div>
+  </ng-container>
 </ng-container>
