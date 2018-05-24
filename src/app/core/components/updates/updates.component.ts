@@ -199,7 +199,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
     this.enough = false;
   }
 
-  private routerHandler() {
+  private routerHandler(): void {
     const elem = this.document.querySelector('.wrapper');
 
     this.router.onSameUrlNavigation = 'reload';

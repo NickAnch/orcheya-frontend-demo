@@ -33,9 +33,13 @@ export class SidebarComponent implements OnInit {
     this.currentGroup = group === this.currentGroup ? null : group;
   }
 
-  private handleSidebarAnimation() {
+  private handleSidebarAnimation(): void {
     const elem = this.document.querySelector('.wrapper');
     const sideBar = this.sideBar.nativeElement;
+
+    if (!elem) {
+      return;
+    }
 
     this.renderer.listen(elem, 'scroll', (e: Event) => {
       const offset = e.srcElement.scrollTop;
