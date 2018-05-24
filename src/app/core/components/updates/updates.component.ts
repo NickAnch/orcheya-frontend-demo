@@ -1,8 +1,9 @@
 import {
-  Component, ElementRef, EventEmitter, Input,
+  Component, ElementRef, EventEmitter, Inject, Input,
   OnDestroy, OnInit, ViewChild,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { Subscription } from 'rxjs/Subscription';
@@ -56,6 +57,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
     private projectService: ProjectService,
     private currentUser: CurrentUserService,
     private router: Router,
+    @Inject(DOCUMENT) private document: Document,
   ) {}
 
   ngOnInit() {
@@ -74,6 +76,7 @@ export class UpdatesComponent implements OnInit, OnDestroy {
 
     this.fetchUpdates();
     this.initLiveSearching();
+    this.routerHandler();
   }
 
   ngOnDestroy() {
@@ -194,5 +197,18 @@ export class UpdatesComponent implements OnInit, OnDestroy {
   private resetFilterPage(): void {
     this.filter.page = 1;
     this.enough = false;
+  }
+
+  private routerHandler() {
+    const elem = this.document.querySelector('.wrapper');
+
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.events.subscribe(e => {
+      if (!(e instanceof NavigationEnd)) {
+        return;
+      }
+
+      elem.scrollTo(0, 0);
+    });
   }
 }
