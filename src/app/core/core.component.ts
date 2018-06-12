@@ -15,7 +15,7 @@ export class CoreComponent implements OnInit {
   ngOnInit() {
     this.sideBarService
       .add([
-        { name: 'Dashboard', single: true, icon: 'fa-dashboard', link: ['/'] },
+        { name: 'Members List', single: true, icon: 'fa-users', link: ['/'] },
         {
           name: 'Updates',
           single: true,
