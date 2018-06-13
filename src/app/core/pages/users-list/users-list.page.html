@@ -27,14 +27,14 @@
       </div>
       <div class="col-lg-3">
         <div class="form-group">
-          <select name="position"
+          <select name="role"
                   class="form-control"
                   ngModel
-                  (change)="onPositionChange()">
-            <option ngValue>All positions</option>
-            <option *ngFor="let position of positionKeys"
-                    [ngValue]="positions[position].id">
-              {{ positions[position].title }}
+                  (change)="onRoleChanged()">
+            <option ngValue>All roles</option>
+            <option *ngFor="let role of roles"
+                    [value]="role.id">
+              {{ role.name }}
             </option>
           </select>
         </div>

@@ -16,7 +16,7 @@ import { JWTTokenInterceptor } from './services/jwt-token-Interceptor.service';
 import { SignInPage } from './pages/sign-in/sign-in.page';
 import { CoreComponent } from './core.component';
 import { UserProfilePage } from './pages/user-profile/user-profile.page';
-
+import { RolesService } from './services/roles.service';
 import {
   UserSettingsComponent,
   UserActivityComponent,
@@ -83,6 +83,7 @@ import {
     IntegrationsService,
     UpdateService,
     ProjectService,
+    RolesService
   ],
   declarations: [
     HeaderComponent,

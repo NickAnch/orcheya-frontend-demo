@@ -2,7 +2,10 @@ import {
   AfterViewInit, Component, ElementRef,
   OnDestroy, OnInit, ViewChild,
 } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
@@ -10,9 +13,9 @@ import 'rxjs/add/observable/fromEvent';
 
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
-import { Subscription } from 'rxjs/Subscription';
+import { Role } from '../../models/role';
 import { UserFilter } from '../../models/user-filter';
-import { NgForm } from '@angular/forms';
+import { RolesService } from '../../services/roles.service';
 
 @Component({
   selector: 'app-users-list',
@@ -25,11 +28,17 @@ export class UsersListPage implements OnInit, AfterViewInit, OnDestroy {
 
   public usersList: User[];
   public filter = new UserFilter();
+  public roles: Role[];
   private subscriptions: Subscription[] = [];
 
-  constructor(private usersListService: UsersListService) {}
+  constructor(private usersListService: UsersListService,
+              private _rolesService: RolesService) {}
 
   ngOnInit() {
+    this._rolesService
+      .getList()
+      .subscribe(x => this.roles = x);
+
     this.usersListService
       .getUsersList(this.filter)
       .subscribe(data => this.usersList = data.users);
@@ -51,10 +60,9 @@ export class UsersListPage implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  public onPositionChange(): void {
-    const position = this.form.value.position;
+  public onRoleChanged(): void {
     this.filter.page = 1;
-    this.filter.role = position ? position : undefined;
+    this.filter.role_id = this.form.controls['role'].value;
 
     this.usersListService
       .getUsersList(this.filter)
