@@ -27,28 +27,24 @@ const routes: Routes = [
     component: CoreComponent,
     canActivate: [CurrentUserGuard, PermissionGuard],
     children: [
+      { path: '', redirectTo: 'users-list', pathMatch: 'full' },
+      { path: 'users-list', component: UsersListPage },
       { path: 'profile', component: UserProfilePage },
       { path: 'user-profile/:id', component: UserProfilePage },
-      { path: 'users-list', component: UsersListPage },
-      { path: '', component: UsersListPage },
       { path: 'updates', component: UpdatesPage },
     ]
   },
   { path: 'sign-in', component: SignInPage },
+  { path: 'invitation/:token', component: AcceptInvitePage },
+  { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
   {
-    path: 'invitation/:token',
-    component: AcceptInvitePage
-  },
+    path: 'registration',
+    component: RegistrationComponent,
+    canActivate: [RegistrationGuard] },
   {
-    path: 'terms-and-conditions', component: TermsAndConditionsComponent
-  },
-  {
-    path: 'registration', component: RegistrationComponent,
-    canActivate: [RegistrationGuard]
-  },
-  {
-    path: 'integrations', component: IntegrationsPage,
-    canActivate: [CurrentUserGuard, PermissionGuard],
+    path: 'integrations',
+    component: IntegrationsPage,
+    canActivate: [CurrentUserGuard, PermissionGuard]
   },
 ];
 

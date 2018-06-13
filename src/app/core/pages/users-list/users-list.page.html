@@ -53,7 +53,7 @@
             alt="User avatar">
         </a>
         <a class="users-list-name" [routerLink]="['/user-profile', user.id]">{{ user?.fullName }}</a>
-        <span class="users-list-date">{{ user.role }}</span>
+        <span class="users-list-date">{{ user.role.name }}</span>
       </li>
     </ul>
   </div>

@@ -9,7 +9,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/fromEvent';
 
 import { UsersListService } from '../../services/users-list.service';
-import { User, positions } from '../../models/user';
+import { User } from '../../models/user';
 import { Subscription } from 'rxjs/Subscription';
 import { UserFilter } from '../../models/user-filter';
 import { NgForm } from '@angular/forms';
@@ -20,13 +20,10 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./users-list.page.scss']
 })
 export class UsersListPage implements OnInit, AfterViewInit, OnDestroy {
-
   @ViewChild('input') private inputField: ElementRef;
   @ViewChild('form') private form: NgForm;
 
   public usersList: User[];
-  public positions = positions;
-  public positionKeys = Object.keys(positions);
   public filter = new UserFilter();
   private subscriptions: Subscription[] = [];
 
