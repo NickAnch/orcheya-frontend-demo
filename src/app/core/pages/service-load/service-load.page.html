@@ -1,0 +1,105 @@
+<section class="content-header">
+  <h1>
+    Service load
+  </h1>
+  <ol class="breadcrumb">
+    <li><a [routerLink]="['/']">Home</a></li>
+    <li class="active">Service load</li>
+  </ol>
+</section>
+
+<section class="wrap">
+  <div class="filter-controls">
+    <div class="input-group">
+      <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+      </div>
+      <input class="form-control"
+             placeholder="Choose dates"
+             bsDaterangepicker
+             [(ngModel)]="dates"
+             (ngModelChange)="onDateChange()">
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-default">Day</button>
+      <button type="button" class="btn btn-default">Week</button>
+      <button type="button" class="btn btn-default">Month</button>
+      <button type="button" class="btn btn-default">Year</button>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h1 class="total text-bold">{{dash?.total_paid}}%</h1>
+  <div class="dash">
+    <div>Work days: <span class="text-bold">{{dash?.workdays}}</span></div>
+    <div>Developers: <span class="text-bold">{{dash?.developers}}</span></div>
+    <div>Others: <span class="text-bold">{{dash?.other}}</span></div>
+    <div>Hours: <span class="text-bold">{{dash?.hours}}</span></div>
+    <div>Worked hours: <span class="text-bold">{{dash?.worked_hours}}</span></div>
+    <div>Paid hours: <span class="text-bold">{{dash?.paid_hours}}</span></div>
+    <div>Active projects: <span class="text-bold">{{dash?.active_projects}}</span></div>
+    <div>Paid projects: <span class="text-bold">{{dash?.paid_projects}}</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <tabset #tabset>
+
+      <tab class="nav-tabs-custom"
+           id="hours"
+           heading="Hours" >
+        <div class="tab-content">
+          <table class="table table-bordered table-hover dataTable" role="grid">
+            <thead>
+              <tr role="row">
+                <th>Developer</th>
+                <th>Worked hours</th>
+                <th>Paid hours</th>
+                <th>Hours</th>
+                <th>Load</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr role="row" *ngFor="let row of hoursTable">
+                <td>{{row.name}}</td>
+                <td>{{row.worked}}</td>
+                <td>{{row.paid}}</td>
+                <td>{{row.hours}}</td>
+                <td>{{row.payload}} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
+
+      <tab class="nav-tabs-custom"
+           id="projects"
+           heading="Projects" >
+        <div class="tab-content">
+          <table class="table table-bordered table-hover dataTable" role="grid">
+            <thead>
+              <tr role="row">
+                <th>Project name</th>
+                <th>Hours</th>
+                <th>Paid</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr role="row" *ngFor="let row of projectsTable">
+                <td>{{row.name}}</td>
+                <td>{{row.hours}}</td>
+                <td><input type="checkbox"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
+
+    </tabset>
+  </div>
+</section>
+
+

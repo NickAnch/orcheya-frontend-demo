@@ -19,6 +19,7 @@ import { RegistrationGuard } from './services/registration.guard';
 import { PermissionGuard } from './services/permission.guard';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { IntegrationsPage } from './pages/integrations/integrations.page';
+import { ServiceLoadPage } from './pages/service-load/service-load.page';
 
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: 'users-list', component: UsersListPage },
       { path: '', component: UsersListPage },
       { path: 'updates', component: UpdatesPage },
+      { path: 'load', component: ServiceLoadPage },
     ]
   },
   { path: 'sign-in', component: SignInPage },

@@ -41,6 +41,7 @@ import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
 import {
   TermsAndConditionsComponent
 } from './pages/terms-and-conditions/terms-and-conditions.component';
+import { ServiceLoadPage } from './pages/service-load/service-load.page';
 
 import {
   RegistrationComponent
@@ -57,6 +58,7 @@ import { InputMaskDirective } from './directives/input-mask.directive';
 import {
   UpworkButtonComponent
 } from './components/social-buttons/upwork/upwork-button.component';
+import {ServiceLoadService} from './services/service-load.service';
 
 @NgModule({
   imports: [
@@ -83,6 +85,7 @@ import {
     IntegrationsService,
     UpdateService,
     ProjectService,
+    ServiceLoadService,
   ],
   declarations: [
     HeaderComponent,
@@ -111,6 +114,7 @@ import {
     WaitingComponent,
     IntegrationsPage,
     InputMaskDirective,
+    ServiceLoadPage
   ],
   entryComponents: [
     WaitingComponent,
