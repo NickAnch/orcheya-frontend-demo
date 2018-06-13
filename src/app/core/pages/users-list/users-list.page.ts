@@ -62,7 +62,7 @@ export class UsersListPage implements OnInit, AfterViewInit, OnDestroy {
 
   public onRoleChanged(): void {
     this.filter.page = 1;
-    this.filter.role_id = this.form.controls['role'].value;
+    this.filter.roleIs = this.form.controls['role'].value;
 
     this.usersListService
       .getUsersList(this.filter)
