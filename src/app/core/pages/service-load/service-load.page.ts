@@ -5,6 +5,7 @@ import {
   Dash, HoursTableRow, ProjectsTableRow
 } from '../../models/service-load';
 import * as moment from 'moment';
+import { Moment } from 'moment';
 
 @Component({
   templateUrl: './service-load.page.html',
@@ -25,16 +26,16 @@ export class ServiceLoadPage implements OnInit {
   constructor(private serviceLoadService: ServiceLoadService ) {}
 
   ngOnInit() {
-    this.getServiceLoad(this.dates);
+    this.getServiceLoad();
   }
 
   onDateChange() {
-    this.getServiceLoad(this.dates);
+    this.getServiceLoad();
   }
 
-  getServiceLoad(dates: string[]) {
-    const startDate = moment(dates[0]).format(this.format);
-    const endDate = moment(dates[1]).format(this.format);
+  getServiceLoad() {
+    const startDate = moment(this.dates[0]).format(this.format);
+    const endDate = moment(this.dates[1]).format(this.format);
 
     this.serviceLoadService
       .getServiceLoad(startDate, endDate)
@@ -45,5 +46,27 @@ export class ServiceLoadPage implements OnInit {
       });
   }
 
+  setDates(startDate: Moment, endDate: Moment) {
+    this.dates = [
+      moment(startDate).format(this.format),
+      moment(endDate).format(this.format)
+    ];
+    this.onDateChange();
+  }
 
+  setDay() {
+    this.setDates(moment(), moment());
+  }
+
+  setWeek() {
+    this.setDates(moment().subtract(1, 'week'), moment());
+  }
+
+  setMonth() {
+    this.setDates(moment().subtract(1, 'month'), moment());
+  }
+
+  setYear() {
+    this.setDates(moment().subtract(1, 'year'), moment());
+  }
 }
