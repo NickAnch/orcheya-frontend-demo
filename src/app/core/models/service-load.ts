@@ -32,6 +32,7 @@ export class HoursTableRow extends Model {
 }
 
 export class ProjectsTableRow extends Model {
+  @Alias() public id: number;
   @Alias() public name: number;
   @Alias() public hours: string;
   @Alias() public paid: number;

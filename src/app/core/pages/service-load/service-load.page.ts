@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceLoadService } from '../../services/service-load.service';
+import { ProjectService } from '../../services/project.service';
 
 import {
   Dash, HoursTableRow, ProjectsTableRow
@@ -23,7 +24,10 @@ export class ServiceLoadPage implements OnInit {
     moment().toString()
   ];
 
-  constructor(private serviceLoadService: ServiceLoadService ) {}
+  constructor(
+    private serviceLoadService: ServiceLoadService,
+    private projectService: ProjectService
+  ) {}
 
   ngOnInit() {
     this.getServiceLoad();
@@ -68,5 +72,11 @@ export class ServiceLoadPage implements OnInit {
 
   setYear() {
     this.setDates(moment().subtract(1, 'year'), moment());
+  }
+
+  setPaidProject(event, id: number) {
+    this.projectService
+      .updateProject(id, {paid: event.target.checked})
+      .subscribe(() => this.getServiceLoad());
   }
 }

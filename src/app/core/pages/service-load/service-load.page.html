@@ -91,7 +91,7 @@
               <tr role="row" *ngFor="let row of projectsTable">
                 <td>{{row.name}}</td>
                 <td>{{row.hours}}</td>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" [checked]="row.paid" (click)="setPaidProject($event, row.id)"></td>
               </tr>
             </tbody>
           </table>
