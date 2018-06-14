@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceLoadService } from '../../services/service-load.service';
-import { ProjectService } from '../../services/project.service';
+import { ProjectService } from '../../../core/services/project.service';
 
 import {
   Dash, HoursTableRow, ProjectsTableRow
 } from '../../models/service-load';
+
 import * as moment from 'moment';
 import { Moment } from 'moment';
+
+
 
 @Component({
   templateUrl: './service-load.page.html',
@@ -26,12 +29,13 @@ export class ServiceLoadPage implements OnInit {
 
   constructor(
     private serviceLoadService: ServiceLoadService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
   ) {}
 
   ngOnInit() {
     this.getServiceLoad();
   }
+
 
   onDateChange() {
     this.getServiceLoad();
@@ -80,3 +84,5 @@ export class ServiceLoadPage implements OnInit {
       .subscribe(() => this.getServiceLoad());
   }
 }
+
+

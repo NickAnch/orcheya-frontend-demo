@@ -20,10 +20,11 @@ export class Dash extends Model {
 export class HoursTableRow extends Model {
   @Alias() public id: number;
   @Alias() public name: string;
+  @Alias() public surname: string;
   @Alias() public worked: number;
   @Alias() public paid: number;
   @Alias() public hours: number;
-  @Alias() public payload: number;
+  @Alias() public load: number;
 
   constructor(data: Object) {
     super();

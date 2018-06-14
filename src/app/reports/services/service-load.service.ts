@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-import { UpdateFilter } from '../models/update-filter';
-
 import { Dash, HoursTableRow, ProjectsTableRow } from '../models/service-load';
 
 export interface ServiceLoadResponse {
@@ -15,7 +13,7 @@ export interface ServiceLoadResponse {
 
 @Injectable()
 export class ServiceLoadService {
-  private url = '/api/load';
+  private url = '/api/reports/service_load';
 
   constructor(private http: HttpClient) {}
 

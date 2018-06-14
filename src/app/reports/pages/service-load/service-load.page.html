@@ -32,6 +32,21 @@
 
 <section class="wrap">
   <h1 class="total text-bold">{{ dash?.total_paid }}%</h1>
+  <div class="foo">
+    <div class="progress">
+      <div class="progress-bar"
+           [class.progress-bar-red]="dash?.total_paid < 50"
+           [class.progress-bar-yellow]="dash?.total_paid >= 50 && dash?.total_paid < 70"
+           [class.progress-bar-green]="dash?.total_paid >= 70"
+           role="progressbar"
+           aria-valuemin="0"
+           aria-valuemax="100"
+           [style.width]="dash?.total_paid + '%' | sanitize"
+      >
+      </div>
+    </div>
+  </div>
+
   <div class="dash">
     <div>Work days: <span class="text-bold">{{ dash?.workdays }}</span></div>
     <div>Developers: <span class="text-bold">{{ dash?.developers }}</span></div>
@@ -64,11 +79,25 @@
             </thead>
             <tbody>
               <tr role="row" *ngFor="let row of hoursTable">
-                <td>{{ row.name }}</td>
+                <td>{{ row.name }} {{ row.surname }}</td>
                 <td>{{ row.worked }}</td>
                 <td>{{ row.paid }}</td>
                 <td>{{ row.hours }}</td>
-                <td>{{ row.payload }} %</td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-red"
+                         [class.progress-bar-red]="row.load < 50"
+                         [class.progress-bar-yellow]="row.load >= 50 && row.load < 70"
+                         [class.progress-bar-green]="row.load >= 70"
+                         role="progressbar"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         [style.width]="row.load + '%' | sanitize"
+                    >
+                      <span>{{ row.load }}{{ row.load > 20 ? '%' : null}}</span>
+                    </div>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -91,7 +120,9 @@
               <tr role="row" *ngFor="let row of projectsTable">
                 <td>{{ row.name }}</td>
                 <td>{{ row.hours }}</td>
-                <td><input type="checkbox" [checked]="row.paid" (click)="setPaidProject($event, row.id)"></td>
+                <td>
+                  <input type="checkbox" [checked]="row.paid" (click)="setPaidProject($event, row.id)">
+                </td>
               </tr>
             </tbody>
           </table>
