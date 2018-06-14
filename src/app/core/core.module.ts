@@ -8,6 +8,7 @@ import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { GantgileModule } from '../gantgile/gantgile.module';
 import { UpdaterModule } from '../updater/updater.module';
+import { ReportsModule } from '../reports/reports.module';
 
 import { CurrentUserService } from './services/current-user.service';
 import { CurrentUserGuard } from './services/current-user.guard';
@@ -41,7 +42,6 @@ import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
 import {
   TermsAndConditionsComponent
 } from './pages/terms-and-conditions/terms-and-conditions.component';
-import { ServiceLoadPage } from './pages/service-load/service-load.page';
 
 import {
   RegistrationComponent
@@ -58,7 +58,6 @@ import { InputMaskDirective } from './directives/input-mask.directive';
 import {
   UpworkButtonComponent
 } from './components/social-buttons/upwork/upwork-button.component';
-import {ServiceLoadService} from './services/service-load.service';
 
 @NgModule({
   imports: [
@@ -70,6 +69,7 @@ import {ServiceLoadService} from './services/service-load.service';
     SharedModule,
     GantgileModule,
     UpdaterModule,
+    ReportsModule
   ],
   providers: [
     CurrentUserService,
@@ -85,7 +85,6 @@ import {ServiceLoadService} from './services/service-load.service';
     IntegrationsService,
     UpdateService,
     ProjectService,
-    ServiceLoadService,
   ],
   declarations: [
     HeaderComponent,
@@ -114,7 +113,6 @@ import {ServiceLoadService} from './services/service-load.service';
     WaitingComponent,
     IntegrationsPage,
     InputMaskDirective,
-    ServiceLoadPage
   ],
   entryComponents: [
     WaitingComponent,
