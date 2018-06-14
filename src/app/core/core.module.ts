@@ -57,6 +57,7 @@ import { InputMaskDirective } from './directives/input-mask.directive';
 import {
   UpworkButtonComponent
 } from './components/social-buttons/upwork/upwork-button.component';
+import { AdminModule } from '../admin/admin.module';
 
 @NgModule({
   imports: [
@@ -66,6 +67,7 @@ import {
     HttpClientModule,
     CoreRoutingModule,
     SharedModule,
+    AdminModule,
     GantgileModule,
     UpdaterModule,
   ],

@@ -23,5 +23,17 @@ export class CoreComponent implements OnInit {
           link: ['/updates']
         },
       ]);
+
+    this.sideBarService
+      .add(
+        {
+          name: 'Administrate',
+          icon: 'fa-wheelchair',
+          single: false,
+          items: [
+            { name: 'Users', link: ['/admin', 'users'] },
+          ]
+        }
+      );
   }
 }

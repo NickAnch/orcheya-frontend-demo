@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminComponent } from './admin.component';
+import { CanActivateAdminGuard } from './services';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: AdminComponent,
+    canActivate: [CanActivateAdminGuard],
+    children: []
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
