@@ -19,6 +19,7 @@ import { RegistrationGuard } from './services/registration.guard';
 import { PermissionGuard } from './services/permission.guard';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { IntegrationsPage } from './pages/integrations/integrations.page';
+import { AdminModule } from '../admin/admin.module';
 
 
 const routes: Routes = [
@@ -32,7 +33,7 @@ const routes: Routes = [
       { path: 'profile', component: UserProfilePage },
       { path: 'user-profile/:id', component: UserProfilePage },
       { path: 'updates', component: UpdatesPage },
-      { path: 'admin', loadChildren: '../admin/admin.module#AdminModule' }
+      { path: 'admin', loadChildren: () => AdminModule }
     ]
   },
   { path: 'sign-in', component: SignInPage },
