@@ -22,6 +22,7 @@
                 <th>Phone</th>
                 <th>Timing</th>
                 <th>ID</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -39,9 +40,17 @@
                 <td>{{ user.phone }}</td>
                 <td>{{ user.timing }}</td>
                 <td>{{ user.id }}</td>
+                <th class="no-padding">
+                  <a (click)="removeUser(user)" class="btn btn-danger btn-flat">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </th>
               </tr>
             </tbody>
           </table>
+          <div *ngIf="users && users.length <= 0" class="text-center">
+            No data to display
+          </div>
         </div>
       </div>
     </div>

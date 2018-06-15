@@ -26,4 +26,18 @@ export class UsersService {
         );
     });
   }
+
+  public removeUser(user: User): Observable<boolean> {
+    return Observable.create((observer: Observer) => {
+      this._http
+        .delete(`${ADMIN_USERS_URL}/${user.id}`)
+        .subscribe(
+          () => {
+            observer.next(true);
+            observer.complete();
+          },
+          errors => observer.error(errors)
+        )
+    });
+  }
 }

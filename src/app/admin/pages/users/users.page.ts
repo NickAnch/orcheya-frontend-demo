@@ -17,4 +17,12 @@ export class UsersPage implements OnInit {
       .getUsersList()
       .subscribe(x => this.users = x);
   }
+
+  public removeUser(user: User): void {
+    this._usersService
+      .removeUser(user)
+      .subscribe(
+        () => this.users.splice(this.users.indexOf(user), 1)
+      );
+  }
 }
