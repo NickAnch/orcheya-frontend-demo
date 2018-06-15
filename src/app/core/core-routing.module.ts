@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AdminModule } from '../admin/admin.module';
+import { ReportsModule } from '../reports/reports.module';
+
 import { CurrentUserGuard } from './services/current-user.guard';
 
 import { CoreComponent } from './core.component';
@@ -19,8 +22,6 @@ import { RegistrationGuard } from './services/registration.guard';
 import { PermissionGuard } from './services/permission.guard';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { IntegrationsPage } from './pages/integrations/integrations.page';
-import { AdminModule } from '../admin/admin.module';
-
 
 const routes: Routes = [
   {
@@ -33,7 +34,8 @@ const routes: Routes = [
       { path: 'profile', component: UserProfilePage },
       { path: 'user-profile/:id', component: UserProfilePage },
       { path: 'updates', component: UpdatesPage },
-      { path: 'admin', loadChildren: () => AdminModule }
+      { path: 'admin', loadChildren: () => AdminModule },
+      { path: 'reports', loadChildren: () => ReportsModule }
     ]
   },
   { path: 'sign-in', component: SignInPage },

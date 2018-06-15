@@ -15,6 +15,5 @@ export class CanActivateAdminGuard implements CanActivate {
       this._router.navigate(['/']);
       return false;
     }
-
   }
 }

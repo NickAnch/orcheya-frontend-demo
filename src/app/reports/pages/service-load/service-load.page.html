@@ -1,0 +1,136 @@
+<section class="content-header">
+  <h1>
+    Service load
+  </h1>
+  <ol class="breadcrumb">
+    <li><a [routerLink]="['/']">Home</a></li>
+    <li class="active">Service load</li>
+  </ol>
+</section>
+
+<section class="wrap">
+  <div class="filter-controls">
+    <div class="input-group">
+      <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+      </div>
+      <input class="form-control"
+             placeholder="Choose dates"
+             bsDaterangepicker
+             [(ngModel)]="dates"
+             (ngModelChange)="onDateChange()">
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-default" (click)="setDay()">Day</button>
+      <button type="button" class="btn btn-default" (click)="setWeek()">Week</button>
+      <button type="button" class="btn btn-default" (click)="setMonth()">Month</button>
+      <button type="button" class="btn btn-default" (click)="setYear()">Year</button>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h1 class="total text-bold">{{ dash?.totalPaid }}%</h1>
+  <div class="foo">
+    <div class="progress">
+      <div class="progress-bar"
+           [class.progress-bar-red]="dash?.totalPaid < 50"
+           [class.progress-bar-yellow]="dash?.totalPaid >= 50 && dash?.totalPaid < 80"
+           [class.progress-bar-green]="dash?.totalPaid >= 80"
+           role="progressbar"
+           aria-valuemin="0"
+           aria-valuemax="100"
+           [style.width]="dash?.totalPaid + '%' | sanitize"
+      >
+      </div>
+    </div>
+  </div>
+
+  <div class="dash">
+    <div>Work days: <span class="text-bold">{{ dash?.workdays }}</span></div>
+    <div>Developers: <span class="text-bold">{{ dash?.developers }}</span></div>
+    <div>Others: <span class="text-bold">{{ dash?.other }}</span></div>
+    <div>Hours: <span class="text-bold">{{ dash?.hours }}</span></div>
+    <div>Worked hours: <span class="text-bold">{{ dash?.workedHours }}</span></div>
+    <div>Paid hours: <span class="text-bold">{{ dash?.paidHours }}</span></div>
+    <div>Active projects: <span class="text-bold">{{ dash?.activeProjects }}</span></div>
+    <div>Paid projects: <span class="text-bold">{{ dash?.paidProjects }}</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <tabset #tabset>
+
+      <tab class="nav-tabs-custom"
+           id="hours"
+           heading="Hours" >
+        <div class="tab-content">
+          <table class="table table-bordered table-hover dataTable" role="grid">
+            <thead>
+              <tr role="row">
+                <th>Developer</th>
+                <th>Worked hours</th>
+                <th>Paid hours</th>
+                <th>Hours</th>
+                <th>Load</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr role="row" *ngFor="let row of hoursTable">
+                <td>{{ row.name }} {{ row.surname }}</td>
+                <td>{{ row.worked }}</td>
+                <td>{{ row.paid }}</td>
+                <td>{{ row.hours }}</td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-red"
+                         [class.progress-bar-red]="row.load < 80"
+                         [class.progress-bar-yellow]="row.load >= 80 && row.load < 100"
+                         [class.progress-bar-green]="row.load >= 100"
+                         role="progressbar"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         [style.width]="row.load + '%' | sanitize"
+                    >
+                      <span>{{ row.load > 9 ? row.load : null }}{{ row.load > 20 ? '%' : null }}</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
+
+      <tab class="nav-tabs-custom"
+           id="projects"
+           heading="Projects" >
+        <div class="tab-content">
+          <table class="table table-bordered table-hover dataTable" role="grid">
+            <thead>
+              <tr role="row">
+                <th>Project name</th>
+                <th>Hours</th>
+                <th>Paid</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr role="row" *ngFor="let row of projectsTable">
+                <td>{{ row.name }}</td>
+                <td>{{ row.hours }}</td>
+                <td>
+                  <input type="checkbox" [checked]="row.paid" (click)="setPaidProject($event, row.id)">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
+
+    </tabset>
+  </div>
+</section>
+
+
