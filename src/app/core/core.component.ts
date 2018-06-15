@@ -22,6 +22,14 @@ export class CoreComponent implements OnInit {
           icon: 'fa-telegram',
           link: ['/updates']
         },
+        {
+          name: 'Reports',
+          single: false,
+          icon: 'fa-file-text-o',
+          items: [
+            { name: 'Service load', link: ['/reports/service-load'] }
+          ]
+        }
       ]);
   }
 }

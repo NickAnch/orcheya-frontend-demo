@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-
-import { SidebarService } from '../shared/sidebar';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-reports',
   template: `<router-outlet></router-outlet>`
 })
-export class ReportsComponent implements OnInit {
-  constructor(private sideBarService: SidebarService) {
-  }
-
-  ngOnInit() {
-  }
+export class ReportsComponent {
 }
