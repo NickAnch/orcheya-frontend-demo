@@ -12,7 +12,7 @@ export interface ServiceLoadResponse {
   projectsTable: ProjectsTableRow[];
 }
 
-const url = '/api/reports/service_load';
+const URL = '/api/reports/service_load';
 
 @Injectable()
 export class ServiceLoadService {
@@ -26,7 +26,7 @@ export class ServiceLoadService {
         .set('end_date', endDate);
 
       this.http
-        .get(url, {params: httpParams})
+        .get(URL, {params: httpParams})
         .subscribe(
           (data: any) => {
             const dash = Model.new(Dash, data.dash);
