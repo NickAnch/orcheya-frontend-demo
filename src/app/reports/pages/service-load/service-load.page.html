@@ -94,7 +94,7 @@
                          aria-valuemax="100"
                          [style.width]="row.load + '%' | sanitize"
                     >
-                      <span>{{ row.load }}{{ row.load > 20 ? '%' : null }}</span>
+                      <span>{{ row.load > 9 ? row.load : null }}{{ row.load > 20 ? '%' : null }}</span>
                     </div>
                   </div>
                 </td>
