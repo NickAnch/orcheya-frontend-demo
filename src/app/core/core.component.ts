@@ -25,7 +25,7 @@ export class CoreComponent implements OnInit {
         {
           name: 'Reports',
           single: false,
-          icon: 'fa-file-text-o',
+          icon: 'fa-file-text',
           items: [
             { name: 'Service load', link: ['/reports/service-load'] }
           ]
