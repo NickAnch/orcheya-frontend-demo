@@ -36,8 +36,8 @@
     <div class="progress">
       <div class="progress-bar"
            [class.progress-bar-red]="dash?.total_paid < 50"
-           [class.progress-bar-yellow]="dash?.total_paid >= 50 && dash?.total_paid < 70"
-           [class.progress-bar-green]="dash?.total_paid >= 70"
+           [class.progress-bar-yellow]="dash?.total_paid >= 50 && dash?.total_paid < 80"
+           [class.progress-bar-green]="dash?.total_paid >= 80"
            role="progressbar"
            aria-valuemin="0"
            aria-valuemax="100"
@@ -86,9 +86,9 @@
                 <td>
                   <div class="progress">
                     <div class="progress-bar progress-bar-red"
-                         [class.progress-bar-red]="row.load < 50"
-                         [class.progress-bar-yellow]="row.load >= 50 && row.load < 70"
-                         [class.progress-bar-green]="row.load >= 70"
+                         [class.progress-bar-red]="row.load < 80"
+                         [class.progress-bar-yellow]="row.load >= 80 && row.load < 100"
+                         [class.progress-bar-green]="row.load >= 100"
                          role="progressbar"
                          aria-valuemin="0"
                          aria-valuemax="100"
