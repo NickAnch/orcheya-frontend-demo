@@ -26,5 +26,12 @@
   .filter-controls {
     display: grid;
     grid-template-columns: 1fr;
+
+    button {
+      margin-top: 10px;
+      width: 25%;
+    }
   }
+
+
 }
