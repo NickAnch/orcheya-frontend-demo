@@ -31,17 +31,17 @@
 </section>
 
 <section class="wrap">
-  <h1 class="total text-bold">{{ dash?.total_paid }}%</h1>
+  <h1 class="total text-bold">{{ dash?.totalPaid }}%</h1>
   <div class="foo">
     <div class="progress">
       <div class="progress-bar"
-           [class.progress-bar-red]="dash?.total_paid < 50"
-           [class.progress-bar-yellow]="dash?.total_paid >= 50 && dash?.total_paid < 80"
-           [class.progress-bar-green]="dash?.total_paid >= 80"
+           [class.progress-bar-red]="dash?.totalPaid < 50"
+           [class.progress-bar-yellow]="dash?.totalPaid >= 50 && dash?.totalPaid < 80"
+           [class.progress-bar-green]="dash?.totalPaid >= 80"
            role="progressbar"
            aria-valuemin="0"
            aria-valuemax="100"
-           [style.width]="dash?.total_paid + '%' | sanitize"
+           [style.width]="dash?.totalPaid + '%' | sanitize"
       >
       </div>
     </div>
@@ -52,10 +52,10 @@
     <div>Developers: <span class="text-bold">{{ dash?.developers }}</span></div>
     <div>Others: <span class="text-bold">{{ dash?.other }}</span></div>
     <div>Hours: <span class="text-bold">{{ dash?.hours }}</span></div>
-    <div>Worked hours: <span class="text-bold">{{ dash?.worked_hours }}</span></div>
-    <div>Paid hours: <span class="text-bold">{{ dash?.paid_hours }}</span></div>
-    <div>Active projects: <span class="text-bold">{{ dash?.active_projects }}</span></div>
-    <div>Paid projects: <span class="text-bold">{{ dash?.paid_projects }}</span></div>
+    <div>Worked hours: <span class="text-bold">{{ dash?.workedHours }}</span></div>
+    <div>Paid hours: <span class="text-bold">{{ dash?.paidHours }}</span></div>
+    <div>Active projects: <span class="text-bold">{{ dash?.activeProjects }}</span></div>
+    <div>Paid projects: <span class="text-bold">{{ dash?.paidProjects }}</span></div>
   </div>
 </section>
 

@@ -5,16 +5,11 @@ export class Dash extends Model {
   @Alias() public developers: number;
   @Alias() public other: number;
   @Alias() public hours: number;
-  @Alias() public worked_hours: number;
-  @Alias() public paid_hours: number;
-  @Alias() public total_paid: number;
-  @Alias() public active_projects: number;
-  @Alias() public paid_projects: number;
-
-  constructor(data: Object) {
-    super();
-    this._fromJSON(data);
-  }
+  @Alias('worked_hours') public workedHours: number;
+  @Alias('paid_hours') public paidHours: number;
+  @Alias('total_paid') public totalPaid: number;
+  @Alias('active_projects') public activeProjects: number;
+  @Alias('paid_projects') public paidProjects: number;
 }
 
 export class HoursTableRow extends Model {
@@ -25,11 +20,6 @@ export class HoursTableRow extends Model {
   @Alias() public paid: number;
   @Alias() public hours: number;
   @Alias() public load: number;
-
-  constructor(data: Object) {
-    super();
-    this._fromJSON(data);
-  }
 }
 
 export class ProjectsTableRow extends Model {
@@ -37,9 +27,4 @@ export class ProjectsTableRow extends Model {
   @Alias() public name: number;
   @Alias() public hours: string;
   @Alias() public paid: number;
-
-  constructor(data: Object) {
-    super();
-    this._fromJSON(data);
-  }
 }
