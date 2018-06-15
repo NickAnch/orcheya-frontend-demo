@@ -8,6 +8,7 @@ import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { GantgileModule } from '../gantgile/gantgile.module';
 import { UpdaterModule } from '../updater/updater.module';
+import { ReportsModule } from '../reports/reports.module';
 
 import { CurrentUserService } from './services/current-user.service';
 import { CurrentUserGuard } from './services/current-user.guard';
@@ -68,6 +69,7 @@ import {
     SharedModule,
     GantgileModule,
     UpdaterModule,
+    ReportsModule
   ],
   providers: [
     CurrentUserService,

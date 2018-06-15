@@ -19,7 +19,7 @@ import { RegistrationGuard } from './services/registration.guard';
 import { PermissionGuard } from './services/permission.guard';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { IntegrationsPage } from './pages/integrations/integrations.page';
-
+import { ReportsModule } from '../reports/reports.module';
 
 const routes: Routes = [
   {
@@ -32,6 +32,10 @@ const routes: Routes = [
       { path: 'users-list', component: UsersListPage },
       { path: '', component: UsersListPage },
       { path: 'updates', component: UpdatesPage },
+      {
+        path: 'reports',
+        loadChildren: () => ReportsModule
+      }
     ]
   },
   { path: 'sign-in', component: SignInPage },
