@@ -67,7 +67,7 @@ import { AdminModule } from '../admin/admin.module';
     HttpClientModule,
     CoreRoutingModule,
     SharedModule,
-    // AdminModule,
+    AdminModule,
     GantgileModule,
     UpdaterModule,
   ],

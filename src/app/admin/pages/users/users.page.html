@@ -1,3 +1,49 @@
-<p>
-  users works!
-</p>
+<section class="content-header">
+  <h1>
+    Manage users
+    <!--<small>preview of simple tables</small>-->
+  </h1>
+</section>
+
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Github</th>
+                <th>Bitbucket</th>
+                <th>Skype</th>
+                <th>Phone</th>
+                <th>Timing</th>
+                <th>ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users" [class.warning]="user.role.isAdmin">
+                <td>
+                  <a [routerLink]="['/user-profile', user.id]">
+                    {{ user.name }} {{ user.surname }}
+                  </a>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role.name }}</td>
+                <td>{{ user.github }}</td>
+                <td>{{ user.bitbucket }}</td>
+                <td>{{ user.skype }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.timing }}</td>
+                <td>{{ user.id }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
