@@ -6,7 +6,8 @@
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --prod --aot=false",
-    "deploy": "bash deploy.sh",
+    "deploy-staging": "pm2 deploy staging --force",
+    "deploy-production": "pm2 deploy production --force",
     "test": "ng test",
     "ci-test": "ng test --single-run",
     "lint": "ng lint",
@@ -64,6 +65,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "pm2": "^2.10.4",
     "protractor": "~5.2.1",
     "sass-lint": "^1.12.1",
     "ts-node": "~4.0.1",
@@ -74,28 +76,6 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "deploy": {
-    "staging": {
-        "user": "deploy",
-        "host": ["46.254.19.100"],
-        "port": "42777",
-        "ssh_options": "ForwardAgent=yes",
-        "ref": "origin/master",
-        "repo": "git@github.com:roonyx/orcheya-client.git",
-        "path": "/srv/orcheya-client",
-        "post-deploy": "./post-deploy.sh"
-    },
-    "production": {
-        "user": "deploy",
-        "host": ["188.93.209.165"],
-        "port": "28826",
-        "ssh_options": "ForwardAgent=yes",
-        "ref": "origin/master",
-        "repo": "git@github.com:roonyx/orcheya-client.git",
-        "path": "/srv/orcheya-client",
-        "post-deploy": "./post-deploy.sh"
     }
   }
 }
