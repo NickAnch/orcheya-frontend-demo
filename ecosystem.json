@@ -1,0 +1,24 @@
+{
+  "deploy": {
+    "staging": {
+      "user": "deploy",
+      "host": ["46.254.19.100"],
+      "port": "42777",
+      "ssh_options": "ForwardAgent=yes",
+      "ref": "origin/master",
+      "repo": "git@github.com:roonyx/orcheya-client.git",
+      "path": "/srv/orcheya-client",
+      "post-deploy": "./post-deploy.sh"
+    },
+    "production": {
+      "user": "deploy",
+      "host": ["188.93.209.165"],
+      "port": "28826",
+      "ssh_options": "ForwardAgent=yes",
+      "ref": "origin/master",
+      "repo": "git@github.com:roonyx/orcheya-client.git",
+      "path": "/srv/orcheya-client",
+      "post-deploy": "./post-deploy.sh"
+    }
+  }
+}
