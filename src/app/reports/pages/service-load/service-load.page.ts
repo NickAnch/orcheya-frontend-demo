@@ -22,10 +22,7 @@ export class ServiceLoadPage implements OnInit {
   public hoursTable: HoursTableRow[];
   public projectsTable: ProjectsTableRow[];
 
-  public dates: string[] = [
-    moment().add(-7, 'days').toString(),
-    moment().toString()
-  ];
+  public dates: Date[];
 
   constructor(
     private serviceLoadService: ServiceLoadService,
@@ -33,6 +30,7 @@ export class ServiceLoadPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.setWeek();
     this.getServiceLoad();
   }
 
@@ -56,26 +54,26 @@ export class ServiceLoadPage implements OnInit {
 
   setDates(startDate: Moment, endDate: Moment) {
     this.dates = [
-      moment(startDate).format(this.format),
-      moment(endDate).format(this.format)
+      moment(startDate).toDate(),
+      moment(endDate).toDate()
     ];
     this.onDateChange();
   }
 
   setDay() {
-    this.setDates(moment(), moment());
+    this.setDates(moment().subtract(1, 'day'), moment().subtract(1, 'day'));
   }
 
   setWeek() {
-    this.setDates(moment().subtract(1, 'week'), moment());
+    this.setDates(moment().subtract(1, 'week'), moment().subtract(1, 'day'));
   }
 
   setMonth() {
-    this.setDates(moment().subtract(1, 'month'), moment());
+    this.setDates(moment().subtract(1, 'month'), moment().subtract(1, 'day'));
   }
 
   setYear() {
-    this.setDates(moment().subtract(1, 'year'), moment());
+    this.setDates(moment().subtract(1, 'year'), moment().subtract(1, 'day'));
   }
 
   setPaidProject(event, id: number) {

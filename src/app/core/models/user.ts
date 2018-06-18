@@ -1,10 +1,10 @@
 import { Alias, Model } from 'tsmodels';
 import { Image } from './image';
+import { Role } from './role';
 
 /**
   This class describe of user model.
 */
-
 export class User extends Model {
   @Alias() public id: number;
   @Alias() public email: string;
@@ -17,7 +17,7 @@ export class User extends Model {
   @Alias() public github: string;
   @Alias() public bitbucket: string;
   @Alias() public timing: string;
-  @Alias() public role: string;
+  @Alias('role', Role) public role: Role;
   @Alias('avatar', Image) public avatar: Image;
   @Alias('slack_connected') public slackConnected: boolean;
   @Alias('timedoctor_connected') public timedoctorConnected: boolean;
@@ -38,38 +38,3 @@ export class User extends Model {
     return `${this.name} ${this.surname}`;
   }
 }
-
-export const positions = {
-  developer: {
-    title: 'Developer',
-    id: 1,
-  },
-  hr: {
-    title: 'HR',
-    id: 2,
-  },
-  sales: {
-    title: 'Sales',
-    id: 3,
-  },
-  projectManager: {
-    title: 'Project Manager',
-    id: 4,
-  },
-  leadGeneration: {
-    title: 'Lead Generation',
-    id: 5,
-  },
-  ceo: {
-    title: 'CEO',
-    id: 6,
-  },
-  cto: {
-    title: 'CTO',
-    id: 7,
-  },
-  coo: {
-    title: 'COO',
-    id: 8,
-  },
-};
