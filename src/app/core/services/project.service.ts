@@ -24,4 +24,19 @@ export class ProjectService {
         );
     });
   }
+
+  public updateProject(id: number, data: object): Observable<Project> {
+    return Observable.create((observer: Observer<Project>) => {
+      this.http
+        .put(`${this.apiPath}/${id}`, data)
+        .subscribe(
+          project => {
+            const projects = new Project(project);
+            observer.next(projects);
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+    });
+  }
 }
