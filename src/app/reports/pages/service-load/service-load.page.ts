@@ -31,9 +31,7 @@ export class ServiceLoadPage implements OnInit {
 
   ngOnInit() {
     this.setWeek();
-    this.getServiceLoad();
   }
-
 
   onDateChange() {
     this.getServiceLoad();
