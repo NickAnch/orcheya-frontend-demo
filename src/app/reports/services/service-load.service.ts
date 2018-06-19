@@ -3,12 +3,17 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-import { Dash, HoursTableRow, ProjectsTableRow } from '../models/service-load';
+import {
+  Dash,
+  HoursTableRow,
+  ProjectsTableRow,
+  UsersTableRow
+} from '../models/service-load';
 import { Model } from 'tsmodels';
 
 export interface ServiceLoadResponse {
   dash: Dash;
-  hoursTable: HoursTableRow[];
+  usersTable: HoursTableRow[];
   projectsTable: ProjectsTableRow[];
 }
 
@@ -30,8 +35,8 @@ export class ServiceLoadService {
         .subscribe(
           (data: any) => {
             const dash = Model.new(Dash, data.dash);
-            const hoursTable = Model.newCollection(
-              HoursTableRow, data.hours_table
+            const usersTable = Model.newCollection(
+              UsersTableRow, data.users_table
             );
             const projectsTable = Model.newCollection(
               ProjectsTableRow, data.projects_table
@@ -39,7 +44,7 @@ export class ServiceLoadService {
 
             observer.next({
               dash: dash,
-              hoursTable: hoursTable,
+              usersTable: usersTable,
               projectsTable: projectsTable,
             });
 
