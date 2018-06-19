@@ -24,17 +24,6 @@ export class UserSettingFormComponent implements OnInit {
     'flexible'
   ];
 
-  public role = [
-    'Developer',
-    'HR',
-    'Sales',
-    'Project Manager',
-    'Lead Generation',
-    'CEO',
-    'CTO',
-    'COO'
-  ];
-
   constructor(
     public currentUser: CurrentUserService,
     private formBuilder: FormBuilder,

@@ -4,7 +4,7 @@ export class UserFilter extends Model {
   @Alias() public page?: number;
   @Alias() public limit?: number;
   @Alias() public search?: string;
-  @Alias() public role?: number;
+  @Alias('role_is') public roleIs?: number;
 
   constructor(data?: Object) {
     super();
