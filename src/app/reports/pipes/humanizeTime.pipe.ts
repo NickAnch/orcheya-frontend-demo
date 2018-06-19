@@ -11,7 +11,7 @@ export class HumanizeTimePipe implements PipeTransform {
     }
 
     const hours = Math.floor(value / 3600);
-    const minutes = (value - hours * 60) % 60;
+    const minutes = Math.floor((value - hours * 3600) / 60);
 
     const h = hours > 0 ? hours + 'h ' : '';
     const m = minutes + 'm';
