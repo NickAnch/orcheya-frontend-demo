@@ -5,7 +5,6 @@ import { Observer } from 'rxjs/Observer';
 
 import {
   Dash,
-  HoursTableRow,
   ProjectsTableRow,
   UsersTableRow
 } from '../models/service-load';
@@ -13,7 +12,7 @@ import { Model } from 'tsmodels';
 
 export interface ServiceLoadResponse {
   dash: Dash;
-  usersTable: HoursTableRow[];
+  usersTable: UsersTableRow[];
   projectsTable: ProjectsTableRow[];
 }
 
