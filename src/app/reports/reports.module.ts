@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
 import { SanitizePipe } from './pipes/sanitize.pipe';
+import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
   declarations: [
     ReportsComponent,
     ServiceLoadPage,
-    SanitizePipe
+    SanitizePipe,
+    HumanizeTimePipe,
   ]
 })
 export class ReportsModule { }
