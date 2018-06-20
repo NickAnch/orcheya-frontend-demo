@@ -1,10 +1,15 @@
 import { Alias, Model } from 'tsmodels';
 import { Image } from './image';
 import { Role } from './role';
+import { Timing } from './timing';
+
+export interface IUserEdit {
+  timings: Timing[];
+}
 
 /**
-  This class describe of user model.
-*/
+ This class describe of user model.
+ */
 export class User extends Model {
   @Alias() public id: number;
   @Alias() public email: string;
@@ -16,7 +21,8 @@ export class User extends Model {
   @Alias() public skype: string;
   @Alias() public github: string;
   @Alias() public bitbucket: string;
-  @Alias() public timing: string;
+  @Alias('timing_id') public timingId: number;
+  @Alias('timing', Timing) public timing: Timing;
   @Alias('role', Role) public role: Role;
   @Alias('avatar', Image) public avatar: Image;
   @Alias('slack_connected') public slackConnected: boolean;

@@ -7,6 +7,8 @@ import { User } from '../../models/user';
 import { Router } from '@angular/router';
 import { ValidateLatin } from '../../validators/latin.validator';
 import { formatNumber } from '../../../shared/helpers/phone-formatter.helper';
+import { Timing } from '../../models/timing';
+import { Model } from 'tsmodels';
 
 @Component({
   selector: 'app-user-settings-form',
@@ -14,71 +16,71 @@ import { formatNumber } from '../../../shared/helpers/phone-formatter.helper';
 })
 export class UserSettingFormComponent implements OnInit {
   @Input() private navigateTo: string[] = [];
+  public timings: Timing[];
   public form: FormGroup;
-  private respErrors: Object = {};
-  public timing = [
-    '08:00 - 17:00',
-    '09:00 - 18:00',
-    '10:00 - 19:00',
-    '11:00 - 20:00',
-    'flexible'
-  ];
+  public user: User;
+  private _respErrors: Object = {};
 
-  constructor(
-    public currentUser: CurrentUserService,
-    private formBuilder: FormBuilder,
-    private router: Router
-  ) {}
+  constructor(private _currentUser: CurrentUserService,
+              private _formBuilder: FormBuilder,
+              private _router: Router) {
+    this.user = User.new<User>(User, this._currentUser._toJSON([
+      'name', 'surname', 'birthday', 'sex', 'email', 'github',
+      'bitbucket', 'skype', 'phone', 'timing_id', 'role', 'notify_update']));
+    this._currentUser
+      .edit()
+      .subscribe(x => this.timings = x.timings);
+  }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      name: [this.currentUser.name, [Validators.required, ValidateLatin]],
-      surname: [this.currentUser.surname, [Validators.required, ValidateLatin]],
-      birthday: [new Date(this.currentUser.birthday), [Validators.required]],
-      sex: [this.currentUser.sex, []],
-      email: [this.currentUser.email, [Validators.required, Validators.email]],
-      github: [this.currentUser.github, []],
-      bitbucket: [this.currentUser.bitbucket, []],
-      skype: [this.currentUser.skype, []],
-      phone: [this.currentUser.phone, [Validators.required]],
-      timing: [this.currentUser.timing, [Validators.required]],
-      role: [this.currentUser.role, [Validators.required]],
-      notifyUpdate: [this.currentUser.notifyUpdate, []],
+    this.form = this._formBuilder.group({
+      name: [this.user.name, [Validators.required, ValidateLatin]],
+      surname: [this.user.surname, [Validators.required, ValidateLatin]],
+      birthday: [new Date(this.user.birthday), [Validators.required]],
+      sex: [this.user.sex, []],
+      email: [this.user.email, [Validators.required, Validators.email]],
+      github: [this.user.github, []],
+      bitbucket: [this.user.bitbucket, []],
+      skype: [this.user.skype, []],
+      phone: [this.user.phone, [Validators.required]],
+      timingId: [this.user.timingId, [Validators.required]],
+      role: [this.user.role, [Validators.required]],
+      notifyUpdate: [this.user.notifyUpdate, []],
     });
     this.formatCurrentUserNumber();
   }
 
   private formatCurrentUserNumber() {
-    formatNumber(this.currentUser.phone, this.form.get('phone'));
+    formatNumber(this.user.phone, this.form.get('phone'));
   }
 
   public hasError(controlName: string): boolean {
     return (
-      (this.form.get(controlName).dirty && this.form.get(controlName).invalid)
-      || this.respErrors[controlName]
+      (this.form.get(controlName).dirty
+        && this.form.get(controlName).invalid
+      ) || this._respErrors[controlName]
     );
   }
 
   public updateSettings() {
-    if (!this.form.valid) {
+    if (this.form.invalid) {
       return;
     }
 
-    const updatedUser = new User(this.form.value);
-    updatedUser.notifyUpdate = this.form.value.notifyUpdate;
+    Object.assign(this.user, this.form.value);
 
-    this.currentUser
-      .updateSettings(updatedUser)
+    this._currentUser
+      .updateSettings(this.user)
       .subscribe(
-        () => this.respErrors = {},
+        () => this._respErrors = {},
         (err: HttpErrorResponse) => {
           if (!err.error['status'] && !err.error['exception']) {
-            this.respErrors = err.error;
+            this._respErrors = err.error;
           }
         },
         () => {
           if (this.navigateTo.length) {
-            this.router.navigate(this.navigateTo);
+            this._router.navigate(this.navigateTo);
           }
         });
   }
@@ -98,8 +100,8 @@ export class UserSettingFormComponent implements OnInit {
       }
     }
 
-    if (this.respErrors[controlName]) {
-      return this.respErrors[controlName];
+    if (this._respErrors[controlName]) {
+      return this._respErrors[controlName];
     }
   }
 }
