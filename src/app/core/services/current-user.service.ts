@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
+import { IUserEdit, User } from '../models/user';
 import {
   HttpClient, HttpEvent, HttpEventType, HttpHeaders,
   HttpProgressEvent, HttpRequest, HttpResponse,
@@ -10,6 +10,8 @@ import { Observer } from 'rxjs/Observer';
 import { map, last, catchError } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { Model } from 'tsmodels';
+import { Timing } from '../models/timing';
 
 @Injectable()
 export class CurrentUserService extends User {
@@ -59,7 +61,6 @@ export class CurrentUserService extends User {
 
   public updateSettings(userData: User = this): Observable<User> {
     const data = { user: userData._toJSON() };
-
     return Observable.create((observer: Observer<User>) => {
       this.http
         .put(this.apiProfilePath, data, { observe: 'response' })
@@ -89,6 +90,23 @@ export class CurrentUserService extends User {
           err => observer.error(err)
         );
     });
+  }
+
+  public edit(): Observable<IUserEdit> {
+    return Observable.create((observer: Observer<IUserEdit>) => {
+      this.http
+        .get(`${this.apiProfilePath}/edit`)
+        .subscribe(
+          res => {
+            observer.next({
+              timings: Model.newCollection(Timing, res['timings'])
+            });
+            observer.complete();
+          },
+          error => observer.error(error)
+        );
+      }
+    );
   }
 
   public signIn(email: string, password: string): Observable<boolean> {
