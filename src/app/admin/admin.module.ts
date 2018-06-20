@@ -12,6 +12,7 @@ import {
 import {
   UsersPage
 } from './pages';
+import { RolesPage } from './pages/roles/roles.page';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {
   ],
   declarations: [
     AdminComponent,
-    UsersPage
+    UsersPage,
+    RolesPage
   ]
 })
 export class AdminModule { }
