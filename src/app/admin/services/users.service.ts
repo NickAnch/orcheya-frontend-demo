@@ -28,7 +28,7 @@ export class UsersService {
   }
 
   public removeUser(user: User): Observable<boolean> {
-    return Observable.create((observer: Observer) => {
+    return Observable.create((observer: Observer<boolean>) => {
       this._http
         .delete(`${ADMIN_USERS_URL}/${user.id}`)
         .subscribe(
