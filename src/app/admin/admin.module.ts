@@ -6,7 +6,8 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import {
   CanActivateAdminGuard,
-  UsersService
+  UsersService,
+  RolesService
 } from './services';
 
 import {
@@ -23,7 +24,8 @@ import { RolesPage } from './pages/roles/roles.page';
   ],
   providers: [
     CanActivateAdminGuard,
-    UsersService
+    UsersService,
+    RolesService
   ],
   declarations: [
     AdminComponent,
