@@ -3,7 +3,7 @@ import { ServiceLoadService } from '../../services/service-load.service';
 import { ProjectService } from '../../../core/services/project.service';
 
 import {
-  Dash, HoursTableRow, ProjectsTableRow
+  Dash, UsersTableRow, ProjectsTableRow
 } from '../../models/service-load';
 
 import * as moment from 'moment';
@@ -19,7 +19,7 @@ export class ServiceLoadPage implements OnInit {
   private format = 'YYYY-MM-DD';
 
   public dash: Dash;
-  public hoursTable: HoursTableRow[];
+  public hoursTable: UsersTableRow[];
   public projectsTable: ProjectsTableRow[];
 
   public dates: Date[];
@@ -31,9 +31,7 @@ export class ServiceLoadPage implements OnInit {
 
   ngOnInit() {
     this.setWeek();
-    this.getServiceLoad();
   }
-
 
   onDateChange() {
     this.getServiceLoad();
@@ -47,7 +45,7 @@ export class ServiceLoadPage implements OnInit {
       .getServiceLoad(startDate, endDate)
       .subscribe(data => {
         this.dash = data.dash;
-        this.hoursTable = data.hoursTable;
+        this.hoursTable = data.usersTable;
         this.projectsTable = data.projectsTable;
       });
   }

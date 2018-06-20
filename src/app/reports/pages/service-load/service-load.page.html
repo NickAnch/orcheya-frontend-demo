@@ -51,9 +51,9 @@
     <div>Work days: <span class="text-bold">{{ dash?.workdays }}</span></div>
     <div>Developers: <span class="text-bold">{{ dash?.developers }}</span></div>
     <div>Others: <span class="text-bold">{{ dash?.other }}</span></div>
-    <div>Hours: <span class="text-bold">{{ dash?.hours }}</span></div>
-    <div>Worked hours: <span class="text-bold">{{ dash?.workedHours }}</span></div>
-    <div>Paid hours: <span class="text-bold">{{ dash?.paidHours }}</span></div>
+    <div>Hours: <span class="text-bold">{{ dash?.hours | humanizeTime }}</span></div>
+    <div>Worked hours: <span class="text-bold">{{ dash?.workedHours | humanizeTime }}</span></div>
+    <div>Paid hours: <span class="text-bold">{{ dash?.paidHours | humanizeTime }}</span></div>
     <div>Active projects: <span class="text-bold">{{ dash?.activeProjects }}</span></div>
     <div>Paid projects: <span class="text-bold">{{ dash?.paidProjects }}</span></div>
   </div>
@@ -71,18 +71,18 @@
             <thead>
               <tr role="row">
                 <th>Developer</th>
-                <th>Worked hours</th>
-                <th>Paid hours</th>
-                <th>Hours</th>
+                <th>Worked time</th>
+                <th>Paid time</th>
+                <th>Time</th>
                 <th>Load</th>
               </tr>
             </thead>
             <tbody>
               <tr role="row" *ngFor="let row of hoursTable">
                 <td>{{ row.name }} {{ row.surname }}</td>
-                <td>{{ row.worked }}</td>
-                <td>{{ row.paid }}</td>
-                <td>{{ row.hours }}</td>
+                <td>{{ row.worked | humanizeTime }}</td>
+                <td>{{ row.paid | humanizeTime }}</td>
+                <td>{{ row.time | humanizeTime }}</td>
                 <td>
                   <div class="progress">
                     <div class="progress-bar progress-bar-red"
@@ -119,7 +119,7 @@
             <tbody>
               <tr role="row" *ngFor="let row of projectsTable">
                 <td>{{ row.name }}</td>
-                <td>{{ row.hours }}</td>
+                <td>{{ row.time | humanizeTime }}</td>
                 <td>
                   <input type="checkbox" [checked]="row.paid" (click)="setPaidProject($event, row.id)">
                 </td>

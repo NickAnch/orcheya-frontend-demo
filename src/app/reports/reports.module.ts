@@ -6,17 +6,16 @@ import { ReportsComponent } from './reports.component';
 import { ServiceLoadService } from './services/service-load.service';
 import { ServiceLoadPage } from './pages/service-load/service-load.page';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 
 import { SanitizePipe } from './pipes/sanitize.pipe';
+import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     ReportsRoutingModule,
     FormsModule,
-    HttpClientModule,
     SharedModule,
   ],
   providers: [
@@ -25,7 +24,8 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
   declarations: [
     ReportsComponent,
     ServiceLoadPage,
-    SanitizePipe
+    SanitizePipe,
+    HumanizeTimePipe,
   ]
 })
 export class ReportsModule { }
