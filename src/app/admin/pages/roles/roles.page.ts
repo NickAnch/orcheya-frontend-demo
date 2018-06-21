@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesService } from '../../services';
 import { Role } from '../../../core/models/role';
+import { RoleEditComponent } from '../../components/role-edit/role-edit.component';
+import { BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-roles',
@@ -10,10 +12,10 @@ import { Role } from '../../../core/models/role';
 export class RolesPage implements OnInit {
   public roles: Role[];
   public canAdd = false;
-  public canEdit = false;
   public role: Role = new Role();
 
-  constructor(private _rolesService: RolesService) { }
+  constructor(private _rolesService: RolesService,
+              private _modalService: BsModalService) { }
 
   ngOnInit() {
     this._rolesService
@@ -21,7 +23,7 @@ export class RolesPage implements OnInit {
       .subscribe(x => this.roles = x);
   }
 
-  public removeRole(role: Role): void {
+  public remove(role: Role): void {
     this._rolesService
       .removeRole(role)
       .subscribe(
@@ -36,11 +38,16 @@ export class RolesPage implements OnInit {
   }
 
   public editRole(role: Role): void {
-    this._rolesService
-      .editRole(role)
-      .subscribe(
-        x => this.roles.splice(this.roles.indexOf(role), 1, x)
-      );
-
+    const initialState = {
+      role: role
+    };
+    const modal = this._modalService.show(RoleEditComponent, { initialState });
+    modal.content
+      .onRoleUpdate
+      .subscribe(x => {
+        role._fromJSON(x._toJSON());
+        this.roles.splice(this.roles.indexOf(role), 1, x)
+        modal.hide();
+      });
   }
 }

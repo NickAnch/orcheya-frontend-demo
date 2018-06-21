@@ -6,7 +6,6 @@ import { Observer } from 'rxjs/Observer';
 
 import { Role } from '../../core/models/role';
 
-
 const ADMIN_ROLES_URL = '/api/admin/roles';
 
 @Injectable()

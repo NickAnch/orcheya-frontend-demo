@@ -18,6 +18,7 @@ import {
 import { RolesPage } from './pages/roles/roles.page';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { SharedModule } from '../shared/shared.module';
+import { RoleEditComponent } from './components/role-edit/role-edit.component';
 
 
 @NgModule({
@@ -38,10 +39,12 @@ import { SharedModule } from '../shared/shared.module';
     AdminComponent,
     UsersPage,
     RolesPage,
-    UserEditComponent
+    UserEditComponent,
+    RoleEditComponent
   ],
   entryComponents: [
-    UserEditComponent
+    UserEditComponent,
+    RoleEditComponent
   ]
 })
 export class AdminModule { }
