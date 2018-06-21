@@ -14,6 +14,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { InViewportModule } from 'ng-in-viewport';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ButtonsModule } from 'ngx-bootstrap';
+import { InputMaskDirective } from './input-mask/input-mask.directive';
 
 @NgModule({
   imports: [
@@ -35,9 +36,11 @@ import { ButtonsModule } from 'ngx-bootstrap';
   ],
   declarations: [
     SidebarComponent,
+    InputMaskDirective
   ],
   exports: [
     SidebarComponent,
+    InputMaskDirective,
     BsDropdownModule,
     TabsModule,
     BsDatepickerModule,
@@ -47,7 +50,7 @@ import { ButtonsModule } from 'ngx-bootstrap';
     ProgressbarModule,
     AccordionModule,
     UiSwitchModule,
-    ButtonsModule,
+    ButtonsModule
   ]
 })
 export class SharedModule { }

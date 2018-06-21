@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SidebarService } from '../shared/sidebar';
+import { CurrentUserService } from './services/current-user.service';
 
 @Component({
   selector: 'app-wrapper',
@@ -9,7 +10,8 @@ import { SidebarService } from '../shared/sidebar';
 })
 export class CoreComponent implements OnInit {
 
-  constructor(private sideBarService: SidebarService) {
+  constructor(private sideBarService: SidebarService,
+              private _currentUser: CurrentUserService) {
   }
 
   ngOnInit() {
@@ -31,18 +33,19 @@ export class CoreComponent implements OnInit {
           ]
         }
       ]);
-
-    this.sideBarService
-      .add(
-        {
-          name: 'Administrate',
-          icon: 'fa-wheelchair',
-          single: false,
-          items: [
-            { name: 'Users', link: ['/admin', 'users'] },
-            { name: 'Roles', link: ['/admin', 'roles'] }
-          ]
-        }
-      );
+    if (this._currentUser.role.isAdmin) {
+      this.sideBarService
+        .add(
+          {
+            name: 'Administrate',
+            icon: 'fa-wheelchair',
+            single: false,
+            items: [
+              { name: 'Users', link: ['/admin', 'users'] },
+              { name: 'Roles', link: ['/admin', 'roles'] }
+            ]
+          }
+        );
+    }
   }
 }

@@ -35,6 +35,9 @@
                 <td>{{ user.timing.time }}</td>
                 <td>{{ user.id }}</td>
                 <th class="no-padding">
+                  <a class="btn btn-primary btn-flat" (click)="editUser(user)">
+                    <i class="fa fa-pencil"></i>
+                  </a>
                   <a (click)="removeUser(user)" class="btn btn-danger btn-flat">
                     <i class="fa fa-trash"></i>
                   </a>

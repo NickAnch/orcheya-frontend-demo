@@ -1,0 +1,173 @@
+<div class="modal-header" *ngIf="user">
+  <h4 class="modal-title pull-left">
+    {{ user.name }} {{ user.surname }}
+  </h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<form role="form"
+      *ngIf="user"
+      class="form-horizontal"
+      [formGroup]="form"
+      (submit)="updateSettings()">
+  <div class="box-body">
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('name') }">
+      <label for="name" class="col-sm-2 control-label">Name*</label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="name"
+               placeholder="Enter name"
+               formControlName="name">
+        <span class="help-block">{{ textError('name') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('surname') }">
+      <label for="surname" class="col-sm-2 control-label">Surname*</label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="surname"
+               placeholder="Enter surname"
+               formControlName="surname">
+        <span class="help-block">{{ textError('surname') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('birthday') }">
+      <label for="birthday" class="col-sm-2 control-label">Birth date*</label>
+      <div class="col-sm-10">
+        <input bsDatepicker
+               class="form-control"
+               id="birthday"
+               placeholder="Enter birth date"
+               formControlName="birthday">
+        <span class="help-block">{{ textError('birthday') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('sex') }">
+      <div class="col-sm-10 col-sm-offset-2">
+        <input type="radio"
+               id="sex-male"
+               value="male"
+               formControlName="sex">
+        <label for="sex-male">Male</label>
+        <input type="radio"
+               id="sex-female"
+               value="female"
+               formControlName="sex">
+        <label for="sex-female">Female</label>
+        <span class="help-block">{{ textError('sex') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('phone') }">
+      <label for="phone" class="col-sm-2 control-label">Phone*</label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="phone"
+               placeholder="Enter phone"
+               formControlName="phone"
+               [appMask]="form.get('phone')">
+        <span class="help-block">{{ textError('phone') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('email') }">
+      <label for="email" class="col-sm-2 control-label">Email*</label>
+      <div class="col-sm-10">
+        <input type="email"
+               class="form-control"
+               id="email"
+               placeholder="Enter email"
+               formControlName="email">
+        <span class="help-block">{{ textError('email') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('timingId') }">
+      <label for="timingId" class="col-sm-2 control-label">Timing*</label>
+      <div class="col-sm-10">
+        <select type="text"
+                class="form-control"
+                id="timingId"
+                formControlName="timingId">
+          <option *ngFor="let timing of timings" [value]="timing.id">
+            {{ timing.time }}
+          </option>
+        </select>
+        <span class="help-block">{{ textError('timingId') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('roleId') }">
+      <label for="roleId" class="col-sm-2 control-label">Role*</label>
+      <div class="col-sm-10">
+        <select type="text"
+                class="form-control"
+                id="roleId"
+                formControlName="roleId">
+          <option *ngFor="let role of roles" [value]="role.id">
+            {{ role.name }}
+          </option>
+        </select>
+        <span class="help-block">{{ textError('timingId') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('github') }">
+      <label for="github" class="col-sm-2 control-label">Github</label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="github"
+               placeholder="Enter github"
+               formControlName="github">
+        <span class="help-block">{{ textError('github') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('bitbucket') }">
+      <label for="bitbucket" class="col-sm-2 control-label">Bitbucket</label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="bitbucket"
+               placeholder="Enter bitbucket"
+               formControlName="bitbucket">
+        <span class="help-block">{{ textError('bitbucket') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group"
+         [ngClass]="{ 'has-error': hasError('skype') }">
+      <label for="skype" class="col-sm-2 control-label">Skype</label>
+      <div class="col-sm-10">
+        <input class="form-control"
+               id="skype"
+               placeholder="Enter skype"
+               formControlName="skype">
+        <span class="help-block">{{ textError('skype') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-10 col-sm-offset-2">
+        <button class="btn btn-primary"
+                [disabled]="form.invalid">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
