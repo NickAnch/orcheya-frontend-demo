@@ -3,7 +3,9 @@ import { BsModalService } from 'ngx-bootstrap';
 
 import { UsersService } from '../../services';
 import { User } from '../../../core/models/user';
-import { UserEditComponent } from '../../components/user-edit/user-edit.component';
+import {
+  UserEditComponent
+} from '../../components/user-edit/user-edit.component';
 
 @Component({
   selector: 'app-users',
