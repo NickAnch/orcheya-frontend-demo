@@ -1,8 +1,8 @@
 import {
   Directive, HostListener, Input,
 } from '@angular/core';
-import { FormControl, AbstractControl } from '@angular/forms';
-import { formatNumber } from '../../shared/helpers/phone-formatter.helper';
+import { FormControl } from '@angular/forms';
+import { formatNumber } from '../helpers/phone-formatter.helper';
 
 @Directive({
   selector: 'input[appMask]'

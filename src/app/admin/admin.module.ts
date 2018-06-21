@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -12,12 +14,17 @@ import {
 import {
   UsersPage
 } from './pages';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
+    ModalModule.forRoot(),
+    SharedModule,
     AdminRoutingModule
   ],
   providers: [
@@ -26,7 +33,11 @@ import {
   ],
   declarations: [
     AdminComponent,
-    UsersPage
+    UsersPage,
+    UserEditComponent
+  ],
+  entryComponents: [
+    UserEditComponent
   ]
 })
 export class AdminModule { }
