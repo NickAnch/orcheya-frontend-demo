@@ -51,7 +51,7 @@ export class RolesService {
             observer.complete();
           },
           errors => observer.error(errors)
-        )
+        );
     });
   }
 
@@ -66,6 +66,6 @@ export class RolesService {
           },
           err => observer.error(err)
         );
-    })
+    });
   }
 }

@@ -27,37 +27,24 @@
               <th>Name</th>
               <th>Admin</th>
               <th>Developer</th>
+              <th>Count of users</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let role of roles" [class.warning]="role.isAdmin">
-              <td>
-                  {{ role.name }}
-              </td>
-              <td>{{role.isAdmin? "+" : "-"}}</td>
-              <td>{{role.isDeveloper? "+" : "-"}}</td>
+              <td>{{ role.name }} </td>
+              <td> <input type="checkbox" [(ngModel)]="role.isAdmin" disabled></td>
+              <td> <input type="checkbox" [(ngModel)]="role.isDeveloper" disabled></td>
+              <td>{{ role.userCount }}</td>
               <th class="no-padding">
+                <a class="btn btn-primary btn-flat" (click)="editRole(role)">
+                  <i class="fa fa-pencil"></i>
+                </a>
                 <a (click)="removeRole(role)" class="btn btn-danger btn-flat">
                   <i class="fa fa-trash"></i>
                 </a>
               </th>
-              <th class="no-padding">
-                <a (click)="canEdit = true" class="btn btn-danger btn-flat">
-                  <i class="fa fa-pencil-square-o"></i>
-                </a>
-              </th>
-
-              <form *ngIf="canEdit">
-                <lable>Name</lable>
-                <input type="text" [(ngModel)]="role.name" name="name">
-                <lable>Is Admin</lable>
-                <input type="checkbox" [(ngModel)]="role.isAdmin" name="admin">
-                <lable>Is Developer</lable>
-                <input type="checkbox" [(ngModel)]="role.isDeveloper" name="dev">
-
-                <a (click)="editRole(role)">Edit</a>
-              </form>
             </tr>
             </tbody>
           </table>
