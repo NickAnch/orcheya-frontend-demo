@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { formatNumber } from '../../../shared/helpers/phone-formatter.helper';
 import { Timing } from '../../../core/models/timing';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BsModalRef } from 'ngx-bootstrap';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class UserEditComponent implements OnInit {
   private _respErrors: Object = {};
 
   constructor(private _usersService: UsersService,
-              private _formBuilder: FormBuilder) {
+              private _formBuilder: FormBuilder,
+              public bsModalRef: BsModalRef) {
   }
 
   ngOnInit() {
