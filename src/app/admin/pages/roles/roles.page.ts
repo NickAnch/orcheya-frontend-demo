@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesService } from '../../services';
 import { Role } from '../../../core/models/role'
+import { User } from "../../../core/models/user";
 
 @Component({
   selector: 'app-roles',
@@ -9,6 +10,9 @@ import { Role } from '../../../core/models/role'
 })
 export class RolesPage implements OnInit {
   public roles: Role[];
+  public canAdd: boolean = false;
+  public canEdit: boolean = false;
+  public role: Role = new Role();
 
   constructor(private _rolesService: RolesService) { }
 
@@ -18,4 +22,26 @@ export class RolesPage implements OnInit {
       .subscribe(x => this.roles = x);
   }
 
+  public removeRole(role: Role): void {
+    this._rolesService
+      .removeRole(role)
+      .subscribe(
+        () => this.roles.splice(this.roles.indexOf(role), 1)
+      );
+  }
+
+  public addRole(role: Role): void {
+    this._rolesService
+      .addRole(role)
+      .subscribe(x => this.roles.push(x));
+  }
+
+  public editRole(role: Role): void {
+    this._rolesService
+      .editRole(role)
+      .subscribe(
+        x => this.roles.splice(this.roles.indexOf(role), 1, x)
+      );
+
+  }
 }

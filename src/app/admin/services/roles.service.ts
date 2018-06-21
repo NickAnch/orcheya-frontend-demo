@@ -26,4 +26,46 @@ export class RolesService {
         );
     });
   }
+
+  public addRole(role: Role): Observable<Role> {
+    return Observable.create((observer: Observer<Role>) => {
+      this._http
+        .post<Role>(`${ADMIN_ROLES_URL}`, role._toJSON())
+        .subscribe(
+          response => {
+            observer.next(Role.new(Role, response['role']));
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+    });
+  }
+
+  public removeRole(role: Role): Observable<boolean> {
+    return Observable.create((observer: Observer<boolean>) => {
+      this._http
+        .delete(`${ADMIN_ROLES_URL}/${role.id}`)
+        .subscribe(
+          () => {
+            observer.next(true);
+            observer.complete();
+          },
+          errors => observer.error(errors)
+        )
+    });
+  }
+
+  public editRole(role: Role): Observable<Role> {
+    return Observable.create((observer: Observer<Role>) => {
+      this._http
+        .put(`${ADMIN_ROLES_URL}/${role.id}`, role._toJSON())
+        .subscribe(
+          response => {
+            observer.next(Role.new(Role, response['role']));
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+    })
+  }
 }

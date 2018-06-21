@@ -1,6 +1,72 @@
-<p>
-  Our roles:
-</p>
-<div *ngFor="let role of roles">
-  <p>{{role.name}}</p>
-</div>
+<section class="content-header">
+  <h1>
+    Manage roles
+    <!--<small>preview of simple tables</small>-->
+  </h1>
+</section>
+<section>
+  <button (click)="canAdd = true">Add role</button>
+  <div *ngIf="canAdd">
+    <form action="">
+      <input type="text" [(ngModel)]="role.name" name="name">
+      <input type="checkbox" [(ngModel)]="role.isAdmin" name="admin">
+      <input type="checkbox" [(ngModel)]="role.isDeveloper" name="dev">
+      <button type="submit" (click)="addRole(role)" [disabled]="role.name.length < 1">+</button>
+    </form>
+  </div>
+</section>
+
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Admin</th>
+              <th>Developer</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let role of roles" [class.warning]="role.isAdmin">
+              <td>
+                  {{ role.name }}
+              </td>
+              <td>{{role.isAdmin? "+" : "-"}}</td>
+              <td>{{role.isDeveloper? "+" : "-"}}</td>
+              <th class="no-padding">
+                <a (click)="removeRole(role)" class="btn btn-danger btn-flat">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </th>
+              <th class="no-padding">
+                <a (click)="canEdit = true" class="btn btn-danger btn-flat">
+                  <i class="fa fa-pencil-square-o"></i>
+                </a>
+              </th>
+
+              <form *ngIf="canEdit">
+                <lable>Name</lable>
+                <input type="text" [(ngModel)]="role.name" name="name">
+                <lable>Is Admin</lable>
+                <input type="checkbox" [(ngModel)]="role.isAdmin" name="admin">
+                <lable>Is Developer</lable>
+                <input type="checkbox" [(ngModel)]="role.isDeveloper" name="dev">
+
+                <a (click)="editRole(role)">Edit</a>
+              </form>
+            </tr>
+            </tbody>
+          </table>
+          <div *ngIf="roles && roles.length <= 0" class="text-center">
+            No data to display
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
