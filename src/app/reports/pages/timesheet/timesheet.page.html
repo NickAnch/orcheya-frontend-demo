@@ -1,0 +1,80 @@
+<section class="content-header">
+  <h1>
+    Timesheet
+  </h1>
+  <ol class="breadcrumb">
+    <li><a [routerLink]="['/']">Home</a></li>
+    <li class="active">Service load</li>
+  </ol>
+</section>
+
+<section class="wrap">
+  <div class="filter-controls">
+    <div class="input-group">
+      <ng-select
+        bindLabel="fullName"
+        placeholder="Select users"
+        notFoundText="Users not found"
+        [items]="users"
+        [multiple]="true"
+        [typeahead]="typeahead"
+        [closeOnSelect]="false"
+        [hideSelected]="true"
+        [(ngModel)]="filter.users"
+        (change)="FilterChanged()">
+      </ng-select>
+    </div>
+
+    <input class="form-control"
+           placeholder="Choose dates"
+           bsDaterangepicker
+           [(ngModel)]="filter.dates"
+           (bsValueChange)="FilterChanged()">
+
+    <button type="button" class="btn btn-default" (click)="setWeek()">Week</button>
+  </div>
+
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" [(ngModel)]="filter.paid" (change)="FilterChanged()">
+      Paid only
+    </label>
+  </div>
+
+  <div class="box box-primary">
+    <div class="box-body">
+      <table class="table table-bordered table-hover dataTable" role="grid">
+        <thead>
+        <tr role="row">
+          <th>Developer</th>
+          <th>Worked time</th>
+          <ng-container *ngFor="let day of days">
+            <th class="text-center">{{ day.format('DD.MM.YYYY') }}</th>
+          </ng-container>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of timesheetRows">
+          <td>{{ user.name + ' ' + user.surname }}</td>
+          <td>{{ user.time | humanizeTime }}</td>
+          <ng-container *ngFor="let day of days">
+            <th class="text-center">
+              <div class="time">
+                {{ findTime(user, day) | humanizeTime }}
+              </div>
+              <div class="progress">
+                <div class="progress-bar"
+                     role="progressbar"
+                     aria-valuemin="0"
+                     aria-valuemax="28800"
+                     [style.width]="scrollbarWidth(user, day) + '%' | sanitize"
+                ></div>
+              </div>
+            </th>
+          </ng-container>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+.wrap {
+  padding: 20px 30px
+}
+
+.filter-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr max-content;
+  grid-gap: 10px;
+}
+
+th {
+  .progress {
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+
+  .filter-controls {
+    grid-template-columns: 1fr;
+  }
+
+}
