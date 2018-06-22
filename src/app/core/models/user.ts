@@ -4,7 +4,9 @@ import { Role } from './role';
 import { Timing } from './timing';
 
 export interface IUserEdit {
-  timings: Timing[];
+  user?: User;
+  timings?: Timing[];
+  roles?: Role[];
 }
 
 /**
@@ -23,6 +25,7 @@ export class User extends Model {
   @Alias() public bitbucket: string;
   @Alias('timing_id') public timingId: number;
   @Alias('timing', Timing) public timing: Timing;
+  @Alias('role_id') public roleId: number;
   @Alias('role', Role) public role: Role;
   @Alias('avatar', Image) public avatar: Image;
   @Alias('slack_connected') public slackConnected: boolean;

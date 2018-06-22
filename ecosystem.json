@@ -5,7 +5,7 @@
       "host": ["46.254.19.100"],
       "port": "42777",
       "ssh_options": "ForwardAgent=yes",
-      "ref": "origin/master",
+      "ref": "origin/staging",
       "repo": "git@github.com:roonyx/orcheya-client.git",
       "path": "/srv/orcheya-client",
       "post-deploy": "./post-deploy.sh"
