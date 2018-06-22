@@ -85,10 +85,7 @@ export class TimesheetPage implements OnInit {
   public FilterChanged() {
     clearTimeout(this.getTimesheetDelay);
     this.getTimesheetDelay = setTimeout(
-      () => {
-        console.log('aa');
-        this.getTimesheet();
-      }, 10
+      () => this.getTimesheet(), 10
     );
   }
 
