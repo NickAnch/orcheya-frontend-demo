@@ -39,8 +39,8 @@ export class TimesheetPage implements OnInit {
 
   getTimesheet() {
     this.timesheetService.getTimesheet(this.filter)
-      .subscribe(({timesheetRows}) => {
-        this.timesheetRows = timesheetRows;
+      .subscribe(data => {
+        this.timesheetRows = data.timesheetRows;
         this.days = this.daysRange();
       });
   }
@@ -72,7 +72,10 @@ export class TimesheetPage implements OnInit {
   }
 
   setWeek() {
-    this.setDates(moment().subtract(1, 'week'), moment().subtract(1, 'day'));
+    this.setDates(
+      moment().subtract(1, 'week'),
+      moment().subtract(1, 'day')
+    );
   }
 
   private fetchUsers() {
@@ -82,7 +85,7 @@ export class TimesheetPage implements OnInit {
       });
   }
 
-  public FilterChanged() {
+  public filterChanged() {
     clearTimeout(this.getTimesheetDelay);
     this.getTimesheetDelay = setTimeout(
       () => this.getTimesheet(), 10

@@ -11,17 +11,16 @@
 <section class="wrap">
   <div class="filter-controls">
     <div class="input-group">
-      <ng-select
-        bindLabel="fullName"
-        placeholder="Select users"
-        notFoundText="Users not found"
-        [items]="users"
-        [multiple]="true"
-        [typeahead]="typeahead"
-        [closeOnSelect]="false"
-        [hideSelected]="true"
-        [(ngModel)]="filter.users"
-        (change)="FilterChanged()">
+      <ng-select bindLabel="fullName"
+                 placeholder="Select users"
+                 notFoundText="Users not found"
+                 [items]="users"
+                 [multiple]="true"
+                 [typeahead]="typeahead"
+                 [closeOnSelect]="false"
+                 [hideSelected]="true"
+                 [(ngModel)]="filter.users"
+                 (change)="filterChanged()">
       </ng-select>
     </div>
 
@@ -29,14 +28,14 @@
            placeholder="Choose dates"
            bsDaterangepicker
            [(ngModel)]="filter.dates"
-           (bsValueChange)="FilterChanged()">
+           (bsValueChange)="filterChanged()">
 
     <button type="button" class="btn btn-default" (click)="setWeek()">Week</button>
   </div>
 
   <div class="checkbox">
     <label>
-      <input type="checkbox" [(ngModel)]="filter.paid" (change)="FilterChanged()">
+      <input type="checkbox" [(ngModel)]="filter.paid" (change)="filterChanged()">
       Paid only
     </label>
   </div>
@@ -55,7 +54,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let user of timesheetRows">
-          <td>{{ user.name + ' ' + user.surname }}</td>
+          <td>{{ user.name }} {{ user.surname }}</td>
           <td>{{ user.time | humanizeTime }}</td>
           <ng-container *ngFor="let day of days">
             <th class="text-center">
