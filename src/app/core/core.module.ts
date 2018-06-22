@@ -54,10 +54,10 @@ import { FooterComponent } from './components/footer/footer.component';
 import { IntegrationsService } from './services/integrations.service';
 import { ProjectService } from './services/project.service';
 import { IntegrationsPage } from './pages/integrations/integrations.page';
-import { InputMaskDirective } from './directives/input-mask.directive';
 import {
   UpworkButtonComponent
 } from './components/social-buttons/upwork/upwork-button.component';
+import { AdminModule } from '../admin/admin.module';
 
 @NgModule({
   imports: [
@@ -67,6 +67,7 @@ import {
     HttpClientModule,
     CoreRoutingModule,
     SharedModule,
+    AdminModule,
     GantgileModule,
     UpdaterModule,
     ReportsModule
@@ -112,8 +113,7 @@ import {
     UserSettingFormComponent,
     FooterComponent,
     WaitingComponent,
-    IntegrationsPage,
-    InputMaskDirective,
+    IntegrationsPage
   ],
   entryComponents: [
     WaitingComponent,
