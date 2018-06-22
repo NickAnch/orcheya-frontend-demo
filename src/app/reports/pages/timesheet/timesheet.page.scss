@@ -8,6 +8,19 @@
   grid-gap: 10px;
 }
 
+.progress {
+  height: 7px;
+  .progress-bar {
+    background-color: #51BE71;
+  }
+}
+
+.centered {
+  display: grid;
+  align-content: center;
+  height: 100%;
+}
+
 th {
   .progress {
     margin: 0;

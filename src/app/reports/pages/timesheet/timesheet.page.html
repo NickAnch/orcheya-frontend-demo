@@ -44,11 +44,13 @@
     <div class="box-body">
       <table class="table table-bordered table-hover dataTable" role="grid">
         <thead>
-        <tr role="row">
+        <tr>
           <th>Developer</th>
           <th>Worked time</th>
           <ng-container *ngFor="let day of days">
-            <th class="text-center">{{ day.format('DD.MM.YYYY') }}</th>
+            <th class="text-center">
+              {{ day.format('dddd, DD.MM') }}
+            </th>
           </ng-container>
         </tr>
         </thead>
