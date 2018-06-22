@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesService } from '../../services';
 import { Role } from '../../../core/models/role';
-import { RoleEditComponent } from '../../components/role-edit/role-edit.component';
+import { RoleEditComponent } from '../../components';
 import { BsModalService } from 'ngx-bootstrap';
 
 @Component({
@@ -31,22 +31,31 @@ export class RolesPage implements OnInit {
       );
   }
 
-  public addRole(role: Role): void {
-    this._rolesService
-      .addRole(role)
-      .subscribe(x => this.roles.push(x));
+  public addRole(): void {
+    const initialState = {
+      role: new Role(),
+      type: 'new'
+    };
+    const modal = this._modalService.show(RoleEditComponent, { initialState });
+    modal.content
+      .onRoleUpdate
+      .subscribe(x => {
+        this.roles.unshift(x);
+        modal.hide();
+      });
   }
 
   public editRole(role: Role): void {
     const initialState = {
-      role: role
+      role: role,
+      type: 'edit'
     };
     const modal = this._modalService.show(RoleEditComponent, { initialState });
     modal.content
       .onRoleUpdate
       .subscribe(x => {
         role._fromJSON(x._toJSON());
-        this.roles.splice(this.roles.indexOf(role), 1, x)
+        this.roles.splice(this.roles.indexOf(role), 1, x);
         modal.hide();
       });
   }

@@ -16,9 +16,8 @@ import {
   UsersPage
 } from './pages';
 import { RolesPage } from './pages/roles/roles.page';
-import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { UserEditComponent, RoleEditComponent} from './components';
 import { SharedModule } from '../shared/shared.module';
-import { RoleEditComponent } from './components/role-edit/role-edit.component';
 
 
 @NgModule({

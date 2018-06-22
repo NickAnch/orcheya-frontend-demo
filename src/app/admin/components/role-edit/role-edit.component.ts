@@ -14,6 +14,8 @@ import { RolesService } from '../../services';
 
 export class RoleEditComponent implements OnInit {
   public role: Role;
+  private type: string;
+
   public form: FormGroup;
   public onRoleUpdate: EventEmitter<Role> = new EventEmitter();
 
@@ -39,20 +41,37 @@ export class RoleEditComponent implements OnInit {
     }
 
     Object.assign(this.role, this.form.value);
+    if (this.type === 'edit') {
+      this._rolesService
+        .editRole(this.role)
+        .subscribe(
+          role => {
+            this._respErrors = {};
+            this.onRoleUpdate.emit(role);
+          },
+          (err: HttpErrorResponse) => {
+            if (!err.error['status'] && !err.error['exception']) {
+              this._respErrors = err.error;
+            }
+          },
+          () => null);
+    }
+    if (this.type === 'new') {
+      this._rolesService
+        .addRole(this.role)
+        .subscribe(
+          role => {
+            this._respErrors = {};
+            this.onRoleUpdate.emit(role);
+          },
+          (err: HttpErrorResponse) => {
+            if (!err.error['status'] && !err.error['exception']) {
+              this._respErrors = err.error;
+            }
+          },
+          () => null);
+    }
 
-    this._rolesService
-      .editRole(this.role)
-      .subscribe(
-        role => {
-          this._respErrors = {};
-          this.onRoleUpdate.emit(role);
-        },
-        (err: HttpErrorResponse) => {
-          if (!err.error['status'] && !err.error['exception']) {
-            this._respErrors = err.error;
-          }
-        },
-        () => null);
   }
 
   public textError(controlName: string): string {

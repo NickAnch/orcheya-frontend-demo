@@ -4,19 +4,9 @@
     <!--<small>preview of simple tables</small>-->
   </h1>
 </section>
-<section>
-  <button (click)="canAdd = true">Add role</button>
-  <div *ngIf="canAdd">
-    <form action="">
-      <input type="text" [(ngModel)]="role.name" name="name">
-      <input type="checkbox" [(ngModel)]="role.isAdmin" name="admin">
-      <input type="checkbox" [(ngModel)]="role.isDeveloper" name="dev">
-      <button type="submit" (click)="addRole(role)" [disabled]="role.name.length < 1">+</button>
-    </form>
-  </div>
-</section>
 
 <section class="content">
+  <button type="button" class="btn btn-primary btn-flat" (click)="addRole()">Add role</button>
   <div class="row">
     <div class="col-xs-12">
       <div class="box">
