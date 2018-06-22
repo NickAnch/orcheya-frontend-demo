@@ -88,7 +88,8 @@ export class TimesheetPage implements OnInit {
   public filterChanged() {
     clearTimeout(this.getTimesheetDelay);
     this.getTimesheetDelay = setTimeout(
-      () => this.getTimesheet(), 10
+      () => this.getTimesheet(),
+      10
     );
   }
 
