@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AdminModule } from '../admin/admin.module';
+import { ReportsModule } from '../reports/reports.module';
+
 import { CurrentUserGuard } from './services/current-user.guard';
 
 import { CoreComponent } from './core.component';
@@ -19,7 +22,6 @@ import { RegistrationGuard } from './services/registration.guard';
 import { PermissionGuard } from './services/permission.guard';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { IntegrationsPage } from './pages/integrations/integrations.page';
-import { ReportsModule } from '../reports/reports.module';
 
 const routes: Routes = [
   {
@@ -32,10 +34,8 @@ const routes: Routes = [
       { path: 'profile', component: UserProfilePage },
       { path: 'user-profile/:id', component: UserProfilePage },
       { path: 'updates', component: UpdatesPage },
-      {
-        path: 'reports',
-        loadChildren: () => ReportsModule
-      }
+      { path: 'admin', loadChildren: () => AdminModule },
+      { path: 'reports', loadChildren: () => ReportsModule }
     ]
   },
   { path: 'sign-in', component: SignInPage },
@@ -44,7 +44,8 @@ const routes: Routes = [
   {
     path: 'registration',
     component: RegistrationComponent,
-    canActivate: [RegistrationGuard] },
+    canActivate: [RegistrationGuard]
+  },
   {
     path: 'integrations',
     component: IntegrationsPage,
