@@ -15,6 +15,7 @@ import { InViewportModule } from 'ng-in-viewport';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ButtonsModule } from 'ngx-bootstrap';
 import { InputMaskDirective } from './input-mask/input-mask.directive';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { InputMaskDirective } from './input-mask/input-mask.directive';
   ],
   declarations: [
     SidebarComponent,
-    InputMaskDirective
+    InputMaskDirective,
+    FilterPipe
   ],
   exports: [
     SidebarComponent,
@@ -50,7 +52,8 @@ import { InputMaskDirective } from './input-mask/input-mask.directive';
     ProgressbarModule,
     AccordionModule,
     UiSwitchModule,
-    ButtonsModule
+    ButtonsModule,
+    FilterPipe
   ]
 })
 export class SharedModule { }

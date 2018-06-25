@@ -12,6 +12,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { Model } from 'tsmodels';
 import { Timing } from '../models/timing';
+import { InvitedUser } from '../models/invited-user';
 
 @Injectable()
 export class CurrentUserService extends User {
@@ -75,8 +76,8 @@ export class CurrentUserService extends User {
     });
   }
 
-  public acceptInvite(invToken: string, password: string) {
-    const params = { invitation_token: invToken, password: password };
+  public acceptInvite(invitedUser: InvitedUser) {
+    const params = invitedUser._toJSON();
 
     return Observable.create((observer: Observer<boolean>) => {
       this.http
@@ -87,7 +88,7 @@ export class CurrentUserService extends User {
             observer.next(true);
             observer.complete();
           },
-          err => observer.error(err)
+          resp => observer.error(resp.error['errors'])
         );
     });
   }

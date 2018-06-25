@@ -3,6 +3,11 @@ import { Image } from './image';
 import { Role } from './role';
 import { Timing } from './timing';
 
+export interface IUsersIndex {
+  users: User[];
+  roles: Role[];
+}
+
 export interface IUserEdit {
   user?: User;
   timings?: Timing[];

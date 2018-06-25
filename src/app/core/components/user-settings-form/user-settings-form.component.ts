@@ -44,8 +44,7 @@ export class UserSettingFormComponent implements OnInit {
       skype: [this.user.skype, []],
       phone: [this.user.phone, [Validators.required]],
       timingId: [this.user.timingId, [Validators.required]],
-      role: [this.user.role, [Validators.required]],
-      notifyUpdate: [this.user.notifyUpdate, []],
+      notifyUpdate: [this.user.notifyUpdate, []]
     });
     this.formatCurrentUserNumber();
   }

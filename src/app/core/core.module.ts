@@ -58,6 +58,8 @@ import {
   UpworkButtonComponent
 } from './components/social-buttons/upwork/upwork-button.component';
 import { AdminModule } from '../admin/admin.module';
+import { TimingsService } from './services/timings.service';
+
 
 @NgModule({
   imports: [
@@ -86,7 +88,8 @@ import { AdminModule } from '../admin/admin.module';
     IntegrationsService,
     UpdateService,
     ProjectService,
-    RolesService
+    RolesService,
+    TimingsService
   ],
   declarations: [
     HeaderComponent,
