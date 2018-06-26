@@ -34,7 +34,6 @@ export class CoreComponent implements OnInit {
           ]
         }
       ]);
-
     if (this._currentUser.role.isAdmin) {
       this.sideBarService
         .add(
@@ -44,6 +43,7 @@ export class CoreComponent implements OnInit {
             single: false,
             items: [
               { name: 'Users', link: ['/admin', 'users'] },
+              { name: 'Roles', link: ['/admin', 'roles'] }
             ]
           }
         );
