@@ -33,6 +33,11 @@ export class TimesheetService {
         .map(user => user.id).join(','));
     }
 
+    if (filter.roles.length > 0) {
+      params = params.set('roles_ids', filter.roles
+        .map(role => role.id).join(','));
+    }
+
     return Observable.create((observer: Observer<TimesheetResponse>) => {
       this.http.get(URL, {params: params})
         .subscribe(

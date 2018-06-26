@@ -24,6 +24,20 @@
       </ng-select>
     </div>
 
+    <div class="input-group">
+      <ng-select bindLabel="name"
+                 placeholder="Select roles"
+                 notFoundText="Roles not found"
+                 [items]="roles"
+                 [multiple]="true"
+                 [typeahead]="typeahead"
+                 [closeOnSelect]="false"
+                 [hideSelected]="true"
+                 [(ngModel)]="filter.roles"
+                 (change)="filterChanged()">
+      </ng-select>
+    </div>
+
     <input class="form-control"
            placeholder="Choose dates"
            bsDaterangepicker

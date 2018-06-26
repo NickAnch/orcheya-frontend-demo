@@ -9,8 +9,11 @@ import {
   UsersListResponse, UsersListService
 } from '../../../core/services/users-list.service';
 
-import { TimesheetFilter } from '../../models/timesheet-filter';
-import { TimesheetRow } from '../../models/timesheet';
+import { TimesheetFilter, TimesheetRow } from '../../models';
+import { Role } from '../../../core/models/role';
+import {
+  RolesService,
+} from '../../../core/services/roles.service';
 
 @Component({
   templateUrl: './timesheet.page.html',
@@ -20,6 +23,8 @@ export class TimesheetPage implements OnInit {
   public timesheetRows: TimesheetRow[];
 
   public users: User[];
+  public roles: Role[];
+
   public days: Moment[];
   private filter = new TimesheetFilter();
 
@@ -28,6 +33,7 @@ export class TimesheetPage implements OnInit {
   constructor(
     private timesheetService: TimesheetService,
     private usersListService: UsersListService,
+    private rolesService: RolesService,
   ) {}
 
   ngOnInit() {
@@ -35,6 +41,7 @@ export class TimesheetPage implements OnInit {
 
     this.setWeek();
     this.fetchUsers();
+    this.fetchRoles();
   }
 
   getTimesheet() {
@@ -83,6 +90,11 @@ export class TimesheetPage implements OnInit {
       .subscribe((data: UsersListResponse) => {
         this.users = data.users;
       });
+  }
+
+  fetchRoles() {
+    this.rolesService.getList()
+      .subscribe(roles => this.roles = roles);
   }
 
   public filterChanged() {
