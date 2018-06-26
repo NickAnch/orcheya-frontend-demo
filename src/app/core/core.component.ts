@@ -29,11 +29,11 @@ export class CoreComponent implements OnInit {
           single: false,
           icon: 'fa-file-text',
           items: [
-            { name: 'Service load', link: ['/reports/service-load'] }
+            { name: 'Service load', link: ['/reports/service-load'] },
+            { name: 'Timesheet', link: ['/reports/timesheet'] }
           ]
         }
       ]);
-
     if (this._currentUser.role.isAdmin) {
       this.sideBarService
         .add(
@@ -43,6 +43,7 @@ export class CoreComponent implements OnInit {
             single: false,
             items: [
               { name: 'Users', link: ['/admin', 'users'] },
+              { name: 'Roles', link: ['/admin', 'roles'] }
             ]
           }
         );

@@ -11,20 +11,3 @@ export class Dash extends Model {
   @Alias('active_projects') public activeProjects: number;
   @Alias('paid_projects') public paidProjects: number;
 }
-
-export class UsersTableRow extends Model {
-  @Alias() public id: number;
-  @Alias() public name: string;
-  @Alias() public surname: string;
-  @Alias() public worked: number;
-  @Alias() public paid: number;
-  @Alias() public time: number;
-  @Alias() public load: number;
-}
-
-export class ProjectsTableRow extends Model {
-  @Alias() public id: number;
-  @Alias() public name: number;
-  @Alias() public time: number;
-  @Alias() public paid: number;
-}
