@@ -15,8 +15,12 @@ import {
 import {
   UsersPage
 } from './pages';
-import { RolesPage } from './pages/roles/roles.page';
-import { UserEditComponent, RoleEditComponent} from './components';
+import { RolesPage } from './pages';
+import {
+  UserEditComponent,
+  RoleEditComponent,
+  RoleDeleteComponent
+} from './components';
 import { SharedModule } from '../shared/shared.module';
 
 
@@ -39,11 +43,13 @@ import { SharedModule } from '../shared/shared.module';
     UsersPage,
     RolesPage,
     UserEditComponent,
-    RoleEditComponent
+    RoleEditComponent,
+    RoleDeleteComponent,
   ],
   entryComponents: [
     UserEditComponent,
-    RoleEditComponent
+    RoleEditComponent,
+    RoleDeleteComponent,
   ]
 })
 export class AdminModule { }
