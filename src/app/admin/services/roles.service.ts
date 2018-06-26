@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -40,10 +40,12 @@ export class RolesService {
     });
   }
 
-  public removeRole(role: Role): Observable<boolean> {
+  public removeRole(role: Role, newRole: Role): Observable<boolean> {
+    const httpParams = new HttpParams().set('new_role', newRole.id.toString());
+
     return Observable.create((observer: Observer<boolean>) => {
       this._http
-        .delete(`${ADMIN_ROLES_URL}/${role.id}`)
+        .delete(`${ADMIN_ROLES_URL}/${role.id}`, {params: httpParams})
         .subscribe(
           () => {
             observer.next(true);

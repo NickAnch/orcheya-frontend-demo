@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesService } from '../../services';
 import { Role } from '../../../core/models/role';
-import { RoleEditComponent } from '../../components';
+import { RoleEditComponent, RoleDeleteComponent } from '../../components';
 import { BsModalService } from 'ngx-bootstrap';
 
 @Component({
@@ -24,11 +24,23 @@ export class RolesPage implements OnInit {
   }
 
   public remove(role: Role): void {
-    this._rolesService
-      .removeRole(role)
-      .subscribe(
-        () => this.roles.splice(this.roles.indexOf(role), 1)
-      );
+    const initialState = {
+      role: role,
+      roles: this.roles
+    };
+
+    const modal = this._modalService
+      .show(RoleDeleteComponent, { initialState });
+
+    modal.content
+      .onRoleDelete
+      .subscribe(data => {
+        this.roles
+          .find(r => r === data.newed)
+          .userCount += data.deleted.userCount;
+        this.roles.splice(this.roles.findIndex(r => r === role), 1);
+        modal.hide();
+      });
   }
 
   public addRole(): void {
