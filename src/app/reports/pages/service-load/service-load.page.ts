@@ -4,7 +4,7 @@ import { ProjectService } from '../../../core/services/project.service';
 
 import {
   Dash, UsersTableRow, ProjectsTableRow
-} from '../../models/service-load';
+} from '../../models';
 
 import * as moment from 'moment';
 import { Moment } from 'moment';
