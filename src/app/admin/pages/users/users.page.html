@@ -1,15 +1,35 @@
 <section class="content-header">
-  <h1>
-    Manage users
-    <!--<small>preview of simple tables</small>-->
-  </h1>
+  <h1>Manage users</h1>
 </section>
 
 <section class="content">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="box">
-        <div class="box-body table-responsive no-padding">
+  <div class="nav-tabs-custom">
+    <tabset #tabset>
+      <tab heading="Users">
+        <div class="tab-content">
+          <div class="invite-block col-sm-offset-6 col-sm-6">
+            <div class="col-sm-6 input-group pull-right">
+              <select class="form-control" #role>
+                <option *ngFor="let role of roles"
+                        [value]="role.id">
+                  {{ role.name }}
+                </option>
+              </select>
+              <div class="input-group-btn">
+                <button type="submit"
+                        class="btn btn-info"
+                        (click)="invite(inviteField.value, role.value); inviteField.value = null;">
+                  <i class="fa fa-hand-o-up"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-sm-6 input-group pull-right">
+              <input type="text"
+                     class="form-control pull-right"
+                     placeholder="Invite by email"
+                     #inviteField>
+            </div>
+          </div>
           <table class="table table-hover">
             <thead>
               <tr>
@@ -23,18 +43,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users" [class.warning]="user.role.isAdmin">
+              <tr *ngFor="let user of users | filter: 'invitationToken' : null : false">
                 <td>
                   <a [routerLink]="['/user-profile', user.id]">
                     {{ user.name }} {{ user.surname }}
                   </a>
                 </td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.role.name }}</td>
+                <td>{{ user.role?.name }}</td>
                 <td>{{ user.phone }}</td>
-                <td>{{ user.timing.time }}</td>
+                <td>{{ user.timing?.time }}</td>
                 <td>{{ user.id }}</td>
-                <th class="no-padding">
+                <th class="no-padding text-right">
                   <a class="btn btn-primary btn-flat" (click)="editUser(user)">
                     <i class="fa fa-pencil"></i>
                   </a>
@@ -45,11 +65,35 @@
               </tr>
             </tbody>
           </table>
-          <div *ngIf="users && users.length <= 0" class="text-center">
-            No data to display
-          </div>
         </div>
-      </div>
-    </div>
+      </tab>
+      <tab heading="Invites">
+        <div class="tab-content">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>Email</th>
+              <th>Role</th>
+              <th>ID</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--| filter: 'invitationToken': null-->
+            <tr *ngFor="let user of users | filter: 'invitationToken' : null : true">
+              <td>{{ user.email }}</td>
+              <td>{{ user.role?.name }}</td>
+              <td>{{ user.id }}</td>
+              <th class="no-padding text-right">
+                <a (click)="removeUser(user)" class="btn btn-danger btn-flat">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </th>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
+    </tabset>
   </div>
 </section>

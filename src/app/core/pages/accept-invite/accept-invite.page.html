@@ -1,35 +1,64 @@
 <div class="login-box">
   <div class="login-logo">
-    <a>Orcheya</a>
+    <a href="javascript:void(0)">Orcheya</a>
   </div>
   <div class="login-box-body">
-    <p class="login-box-msg">Please enter new password:</p>
+    <p class="login-box-msg">Please enter user data:</p>
 
     <form (ngSubmit)="inviteAccept(loginForm.value)" #loginForm="ngForm">
-      <div class="form-group has-feedback" [class.has-error]="errors">
+      <div class="form-group has-feedback" [class.has-error]="errors['name']">
+        <input type="name"
+               class="form-control"
+               placeholder="Name"
+               name="name"
+               required
+               [(ngModel)]="user.name"
+               #password="ngModel">
+        <span class="help-block" *ngIf="errors['name']">{{ errors['name'][0] }}</span>
+      </div>
+      <div class="form-group has-feedback" [class.has-error]="errors['surname']">
+        <input type="surname"
+               class="form-control"
+               placeholder="Surname"
+               name="surname"
+               required
+               [(ngModel)]="user.surname"
+               #password="ngModel">
+        <span class="help-block" *ngIf="errors['surname']">{{ errors['surname'][0] }}</span>
+      </div>
+      <p class="login-box-msg"></p>
+      <div class="form-group has-feedback" [class.has-error]="errors['password']">
         <input type="password"
                class="form-control"
                placeholder="Password"
                name="password"
                required
-               ngModel
+               [(ngModel)]="user.password"
                #password="ngModel">
+        <span class="help-block" *ngIf="errors['password']">{{ errors['password'][0] }}</span>
       </div>
-      <div class="form-group has-feedback" [class.has-error]="errors">
+      <div class="form-group has-feedback" [class.has-error]="errors['password_confirmation']">
         <input type="password"
                class="form-control"
-               placeholder="Password"
+               placeholder="Confirm password"
                name="password_confirmation"
                required
-               ngModel
+               [(ngModel)]="user.passwordConfirmation"
                #password="ngModel">
-        <span class="help-block" *ngIf="errors">{{ error }}</span>
+        <span class="help-block" *ngIf="errors['password_confirmation']">{{ errors['password_confirmation'][0] }}</span>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-        <div class="col-xs-8"></div>
+        <div class="col-xs-8">
+          <span class="help-block" *ngIf="errors['invitation_token']">{{ errors['invitation_token'][0] }}</span>
+        </div>
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit"
+                  class="btn btn-primary btn-block btn-flat"
+                  >
+            <!--[disabled]="loginForm.invalid"-->
+            Sign In
+          </button>
         </div>
       </div>
     </form>

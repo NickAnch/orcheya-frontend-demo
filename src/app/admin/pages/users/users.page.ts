@@ -3,9 +3,11 @@ import { BsModalService } from 'ngx-bootstrap';
 
 import { UsersService } from '../../services';
 import { User } from '../../../core/models/user';
+import { Role } from '../../../core/models/role';
 import {
   UserEditComponent
 } from '../../components/user-edit/user-edit.component';
+
 
 @Component({
   selector: 'app-users',
@@ -14,6 +16,7 @@ import {
 })
 export class UsersPage implements OnInit {
   public users: User[];
+  public roles: Role[];
 
   constructor(private _usersService: UsersService,
               private _modalService: BsModalService) {}
@@ -21,13 +24,17 @@ export class UsersPage implements OnInit {
   ngOnInit() {
     this._usersService
       .getUsersList()
-      .subscribe(x => this.users = x);
+      .subscribe(x => {
+        this.users = x.users;
+        this.roles = x.roles;
+      });
   }
 
   public editUser(user: User): void {
     const initialState = {
       userId: user.id
     };
+
     const modal = this._modalService.show(UserEditComponent, { initialState });
     modal.content
       .onUserUpdate
@@ -43,5 +50,15 @@ export class UsersPage implements OnInit {
       .subscribe(
         () => this.users.splice(this.users.indexOf(user), 1)
       );
+  }
+
+  public invite(email: string, roleId: number): void {
+    if (email && roleId) {
+      this._usersService
+        .invite(email, roleId)
+        .subscribe(
+          () => this.ngOnInit(),
+          x => console.log(x));
+    }
   }
 }
