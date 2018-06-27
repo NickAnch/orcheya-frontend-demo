@@ -8,13 +8,19 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import {
   CanActivateAdminGuard,
-  UsersService
+  UsersService,
+  RolesService
 } from './services';
 
 import {
   UsersPage
 } from './pages';
-import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { RolesPage } from './pages';
+import {
+  UserEditComponent,
+  RoleEditComponent,
+  RoleDeleteComponent
+} from './components';
 import { SharedModule } from '../shared/shared.module';
 
 
@@ -29,15 +35,21 @@ import { SharedModule } from '../shared/shared.module';
   ],
   providers: [
     CanActivateAdminGuard,
-    UsersService
+    UsersService,
+    RolesService
   ],
   declarations: [
     AdminComponent,
     UsersPage,
-    UserEditComponent
+    RolesPage,
+    UserEditComponent,
+    RoleEditComponent,
+    RoleDeleteComponent,
   ],
   entryComponents: [
-    UserEditComponent
+    UserEditComponent,
+    RoleEditComponent,
+    RoleDeleteComponent,
   ]
 })
 export class AdminModule { }

@@ -1,0 +1,49 @@
+<section class="content-header">
+  <h1>
+    Manage roles
+    <!--<small>preview of simple tables</small>-->
+  </h1>
+</section>
+
+<section class="content">
+  <button type="button" class="btn btn-primary btn-flat" (click)="addRole()">Add role</button>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Admin</th>
+              <th>Developer</th>
+              <th>Count of users</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let role of roles">
+              <td>{{ role.name }} </td>
+              <td> <input type="checkbox" [(ngModel)]="role.isAdmin" disabled></td>
+              <td> <input type="checkbox" [(ngModel)]="role.isDeveloper" disabled></td>
+              <td>{{ role.userCount }}</td>
+              <th class="no-padding">
+                <a class="btn btn-primary btn-flat" (click)="editRole(role)">
+                  <i class="fa fa-pencil"></i>
+                </a>
+                <a (click)="remove(role)" class="btn btn-danger btn-flat">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </th>
+            </tr>
+            </tbody>
+          </table>
+          <div *ngIf="roles && roles.length <= 0" class="text-center">
+            No data to display
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
