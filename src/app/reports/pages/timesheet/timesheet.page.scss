@@ -6,6 +6,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr max-content;
   grid-gap: 10px;
+
+  .btn {
+    height: fit-content;
+  }
 }
 
 .shadow {
