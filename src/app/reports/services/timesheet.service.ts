@@ -24,10 +24,6 @@ export class TimesheetService {
       .set('start_date', filter.dates[0].toDateString())
       .set('end_date', filter.dates[1].toDateString());
 
-    if (filter.paid) {
-      params = params.set('paid', filter.paid.toString());
-    }
-
     if (filter.users.length > 0) {
       params = params.set('users_ids', filter.users
         .map(user => user.id).join(','));
