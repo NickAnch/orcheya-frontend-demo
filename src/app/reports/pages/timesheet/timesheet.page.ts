@@ -24,6 +24,7 @@ export class TimesheetPage implements OnInit {
 
   public users: User[];
   public roles: Role[];
+  public paid: boolean;
 
   public days: Moment[];
   private filter = new TimesheetFilter();
@@ -64,11 +65,30 @@ export class TimesheetPage implements OnInit {
     return res;
   }
 
-  findTime(user, day) {
-    const worklog = user.worklogs.find(
+  findTime(user, day, paid) {
+    const worklogs = paid ? user.paidWorklogs : user.allWorklogs;
+    const worklog = worklogs.find(
       e => moment(e.date).isSame(moment(day), 'day')
     );
     return worklog ? worklog.time : 0;
+  }
+
+  findTimeByDay(day, paid) {
+    return this.timesheetRows
+      .map(
+        e => this.findTime(e, day, paid)
+      ).reduce(
+        (acc, e) => acc += e
+      );
+  }
+
+  totalTime() {
+    return this.timesheetRows
+      .map(
+        e => e.time(false)
+      ).reduce(
+        (acc, e) => acc += e
+      );
   }
 
   setDates(startDate: Moment, endDate: Moment) {
@@ -97,7 +117,7 @@ export class TimesheetPage implements OnInit {
       .subscribe(roles => this.roles = roles);
   }
 
-  public filterChanged() {
+  filterChanged() {
     clearTimeout(this.getTimesheetDelay);
     this.getTimesheetDelay = setTimeout(
       () => this.getTimesheet(),
@@ -105,9 +125,15 @@ export class TimesheetPage implements OnInit {
     );
   }
 
-  public scrollbarWidth(user, day) {
+  scrollbarWidth(user, day, paid) {
     const eightHours = 28800;
-    const width = this.findTime(user, day) * 100 / eightHours;
+    const width = this.findTime(user, day, paid) * 100 / eightHours;
+    return width > eightHours ? eightHours : width;
+  }
+
+  totalScrollbarWidth(day, paid) {
+    const eightHours = 28800 * this.timesheetRows.length;
+    const width = this.findTimeByDay(day, paid) * 100 / eightHours;
     return width > eightHours ? eightHours : width;
   }
 }
