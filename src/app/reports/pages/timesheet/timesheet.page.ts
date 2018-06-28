@@ -84,10 +84,10 @@ export class TimesheetPage implements OnInit {
       );
   }
 
-  totalTime() {
+  totalTime(paid) {
     return this.timesheetRows
       .map(
-        e => e.time(false)
+        e => e.time(paid)
       ).reduce(
         (acc, e) => acc += e,
         0

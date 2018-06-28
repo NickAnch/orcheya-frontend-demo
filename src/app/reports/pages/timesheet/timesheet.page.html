@@ -71,11 +71,17 @@
 
           <tr>
             <th>{{ timesheetRows.length }} users selected</th>
-            <th>{{ totalTime() | humanizeTime }}</th>
+            <th>{{ totalTime(paid) | humanizeTime }}</th>
             <ng-container *ngFor="let day of days">
               <th class="text-center" [class.future]="day.isAfter(today)">
                 <div class="time">
-                  {{ findTimeByDay(day, paid) | humanizeTime }}
+                  <span *ngIf="paid && findTimeByDay(day, true) !== 0">
+                    {{  findTimeByDay(day, true) | humanizeTime }}
+                  </span>
+                  <span *ngIf="!paid || findTimeByDay(day, true) === 0"
+                        [class.shadow]="paid && findTimeByDay(day, true) === 0">
+                    {{  findTimeByDay(day, false) | humanizeTime }}
+                  </span>
                 </div>
                 <div *ngIf="paid; else all" class="progress">
                   <div class="progress-bar all-progress-bar"

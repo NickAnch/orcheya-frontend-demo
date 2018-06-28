@@ -9,9 +9,9 @@ export class TimesheetRow extends Model {
   @Alias('paid_worklogs') public paidWorklogs: Worklog[];
 
   public time(paid: boolean): number {
-    // const worklogs = paid ? this.paidWorklogs : this.allWorklogs;
+    const worklogs = paid ? this.paidWorklogs : this.allWorklogs;
 
-    return this.allWorklogs
+    return worklogs
       .map(e => e.time)
       .reduce((acc, time) => acc + time, 0);
   }
