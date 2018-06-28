@@ -9,8 +9,11 @@ import {
   UsersListResponse, UsersListService
 } from '../../../core/services/users-list.service';
 
-import { TimesheetFilter } from '../../models/timesheet-filter';
-import { TimesheetRow } from '../../models/timesheet';
+import { TimesheetFilter, TimesheetRow } from '../../models';
+import { Role } from '../../../core/models/role';
+import {
+  RolesService,
+} from '../../../core/services/roles.service';
 
 @Component({
   templateUrl: './timesheet.page.html',
@@ -20,6 +23,10 @@ export class TimesheetPage implements OnInit {
   public timesheetRows: TimesheetRow[];
 
   public users: User[];
+  public roles: Role[];
+  public paid: boolean;
+
+  public today = moment();
   public days: Moment[];
   private filter = new TimesheetFilter();
 
@@ -28,6 +35,7 @@ export class TimesheetPage implements OnInit {
   constructor(
     private timesheetService: TimesheetService,
     private usersListService: UsersListService,
+    private rolesService: RolesService,
   ) {}
 
   ngOnInit() {
@@ -35,6 +43,7 @@ export class TimesheetPage implements OnInit {
 
     this.setWeek();
     this.fetchUsers();
+    this.fetchRoles();
   }
 
   getTimesheet() {
@@ -57,11 +66,32 @@ export class TimesheetPage implements OnInit {
     return res;
   }
 
-  findTime(user, day) {
-    const worklog = user.worklogs.find(
+  findTime(user, day, paid) {
+    const worklogs = paid ? user.paidWorklogs : user.allWorklogs;
+    const worklog = worklogs.find(
       e => moment(e.date).isSame(moment(day), 'day')
     );
     return worklog ? worklog.time : 0;
+  }
+
+  findTimeByDay(day, paid) {
+    return this.timesheetRows
+      .map(
+        e => this.findTime(e, day, paid)
+      ).reduce(
+        (acc, e) => acc += e,
+        0
+      );
+  }
+
+  totalTime(paid) {
+    return this.timesheetRows
+      .map(
+        e => e.time(paid)
+      ).reduce(
+        (acc, e) => acc += e,
+        0
+      );
   }
 
   setDates(startDate: Moment, endDate: Moment) {
@@ -73,8 +103,8 @@ export class TimesheetPage implements OnInit {
 
   setWeek() {
     this.setDates(
-      moment().subtract(1, 'week'),
-      moment().subtract(1, 'day')
+      moment().startOf('isoWeek'),
+      moment().endOf('isoWeek')
     );
   }
 
@@ -85,7 +115,12 @@ export class TimesheetPage implements OnInit {
       });
   }
 
-  public filterChanged() {
+  fetchRoles() {
+    this.rolesService.getList()
+      .subscribe(roles => this.roles = roles);
+  }
+
+  filterChanged() {
     clearTimeout(this.getTimesheetDelay);
     this.getTimesheetDelay = setTimeout(
       () => this.getTimesheet(),
@@ -93,9 +128,15 @@ export class TimesheetPage implements OnInit {
     );
   }
 
-  public scrollbarWidth(user, day) {
+  scrollbarWidth(user, day, paid) {
     const eightHours = 28800;
-    const width = this.findTime(user, day) * 100 / eightHours;
+    const width = this.findTime(user, day, paid) * 100 / eightHours;
+    return width > eightHours ? eightHours : width;
+  }
+
+  totalScrollbarWidth(day, paid) {
+    const eightHours = 28800 * this.timesheetRows.length;
+    const width = this.findTimeByDay(day, paid) * 100 / eightHours;
     return width > eightHours ? eightHours : width;
   }
 }

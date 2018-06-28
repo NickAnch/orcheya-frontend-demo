@@ -4,26 +4,45 @@
 
 .filter-controls {
   display: grid;
-  grid-template-columns: 1fr 1fr max-content;
+  grid-template-columns: 1fr 1fr 1fr max-content;
   grid-gap: 10px;
-}
 
-.progress {
-  height: 7px;
-  .progress-bar {
-    background-color: #51BE71;
+  .btn {
+    height: fit-content;
   }
 }
 
-.centered {
-  display: grid;
-  align-content: center;
-  height: 100%;
+.shadow {
+  color: rgba(52, 52, 52, 0.51)
 }
 
-th {
-  .progress {
-    margin: 0;
+.future {
+  background-color: #fafafa;
+}
+
+.progress {
+  position: relative;
+  height: 7px;
+  margin: 0;
+
+  .progress-bar {
+    background-color: #51BE71;
+  }
+
+  .all-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: #d4dadb;
+  }
+
+  .paid-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: #51BE71;
   }
 }
 
