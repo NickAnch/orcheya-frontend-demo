@@ -76,11 +76,11 @@
               <th class="text-center" [class.future]="day.isAfter(today)">
                 <div class="time">
                   <span *ngIf="paid && findTimeByDay(day, true) !== 0">
-                    {{  findTimeByDay(day, true) | humanizeTime }}
+                    {{ findTimeByDay(day, true) | humanizeTime }}
                   </span>
                   <span *ngIf="!paid || findTimeByDay(day, true) === 0"
                         [class.shadow]="paid && findTimeByDay(day, true) === 0">
-                    {{  findTimeByDay(day, false) | humanizeTime }}
+                    {{ findTimeByDay(day, false) | humanizeTime }}
                   </span>
                 </div>
                 <div *ngIf="paid; else all" class="progress">
