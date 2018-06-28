@@ -78,7 +78,8 @@ export class TimesheetPage implements OnInit {
       .map(
         e => this.findTime(e, day, paid)
       ).reduce(
-        (acc, e) => acc += e
+        (acc, e) => acc += e,
+        0
       );
   }
 
@@ -87,7 +88,8 @@ export class TimesheetPage implements OnInit {
       .map(
         e => e.time(false)
       ).reduce(
-        (acc, e) => acc += e
+        (acc, e) => acc += e,
+        0
       );
   }
 
