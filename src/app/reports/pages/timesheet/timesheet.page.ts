@@ -102,8 +102,8 @@ export class TimesheetPage implements OnInit {
 
   setWeek() {
     this.setDates(
-      moment().subtract(1, 'week'),
-      moment().subtract(1, 'day')
+      moment().startOf('isoWeek'),
+      moment().endOf('isoWeek')
     );
   }
 
