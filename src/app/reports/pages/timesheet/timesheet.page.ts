@@ -26,6 +26,7 @@ export class TimesheetPage implements OnInit {
   public roles: Role[];
   public paid: boolean;
 
+  public today = moment();
   public days: Moment[];
   private filter = new TimesheetFilter();
 

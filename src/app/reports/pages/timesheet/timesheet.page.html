@@ -63,7 +63,7 @@
             <th>Developer</th>
             <th>Worked time</th>
             <ng-container *ngFor="let day of days">
-              <th class="text-center">
+              <th class="text-center" [class.future]="day.isAfter(today)">
                 {{ day.format('dddd, DD.MM') }}
               </th>
             </ng-container>
@@ -73,7 +73,7 @@
             <th>{{ timesheetRows.length }} users selected</th>
             <th>{{ totalTime() | humanizeTime }}</th>
             <ng-container *ngFor="let day of days">
-              <th class="text-center">
+              <th class="text-center" [class.future]="day.isAfter(today)">
                 <div class="time">
                   {{ findTimeByDay(day, paid) | humanizeTime }}
                 </div>
@@ -111,7 +111,7 @@
             <td>{{ user.name }} {{ user.surname }}</td>
             <td>{{ user.time(paid) | humanizeTime }}</td>
             <ng-container *ngFor="let day of days">
-              <th class="text-center">
+              <td class="text-center" [class.future]="day.isAfter(today)">
                 <div class="time" >
                   <span *ngIf="paid && findTime(user, day, true) !== 0">
                     {{ findTime(user, day, true) | humanizeTime }}
@@ -145,7 +145,7 @@
                     ></div>
                   </div>
                 </ng-template>
-              </th>
+              </td>
             </ng-container>
           </tr>
           </tbody>
