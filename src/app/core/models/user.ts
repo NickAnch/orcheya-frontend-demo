@@ -3,6 +3,11 @@ import { Image } from './image';
 import { Role } from './role';
 import { Timing } from './timing';
 
+export interface IUsersIndex {
+  users: User[];
+  roles: Role[];
+}
+
 export interface IUserEdit {
   user?: User;
   timings?: Timing[];
@@ -34,6 +39,7 @@ export class User extends Model {
   @Alias('agreement_accepted') public agreementAccepted: boolean;
   @Alias('registration_finished') public registrationFinished: boolean;
   @Alias('notify_update') public notifyUpdate: boolean;
+  @Alias('invitation_token') public invitationToken: string;
 
   constructor(user?) {
     super();
@@ -45,5 +51,9 @@ export class User extends Model {
 
   get fullName(): string {
     return `${this.name} ${this.surname}`;
+  }
+
+  public isRegistered(): boolean {
+    return !this.invitationToken;
   }
 }

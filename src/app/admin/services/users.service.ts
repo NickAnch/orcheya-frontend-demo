@@ -4,10 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-import { IUserEdit, User } from '../../core/models/user';
+import { IUsersIndex, IUserEdit, User } from '../../core/models/user';
 import { Role } from '../../core/models/role';
 import { Timing } from '../../core/models/timing';
-
 
 const ADMIN_USERS_URL = '/api/admin/users';
 
@@ -15,15 +14,32 @@ const ADMIN_USERS_URL = '/api/admin/users';
 export class UsersService {
   constructor(private _http: HttpClient) {}
 
-  public getUsersList(): Observable<User[]> {
-    return Observable.create((observer: Observer<User[]>) => {
+  public getUsersList(): Observable<IUsersIndex> {
+    return Observable.create((observer: Observer<IUsersIndex>) => {
       this._http
         .get(ADMIN_USERS_URL)
         .subscribe(
           resp => {
-            observer.next(User.newCollection(User, resp['users']));
+            observer.next({
+              users: User.newCollection(User, resp['users']),
+              roles: Role.newCollection(Role, resp['meta']['roles'])
+            });
             observer.complete();
           },
+          err => observer.error(err)
+        );
+    });
+  }
+
+  public invite(email: string, roleId: number): Observable<boolean> {
+    return Observable.create((observer: Observer<boolean>) => {
+      this._http
+        .post(ADMIN_USERS_URL, { email: email, role_id: roleId })
+        .subscribe(
+          resp => {
+            observer.next(true);
+            observer.complete();
+            },
           err => observer.error(err)
         );
     });
