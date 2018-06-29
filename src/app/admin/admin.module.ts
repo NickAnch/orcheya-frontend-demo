@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AdminRoutingModule } from './admin-routing.module';
+import { SharedModule } from '../shared/shared.module';
+
 import { AdminComponent } from './admin.component';
 import {
   CanActivateAdminGuard,
@@ -13,15 +15,16 @@ import {
 } from './services';
 
 import {
-  UsersPage
+  UsersPage,
+  LibsPage
 } from './pages';
-import { RolesPage } from './pages';
+
 import {
   UserEditComponent,
   RoleEditComponent,
-  RoleDeleteComponent
+  RoleDeleteComponent,
+  RolesComponent
 } from './components';
-import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -41,10 +44,11 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     AdminComponent,
     UsersPage,
-    RolesPage,
+    RolesComponent,
     UserEditComponent,
     RoleEditComponent,
     RoleDeleteComponent,
+    LibsPage
   ],
   entryComponents: [
     UserEditComponent,
