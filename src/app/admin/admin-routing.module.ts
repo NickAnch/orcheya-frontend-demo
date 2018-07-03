@@ -3,7 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminComponent } from './admin.component';
 import { CanActivateAdminGuard } from './services';
-import { UsersPage, RolesPage } from './pages';
+import {
+  UsersPage,
+  LibsPage
+} from './pages';
 
 const routes: Routes = [
   {
@@ -12,7 +15,7 @@ const routes: Routes = [
     canActivate: [CanActivateAdminGuard],
     children: [
       { path: 'users', component: UsersPage },
-      { path: 'roles', component: RolesPage }
+      { path: 'libs', component: LibsPage }
     ]
   }
 ];

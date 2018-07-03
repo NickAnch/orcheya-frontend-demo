@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesService } from '../../services';
 import { Role } from '../../../core/models/role';
-import { RoleEditComponent, RoleDeleteComponent } from '../../components';
+import { RoleEditComponent } from '../role-edit/role-edit.component';
+import { RoleDeleteComponent } from '../role-delete/role-delete.component';
 import { BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-roles',
-  templateUrl: './roles.page.html',
-  styleUrls: ['./roles.page.scss']
+  templateUrl: './roles.component.html',
+  styleUrls: ['./roles.component.scss']
 })
-export class RolesPage implements OnInit {
+export class RolesComponent implements OnInit {
   public roles: Role[];
   public canAdd = false;
   public role: Role = new Role();
