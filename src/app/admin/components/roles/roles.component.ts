@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesService } from '../../services';
 import { Role } from '../../../core/models/role';
-import {
-  RoleEditComponent,
-  RoleDeleteComponent
-} from '../index';
+import { RoleEditComponent } from '../role-edit/role-edit.component';
+import { RoleDeleteComponent } from '../role-delete/role-delete.component';
 import { BsModalService } from 'ngx-bootstrap';
 
 @Component({
