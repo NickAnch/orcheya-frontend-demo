@@ -18,7 +18,11 @@ export class ProjectsComponent implements OnInit {
   ngOnInit() {
     this._projectService
       .getProjectsList()
-      .subscribe(x => this.projects = x);
+      .subscribe(projects => {
+        this.projects = projects.sort((a: Project, b: Project) => {
+          return a.name > b.name ? 1 : a.name === b.name ? 0 : -1;
+        });
+      });
   }
 
   public setPaidProject(event, id: number): void {
