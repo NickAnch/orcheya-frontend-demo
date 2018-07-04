@@ -13,9 +13,10 @@ import {
 } from './services';
 
 import {
+  ProjectsPage,
+  RolesPage,
   UsersPage
 } from './pages';
-import { RolesPage } from './pages';
 import {
   UserEditComponent,
   RoleEditComponent,
@@ -42,6 +43,7 @@ import { SharedModule } from '../shared/shared.module';
     AdminComponent,
     UsersPage,
     RolesPage,
+    ProjectsPage,
     UserEditComponent,
     RoleEditComponent,
     RoleDeleteComponent,

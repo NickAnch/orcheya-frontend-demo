@@ -43,7 +43,8 @@ export class CoreComponent implements OnInit {
             single: false,
             items: [
               { name: 'Users', link: ['/admin', 'users'] },
-              { name: 'Roles', link: ['/admin', 'roles'] }
+              { name: 'Roles', link: ['/admin', 'roles'] },
+              { name: 'Projects', link: ['/admin', 'projects'] }
             ]
           }
         );
