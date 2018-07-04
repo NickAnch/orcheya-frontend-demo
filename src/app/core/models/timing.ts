@@ -9,6 +9,7 @@ export class Timing extends Model {
   @Alias() public start: Date;
   @Alias() public end: Date;
   @Alias('flexible') public isFlexible: boolean;
+  @Alias('users_count') usersCount: number;
 
   get time() {
     if (this.isFlexible) {

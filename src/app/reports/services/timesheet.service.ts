@@ -24,13 +24,14 @@ export class TimesheetService {
       .set('start_date', filter.dates[0].toDateString())
       .set('end_date', filter.dates[1].toDateString());
 
-    if (filter.paid) {
-      params = params.set('paid', filter.paid.toString());
-    }
-
     if (filter.users.length > 0) {
       params = params.set('users_ids', filter.users
         .map(user => user.id).join(','));
+    }
+
+    if (filter.roles.length > 0) {
+      params = params.set('roles_ids', filter.roles
+        .map(role => role.id).join(','));
     }
 
     return Observable.create((observer: Observer<TimesheetResponse>) => {

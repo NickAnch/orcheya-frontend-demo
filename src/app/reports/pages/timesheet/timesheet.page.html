@@ -24,6 +24,20 @@
       </ng-select>
     </div>
 
+    <div class="input-group">
+      <ng-select bindLabel="name"
+                 placeholder="Select roles"
+                 notFoundText="Roles not found"
+                 [items]="roles"
+                 [multiple]="true"
+                 [typeahead]="typeahead"
+                 [closeOnSelect]="false"
+                 [hideSelected]="true"
+                 [(ngModel)]="filter.roles"
+                 (change)="filterChanged()">
+      </ng-select>
+    </div>
+
     <input class="form-control"
            placeholder="Choose dates"
            bsDaterangepicker
@@ -35,47 +49,114 @@
 
   <div class="checkbox">
     <label>
-      <input type="checkbox" [(ngModel)]="filter.paid" (change)="filterChanged()">
+      <input type="checkbox" [(ngModel)]="paid">
       Paid only
     </label>
   </div>
 
-  <div class="box box-primary">
-    <div class="box-body">
-      <table class="table table-bordered table-hover dataTable" role="grid">
-        <thead>
-        <tr>
-          <th>Developer</th>
-          <th>Worked time</th>
-          <ng-container *ngFor="let day of days">
-            <th class="text-center">
-              {{ day.format('dddd, DD.MM') }}
-            </th>
-          </ng-container>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let user of timesheetRows">
-          <td>{{ user.name }} {{ user.surname }}</td>
-          <td>{{ user.time | humanizeTime }}</td>
-          <ng-container *ngFor="let day of days">
-            <th class="text-center">
-              <div class="time">
-                {{ findTime(user, day) | humanizeTime }}
-              </div>
-              <div class="progress">
-                <div class="progress-bar"
-                     role="progressbar"
-                     aria-valuemin="0"
-                     aria-valuemax="28800"
-                     [style.width]="scrollbarWidth(user, day) + '%' | sanitize"
-                ></div>
-              </div>
-            </th>
-          </ng-container>
-        </tr>
-        </tbody>
-      </table>
+  <ng-container *ngIf="timesheetRows">
+    <div class="box box-primary">
+      <div class="box-body">
+        <table class="table table-bordered table-hover dataTable" role="grid">
+          <thead>
+          <tr>
+            <th>Developer</th>
+            <th>Worked time</th>
+            <ng-container *ngFor="let day of days">
+              <th class="text-center" [class.future]="day.isAfter(today)">
+                {{ day.format('dddd, DD.MM') }}
+              </th>
+            </ng-container>
+          </tr>
+
+          <tr>
+            <th>{{ timesheetRows.length }} users selected</th>
+            <th>{{ totalTime(paid) | humanizeTime }}</th>
+            <ng-container *ngFor="let day of days">
+              <th class="text-center" [class.future]="day.isAfter(today)">
+                <div class="time">
+                  <span *ngIf="paid && findTimeByDay(day, true) !== 0">
+                    {{ findTimeByDay(day, true) | humanizeTime }}
+                  </span>
+                  <span *ngIf="!paid || findTimeByDay(day, true) === 0"
+                        [class.shadow]="paid && findTimeByDay(day, true) === 0">
+                    {{ findTimeByDay(day, false) | humanizeTime }}
+                  </span>
+                </div>
+                <div *ngIf="paid; else all" class="progress">
+                  <div class="progress-bar all-progress-bar"
+                       role="progressbar"
+                       aria-valuemin="0"
+                       aria-valuemax="28800"
+                       [style.width]="totalScrollbarWidth(day, false) + '%' | sanitize"
+                  ></div>
+                  <div class="progress-bar paid-progress-bar"
+                       role="progressbar"
+                       aria-valuemin="0"
+                       aria-valuemax="28800"
+                       [style.width]="totalScrollbarWidth(day, true) + '%' | sanitize"
+                  ></div>
+                </div>
+                <ng-template #all>
+                  <div class="progress">
+                    <div class="progress-bar"
+                         role="progressbar"
+                         aria-valuemin="0"
+                         aria-valuemax="28800"
+                         [style.width]="totalScrollbarWidth(day, false) + '%' | sanitize"
+                    ></div>
+                  </div>
+                </ng-template>
+              </th>
+            </ng-container>
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let user of timesheetRows">
+            <td>{{ user.name }} {{ user.surname }}</td>
+            <td>{{ user.time(paid) | humanizeTime }}</td>
+            <ng-container *ngFor="let day of days">
+              <td class="text-center" [class.future]="day.isAfter(today)">
+                <div class="time" >
+                  <span *ngIf="paid && findTime(user, day, true) !== 0">
+                    {{ findTime(user, day, true) | humanizeTime }}
+                  </span>
+                  <span *ngIf="!paid || findTime(user, day, true) === 0"
+                        [class.shadow]="paid && findTime(user, day, true) === 0">
+                    {{ findTime(user, day, false) | humanizeTime }}
+                  </span>
+                </div>
+                <div *ngIf="paid; else all" class="progress">
+                  <div class="progress-bar all-progress-bar"
+                       role="progressbar"
+                       aria-valuemin="0"
+                       aria-valuemax="28800"
+                       [style.width]="scrollbarWidth(user, day, false) + '%' | sanitize"
+                  ></div>
+                  <div class="progress-bar paid-progress-bar"
+                       role="progressbar"
+                       aria-valuemin="0"
+                       aria-valuemax="28800"
+                       [style.width]="scrollbarWidth(user, day, true) + '%' | sanitize"
+                  ></div>
+                </div>
+                <ng-template #all>
+                  <div class="progress">
+                    <div class="progress-bar"
+                         role="progressbar"
+                         aria-valuemin="0"
+                         aria-valuemax="28800"
+                         [style.width]="scrollbarWidth(user, day, false) + '%' | sanitize"
+                    ></div>
+                  </div>
+                </ng-template>
+              </td>
+            </ng-container>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+  </ng-container>
 </section>
