@@ -20,7 +20,6 @@ import {
 import {
   UsersPage,
   LibsPage,
-  ProjectsPage
 } from './pages';
 
 import {
@@ -29,7 +28,8 @@ import {
   RoleDeleteComponent,
   RolesComponent,
   TimingsComponent,
-  TimingDeleteComponent
+  TimingDeleteComponent,
+  ProjectsComponent
 } from './components';
 
 
@@ -56,7 +56,7 @@ import {
     RolesComponent,
     TimingsComponent,
     TimingDeleteComponent,
-    ProjectsPage,
+    ProjectsComponent,
     UserEditComponent,
     RoleEditComponent,
     RoleDeleteComponent,

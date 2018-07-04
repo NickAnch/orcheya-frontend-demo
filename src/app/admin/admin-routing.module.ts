@@ -5,8 +5,7 @@ import { AdminComponent } from './admin.component';
 import { CanActivateAdminGuard } from './services';
 import {
   UsersPage,
-  LibsPage,
-  ProjectsPage
+  LibsPage
 } from './pages';
 
 const routes: Routes = [
@@ -16,8 +15,7 @@ const routes: Routes = [
     canActivate: [CanActivateAdminGuard],
     children: [
       { path: 'users', component: UsersPage },
-      { path: 'libs', component: LibsPage },
-      { path: 'projects', component: ProjectsPage }
+      { path: 'libs', component: LibsPage }
     ]
   }
 ];
