@@ -4,7 +4,7 @@ import { Project } from '../../../core/models/project';
 import { ProjectService } from '../../../core/services/project.service';
 
 @Component({
-  selector: 'app-roles',
+  selector: 'app-projects',
   templateUrl: './projects.page.html',
   styleUrls: ['./projects.page.scss']
 })
