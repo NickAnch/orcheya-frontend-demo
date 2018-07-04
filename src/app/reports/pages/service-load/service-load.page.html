@@ -121,7 +121,9 @@
                 <td>{{ row.name }}</td>
                 <td>{{ row.time | humanizeTime }}</td>
                 <td>
-                  <input type="checkbox" [checked]="row.paid" (click)="setPaidProject($event, row.id)">
+                  <input type="checkbox"
+                         [checked]="row.paid"
+                         disabled>
                 </td>
               </tr>
             </tbody>
