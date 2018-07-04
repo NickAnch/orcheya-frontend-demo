@@ -1,0 +1,76 @@
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">Timings</h3>
+
+    <div class="box-tools">
+      <div class="input-group input-group-sm" style="width: 380px;">
+        <div class="input-group-addon">From</div>
+
+        <input type="text"
+               name="table_search"
+               class="form-control pull-right"
+               placeholder="00:00"
+               #fromTimingInput
+               [(ngModel)]="fromTime"
+               [popover]="fromTiming"
+               placement="bottom"
+               [outsideClick]="true">
+        <ng-template #fromTiming>
+          <timepicker [showMeridian]="false"
+                      ngModel
+                      (ngModelChange)="fromTime = convertDate($event)">
+          </timepicker>
+        </ng-template>
+
+        <div class="input-group-addon">to</div>
+        <input type="text"
+               name="table_search"
+               class="form-control pull-right"
+               placeholder="00:00"
+               #toTimingInput
+               [(ngModel)]="toTime"
+               [popover]="toTiming"
+               placement="bottom"
+               [outsideClick]="true">
+        <ng-template #toTiming>
+          <timepicker [showMeridian]="false"
+                      ngModel
+                      (ngModelChange)="toTime = convertDate($event)">
+          </timepicker>
+        </ng-template>
+        <div class="input-group-btn">
+          <button type="button"
+                  class="btn btn-primary btn-sm btn-flat"
+                  (click)="addTiming()">
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Count of users</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let timing of timings">
+          <td>{{ timing.time }} </td>
+          <td>{{ timing.usersCount }}</td>
+          <th class="no-padding text-right">
+            <a (click)="remove(timing)" class="btn btn-danger btn-flat">
+              <i class="fa fa-trash"></i>
+            </a>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="timings && timings.length <= 0" class="text-center">
+      No data to display
+    </div>
+  </div>
+</div>

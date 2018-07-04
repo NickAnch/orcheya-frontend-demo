@@ -3,26 +3,34 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { AdminRoutingModule } from './admin-routing.module';
+import { SharedModule } from '../shared/shared.module';
+
 import { AdminComponent } from './admin.component';
 import {
   CanActivateAdminGuard,
   UsersService,
-  RolesService
+  RolesService,
+  TimingsService
 } from './services';
 
 import {
-  ProjectsPage,
-  RolesPage,
-  UsersPage
+  UsersPage,
+  LibsPage,
+  ProjectsPage
 } from './pages';
+
 import {
   UserEditComponent,
   RoleEditComponent,
-  RoleDeleteComponent
+  RoleDeleteComponent,
+  RolesComponent,
+  TimingsComponent,
+  TimingDeleteComponent
 } from './components';
-import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -31,27 +39,35 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
+    TimepickerModule.forRoot(),
+    PopoverModule.forRoot(),
     SharedModule,
     AdminRoutingModule
   ],
   providers: [
     CanActivateAdminGuard,
     UsersService,
-    RolesService
+    RolesService,
+    TimingsService
   ],
   declarations: [
     AdminComponent,
     UsersPage,
-    RolesPage,
+    RolesComponent,
+    TimingsComponent,
+    TimingDeleteComponent,
     ProjectsPage,
     UserEditComponent,
     RoleEditComponent,
     RoleDeleteComponent,
+    TimingsComponent,
+    LibsPage
   ],
   entryComponents: [
     UserEditComponent,
     RoleEditComponent,
     RoleDeleteComponent,
+    TimingDeleteComponent
   ]
 })
 export class AdminModule { }

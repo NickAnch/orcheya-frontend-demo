@@ -29,7 +29,7 @@ export class RoleEditComponent implements OnInit {
 
   ngOnInit() {
     this.form = this._formBuilder.group({
-      name: [this.role.name, [Validators.required, ValidateLatin]],
+      name: [this.role.name, [Validators.required]],
       isAdmin: [this.role.isAdmin, []],
       isDeveloper: [this.role.isDeveloper, []],
     });
