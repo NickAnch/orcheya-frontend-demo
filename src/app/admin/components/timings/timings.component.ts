@@ -4,6 +4,8 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { TimingsService } from '../../services';
 import { Timing } from '../../../core/models/timing';
 import { TimingDeleteComponent } from '../';
+import {Moment} from 'moment';
+import * as moment from 'moment';
 
 
 @Component({
@@ -14,8 +16,11 @@ import { TimingDeleteComponent } from '../';
 export class TimingsComponent implements OnInit {
   public timings: Timing[];
   public timing: Timing = new Timing();
-  public fromTime: string;
-  public toTime: string;
+  public fromTime: Moment;
+  public toTime: Moment;
+
+  public fromTimeTitle;
+  public toTimeTitle;
 
   constructor(private _timingsService: TimingsService,
               private _modalService: BsModalService) { }
@@ -52,16 +57,20 @@ export class TimingsComponent implements OnInit {
     }
 
     this._timingsService
-      .add(Timing.newPair(this.fromTime, this.toTime))
+      .add(Timing.build(this.fromTime, this.toTime))
       .subscribe(x => {
         this.timings.push(x);
         this.fromTime = this.toTime = null;
       });
   }
 
-  public convertDate(date: Date): string {
-    const h = date.getHours();
-    const m = date.getMinutes();
-    return `${h < 10 ? '0' + h : h}:${m < 10 ? '0' + m : m}`;
+  convertFromDate(date: Date) {
+    this.fromTime = moment(date);
+    this.fromTimeTitle = this.fromTime.format('HH:mm');
+  }
+
+  convertToDate(date: Date) {
+    this.toTime = moment(date);
+    this.toTimeTitle = this.toTime.format('HH:mm');
   }
 }
