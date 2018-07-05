@@ -3,7 +3,9 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 
 import { TimingsService } from '../../services';
 import { Timing } from '../../../core/models/timing';
-import { TimingDeleteComponent } from '../';
+import {
+  TimingDeleteComponent
+} from '../timing-delete/timing-delete.component';
 
 
 @Component({
