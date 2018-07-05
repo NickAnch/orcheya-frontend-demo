@@ -9,7 +9,6 @@ import {
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-
 @Component({
   selector: 'app-timings',
   templateUrl: './timings.component.html',
