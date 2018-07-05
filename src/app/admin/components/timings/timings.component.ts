@@ -21,8 +21,8 @@ export class TimingsComponent implements OnInit {
   public fromTime: Moment;
   public toTime: Moment;
 
-  public fromTimeTitle;
-  public toTimeTitle;
+  public fromTimeTitle: string;
+  public toTimeTitle: string;
 
   constructor(private _timingsService: TimingsService,
               private _modalService: BsModalService) { }

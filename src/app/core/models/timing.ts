@@ -12,14 +12,14 @@ export class Timing extends Model {
   @Alias('flexible') public isFlexible: boolean;
   @Alias('users_count') usersCount: number;
 
-  static build(from: Moment, to: Moment) {
+  static build(from: Moment, to: Moment): Timing {
     const timing = new Timing();
     timing.start = from;
     timing.end = to;
     return timing;
   }
 
-  get time() {
+  get time(): string {
     if (this.isFlexible) {
       return `flexible`;
     } else {
