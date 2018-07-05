@@ -3,8 +3,10 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 
 import { TimingsService } from '../../services';
 import { Timing } from '../../../core/models/timing';
-import { TimingDeleteComponent } from '../';
-import {Moment} from 'moment';
+import {
+  TimingDeleteComponent
+} from '../timing-delete/timing-delete.component';
+import { Moment } from 'moment';
 import * as moment from 'moment';
 
 
