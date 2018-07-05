@@ -11,14 +11,14 @@
                class="form-control pull-right"
                placeholder="00:00"
                #fromTimingInput
-               [(ngModel)]="fromTime"
+               [(ngModel)]="fromTimeTitle"
                [popover]="fromTiming"
                placement="bottom"
                [outsideClick]="true">
         <ng-template #fromTiming>
           <timepicker [showMeridian]="false"
                       ngModel
-                      (ngModelChange)="fromTime = convertDate($event)">
+                      (ngModelChange)="convertFromDate($event)">
           </timepicker>
         </ng-template>
 
@@ -28,14 +28,14 @@
                class="form-control pull-right"
                placeholder="00:00"
                #toTimingInput
-               [(ngModel)]="toTime"
+               [(ngModel)]="toTimeTitle"
                [popover]="toTiming"
                placement="bottom"
                [outsideClick]="true">
         <ng-template #toTiming>
           <timepicker [showMeridian]="false"
                       ngModel
-                      (ngModelChange)="toTime = convertDate($event)">
+                      (ngModelChange)="convertToDate($event)">
           </timepicker>
         </ng-template>
         <div class="input-group-btn">
