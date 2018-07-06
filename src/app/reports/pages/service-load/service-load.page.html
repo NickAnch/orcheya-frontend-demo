@@ -41,8 +41,7 @@
            role="progressbar"
            aria-valuemin="0"
            aria-valuemax="100"
-           [style.width]="dash?.totalPaid + '%' | sanitize"
-      >
+           [style.width]="dash?.totalPaid + '%' | sanitize">
       </div>
     </div>
   </div>
@@ -57,6 +56,10 @@
     <div>Active projects: <span class="text-bold">{{ dash?.activeProjects }}</span></div>
     <div>Paid projects: <span class="text-bold">{{ dash?.paidProjects }}</span></div>
   </div>
+</section>
+
+<section class="wrap chart">
+  <chart [options]="chartOptions" (load)="chart = $event"></chart>
 </section>
 
 <section>

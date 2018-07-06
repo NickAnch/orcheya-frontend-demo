@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ChartModule } from 'angular2-highcharts';
+
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
 import { ServiceLoadService } from './services/service-load.service';
@@ -13,12 +15,14 @@ import { SanitizePipe } from './pipes/sanitize.pipe';
 import { HumanizeTimePipe } from './pipes/humanizeTime.pipe';
 import { TimesheetService } from './services/timesheet.service';
 
+
 @NgModule({
   imports: [
     CommonModule,
     ReportsRoutingModule,
+    ChartModule.forRoot(require('highcharts')),
     FormsModule,
-    SharedModule,
+    SharedModule
   ],
   providers: [
     ServiceLoadService,

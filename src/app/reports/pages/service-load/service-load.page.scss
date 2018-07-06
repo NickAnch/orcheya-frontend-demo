@@ -13,6 +13,11 @@
   grid-auto-flow: column;
 }
 
+.chart {
+  display: flex;
+  justify-content: center;
+}
+
 .filter-controls {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -32,6 +37,4 @@
       width: 25%;
     }
   }
-
-
 }
