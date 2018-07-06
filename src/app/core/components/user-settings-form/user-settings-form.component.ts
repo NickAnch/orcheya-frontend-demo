@@ -57,11 +57,14 @@ export class UserSettingFormComponent implements OnInit, OnDestroy {
 
   private subscribeChanges(): void {
     this._subscription =
-      this.form.valueChanges.debounceTime(500).subscribe(() => {
-        if (this.form.valid) {
-          this.updateSettings();
-        }
-      });
+      this.form
+        .valueChanges
+        .debounceTime(500)
+        .subscribe(() => {
+          if (this.form.valid) {
+            this.updateSettings();
+          }
+        });
   }
 
   private formatCurrentUserNumber() {
