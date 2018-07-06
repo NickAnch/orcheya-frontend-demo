@@ -8,6 +8,7 @@ import { IUsersIndex, IUserEdit, User } from '../../core/models/user';
 import { Role } from '../../core/models/role';
 import { Timing } from '../../core/models/timing';
 
+
 const ADMIN_USERS_URL = '/api/admin/users';
 
 @Injectable()
@@ -22,7 +23,8 @@ export class UsersService {
           resp => {
             observer.next({
               users: User.newCollection(User, resp['users']),
-              roles: Role.newCollection(Role, resp['meta']['roles'])
+              roles: Role.newCollection(Role, resp['meta']['roles']),
+              deletedUsers: User.newCollection(User, resp['deleted_users'])
             });
             observer.complete();
           },

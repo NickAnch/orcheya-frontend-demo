@@ -4,9 +4,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { UsersService } from '../../services';
 import { User } from '../../../core/models/user';
 import { Role } from '../../../core/models/role';
-import {
-  UserEditComponent
-} from '../../components/user-edit/user-edit.component';
+import { UserEditComponent } from '../../components';
 
 
 @Component({
@@ -16,6 +14,7 @@ import {
 })
 export class UsersPage implements OnInit {
   public users: User[];
+  public deletedUsers: User[];
   public roles: Role[];
 
   constructor(private _usersService: UsersService,
@@ -27,6 +26,7 @@ export class UsersPage implements OnInit {
       .subscribe(x => {
         this.users = x.users;
         this.roles = x.roles;
+        this.deletedUsers = x.deletedUsers;
       });
   }
 
