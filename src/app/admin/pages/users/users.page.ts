@@ -58,7 +58,9 @@ export class UsersPage implements OnInit {
       .onUserDelete
       .subscribe(() => {
         this.users.splice(this.users.indexOf(user), 1);
-        this.deletedUsers.push(user);
+        if (!user.invitationToken) {
+          this.deletedUsers.push(user);
+        }
         modal.hide();
       });
   }

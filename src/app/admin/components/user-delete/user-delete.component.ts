@@ -29,6 +29,16 @@ export class UserDeleteComponent implements OnInit {
     this.isHimself = this.user.id === this.currentUser.id;
   }
 
+  public showNameOrEmail(): string {
+    let str: string;
+    if (this.user.invitationToken) {
+      str = this.user.email;
+    } else {
+      str = `${this.user.name} ${this.user.surname}`;
+    }
+    return str;
+  }
+
   public delete(): void {
     this._usersService
       .removeUser(this.user)
