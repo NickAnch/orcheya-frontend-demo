@@ -30,7 +30,8 @@ import {
   RolesComponent,
   TimingsComponent,
   TimingDeleteComponent,
-  ProjectsComponent
+  ProjectsComponent,
+  UserDeleteComponent
 } from './components';
 
 
@@ -63,13 +64,15 @@ import {
     RoleEditComponent,
     RoleDeleteComponent,
     TimingsComponent,
-    LibsPage
+    LibsPage,
+    UserDeleteComponent
   ],
   entryComponents: [
     UserEditComponent,
     RoleEditComponent,
     RoleDeleteComponent,
-    TimingDeleteComponent
+    TimingDeleteComponent,
+    UserDeleteComponent
   ]
 })
 export class AdminModule { }

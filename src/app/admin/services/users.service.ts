@@ -8,6 +8,7 @@ import { IUsersIndex, IUserEdit, User } from '../../core/models/user';
 import { Role } from '../../core/models/role';
 import { Timing } from '../../core/models/timing';
 
+
 const ADMIN_USERS_URL = '/api/admin/users';
 
 @Injectable()
@@ -22,7 +23,8 @@ export class UsersService {
           resp => {
             observer.next({
               users: User.newCollection(User, resp['users']),
-              roles: Role.newCollection(Role, resp['meta']['roles'])
+              roles: Role.newCollection(Role, resp['meta']['roles']),
+              deletedUsers: User.newCollection(User, resp['deleted_users'])
             });
             observer.complete();
           },
@@ -84,6 +86,20 @@ export class UsersService {
     return Observable.create((observer: Observer<boolean>) => {
       this._http
         .delete(`${ADMIN_USERS_URL}/${user.id}`)
+        .subscribe(
+          () => {
+            observer.next(true);
+            observer.complete();
+          },
+          errors => observer.error(errors)
+        );
+    });
+  }
+
+  public restoreUser(user: User): Observable<boolean> {
+    return Observable.create((observer: Observer<boolean>) => {
+      this._http
+        .get(`${ADMIN_USERS_URL}/${user.id}/restore`)
         .subscribe(
           () => {
             observer.next(true);

@@ -110,6 +110,36 @@
           </table>
         </div>
       </tab>
+      <tab heading="Deleted">
+        <div class="tab-content">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>ID</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of deletedUsers">
+                <td>{{ user.name }} {{ user.surname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role?.name }}</td>
+                <td>{{ user.id }}</td>
+                <th class="no-padding text-right">
+                  <a (click)="restoreUser(user)"
+                     class="btn btn-danger btn-flat"
+                     tooltip="Restore">
+                    <i class="fa fa-rotate-left"></i>
+                  </a>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
     </tabset>
   </div>
 </section>

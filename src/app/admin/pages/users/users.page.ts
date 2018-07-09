@@ -5,8 +5,9 @@ import { UsersService } from '../../services';
 import { User } from '../../../core/models/user';
 import { Role } from '../../../core/models/role';
 import {
-  UserEditComponent
-} from '../../components/user-edit/user-edit.component';
+  UserEditComponent,
+  UserDeleteComponent
+} from '../../components';
 
 
 @Component({
@@ -16,6 +17,7 @@ import {
 })
 export class UsersPage implements OnInit {
   public users: User[];
+  public deletedUsers: User[];
   public roles: Role[];
 
   constructor(private _usersService: UsersService,
@@ -27,6 +29,7 @@ export class UsersPage implements OnInit {
       .subscribe(x => {
         this.users = x.users;
         this.roles = x.roles;
+        this.deletedUsers = x.deletedUsers;
       });
   }
 
@@ -45,11 +48,30 @@ export class UsersPage implements OnInit {
   }
 
   public removeUser(user: User): void {
+    const initialState = {
+      user: user
+    };
+
+    const modal = this._modalService
+      .show(UserDeleteComponent, { initialState });
+    modal.content
+      .onUserDelete
+      .subscribe(() => {
+        this.users.splice(this.users.indexOf(user), 1);
+        if (!user.invitationToken) {
+          this.deletedUsers.push(user);
+        }
+        modal.hide();
+      });
+  }
+
+  public restoreUser(user: User): void {
     this._usersService
-      .removeUser(user)
-      .subscribe(
-        () => this.users.splice(this.users.indexOf(user), 1)
-      );
+      .restoreUser(user)
+      .subscribe(() => {
+        this.deletedUsers.splice(this.deletedUsers.indexOf(user), 1);
+        this.users.push(user);
+      });
   }
 
   public invite(email: string, roleId: number): void {
