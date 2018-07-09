@@ -4,7 +4,10 @@ import { BsModalService } from 'ngx-bootstrap';
 import { UsersService } from '../../services';
 import { User } from '../../../core/models/user';
 import { Role } from '../../../core/models/role';
-import { UserEditComponent } from '../../components';
+import {
+  UserEditComponent,
+  UserDeleteComponent
+} from '../../components';
 
 
 @Component({
@@ -45,11 +48,18 @@ export class UsersPage implements OnInit {
   }
 
   public removeUser(user: User): void {
-    this._usersService
-      .removeUser(user)
-      .subscribe(
-        () => this.users.splice(this.users.indexOf(user), 1)
-      );
+    const initialState = {
+      user: user
+    };
+
+    const modal = this._modalService
+      .show(UserDeleteComponent, { initialState });
+    modal.content
+      .onUserDelete
+      .subscribe(() => {
+        this.users.splice(this.users.indexOf(user), 1);
+        modal.hide();
+      });
   }
 
   public invite(email: string, roleId: number): void {
