@@ -1,7 +1,13 @@
+<div class="callout callout-warning"
+     *ngIf="form.invalid">
+  <h4>Invalid data!</h4>
+
+  <p>Please, fill all requirements fields</p>
+</div>
+
 <form role="form"
       class="form-horizontal"
-      [formGroup]="form"
-      (submit)="updateSettings()">
+      [formGroup]="form">
   <div class="box-body">
     <div class="form-group"
          [ngClass]="{ 'has-error': hasError('name') }">
@@ -132,15 +138,6 @@
                placeholder="Enter skype"
                formControlName="skype">
         <span class="help-block">{{ textError('skype') }}</span>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-sm-10 col-sm-offset-2">
-        <button class="btn btn-primary"
-                [disabled]="form.invalid">
-          Submit
-        </button>
       </div>
     </div>
   </div>
