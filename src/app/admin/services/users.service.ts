@@ -95,4 +95,18 @@ export class UsersService {
         );
     });
   }
+
+  public restoreUser(user: User): Observable<boolean> {
+    return Observable.create((observer: Observer<boolean>) => {
+      this._http
+        .get(`${ADMIN_USERS_URL}/${user.id}/restore`)
+        .subscribe(
+          () => {
+            observer.next(true);
+            observer.complete();
+          },
+          errors => observer.error(errors)
+        );
+    });
+  }
 }

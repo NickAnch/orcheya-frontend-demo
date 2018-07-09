@@ -58,7 +58,17 @@ export class UsersPage implements OnInit {
       .onUserDelete
       .subscribe(() => {
         this.users.splice(this.users.indexOf(user), 1);
+        this.deletedUsers.push(user);
         modal.hide();
+      });
+  }
+
+  public restoreUser(user: User): void {
+    this._usersService
+      .restoreUser(user)
+      .subscribe(() => {
+        this.deletedUsers.splice(this.deletedUsers.indexOf(user), 1);
+        this.users.push(user);
       });
   }
 

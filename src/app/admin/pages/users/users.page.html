@@ -115,6 +115,7 @@
           <table class="table table-hover">
             <thead>
               <tr>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
                 <th>ID</th>
@@ -123,13 +124,16 @@
             </thead>
             <tbody>
               <tr *ngFor="let user of deletedUsers">
+                <td>{{ user.name }} {{ user.surname }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.role?.name }}</td>
                 <td>{{ user.id }}</td>
                 <th class="no-padding text-right">
-                  <!--<a (click)="removeUser(user)" class="btn btn-danger btn-flat">-->
-                    <!--<i class="fa fa-trash"></i>-->
-                  <!--</a>-->
+                  <a (click)="restoreUser(user)"
+                     class="btn btn-danger btn-flat"
+                     tooltip="Restore">
+                    <i class="fa fa-rotate-left"></i>
+                  </a>
                 </th>
               </tr>
             </tbody>
