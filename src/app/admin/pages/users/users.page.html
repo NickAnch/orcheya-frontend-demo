@@ -35,6 +35,7 @@
               <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Integrations</th>
                 <th>Role</th>
                 <th>Phone</th>
                 <th>Timing</th>
@@ -50,6 +51,21 @@
                   </a>
                 </td>
                 <td>{{ user.email }}</td>
+                <td class="integrations">
+                  <div class="icon-container">
+                    <i class="fa fa-slack" *ngIf="user.slackConnected" tooltip="Slack"></i>
+                  </div>
+                  <div class="icon-container">
+                    <i class="fa fa-clock-o" *ngIf="user.timedoctorConnected" tooltip="TimeDoctor"></i>
+                  </div>
+                  <div class="icon-container">
+                    <img class="upwork-icon"
+                         src="/assets/social-icons/upwork-16x16.ico"
+                         alt="upwork"
+                         tooltip="Upwork"
+                         *ngIf="user.upworkConnected">
+                  </div>
+                </td>
                 <td>{{ user.role?.name }}</td>
                 <td>{{ user.phone }}</td>
                 <td>{{ user.timing?.time }}</td>
@@ -90,6 +106,36 @@
                 </a>
               </th>
             </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
+      <tab heading="Deleted">
+        <div class="tab-content">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>ID</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of deletedUsers">
+                <td>{{ user.name }} {{ user.surname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role?.name }}</td>
+                <td>{{ user.id }}</td>
+                <th class="no-padding text-right">
+                  <a (click)="restoreUser(user)"
+                     class="btn btn-danger btn-flat"
+                     tooltip="Restore">
+                    <i class="fa fa-rotate-left"></i>
+                  </a>
+                </th>
+              </tr>
             </tbody>
           </table>
         </div>

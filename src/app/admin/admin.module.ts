@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -19,7 +20,7 @@ import {
 
 import {
   UsersPage,
-  LibsPage
+  LibsPage,
 } from './pages';
 
 import {
@@ -28,7 +29,9 @@ import {
   RoleDeleteComponent,
   RolesComponent,
   TimingsComponent,
-  TimingDeleteComponent
+  TimingDeleteComponent,
+  ProjectsComponent,
+  UserDeleteComponent
 } from './components';
 
 
@@ -40,6 +43,7 @@ import {
     ModalModule.forRoot(),
     TimepickerModule.forRoot(),
     PopoverModule.forRoot(),
+    TooltipModule.forRoot(),
     SharedModule,
     AdminRoutingModule
   ],
@@ -55,17 +59,20 @@ import {
     RolesComponent,
     TimingsComponent,
     TimingDeleteComponent,
+    ProjectsComponent,
     UserEditComponent,
     RoleEditComponent,
     RoleDeleteComponent,
     TimingsComponent,
-    LibsPage
+    LibsPage,
+    UserDeleteComponent
   ],
   entryComponents: [
     UserEditComponent,
     RoleEditComponent,
     RoleDeleteComponent,
-    TimingDeleteComponent
+    TimingDeleteComponent,
+    UserDeleteComponent
   ]
 })
 export class AdminModule { }

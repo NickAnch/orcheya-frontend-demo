@@ -28,9 +28,10 @@ export class ServiceLoadPage implements OnInit {
     }]
   };
 
-  constructor(private serviceLoadService: ServiceLoadService,
-              private projectService: ProjectService) {
-  }
+  constructor(
+    private serviceLoadService: ServiceLoadService,
+    private projectService: ProjectService,
+  ) {}
 
   ngOnInit() {
     this.setWeek();

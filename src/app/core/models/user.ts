@@ -5,6 +5,7 @@ import { Timing } from './timing';
 
 export interface IUsersIndex {
   users: User[];
+  deletedUsers?: User[];
   roles: Role[];
 }
 

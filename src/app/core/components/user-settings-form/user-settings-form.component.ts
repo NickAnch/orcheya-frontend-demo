@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 
 import { CurrentUserService } from '../../services/current-user.service';
 import { User } from '../../models/user';
@@ -8,18 +9,18 @@ import { Router } from '@angular/router';
 import { ValidateLatin } from '../../validators/latin.validator';
 import { formatNumber } from '../../../shared/helpers/phone-formatter.helper';
 import { Timing } from '../../models/timing';
-import { Model } from 'tsmodels';
 
 @Component({
   selector: 'app-user-settings-form',
   templateUrl: './user-settings-form.component.html'
 })
-export class UserSettingFormComponent implements OnInit {
+export class UserSettingFormComponent implements OnInit, OnDestroy {
   @Input() private navigateTo: string[] = [];
   public timings: Timing[];
   public form: FormGroup;
   public user: User;
   private _respErrors: Object = {};
+  private _subscription: Subscription;
 
   constructor(private _currentUser: CurrentUserService,
               private _formBuilder: FormBuilder,
@@ -47,6 +48,23 @@ export class UserSettingFormComponent implements OnInit {
       notifyUpdate: [this.user.notifyUpdate, []]
     });
     this.formatCurrentUserNumber();
+    this.subscribeChanges();
+  }
+
+  ngOnDestroy() {
+    this._subscription.unsubscribe();
+  }
+
+  private subscribeChanges(): void {
+    this._subscription =
+      this.form
+        .valueChanges
+        .debounceTime(500)
+        .subscribe(() => {
+          if (this.form.valid) {
+            this.updateSettings();
+          }
+        });
   }
 
   private formatCurrentUserNumber() {
@@ -61,7 +79,7 @@ export class UserSettingFormComponent implements OnInit {
     );
   }
 
-  public updateSettings() {
+  private updateSettings() {
     if (this.form.invalid) {
       return;
     }
