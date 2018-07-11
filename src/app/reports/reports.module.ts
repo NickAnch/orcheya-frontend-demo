@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ChartModule } from 'angular2-highcharts';
+import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
+import * as highcharts from 'highcharts';
 
 import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
@@ -21,19 +23,22 @@ import {
   HumanizeTimePipe
 } from './pipes';
 
-
 @NgModule({
   imports: [
     CommonModule,
     ReportsRoutingModule,
-    ChartModule.forRoot(require('highcharts')),
+    ChartModule,
     FormsModule,
     SharedModule
   ],
   providers: [
     ServiceLoadService,
     TimesheetService,
-    ServiceLoadDynamicService
+    ServiceLoadDynamicService,
+    {
+      provide: HighchartsStatic,
+      useValue: highcharts
+    }
   ],
   declarations: [
     ReportsComponent,
