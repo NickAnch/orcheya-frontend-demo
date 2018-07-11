@@ -1,0 +1,129 @@
+<section class="content-header">
+  <h1>
+    Service load dynamic
+  </h1>
+  <ol class="breadcrumb">
+    <li>
+      <a [routerLink]="['/']">Home</a>
+    </li>
+    <li class="active">
+      Service load dynamic
+    </li>
+  </ol>
+</section>
+
+<section class="wrap">
+  <div class="filter-controls">
+    <div class="input-group">
+      <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+      </div>
+      <input class="form-control"
+             placeholder="Choose dates"
+             bsDaterangepicker
+             [(ngModel)]="dates"
+             (ngModelChange)="getServiceLoad()">
+    </div>
+
+    <div class="btn-group">
+      <button type="button"
+              class="btn"
+              [class.btn-default]="step != 1"
+              [class.btn-info]="step == 1"
+              (click)="setDay()">
+        Day
+      </button>
+      <button type="button"
+              class="btn"
+              [class.btn-default]="step != 7"
+              [class.btn-info]="step == 7"
+              (click)="setWeek()">
+        Week
+      </button>
+      <button type="button"
+              class="btn"
+              [class.btn-default]="step != 30"
+              [class.btn-info]="step == 30"
+              (click)="setMonth()">
+        Month
+      </button>
+      <button type="button"
+              class="btn"
+              [class.btn-default]="step != 365"
+              [class.btn-info]="step == 365"
+              (click)="setYear()">
+        Year
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-8 tumbler-type-time">
+      <div>worked</div>
+      <ui-switch
+        size="small"
+        (change)="onChangeTypeOfTime()"></ui-switch>
+      <div>paid</div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap chart"
+         *ngIf="chartOptions">
+  <chart [options]="chartOptions"
+         (load)="chart = $event"></chart>
+</section>
+
+<section class="wrap"
+         *ngIf="!chartOptions">
+  <div class="loading">
+    <i class="fa fa-refresh fa-spin fa-3x"></i>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <tabset #tabset>
+
+      <tab class="nav-tabs-custom"
+           id="users"
+           heading="Users"
+           (click)="changeTabName('usersData')">
+        <div class="tab-content">
+          <table class="table table-bordered table-hover dataTable" role="grid">
+            <thead>
+            <tr role="row">
+              <th>Name</th>
+              <th>Worked time</th>
+              <th>Paid time</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr role="row" *ngFor="let row of usersData; let i = index">
+              <td>{{ row.name }} {{ row.surname }}</td>
+              <td>{{ row.workedSum | humanizeTime }}</td>
+              <td>{{ row.paidSum | humanizeTime }}</td>
+              <td class="clickable"
+                  (click)="changeVisibleRow(row, i)">
+                <input type="checkbox"
+                       [checked]="row.show">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
+
+      <!--<tab class="nav-tabs-custom"-->
+           <!--id="projects"-->
+           <!--heading="Projects">-->
+        <!--<div class="tab-content">-->
+
+        <!--</div>-->
+      <!--</tab>-->
+
+    </tabset>
+  </div>
+</section>
+
+

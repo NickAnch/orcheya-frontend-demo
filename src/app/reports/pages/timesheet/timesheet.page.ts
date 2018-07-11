@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TimesheetService } from '../../services/timesheet.service';
+import { TimesheetService } from '../../services';
 
 import * as moment from 'moment';
 import { Moment } from 'moment';

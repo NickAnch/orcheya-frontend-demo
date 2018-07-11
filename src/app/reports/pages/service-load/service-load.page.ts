@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceLoadService } from '../../services/service-load.service';
-import { ProjectService } from '../../../core/services/project.service';
+import { ServiceLoadService } from '../../services';
 
 import { Dash, UsersTableRow, ProjectsTableRow } from '../../models';
 
@@ -20,17 +19,9 @@ export class ServiceLoadPage implements OnInit {
   public projectsTable: ProjectsTableRow[];
 
   public dates: Date[];
-  public chart: Object;
-  public chartOptions = {
-    title: { text : 'Dynamic service load' },
-    series: [{
-      data: []
-    }]
-  };
 
   constructor(
-    private serviceLoadService: ServiceLoadService,
-    private projectService: ProjectService,
+    private serviceLoadService: ServiceLoadService
   ) {}
 
   ngOnInit() {
@@ -51,9 +42,6 @@ export class ServiceLoadPage implements OnInit {
         this.dash = data.dash;
         this.hoursTable = data.usersTable;
         this.projectsTable = data.projectsTable;
-        this.hoursTable
-          .map(x => x.paid)
-          .forEach(x => this.chart['context']['series'][0].addPoint(x));
       });
   }
 
@@ -92,12 +80,4 @@ export class ServiceLoadPage implements OnInit {
       moment().subtract(1, 'day')
     );
   }
-
-  public setPaidProject(event, id: number): void {
-    this.projectService
-      .updateProject(id, { paid: event.target.checked })
-      .subscribe(() => this.getServiceLoad());
-  }
 }
-
-

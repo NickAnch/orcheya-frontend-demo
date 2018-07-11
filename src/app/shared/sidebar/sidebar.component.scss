@@ -4,19 +4,17 @@
 
 .main-sidebar {
   position: fixed;
-  transition:
-    transform 0.3s ease-in-out,
-    width 0.3s ease-in-out,
-    -webkit-transform 0.3s ease-in-out,
-    padding-top .1s ease-in-out;
+  transition: transform .3s ease-in-out,
+              width .3s ease-in-out,
+              -webkit-transform .3s ease-in-out,
+              padding-top .1s ease-in-out;
 
   &.scrolled {
     padding-top: 0;
-    transition:
-      transform 0.3s ease-in-out,
-      width 0.3s ease-in-out,
-      -webkit-transform 0.3s ease-in-out,
-      padding-top .5s ease-in-out;
+    transition: transform .3s ease-in-out,
+                width .3s ease-in-out,
+                -webkit-transform .3s ease-in-out,
+                padding-top .5s ease-in-out;
   }
 
   .treeview {
@@ -25,5 +23,16 @@
         display: block;
       }
     }
+  }
+}
+
+.sidebar-menu > li:hover {
+  > a > span:not(.pull-right),
+  .treeview-menu {
+    width: 200px;
+  }
+
+  > a > .pull-right-container {
+    left: 200px !important;
   }
 }
