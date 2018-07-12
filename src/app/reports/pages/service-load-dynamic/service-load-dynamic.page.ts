@@ -29,6 +29,8 @@ export class ServiceLoadDynamicPage implements OnInit {
   public chartOptions: Object;
   public typeOfTime = 'worked';
   public step: number;
+  public turnOnOff = false;
+  public turnOnOffLoading = false;
   private _tabName = 'usersData';
   private _selectedRows: DataFromLocalStorageForDynamicReport;
 
@@ -117,7 +119,9 @@ export class ServiceLoadDynamicPage implements OnInit {
     }
   }
 
-  public changeVisibleRow(row: UsersDynamicGraph, i: number): void {
+  public changeVisibleRow(
+    row: UsersDynamicGraph, i: number, fast?: boolean
+  ): void {
     row.show = !row.show;
     const series = this.chart['context']['series'][i];
     if (row.show) {
@@ -125,7 +129,9 @@ export class ServiceLoadDynamicPage implements OnInit {
     } else {
       series.hide();
     }
-    this._setLocalStorage();
+    if (!fast) {
+      this._setLocalStorage();
+    }
   }
 
   public changeTabName(tabName: string): void {
@@ -195,5 +201,21 @@ export class ServiceLoadDynamicPage implements OnInit {
     if (window && window.localStorage) {
       window.localStorage.setItem(reportName, JSON.stringify(data));
     }
+  }
+
+  public setTurnOnOff(): void {
+    if (this.turnOnOffLoading) {
+      return;
+    }
+    this.turnOnOffLoading = true;
+    setTimeout(() => {
+      this.turnOnOff = !this.turnOnOff;
+      this[this._tabName].forEach((row, index) => {
+        row.show = !this.turnOnOff;
+        this.changeVisibleRow(row, index, true);
+      });
+      this._setLocalStorage();
+      this.turnOnOffLoading = false;
+    }, 0);
   }
 }

@@ -45,6 +45,14 @@ chart {
   text-align: center;
 }
 
+.turn-on-off {
+  width: 68px;
+
+  button {
+    width: 100%;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .filter-controls {
     display: grid;
