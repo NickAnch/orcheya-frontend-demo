@@ -19,6 +19,7 @@ export class UserSettingFormComponent implements OnInit, OnDestroy {
   public timings: Timing[];
   public form: FormGroup;
   public user: User;
+  public showButton: boolean;
   private _respErrors: Object = {};
   private _subscription: Subscription;
 
@@ -34,6 +35,7 @@ export class UserSettingFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.showButton = !!this.navigateTo.length;
     this.form = this._formBuilder.group({
       name: [this.user.name, [Validators.required, ValidateLatin]],
       surname: [this.user.surname, [Validators.required, ValidateLatin]],
@@ -48,11 +50,15 @@ export class UserSettingFormComponent implements OnInit, OnDestroy {
       notifyUpdate: [this.user.notifyUpdate, []]
     });
     this.formatCurrentUserNumber();
-    this.subscribeChanges();
+    if (!this.showButton) {
+      this.subscribeChanges();
+    }
   }
 
   ngOnDestroy() {
-    this._subscription.unsubscribe();
+    if (!this.showButton) {
+      this._subscription.unsubscribe();
+    }
   }
 
   private subscribeChanges(): void {
@@ -79,7 +85,7 @@ export class UserSettingFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  private updateSettings() {
+  public updateSettings() {
     if (this.form.invalid) {
       return;
     }
