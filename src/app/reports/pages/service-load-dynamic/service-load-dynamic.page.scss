@@ -1,0 +1,66 @@
+.wrap {
+  padding: 20px 30px;
+}
+
+.total {
+  font-size: x-large;
+  text-align: center;
+}
+
+.filter-controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.tumbler-type-time {
+  align-items: normal;
+  display: flex;
+  justify-content: flex-end;
+
+  > div {
+    margin: 0 5px;
+  }
+}
+
+.chart {
+  display: flex;
+  justify-content: center;
+}
+
+chart {
+  display: block;
+  height: 400px;
+  width: 100%;
+}
+
+.loading {
+  align-items: center;
+  display: flex;
+  height: 400px;
+  justify-content: center;
+}
+
+.clickable {
+  cursor: pointer;
+  text-align: center;
+}
+
+.turn-on-off {
+  width: 68px;
+
+  button {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .filter-controls {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    button {
+      margin-top: 10px;
+      width: 25%;
+    }
+  }
+}

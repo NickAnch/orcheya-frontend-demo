@@ -30,7 +30,11 @@ export class CoreComponent implements OnInit {
           icon: 'fa-file-text',
           items: [
             { name: 'Service load', link: ['/reports/service-load'] },
-            { name: 'Timesheet', link: ['/reports/timesheet'] }
+            { name: 'Timesheet', link: ['/reports/timesheet'] },
+            {
+              name: 'Service load dynamic',
+              link: ['/reports/service-load-dynamic']
+            }
           ]
         }
       ]);
