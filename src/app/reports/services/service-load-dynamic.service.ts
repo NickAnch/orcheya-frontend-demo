@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { UsersDynamicGraph } from '../models';
+import {
+  ProjectDynamicGraph,
+  UsersDynamicGraph
+} from '../models';
 import { Model } from 'tsmodels';
 
 export interface ServiceLoadDynamicResponse {
-  datesData: [string];
+  datesData: string[];
   usersData: UsersDynamicGraph[];
+  projectsData: ProjectDynamicGraph[];
 }
 
 const URL = '/api/reports/service_load_dynamic';
@@ -33,10 +37,14 @@ export class ServiceLoadDynamicService {
               const usersTable = Model.newCollection(
                 UsersDynamicGraph, data.users_table
               );
+              const projectsTable = Model.newCollection(
+                ProjectDynamicGraph, data.projects_table
+              );
 
               observer.next({
                 datesData: datesData,
                 usersData: usersTable,
+                projectsData: projectsTable,
               });
 
               observer.complete();

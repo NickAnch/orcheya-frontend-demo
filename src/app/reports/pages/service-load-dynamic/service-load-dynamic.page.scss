@@ -53,6 +53,11 @@ chart {
   }
 }
 
+.select-ranges {
+  align-items: center;
+  display: flex;
+}
+
 @media only screen and (max-width: 767px) {
   .filter-controls {
     display: grid;

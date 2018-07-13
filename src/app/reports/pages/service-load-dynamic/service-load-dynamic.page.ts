@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { Moment } from 'moment';
+import {
+  DurationInputArg1,
+  DurationInputArg2
+} from 'moment';
 
 import { ServiceLoadDynamicService } from '../../services';
-import { UsersDynamicGraph } from '../../models';
+import {
+  ProjectDynamicGraph,
+  UsersDynamicGraph
+} from '../../models';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 const reportName = 'serviceLoadDynamic';
+const dataKeys = ['usersData', 'projectsData'];
 
 export interface DataFromLocalStorageForDynamicReport {
-  usersData?: {
-    id: number;
-    show: boolean;
-  } | {};
+  usersData?: { id: number; show: boolean; } | {};
+  projectsData?: { id: number; show: boolean; } | {};
 }
 
 @Component({
@@ -21,16 +26,17 @@ export interface DataFromLocalStorageForDynamicReport {
 })
 
 export class ServiceLoadDynamicPage implements OnInit {
-  private datesData: [string];
+  private datesData: string[];
   public usersData: UsersDynamicGraph[];
+  public projectsData: ProjectDynamicGraph[];
 
   public dates: Date[];
   public chart: Object;
   public chartOptions: Object;
   public typeOfTime = 'worked';
-  public step: number;
-  public turnOnOff = false;
-  public turnOnOffLoading = false;
+  public step = 7;
+  public turnOnOff = { usersData: false, projectsData: false };
+  public turnOnOffLoading = { usersData: false, projectsData: false };
   private _tabName = 'usersData';
   private _selectedRows: DataFromLocalStorageForDynamicReport;
 
@@ -40,7 +46,15 @@ export class ServiceLoadDynamicPage implements OnInit {
 
   ngOnInit() {
     this._getLocalStorage();
-    this.setWeek();
+    this.setDates(12, 'week');
+  }
+
+  public setDates(count: DurationInputArg1, kind: DurationInputArg2): void {
+    this.dates = [
+      moment().subtract(count, kind).toDate(),
+      moment().subtract(1, 'day').toDate()
+    ];
+    this.getServiceLoad();
   }
 
   public getServiceLoad(): void {
@@ -53,6 +67,7 @@ export class ServiceLoadDynamicPage implements OnInit {
       .subscribe(data => {
         this.datesData = data.datesData;
         this.usersData = data.usersData;
+        this.projectsData = data.projectsData;
         this._initGraph();
       });
   }
@@ -66,11 +81,13 @@ export class ServiceLoadDynamicPage implements OnInit {
     this._initGraph();
   }
 
-  private _graphName(): string {
-    return `Graph with ${this.typeOfTime} time`;
-  }
-
   private _initGraph(): void {
+    dataKeys.forEach((key: string) => {
+      this[key].forEach((row, index) => {
+        this._setShowFromLocalStr(key, row, index);
+      });
+    });
+
     this.chartOptions = {
       chart: {
         type: 'spline'
@@ -95,10 +112,11 @@ export class ServiceLoadDynamicPage implements OnInit {
       },
       series: []
     };
-    this[this._tabName].forEach((row, index) => {
-      this._setShowFromLocalStr(row, index);
+
+    this[this._tabName].forEach(row => {
+      const name = `${row.name} ${row.surname ? ` ${row.surname}` : ''}`;
       this.chartOptions['series'].push({
-        name: `${row.name} ${row.surname}`,
+        name: name,
         data: row[this.typeOfTime].map( x => Math.round(x / 3600 * 100) / 100 ),
         visible: row.show
       });
@@ -106,9 +124,11 @@ export class ServiceLoadDynamicPage implements OnInit {
     this._setLocalStorage();
   }
 
-  private _setShowFromLocalStr(row: UsersDynamicGraph, index: number): void {
+  private _setShowFromLocalStr(
+    field: string, row: UsersDynamicGraph | ProjectDynamicGraph, index: number
+  ): void {
     if (this._selectedRows) {
-      const find = this._selectedRows.usersData[row.id];
+      const find = this._selectedRows[field][row.id];
       if (find) {
         row.show = find;
       } else {
@@ -120,7 +140,7 @@ export class ServiceLoadDynamicPage implements OnInit {
   }
 
   public changeVisibleRow(
-    row: UsersDynamicGraph, i: number, fast?: boolean
+    row: UsersDynamicGraph | ProjectDynamicGraph, i: number, fast?: boolean
   ): void {
     row.show = !row.show;
     const series = this.chart['context']['series'][i];
@@ -142,44 +162,29 @@ export class ServiceLoadDynamicPage implements OnInit {
     this._initGraph();
   }
 
-  public setDates(startDate: Moment, endDate: Moment): void {
-    this.dates = [
-      moment(startDate).toDate(),
-      moment(endDate).toDate()
-    ];
+  public setStep(step: number): void {
+    this.step = step;
     this.getServiceLoad();
   }
 
-  public setDay(): void {
-    this.step = 1;
-    this.setDates(
-      moment().subtract(10, 'day'),
-      moment().subtract(1, 'day')
-    );
+  public setTurnOnOff(): void {
+    if (this.turnOnOffLoading[this._tabName]) {
+      return;
+    }
+    this.turnOnOffLoading[this._tabName] = true;
+    setTimeout(() => {
+      this.turnOnOff[this._tabName] = !this.turnOnOff[this._tabName];
+      this[this._tabName].forEach((row, index) => {
+        row.show = !this.turnOnOff[this._tabName];
+        this.changeVisibleRow(row, index, true);
+      });
+      this._setLocalStorage();
+      this.turnOnOffLoading[this._tabName] = false;
+    }, 0);
   }
 
-  public setWeek(): void {
-    this.step = 7;
-    this.setDates(
-      moment().subtract(10, 'week'),
-      moment().subtract(1, 'day')
-    );
-  }
-
-  public setMonth(): void {
-    this.step = 30;
-    this.setDates(
-      moment().subtract(10, 'month'),
-      moment().subtract(1, 'day')
-    );
-  }
-
-  public setYear(): void {
-    this.step = 365;
-    this.setDates(
-      moment().subtract(10, 'year'),
-      moment().subtract(1, 'day')
-    );
+  private _graphName(): string {
+    return `Graph with ${this.typeOfTime} time`;
   }
 
   private _getLocalStorage() {
@@ -192,30 +197,17 @@ export class ServiceLoadDynamicPage implements OnInit {
 
   private _setLocalStorage() {
     const data: DataFromLocalStorageForDynamicReport = {
-      usersData: {}
+      usersData: {},
+      projectsData: {}
     };
-    this.usersData.forEach(x => {
-      data.usersData[x.id] = x.show;
+    dataKeys.forEach((key: string) => {
+      this[key].forEach(x => {
+        data[key][x.id] = x.show;
+      });
     });
     this._selectedRows = data;
     if (window && window.localStorage) {
       window.localStorage.setItem(reportName, JSON.stringify(data));
     }
-  }
-
-  public setTurnOnOff(): void {
-    if (this.turnOnOffLoading) {
-      return;
-    }
-    this.turnOnOffLoading = true;
-    setTimeout(() => {
-      this.turnOnOff = !this.turnOnOff;
-      this[this._tabName].forEach((row, index) => {
-        row.show = !this.turnOnOff;
-        this.changeVisibleRow(row, index, true);
-      });
-      this._setLocalStorage();
-      this.turnOnOffLoading = false;
-    }, 0);
   }
 }
