@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceLoadService } from '../../services';
-
-import { Dash, UsersTableRow, ProjectsTableRow } from '../../models';
-
 import * as moment from 'moment';
-import { Moment } from 'moment';
+import {
+  DurationInputArg1,
+  DurationInputArg2
+} from 'moment';
+
+import { ServiceLoadService } from '../../services';
+import { Dash, UsersTableRow, ProjectsTableRow } from '../../models';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -13,19 +15,31 @@ const DATE_FORMAT = 'YYYY-MM-DD';
   styleUrls: ['./service-load.page.scss']
 })
 export class ServiceLoadPage implements OnInit {
-
   public dash: Dash;
   public hoursTable: UsersTableRow[];
   public projectsTable: ProjectsTableRow[];
+  private _loadTable: number[];
+  private _datesData: string[];
 
+  public step = 'week';
   public dates: Date[];
+  public chart: Object;
+  public chartOptions: Object;
 
   constructor(
     private serviceLoadService: ServiceLoadService
   ) {}
 
   ngOnInit() {
-    this.setWeek();
+    this.setDates(3, 'month');
+  }
+
+  public setDates(count: DurationInputArg1, kind: DurationInputArg2): void {
+    this.dates = [
+      moment().subtract(count, kind).toDate(),
+      moment().subtract(1, 'day').toDate()
+    ];
+    this.onDateChange();
   }
 
   public onDateChange(): void {
@@ -37,47 +51,55 @@ export class ServiceLoadPage implements OnInit {
     const endDate = moment(this.dates[1]).format(DATE_FORMAT);
 
     this.serviceLoadService
-      .getServiceLoad(startDate, endDate)
+      .getServiceLoad(startDate, endDate, this.step)
       .subscribe(data => {
         this.dash = data.dash;
+        this._datesData = data.datesData;
+        this._loadTable = data.loadTable;
         this.hoursTable = data.usersTable;
         this.projectsTable = data.projectsTable;
+        this._initGraph();
       });
   }
 
-  public setDates(startDate: Moment, endDate: Moment): void {
-    this.dates = [
-      moment(startDate).toDate(),
-      moment(endDate).toDate()
-    ];
+  public setStep(step: string): void {
+    this.step = step;
     this.onDateChange();
   }
 
-  public setDay(): void {
-    this.setDates(
-      moment().subtract(1, 'day'),
-      moment().subtract(1, 'day')
-    );
-  }
-
-  public setWeek(): void {
-    this.setDates(
-      moment().subtract(1, 'week'),
-      moment().subtract(1, 'day')
-    );
-  }
-
-  public setMonth(): void {
-    this.setDates(
-      moment().subtract(1, 'month'),
-      moment().subtract(1, 'day')
-    );
-  }
-
-  public setYear(): void {
-    this.setDates(
-      moment().subtract(1, 'year'),
-      moment().subtract(1, 'day')
-    );
+  private _initGraph(): void {
+    this.chartOptions = {
+      chart: {
+        type: 'spline'
+      },
+      title: {
+        text : 'Graph with dynamic service load'
+      },
+      legend: {
+        enabled: false
+      },
+      tooltip: {
+        shared: true,
+        crosshairs: true,
+        pointFormat: '{series.name}: <b>{point.y}%</b><br/>'
+      },
+      yAxis: {
+        title: {
+          text: 'Percent'
+        },
+        labels: {
+          formatter: function () {
+            return this.value + '%';
+          }
+        }
+      },
+      xAxis: {
+        categories: this._datesData
+      },
+      series: [{
+        name: 'Service load',
+        data: this._loadTable
+      }]
+    };
   }
 }

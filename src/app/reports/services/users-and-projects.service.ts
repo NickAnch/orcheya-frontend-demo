@@ -8,23 +8,22 @@ import {
 } from '../models';
 import { Model } from 'tsmodels';
 
-export interface ServiceLoadDynamicResponse {
+export interface UsersAndProjectsResponse {
   datesData: string[];
-  loadTable: number[];
   usersData: UsersDynamicGraph[];
   projectsData: ProjectDynamicGraph[];
 }
 
-const URL = '/api/reports/service_load_dynamic';
+const URL = '/api/reports/users_and_projects';
 
 @Injectable()
-export class ServiceLoadDynamicService {
+export class UsersAndProjectsService {
   constructor(private http: HttpClient) {}
 
   getServiceLoad(startDate: string, endDate: string, step: string)
-    : Observable<ServiceLoadDynamicResponse> {
+    : Observable<UsersAndProjectsResponse> {
     return Observable
-      .create((observer: Observer<ServiceLoadDynamicResponse>) => {
+      .create((observer: Observer<UsersAndProjectsResponse>) => {
         const httpParams = new HttpParams()
           .set('start_date', startDate)
           .set('step', step)
@@ -35,7 +34,6 @@ export class ServiceLoadDynamicService {
           .subscribe(
             (data: any) => {
               const datesData = data.dates;
-              const loadTable = data.load_table;
               const usersTable = Model.newCollection(
                 UsersDynamicGraph, data.users_table
               );
@@ -45,7 +43,6 @@ export class ServiceLoadDynamicService {
 
               observer.next({
                 datesData: datesData,
-                loadTable: loadTable,
                 usersData: usersTable,
                 projectsData: projectsTable,
               });

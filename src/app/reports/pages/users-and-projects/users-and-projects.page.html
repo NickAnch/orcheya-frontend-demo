@@ -28,30 +28,30 @@
     <div class="btn-group">
       <button type="button"
               class="btn"
-              [class.btn-default]="step != 1"
-              [class.btn-info]="step == 1"
-              (click)="setStep(1)">
+              [class.btn-default]="step != 'day'"
+              [class.btn-info]="step == 'day'"
+              (click)="setStep('day')">
         Day
       </button>
       <button type="button"
               class="btn"
-              [class.btn-default]="step != 7"
-              [class.btn-info]="step == 7"
-              (click)="setStep(7)">
+              [class.btn-default]="step != 'week'"
+              [class.btn-info]="step == 'week'"
+              (click)="setStep('week')">
         Week
       </button>
       <button type="button"
               class="btn"
-              [class.btn-default]="step != 30"
-              [class.btn-info]="step == 30"
-              (click)="setStep(30)">
+              [class.btn-default]="step != 'month'"
+              [class.btn-info]="step == 'month'"
+              (click)="setStep('month')">
         Month
       </button>
       <button type="button"
               class="btn"
-              [class.btn-default]="step != 365"
-              [class.btn-info]="step == 365"
-              (click)="setStep(365)">
+              [class.btn-default]="step != 'year'"
+              [class.btn-info]="step == 'year'"
+              (click)="setStep('year')">
         Year
       </button>
     </div>
@@ -61,18 +61,28 @@
       <div class="btn-group">
         <button type="button"
                 class="btn btn-default"
+                (click)="setDates(7, 'day')">
+          Week
+        </button>
+        <button type="button"
+                class="btn btn-default"
                 (click)="setDates(14, 'day')">
-          14 Days
+          2 Weeks
         </button>
         <button type="button"
                 class="btn btn-default"
-                (click)="setDates(12, 'week')">
-          12 Weeks
+                (click)="setDates(1, 'month')">
+          Month
         </button>
         <button type="button"
                 class="btn btn-default"
-                (click)="setDates(12, 'month')">
-          12 Months
+                (click)="setDates(3, 'month')">
+          Quarter
+        </button>
+        <button type="button"
+                class="btn btn-default"
+                (click)="setDates(1, 'year')">
+          Year
         </button>
         <button type="button"
                 class="btn btn-default"
@@ -147,15 +157,6 @@
             </tr>
             </tbody>
           </table>
-        </div>
-      </tab>
-
-      <tab class="nav-tabs-custom"
-           id="loads"
-           heading="Loads"
-           (select)="changeTabName('loadTable')">
-        <div class="tab-content">
-          No Data, only graph
         </div>
       </tab>
 

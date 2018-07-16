@@ -11,12 +11,12 @@ import { SharedModule } from '../shared/shared.module';
 import {
   ServiceLoadService,
   TimesheetService,
-  ServiceLoadDynamicService
+  UsersAndProjectsService
 } from './services';
 import {
   ServiceLoadPage,
   TimesheetPage,
-  ServiceLoadDynamicPage
+  UsersAndProjectsPage
 } from './pages';
 import {
   SanitizePipe,
@@ -34,7 +34,7 @@ import {
   providers: [
     ServiceLoadService,
     TimesheetService,
-    ServiceLoadDynamicService,
+    UsersAndProjectsService,
     {
       provide: HighchartsStatic,
       useValue: highcharts
@@ -43,7 +43,7 @@ import {
   declarations: [
     ReportsComponent,
     ServiceLoadPage,
-    ServiceLoadDynamicPage,
+    UsersAndProjectsPage,
     TimesheetPage,
     SanitizePipe,
     HumanizeTimePipe,

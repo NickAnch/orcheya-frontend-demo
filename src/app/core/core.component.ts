@@ -32,8 +32,8 @@ export class CoreComponent implements OnInit {
             { name: 'Service load', link: ['/reports/service-load'] },
             { name: 'Timesheet', link: ['/reports/timesheet'] },
             {
-              name: 'Service load dynamic',
-              link: ['/reports/service-load-dynamic']
+              name: 'Users and Projects',
+              link: ['/reports/users-and-projects']
             }
           ]
         }

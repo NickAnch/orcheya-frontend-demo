@@ -4,8 +4,8 @@ import { ReportsComponent } from './reports.component';
 import { ServiceLoadPage } from './pages/service-load/service-load.page';
 import { TimesheetPage } from './pages/timesheet/timesheet.page';
 import {
-  ServiceLoadDynamicPage
-} from './pages/service-load-dynamic/service-load-dynamic.page';
+  UsersAndProjectsPage
+} from './pages/users-and-projects/users-and-projects.page';
 
 const routes: Routes = [
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       { path: 'service-load', component: ServiceLoadPage },
       { path: 'timesheet', component: TimesheetPage },
-      { path: 'service-load-dynamic', component: ServiceLoadDynamicPage }
+      { path: 'users-and-projects', component: UsersAndProjectsPage }
     ]
   }
 ];

@@ -5,7 +5,7 @@ import {
   DurationInputArg2
 } from 'moment';
 
-import { ServiceLoadDynamicService } from '../../services';
+import { UsersAndProjectsService } from '../../services';
 import {
   ProjectDynamicGraph,
   UsersDynamicGraph
@@ -21,13 +21,12 @@ export interface DataFromLocalStorageForDynamicReport {
 }
 
 @Component({
-  templateUrl: './service-load-dynamic.page.html',
-  styleUrls: ['./service-load-dynamic.page.scss']
+  templateUrl: './users-and-projects.page.html',
+  styleUrls: ['./users-and-projects.page.scss']
 })
 
-export class ServiceLoadDynamicPage implements OnInit {
+export class UsersAndProjectsPage implements OnInit {
   private datesData: string[];
-  public loadTable: number[];
   public usersData: UsersDynamicGraph[];
   public projectsData: ProjectDynamicGraph[];
 
@@ -35,19 +34,19 @@ export class ServiceLoadDynamicPage implements OnInit {
   public chart: Object;
   public chartOptions: Object;
   public typeOfTime = 'worked';
-  public step = 7;
+  public step = 'week';
   public turnOnOff = { usersData: false, projectsData: false };
   public turnOnOffLoading = { usersData: false, projectsData: false };
   private _tabName = 'usersData';
   private _selectedRows: DataFromLocalStorageForDynamicReport;
 
   constructor(
-    private _serviceLoadDynamicService: ServiceLoadDynamicService
+    private _serviceLoadDynamicService: UsersAndProjectsService
   ) {}
 
   ngOnInit() {
     this._getLocalStorage();
-    this.setDates(12, 'week');
+    this.setDates(3, 'month');
   }
 
   public setDates(count: DurationInputArg1, kind: DurationInputArg2): void {
@@ -64,10 +63,9 @@ export class ServiceLoadDynamicPage implements OnInit {
     this.chartOptions = undefined;
 
     this._serviceLoadDynamicService
-      .getServiceLoad(startDate, endDate, this.step.toString())
+      .getServiceLoad(startDate, endDate, this.step)
       .subscribe(data => {
         this.datesData = data.datesData;
-        this.loadTable = data.loadTable;
         this.usersData = data.usersData;
         this.projectsData = data.projectsData;
         this._initGraph();
@@ -115,15 +113,6 @@ export class ServiceLoadDynamicPage implements OnInit {
       series: []
     };
 
-    if (this._tabName === 'loadTable') {
-      this._graphWithoutTable();
-    } else {
-      this._graphWithTable();
-    }
-    this._setLocalStorage();
-  }
-
-  private _graphWithTable(): void {
     this[this._tabName].forEach(row => {
       const name = `${row.name} ${row.surname ? ` ${row.surname}` : ''}`;
       this.chartOptions['series'].push({
@@ -132,20 +121,7 @@ export class ServiceLoadDynamicPage implements OnInit {
         visible: row.show
       });
     });
-  }
-
-  private _graphWithoutTable(): void {
-    this.chartOptions['yAxis']['labels'] = {
-      formatter: function () {
-        return this.value + '%';
-      }
-    };
-    this.chartOptions['tooltip']['pointFormat'] =
-      '{series.name}: <b>{point.y}%</b><br/>';
-    this.chartOptions['series'].push({
-      name: 'Service load',
-      data: this[this._tabName]
-    });
+    this._setLocalStorage();
   }
 
   private _setShowFromLocalStr(
@@ -186,7 +162,7 @@ export class ServiceLoadDynamicPage implements OnInit {
     this._initGraph();
   }
 
-  public setStep(step: number): void {
+  public setStep(step: string): void {
     this.step = step;
     this.getServiceLoad();
   }

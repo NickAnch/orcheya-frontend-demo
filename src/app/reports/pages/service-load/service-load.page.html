@@ -22,10 +22,70 @@
     </div>
 
     <div class="btn-group">
-      <button type="button" class="btn btn-default" (click)="setDay()">Day</button>
-      <button type="button" class="btn btn-default" (click)="setWeek()">Week</button>
-      <button type="button" class="btn btn-default" (click)="setMonth()">Month</button>
-      <button type="button" class="btn btn-default" (click)="setYear()">Year</button>
+      <button type="button"
+              class="btn"
+              [class.btn-default]="step != 'day'"
+              [class.btn-info]="step == 'day'"
+              (click)="setStep('day')">
+        Day
+      </button>
+      <button type="button"
+              class="btn"
+              [class.btn-default]="step != 'week'"
+              [class.btn-info]="step == 'week'"
+              (click)="setStep('week')">
+        Week
+      </button>
+      <button type="button"
+              class="btn"
+              [class.btn-default]="step != 'month'"
+              [class.btn-info]="step == 'month'"
+              (click)="setStep('month')">
+        Month
+      </button>
+      <button type="button"
+              class="btn"
+              [class.btn-default]="step != 'year'"
+              [class.btn-info]="step == 'year'"
+              (click)="setStep('year')">
+        Year
+      </button>
+    </div>
+  </div>
+  <div class="row select-ranges">
+    <div class="col-sm-8">
+      <div class="btn-group">
+        <button type="button"
+                class="btn btn-default"
+                (click)="setDates(7, 'day')">
+          Week
+        </button>
+        <button type="button"
+                class="btn btn-default"
+                (click)="setDates(14, 'day')">
+          2 Weeks
+        </button>
+        <button type="button"
+                class="btn btn-default"
+                (click)="setDates(1, 'month')">
+          Month
+        </button>
+        <button type="button"
+                class="btn btn-default"
+                (click)="setDates(3, 'month')">
+          Quarter
+        </button>
+        <button type="button"
+                class="btn btn-default"
+                (click)="setDates(1, 'year')">
+          Year
+        </button>
+        <button type="button"
+                class="btn btn-default"
+                (click)="setDates(10, 'year')">
+          10 Years
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -55,6 +115,19 @@
     <div>Paid hours: <span class="text-bold">{{ dash?.paidHours | humanizeTime }}</span></div>
     <div>Active projects: <span class="text-bold">{{ dash?.activeProjects }}</span></div>
     <div>Paid projects: <span class="text-bold">{{ dash?.paidProjects }}</span></div>
+  </div>
+</section>
+
+<section class="wrap chart"
+         *ngIf="chartOptions">
+  <chart [options]="chartOptions"
+         (load)="chart = $event"></chart>
+</section>
+
+<section class="wrap"
+         *ngIf="!chartOptions">
+  <div class="loading">
+    <i class="fa fa-refresh fa-spin fa-3x"></i>
   </div>
 </section>
 
