@@ -140,9 +140,8 @@ export class ServiceLoadDynamicPage implements OnInit {
         return this.value + '%';
       }
     };
-    this.chartOptions['tooltip'] = {
-      pointFormat: '{series.name}: <b>{point.y}%</b><br/>'
-    };
+    this.chartOptions['tooltip']['pointFormat'] =
+      '{series.name}: <b>{point.y}%</b><br/>';
     this.chartOptions['series'].push({
       name: 'Service load',
       data: this[this._tabName]
