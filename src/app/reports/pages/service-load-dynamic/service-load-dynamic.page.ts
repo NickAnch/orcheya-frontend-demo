@@ -153,9 +153,9 @@ export class ServiceLoadDynamicPage implements OnInit {
     field: string, row: UsersDynamicGraph | ProjectDynamicGraph, index: number
   ): void {
     if (this._selectedRows) {
-      const find = this._selectedRows[field][row.id];
-      if (find) {
-        row.show = find;
+      const find = this._selectedRows[field];
+      if (find && find[row.id]) {
+        row.show = find[row.id];
       } else {
         row.show = false;
       }
