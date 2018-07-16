@@ -10,6 +10,7 @@ import { Model } from 'tsmodels';
 
 export interface ServiceLoadDynamicResponse {
   datesData: string[];
+  loadTable: number[];
   usersData: UsersDynamicGraph[];
   projectsData: ProjectDynamicGraph[];
 }
@@ -34,6 +35,7 @@ export class ServiceLoadDynamicService {
           .subscribe(
             (data: any) => {
               const datesData = data.dates;
+              const loadTable = data.load_table;
               const usersTable = Model.newCollection(
                 UsersDynamicGraph, data.users_table
               );
@@ -43,6 +45,7 @@ export class ServiceLoadDynamicService {
 
               observer.next({
                 datesData: datesData,
+                loadTable: loadTable,
                 usersData: usersTable,
                 projectsData: projectsTable,
               });

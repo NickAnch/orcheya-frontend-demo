@@ -27,6 +27,7 @@ export interface DataFromLocalStorageForDynamicReport {
 
 export class ServiceLoadDynamicPage implements OnInit {
   private datesData: string[];
+  public loadTable: number[];
   public usersData: UsersDynamicGraph[];
   public projectsData: ProjectDynamicGraph[];
 
@@ -66,6 +67,7 @@ export class ServiceLoadDynamicPage implements OnInit {
       .getServiceLoad(startDate, endDate, this.step.toString())
       .subscribe(data => {
         this.datesData = data.datesData;
+        this.loadTable = data.loadTable;
         this.usersData = data.usersData;
         this.projectsData = data.projectsData;
         this._initGraph();
@@ -113,6 +115,15 @@ export class ServiceLoadDynamicPage implements OnInit {
       series: []
     };
 
+    if (this._tabName === 'loadTable') {
+      this._graphWithoutTable();
+    } else {
+      this._graphWithTable();
+    }
+    this._setLocalStorage();
+  }
+
+  private _graphWithTable(): void {
     this[this._tabName].forEach(row => {
       const name = `${row.name} ${row.surname ? ` ${row.surname}` : ''}`;
       this.chartOptions['series'].push({
@@ -121,7 +132,21 @@ export class ServiceLoadDynamicPage implements OnInit {
         visible: row.show
       });
     });
-    this._setLocalStorage();
+  }
+
+  private _graphWithoutTable(): void {
+    this.chartOptions['yAxis']['labels'] = {
+      formatter: function () {
+        return this.value + '%';
+      }
+    };
+    this.chartOptions['tooltip'] = {
+      pointFormat: '{series.name}: <b>{point.y}%</b><br/>'
+    };
+    this.chartOptions['series'].push({
+      name: 'Service load',
+      data: this[this._tabName]
+    });
   }
 
   private _setShowFromLocalStr(

@@ -151,6 +151,15 @@
       </tab>
 
       <tab class="nav-tabs-custom"
+           id="loads"
+           heading="Loads"
+           (select)="changeTabName('loadTable')">
+        <div class="tab-content">
+          No Data, only graph
+        </div>
+      </tab>
+
+      <tab class="nav-tabs-custom"
            id="projects"
            heading="Projects"
            (select)="changeTabName('projectsData')">
