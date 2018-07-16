@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import * as moment from 'moment';
 import {
   DurationInputArg1,
@@ -14,35 +18,41 @@ const DATE_FORMAT = 'YYYY-MM-DD';
   templateUrl: './service-load.page.html',
   styleUrls: ['./service-load.page.scss']
 })
-export class ServiceLoadPage implements OnInit {
+export class ServiceLoadPage implements AfterViewInit {
   public dash: Dash;
   public hoursTable: UsersTableRow[];
   public projectsTable: ProjectsTableRow[];
   private _loadTable: number[];
   private _datesData: string[];
 
+  public count: DurationInputArg1 = 3;
+  public kind: DurationInputArg2 = 'month';
   public step = 'week';
   public dates: Date[];
   public chart: Object;
   public chartOptions: Object;
 
   constructor(
-    private serviceLoadService: ServiceLoadService
+    private serviceLoadService: ServiceLoadService,
+    private _cdr: ChangeDetectorRef,
   ) {}
 
-  ngOnInit() {
-    this.setDates(3, 'month');
+  ngAfterViewInit() {
+    this._cdr.detectChanges();
   }
 
-  public setDates(count: DurationInputArg1, kind: DurationInputArg2): void {
-    this.dates = [
-      moment().subtract(count, kind).toDate(),
-      moment().subtract(1, 'day').toDate()
-    ];
-    this.onDateChange();
+  public changeDates(
+    data: { count: DurationInputArg1, kind: DurationInputArg2, dates: Date[]}
+  ): void {
+    this.kind = data.kind;
+    this.count = data.count;
+    this.dates = data.dates;
+    this.getServiceLoad();
   }
 
-  public onDateChange(): void {
+  public beforeGetServiceLoad(): void {
+    this.kind = undefined;
+    this.count = undefined;
     this.getServiceLoad();
   }
 
@@ -62,9 +72,9 @@ export class ServiceLoadPage implements OnInit {
       });
   }
 
-  public setStep(step: string): void {
+  public changeStep(step: string): void {
     this.step = step;
-    this.onDateChange();
+    this.getServiceLoad();
   }
 
   private _initGraph(): void {

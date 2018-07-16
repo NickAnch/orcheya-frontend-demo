@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit
+} from '@angular/core';
 import * as moment from 'moment';
 import {
   DurationInputArg1,
@@ -25,11 +30,13 @@ export interface DataFromLocalStorageForDynamicReport {
   styleUrls: ['./users-and-projects.page.scss']
 })
 
-export class UsersAndProjectsPage implements OnInit {
+export class UsersAndProjectsPage implements OnInit, AfterViewInit {
   private datesData: string[];
   public usersData: UsersDynamicGraph[];
   public projectsData: ProjectDynamicGraph[];
 
+  public count: DurationInputArg1 = 3;
+  public kind: DurationInputArg2 = 'month';
   public dates: Date[];
   public chart: Object;
   public chartOptions: Object;
@@ -41,19 +48,30 @@ export class UsersAndProjectsPage implements OnInit {
   private _selectedRows: DataFromLocalStorageForDynamicReport;
 
   constructor(
-    private _serviceLoadDynamicService: UsersAndProjectsService
-  ) {}
+    private _serviceLoadDynamicService: UsersAndProjectsService,
+    private _cdr: ChangeDetectorRef,
+) {}
 
   ngOnInit() {
     this._getLocalStorage();
-    this.setDates(3, 'month');
   }
 
-  public setDates(count: DurationInputArg1, kind: DurationInputArg2): void {
-    this.dates = [
-      moment().subtract(count, kind).toDate(),
-      moment().subtract(1, 'day').toDate()
-    ];
+  ngAfterViewInit() {
+    this._cdr.detectChanges();
+  }
+
+  public changeDates(
+    data: { count: DurationInputArg1, kind: DurationInputArg2, dates: Date[]}
+  ): void {
+    this.kind = data.kind;
+    this.count = data.count;
+    this.dates = data.dates;
+    this.getServiceLoad();
+  }
+
+  public beforeGetServiceLoad(): void {
+    this.kind = undefined;
+    this.count = undefined;
     this.getServiceLoad();
   }
 
@@ -162,7 +180,7 @@ export class UsersAndProjectsPage implements OnInit {
     this._initGraph();
   }
 
-  public setStep(step: string): void {
+  public changeStep(step: string): void {
     this.step = step;
     this.getServiceLoad();
   }

@@ -18,74 +18,17 @@
              placeholder="Choose dates"
              bsDaterangepicker
              [(ngModel)]="dates"
-             (ngModelChange)="onDateChange()">
+             (ngModelChange)="beforeGetServiceLoad()">
     </div>
 
-    <div class="btn-group">
-      <button type="button"
-              class="btn"
-              [class.btn-default]="step != 'day'"
-              [class.btn-info]="step == 'day'"
-              (click)="setStep('day')">
-        Day
-      </button>
-      <button type="button"
-              class="btn"
-              [class.btn-default]="step != 'week'"
-              [class.btn-info]="step == 'week'"
-              (click)="setStep('week')">
-        Week
-      </button>
-      <button type="button"
-              class="btn"
-              [class.btn-default]="step != 'month'"
-              [class.btn-info]="step == 'month'"
-              (click)="setStep('month')">
-        Month
-      </button>
-      <button type="button"
-              class="btn"
-              [class.btn-default]="step != 'year'"
-              [class.btn-info]="step == 'year'"
-              (click)="setStep('year')">
-        Year
-      </button>
-    </div>
+    <app-date-step [step]="step"
+                   (changeStep)="changeStep($event)"></app-date-step>
   </div>
   <div class="row select-ranges">
     <div class="col-sm-8">
-      <div class="btn-group">
-        <button type="button"
-                class="btn btn-default"
-                (click)="setDates(7, 'day')">
-          Week
-        </button>
-        <button type="button"
-                class="btn btn-default"
-                (click)="setDates(14, 'day')">
-          2 Weeks
-        </button>
-        <button type="button"
-                class="btn btn-default"
-                (click)="setDates(1, 'month')">
-          Month
-        </button>
-        <button type="button"
-                class="btn btn-default"
-                (click)="setDates(3, 'month')">
-          Quarter
-        </button>
-        <button type="button"
-                class="btn btn-default"
-                (click)="setDates(1, 'year')">
-          Year
-        </button>
-        <button type="button"
-                class="btn btn-default"
-                (click)="setDates(10, 'year')">
-          10 Years
-        </button>
-      </div>
+      <app-date-range [count]="count"
+                      [kind]="kind"
+                      (changeDates)="changeDates($event)"></app-date-range>
     </div>
   </div>
 </section>

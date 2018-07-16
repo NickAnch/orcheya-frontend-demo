@@ -1,0 +1,30 @@
+<div class="btn-group">
+  <button type="button"
+          class="btn"
+          [class.btn-default]="step != 'day'"
+          [class.btn-info]="step == 'day'"
+          (click)="setStep('day')">
+    Day
+  </button>
+  <button type="button"
+          class="btn"
+          [class.btn-default]="step != 'week'"
+          [class.btn-info]="step == 'week'"
+          (click)="setStep('week')">
+    Week
+  </button>
+  <button type="button"
+          class="btn"
+          [class.btn-default]="step != 'month'"
+          [class.btn-info]="step == 'month'"
+          (click)="setStep('month')">
+    Month
+  </button>
+  <button type="button"
+          class="btn"
+          [class.btn-default]="step != 'year'"
+          [class.btn-info]="step == 'year'"
+          (click)="setStep('year')">
+    Year
+  </button>
+</div>

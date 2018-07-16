@@ -22,6 +22,10 @@ import {
   SanitizePipe,
   HumanizeTimePipe
 } from './pipes';
+import {
+  DateRangeComponent,
+  DateStepComponent
+} from './components';
 
 @NgModule({
   imports: [
@@ -47,6 +51,8 @@ import {
     TimesheetPage,
     SanitizePipe,
     HumanizeTimePipe,
+    DateStepComponent,
+    DateRangeComponent,
   ]
 })
 export class ReportsModule { }
