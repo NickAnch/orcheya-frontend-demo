@@ -11,17 +11,21 @@ import { SharedModule } from '../shared/shared.module';
 import {
   ServiceLoadService,
   TimesheetService,
-  ServiceLoadDynamicService
+  UsersAndProjectsService
 } from './services';
 import {
   ServiceLoadPage,
   TimesheetPage,
-  ServiceLoadDynamicPage
+  UsersAndProjectsPage
 } from './pages';
 import {
   SanitizePipe,
   HumanizeTimePipe
 } from './pipes';
+import {
+  DateRangeComponent,
+  DateStepComponent
+} from './components';
 
 @NgModule({
   imports: [
@@ -34,7 +38,7 @@ import {
   providers: [
     ServiceLoadService,
     TimesheetService,
-    ServiceLoadDynamicService,
+    UsersAndProjectsService,
     {
       provide: HighchartsStatic,
       useValue: highcharts
@@ -43,10 +47,12 @@ import {
   declarations: [
     ReportsComponent,
     ServiceLoadPage,
-    ServiceLoadDynamicPage,
+    UsersAndProjectsPage,
     TimesheetPage,
     SanitizePipe,
     HumanizeTimePipe,
+    DateStepComponent,
+    DateRangeComponent,
   ]
 })
 export class ReportsModule { }

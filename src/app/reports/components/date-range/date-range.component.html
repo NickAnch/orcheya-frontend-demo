@@ -1,0 +1,44 @@
+<div class="btn-group">
+  <button type="button"
+          class="btn"
+          [class.btn-default]="count != 7 || kind != 'day'"
+          [class.btn-info]="count == 7 && kind == 'day'"
+          (click)="setDates(7, 'day')">
+    Week
+  </button>
+  <button type="button"
+          class="btn"
+          [class.btn-default]="count != 14 || kind != 'day'"
+          [class.btn-info]="count == 14 && kind == 'day'"
+          (click)="setDates(14, 'day')">
+    2 Weeks
+  </button>
+  <button type="button"
+          class="btn"
+          [class.btn-default]="count != 1 || kind != 'month'"
+          [class.btn-info]="count == 1 && kind == 'month'"
+          (click)="setDates(1, 'month')">
+    Month
+  </button>
+  <button type="button"
+          class="btn"
+          [class.btn-default]="count != 3 || kind != 'month'"
+          [class.btn-info]="count == 3 && kind == 'month'"
+          (click)="setDates(3, 'month')">
+    Quarter
+  </button>
+  <button type="button"
+          class="btn"
+          [class.btn-default]="count != 1 || kind != 'year'"
+          [class.btn-info]="count == 1 && kind == 'year'"
+          (click)="setDates(1, 'year')">
+    Year
+  </button>
+  <button type="button"
+          class="btn"
+          [class.btn-default]="count != 10 || kind != 'year'"
+          [class.btn-info]="count == 10 && kind == 'year'"
+          (click)="setDates(10, 'year')">
+    10 Years
+  </button>
+</div>

@@ -27,7 +27,6 @@ export class TimingsService {
   }
 
   public add(timing: Timing): Observable<Timing> {
-    console.log(timing);
     return Observable.create((observer: Observer<Timing>) => {
       this._http
         .post<Timing>(`${ADMIN_TIMINGS_URL}`, timing._toJSON())
