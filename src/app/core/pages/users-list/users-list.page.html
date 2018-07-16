@@ -42,10 +42,8 @@
     </form>
   </div>
 
-  <br>
-
-  <div class="box-body no-padding search-results">
-    <ul class="users-list clearfix text-center">
+  <div>
+    <ul class="users-list">
       <li *ngFor="let user of usersList">
         <a [routerLink]="['/user-profile', user.id]">
           <img
