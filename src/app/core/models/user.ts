@@ -2,6 +2,7 @@ import { Alias, Model } from 'tsmodels';
 import { Image } from './image';
 import { Role } from './role';
 import { Timing } from './timing';
+import { Notification } from './notification';
 
 export interface IUsersIndex {
   users: User[];
@@ -41,6 +42,7 @@ export class User extends Model {
   @Alias('registration_finished') public registrationFinished: boolean;
   @Alias('notify_update') public notifyUpdate: boolean;
   @Alias('invitation_token') public invitationToken: string;
+  @Alias('notifications', Notification) public notifications: Notification[];
 
   constructor(user?) {
     super();
