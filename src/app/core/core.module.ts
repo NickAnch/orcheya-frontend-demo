@@ -59,6 +59,10 @@ import {
 } from './components/social-buttons/upwork/upwork-button.component';
 import { AdminModule } from '../admin/admin.module';
 import { TimingsService } from './services/timings.service';
+import {
+  NotificationsComponent
+} from './components/notifications/notifications.component';
+import { NotificationsService } from './services/notifications.service';
 
 
 @NgModule({
@@ -89,7 +93,8 @@ import { TimingsService } from './services/timings.service';
     UpdateService,
     ProjectService,
     RolesService,
-    TimingsService
+    TimingsService,
+    NotificationsService,
   ],
   declarations: [
     HeaderComponent,
@@ -116,7 +121,8 @@ import { TimingsService } from './services/timings.service';
     UserSettingFormComponent,
     FooterComponent,
     WaitingComponent,
-    IntegrationsPage
+    IntegrationsPage,
+    NotificationsComponent,
   ],
   entryComponents: [
     WaitingComponent,

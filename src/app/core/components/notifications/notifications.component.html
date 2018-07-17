@@ -1,0 +1,30 @@
+<a class="dropdown-toggle" dropdownToggle>
+  <i class="fa fa-flag-o"></i>
+  <span *ngIf="notifications.length > 0" class="label label-warning">
+    {{ notifications.length }}
+  </span>
+</a>
+
+
+<ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+  <li class="header">You have {{ notifications.length }} notifications:</li>
+
+  <li>
+    <ul class="notifications-list" *ngFor="let notification of notifications">
+      <li>
+        <div class="notification">
+          <div class="notification-text">
+            {{ notification.text }}
+          </div>
+          <div class="notification-read">
+            <i class="fa fa-close" (click)="read(notification.id)"></i>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </li>
+
+  <li class="footer" *ngIf="notifications.length > 0">
+    <a (click)="readAll()">Mark all as read</a>
+  </li>
+</ul>
