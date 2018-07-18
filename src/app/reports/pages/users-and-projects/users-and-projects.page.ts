@@ -99,12 +99,22 @@ export class UsersAndProjectsPage implements OnInit, AfterViewInit {
     this._initGraph();
   }
 
+  private _isArray(obj: Object): boolean {
+    return Object.prototype.toString.call(obj) === '[object Array]';
+  }
+
+  private _splat(obj: Object): Object | Object[] {
+    return this._isArray(obj) ? obj : [obj];
+  }
+
   private _initGraph(): void {
     dataKeys.forEach((key: string) => {
       this[key].forEach((row, index) => {
         this._setShowFromLocalStr(key, row, index);
       });
     });
+
+    const that = this;
 
     this.chartOptions = {
       chart: {
@@ -118,7 +128,15 @@ export class UsersAndProjectsPage implements OnInit, AfterViewInit {
       },
       tooltip: {
         shared: true,
-        crosshairs: true
+        crosshairs: true,
+        formatter: function (tooltip) {
+          const items = this.points || that._splat(this);
+          items.sort(function(a, b) {
+            return ((a.y < b.y) ? -1 : ((a.y > b.y) ? 1 : 0));
+          });
+          items.reverse();
+          return tooltip.defaultFormatter.call(this, tooltip);
+        }
       },
       yAxis: {
         title: {
