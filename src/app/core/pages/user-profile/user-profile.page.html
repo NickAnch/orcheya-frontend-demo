@@ -90,6 +90,11 @@
               <td>Skype</td>
               <td><a href="skype:{{ user?.skype }}?call"><span>{{ user?.skype }}</span></a></td>
             </tr>
+            <tr>
+              <td><i class="fa fa-fw fa-slack"></i></td>
+              <td>Slack</td>
+              <td><a [href]="slackUrl()"><span>{{ user?.slackID }}</span></a></td>
+            </tr>
             </tbody>
           </table>
           <div *ngIf="isCurrUser">
