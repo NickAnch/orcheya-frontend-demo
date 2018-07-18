@@ -5,11 +5,15 @@
   </span>
 </a>
 
-
 <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-  <li class="header">You have {{ notifications.length }} notifications:</li>
+  <li class="header" *ngIf="notifications.length === 0">
+    Yeah! All readed!
+  </li>
+  <li class="header" *ngIf="notifications.length > 0">
+    You have {{ notifications.length }} notifications:
+  </li>
 
-  <li>
+  <li *ngIf="notifications.length > 0">
     <ul class="notifications-list" *ngFor="let notification of notifications">
       <li>
         <div class="notification">
@@ -17,7 +21,7 @@
             {{ notification.text }}
           </div>
           <div class="notification-read">
-            <i class="fa fa-close" (click)="read(notification.id)"></i>
+            <a class="foo"><i class="fa fa-close" (click)="read(notification.id)"></i></a>
           </div>
         </div>
       </li>

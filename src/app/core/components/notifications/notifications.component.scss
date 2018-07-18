@@ -1,4 +1,3 @@
-
 .notifications-list {
   list-style: none;
   margin: 0;
@@ -10,4 +9,12 @@
   display: grid;
   grid-gap: 10px;
   grid-template-columns: 1fr min-content;
+}
+
+.foo {
+  color: #1a2226;
+
+  &:hover {
+    color: #2C8DBA;
+  }
 }
