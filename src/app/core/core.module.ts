@@ -59,6 +59,7 @@ import {
 } from './components/social-buttons/upwork/upwork-button.component';
 import { AdminModule } from '../admin/admin.module';
 import { TimingsService } from './services/timings.service';
+import { MapPage } from './pages/map/map.page';
 
 
 @NgModule({
@@ -116,7 +117,8 @@ import { TimingsService } from './services/timings.service';
     UserSettingFormComponent,
     FooterComponent,
     WaitingComponent,
-    IntegrationsPage
+    IntegrationsPage,
+    MapPage,
   ],
   entryComponents: [
     WaitingComponent,

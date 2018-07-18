@@ -22,6 +22,7 @@ import { RegistrationGuard } from './services/registration.guard';
 import { PermissionGuard } from './services/permission.guard';
 import { UpdatesPage } from './pages/updates/updates.page';
 import { IntegrationsPage } from './pages/integrations/integrations.page';
+import { MapPage } from './pages/map/map.page';
 
 const routes: Routes = [
   {
@@ -30,7 +31,7 @@ const routes: Routes = [
     canActivate: [CurrentUserGuard, PermissionGuard],
     children: [
       { path: '', redirectTo: 'users-list', pathMatch: 'full' },
-      { path: 'users-list', component: UsersListPage },
+      { path: 'users-list', component: MapPage },
       { path: 'profile', component: UserProfilePage },
       { path: 'user-profile/:id', component: UserProfilePage },
       { path: 'updates', component: UpdatesPage },

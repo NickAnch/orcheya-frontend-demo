@@ -6,7 +6,7 @@ import { CurrentUserService } from './services/current-user.service';
 @Component({
   selector: 'app-wrapper',
   templateUrl: './core.component.html',
-  styleUrls: []
+  styleUrls: ['core.component.scss']
 })
 export class CoreComponent implements OnInit {
 
