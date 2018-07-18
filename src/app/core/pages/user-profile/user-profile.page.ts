@@ -136,7 +136,7 @@ export class UserProfilePage implements OnInit,
 
   slackUrl() {
     return this.sanitizer.bypassSecurityTrustUrl(
-      `slack://user?team=T81DQCFQD&id=${this.user.slackID}`
+      `slack://user?team=${this.user.slackTeamId}&id=${this.user.slackId}`
     );
   }
 }
