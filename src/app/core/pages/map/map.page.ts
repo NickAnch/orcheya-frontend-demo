@@ -7,12 +7,13 @@ import { geoEquirectangular, geoPath } from 'd3-geo';
 import {
   select,
   Selection,
+  event
 } from 'd3-selection';
+import { zoom } from 'd3-zoom';
 import * as topojson from 'topojson-client';
 import * as countries
   from '../../../../../node_modules/world-atlas/world/110m.json';
 import SunCals from 'suncalc/suncalc';
-import * as d3 from 'd3';
 
 @Component({
   selector: 'app-map',
@@ -45,18 +46,23 @@ export class MapPage implements OnInit {
 
   ngOnInit() {
     this._initSize();
+    this._initZoom();
     this._createSvg();
     this._draw();
-    // this._zoom = d3.behavior.zoom()
-    //   .translate([0, 0])
-    //   .scale(1)
-    //   .scaleExtent([1, 8])
-    //   .on('zoom', this._zoomed());
   }
 
   private _initSize(): void {
     this._width = this._el.nativeElement.offsetWidth;
     this._height = this._width / 2;
+  }
+
+  private _initZoom() {
+    this._zoom = zoom()
+      .translateExtent([[0, 0], [this._width, this._height]])
+      .scaleExtent([1, 8])
+      .on(
+        'zoom', () => this._zoomed()
+      );
   }
 
   private _createSvg(): void {
@@ -69,7 +75,8 @@ export class MapPage implements OnInit {
       .append('svg');
     this._d3Elements.svg
       .attr('width', this._width)
-      .attr('height', this._height);
+      .attr('height', this._height)
+      .call(this._zoom);
     this._d3Elements.g = this._d3Elements.svg
       .append('g');
   }
@@ -78,7 +85,9 @@ export class MapPage implements OnInit {
     this._d3Elements.g
       .selectAll('path')
       .data(
-        topojson.feature(this._countries, this._countries['objects'].countries).features
+        topojson.feature(
+          this._countries, this._countries['objects'].countries
+        ).features
       )
       .enter()
       .append('path')
@@ -87,9 +96,7 @@ export class MapPage implements OnInit {
       .attr('height', this._height);
   }
 
-  private _zoomed() {
-    this._d3Elements.g.attr('transform', 'translate(' + d3.event.translate + ')scale(' + d3.event.scale + ')');
-    this._d3Elements.g.select('.state-border').style('stroke-width', 1.5 / d3.event.scale + 'px');
-    this._d3Elements.g.select('.county-border').style('stroke-width', .5 / d3.event.scale + 'px');
+  private _zoomed(): any {
+    this._d3Elements.g.attr('transform', event.transform);
   }
 }
