@@ -13,6 +13,7 @@ import {
   WaitingComponent
 } from '../../components/modals/waiting/waiting.component';
 import { TimeGraphTypes, TimeGraphFilter } from '../../models/timegraph-filter';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-profile',
@@ -39,6 +40,7 @@ export class UserProfilePage implements OnInit,
     private cdr: ChangeDetectorRef,
     private router: Router,
     private modalService: BsModalService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -130,5 +132,11 @@ export class UserProfilePage implements OnInit,
     this.modalOptions.keyboard = false;
     this.modalOptions.ignoreBackdropClick = true;
     this.modalOptions.class = 'modal-center';
+  }
+
+  slackUrl() {
+    return this.sanitizer.bypassSecurityTrustUrl(
+      `slack://user?team=${this.user.slackTeamId}&id=${this.user.slackId}`
+    );
   }
 }
