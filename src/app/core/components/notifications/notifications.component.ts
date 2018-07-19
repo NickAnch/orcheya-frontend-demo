@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Notification} from '../../models/notification';
-import {NotificationsService} from '../../services/notifications.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Notification } from '../../models/notification';
+import { NotificationsService } from '../../services/notifications.service';
 
 @Component({
   selector: '[app-notifications]', // tslint:disable-line
