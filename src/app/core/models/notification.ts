@@ -1,5 +1,4 @@
 import { Alias, Model } from 'tsmodels';
-import * as moment from 'moment';
 import { Moment } from 'moment';
 
 /**
@@ -9,6 +8,6 @@ export class Notification extends Model {
   @Alias() public id: number;
   @Alias() public text: number;
   @Alias() public importance: number;
-  @Alias() public readed_at: number;
-  @Alias() public created_at: number;
+  @Alias() public readed_at: Moment;
+  @Alias() public created_at: Moment;
 }
