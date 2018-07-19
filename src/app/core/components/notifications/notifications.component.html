@@ -14,14 +14,14 @@
   </li>
 
   <li *ngIf="notifications.length > 0">
-    <ul class="notifications-list" *ngFor="let notification of notifications">
-      <li>
+    <ul class="notifications-list">
+      <li *ngFor="let notification of notifications">
         <div class="notification">
           <div class="notification-text">
             {{ notification.text }}
           </div>
           <div class="notification-read">
-            <a class="foo"><i class="fa fa-close" (click)="read(notification.id)"></i></a>
+            <a class="notification-close"><i class="fa fa-close" (click)="read(notification.id)"></i></a>
           </div>
         </div>
       </li>
