@@ -1,5 +1,5 @@
 .wrap {
-  padding: 20px 30px
+  padding: 20px 30px;
 }
 
 .total {
@@ -16,6 +16,29 @@
 .filter-controls {
   display: grid;
   grid-template-columns: 1fr auto;
+}
+
+.chart {
+  display: flex;
+  justify-content: center;
+}
+
+chart {
+  display: block;
+  height: 400px;
+  width: 100%;
+}
+
+.loading {
+  align-items: center;
+  display: flex;
+  height: 400px;
+  justify-content: center;
+}
+
+.select-ranges {
+  align-items: center;
+  display: flex;
 }
 
 @media only screen and (max-width: 767px) {

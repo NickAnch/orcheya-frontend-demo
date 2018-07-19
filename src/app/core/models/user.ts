@@ -43,6 +43,9 @@ export class User extends Model {
   @Alias('notify_update') public notifyUpdate: boolean;
   @Alias('invitation_token') public invitationToken: string;
   @Alias('notifications', Notification) public notifications: Notification[];
+  @Alias('slack_id') public slackId: string;
+  @Alias('slack_team_id') public slackTeamId: string;
+  @Alias('slack_name') public slackName: string;
 
   constructor(user?) {
     super();

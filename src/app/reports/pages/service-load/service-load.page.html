@@ -18,14 +18,17 @@
              placeholder="Choose dates"
              bsDaterangepicker
              [(ngModel)]="dates"
-             (ngModelChange)="onDateChange()">
+             (ngModelChange)="beforeGetServiceLoad()">
     </div>
 
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" (click)="setDay()">Day</button>
-      <button type="button" class="btn btn-default" (click)="setWeek()">Week</button>
-      <button type="button" class="btn btn-default" (click)="setMonth()">Month</button>
-      <button type="button" class="btn btn-default" (click)="setYear()">Year</button>
+    <app-date-step [step]="step"
+                   (changeStep)="changeStep($event)"></app-date-step>
+  </div>
+  <div class="row select-ranges">
+    <div class="col-sm-8">
+      <app-date-range [count]="count"
+                      [kind]="kind"
+                      (changeDates)="changeDates($event)"></app-date-range>
     </div>
   </div>
 </section>
@@ -55,6 +58,19 @@
     <div>Paid hours: <span class="text-bold">{{ dash?.paidHours | humanizeTime }}</span></div>
     <div>Active projects: <span class="text-bold">{{ dash?.activeProjects }}</span></div>
     <div>Paid projects: <span class="text-bold">{{ dash?.paidProjects }}</span></div>
+  </div>
+</section>
+
+<section class="wrap chart"
+         *ngIf="chartOptions">
+  <chart [options]="chartOptions"
+         (load)="chart = $event"></chart>
+</section>
+
+<section class="wrap"
+         *ngIf="!chartOptions">
+  <div class="loading">
+    <i class="fa fa-refresh fa-spin fa-3x"></i>
   </div>
 </section>
 

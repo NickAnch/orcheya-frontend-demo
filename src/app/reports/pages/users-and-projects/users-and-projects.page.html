@@ -1,0 +1,152 @@
+<section class="content-header">
+  <h1>
+    Users and Projects
+  </h1>
+  <ol class="breadcrumb">
+    <li>
+      <a [routerLink]="['/']">Home</a>
+    </li>
+    <li class="active">
+      Users and Projects
+    </li>
+  </ol>
+</section>
+
+<section class="wrap">
+  <div class="filter-controls">
+    <div class="input-group">
+      <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+      </div>
+      <input class="form-control"
+             placeholder="Choose dates"
+             bsDaterangepicker
+             [(ngModel)]="dates"
+             (ngModelChange)="beforeGetServiceLoad()">
+    </div>
+
+    <app-date-step [step]="step"
+                   (changeStep)="changeStep($event)"></app-date-step>
+  </div>
+  <div class="row select-ranges">
+    <div class="col-sm-8">
+      <app-date-range [count]="count"
+                      [kind]="kind"
+                      (changeDates)="changeDates($event)"></app-date-range>
+    </div>
+    <div class="col-sm-4 tumbler-type-time">
+      <div>worked</div>
+      <ui-switch
+        size="small"
+        (change)="onChangeTypeOfTime()"></ui-switch>
+      <div>paid</div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap chart"
+         *ngIf="chartOptions">
+  <chart [options]="chartOptions"
+         (load)="chart = $event"></chart>
+</section>
+
+<section class="wrap"
+         *ngIf="!chartOptions">
+  <div class="loading">
+    <i class="fa fa-refresh fa-spin fa-3x"></i>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <tabset #tabset>
+
+      <tab class="nav-tabs-custom"
+           id="users"
+           heading="Users"
+           (select)="changeTabName('usersData')">
+        <div class="tab-content">
+          <table class="table table-bordered table-hover dataTable" role="grid">
+            <thead>
+            <tr role="row">
+              <th>Name</th>
+              <th>Worked time</th>
+              <th>Paid time</th>
+              <th class="turn-on-off">
+                <button class="btn btn-xs"
+                        [class.btn-success]="!turnOnOff.usersData"
+                        [class.btn-warning]="turnOnOff.usersData"
+                        [disabled]="turnOnOffLoading.usersData"
+                        (click)="setTurnOnOff()">
+                  <span *ngIf="!turnOnOffLoading.usersData">
+                    turn {{ turnOnOff.usersData ? 'off' : 'on' }}
+                  </span>
+                  <i class="fa fa-refresh fa-spin"
+                     *ngIf="turnOnOffLoading.usersData"></i>
+                </button>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr role="row" *ngFor="let row of usersData; let i = index">
+              <td>{{ row.name }} {{ row.surname }}</td>
+              <td>{{ row.workedSum | humanizeTime }}</td>
+              <td>{{ row.paidSum | humanizeTime }}</td>
+              <td class="clickable"
+                  (click)="changeVisibleRow(row, i)">
+                <input type="checkbox"
+                       [checked]="row.show">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
+
+      <tab class="nav-tabs-custom"
+           id="projects"
+           heading="Projects"
+           (select)="changeTabName('projectsData')">
+        <div class="tab-content">
+          <table class="table table-bordered table-hover dataTable" role="grid">
+            <thead>
+            <tr role="row">
+              <th>Name</th>
+              <th>Worked time</th>
+              <th>Paid time</th>
+              <th class="turn-on-off">
+                <button class="btn btn-xs"
+                        [class.btn-success]="!turnOnOff.projectsData"
+                        [class.btn-warning]="turnOnOff.projectsData"
+                        [disabled]="turnOnOffLoading.projectsData"
+                        (click)="setTurnOnOff()">
+                  <span *ngIf="!turnOnOffLoading.projectsData">
+                    turn {{ turnOnOff.projectsData ? 'off' : 'on' }}
+                  </span>
+                  <i class="fa fa-refresh fa-spin"
+                     *ngIf="turnOnOffLoading.projectsData"></i>
+                </button>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr role="row" *ngFor="let row of projectsData; let i = index">
+              <td>{{ row.name }}</td>
+              <td>{{ row.workedSum | humanizeTime }}</td>
+              <td>{{ row.paidSum | humanizeTime }}</td>
+              <td class="clickable"
+                  (click)="changeVisibleRow(row, i)">
+                <input type="checkbox"
+                       [checked]="row.show">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </tab>
+
+    </tabset>
+  </div>
+</section>
+
+
