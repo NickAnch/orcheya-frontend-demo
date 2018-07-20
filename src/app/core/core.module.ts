@@ -63,6 +63,7 @@ import {
   NotificationsComponent
 } from './components/notifications/notifications.component';
 import { NotificationsService } from './services/notifications.service';
+import { NewUpdatePage } from './pages/new-update/new-update.page';
 
 
 @NgModule({
@@ -123,6 +124,7 @@ import { NotificationsService } from './services/notifications.service';
     WaitingComponent,
     IntegrationsPage,
     NotificationsComponent,
+    NewUpdatePage,
   ],
   entryComponents: [
     WaitingComponent,
