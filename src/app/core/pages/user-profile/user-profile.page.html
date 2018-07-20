@@ -93,7 +93,7 @@
             <tr>
               <td><i class="fa fa-fw fa-slack"></i></td>
               <td>Slack</td>
-              <td><a *ngIf="user.slackId"
+              <td><a *ngIf="user?.slackId"
                      [href]="slackUrl()"><span>{{ user?.slackName }}</span></a></td>
             </tr>
             </tbody>
