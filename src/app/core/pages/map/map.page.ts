@@ -7,16 +7,13 @@ import { geoEquirectangular, geoPath } from 'd3-geo';
 import {
   select,
   Selection,
-  event,
-  mouse
+  event
 } from 'd3-selection';
 import { zoom } from 'd3-zoom';
 import * as topojson from 'topojson-client';
-import {
-  json,
-  tsv
-} from 'd3-fetch';
-import SunCals from 'suncalc/suncalc';
+import { json, tsv } from 'd3-fetch';
+import { line, curveBasis } from 'd3-shape';
+const SunCalc = require('suncalc');
 
 @Component({
   selector: 'app-map',
@@ -32,6 +29,7 @@ export class MapPage implements OnInit {
   private _d3Elements: {
     svg?: Selection<SVGSVGElement, any, null, undefined>,
     g?: Selection<SVGGElement, any, null, undefined>,
+    nightPath?: any,
     tooltip?: any
   } = {};
 
@@ -41,6 +39,8 @@ export class MapPage implements OnInit {
   private _path;
 
   private _zoom;
+  private _lineFunction =
+    line().x((d: any) => d.x).y((d: any) => d.y).curve(curveBasis);
 
   constructor(
     element: ElementRef,
@@ -53,7 +53,8 @@ export class MapPage implements OnInit {
     this._initZoom();
     this._createSvg();
     await this._getInfoForMap();
-    this._draw();
+    this._drawMap();
+    this._drawNightMap();
   }
 
   private _initSize(): void {
@@ -111,7 +112,7 @@ export class MapPage implements OnInit {
       .html(label);
   }
 
-  private _draw(): void {
+  private _drawMap(): void {
     const that = this;
     this._d3Elements.g
       .selectAll('path')
@@ -131,7 +132,95 @@ export class MapPage implements OnInit {
       .attr('height', this._height);
   }
 
+  private _drawNightMap(): void {
+    const path = this._getPathString(this._isNorthSun());
+    this._d3Elements.nightPath = this._d3Elements.svg
+      .append('path')
+      .attr('fill', 'rgb(0, 0, 0)')
+      .attr('fill-opacity', '.16')
+      .attr('d', path);
+  }
+
+  private _isDaylight(obj) {
+    return obj.altitude > 0;
+  }
+
+  private _isNorthSun() {
+    return this._isDaylight(SunCalc.getPosition(new Date(), 90, 0));
+  }
+
   private _zoomed(): any {
     this._d3Elements.g.attr('transform', event.transform);
+    this._d3Elements.nightPath.attr('transform', event.transform);
+  }
+
+  private _getPathString(northSun) {
+    let yStart;
+    if (northSun) {
+      yStart = this._height;
+    } else {
+      yStart = 0;
+    }
+    let pathStr = `M 0 ${yStart}`;
+    const path = this._getPath(northSun);
+    pathStr += this._lineFunction(path);
+
+    pathStr += ` L ${this._width}, ${yStart} `;
+    pathStr += ` L 0, ${yStart} `;
+    return pathStr;
+  }
+
+  private _getPath(northSun) {
+    const path = [];
+    const coords = this._getAllSunriseSunsetCoords(northSun);
+    coords.forEach(val => {
+      path.push(this._coordToXY(val));
+    });
+    return path;
+  }
+
+  private _getAllSunriseSunsetCoords(northSun) {
+    let lng = -180;
+    const coords = [];
+    while (lng < 180) {
+      coords.push([this._getSunriseSunsetLatitude(lng, northSun), lng]);
+      lng += 10;
+    }
+
+    coords.push([this._getSunriseSunsetLatitude(180, northSun), 180]);
+    return coords;
+  }
+
+  private _getSunriseSunsetLatitude(lng, northSun) {
+    let startLat;
+    let endLat;
+    let delta;
+    if (northSun) {
+      startLat = -90;
+      endLat = 90;
+      delta = 1;
+    } else {
+      startLat = 90;
+      endLat = -90;
+      delta = -1;
+    }
+
+    let lat = startLat;
+    while (lat !== endLat) {
+      if (this._isDaylight(SunCalc.getPosition(new Date(), lat, lng))) {
+        return lat;
+      }
+      lat += delta;
+    }
+    return lat;
+  }
+
+  private _coordToXY(coord) {
+    const x = (coord[1] + 180) * (this._width / 360);
+    const y = this._height - (coord[0] + 90) * (this._height / 180);
+    return {
+      x: x,
+      y: y
+    };
   }
 }
