@@ -80,7 +80,7 @@ export class ServiceLoadPage implements AfterViewInit {
   private _initGraph(): void {
     this.chartOptions = {
       chart: {
-        type: 'spline'
+        type: 'column'
       },
       title: {
         text : 'Graph with dynamic service load'
@@ -109,7 +109,16 @@ export class ServiceLoadPage implements AfterViewInit {
       series: [{
         name: 'Service load',
         data: this._loadTable
-      }]
+      }],
+      plotOptions: {
+        series: {
+          borderWidth: 0,
+          dataLabels: {
+            enabled: true,
+            format: '{point.y:.1f}%'
+          }
+        }
+      }
     };
   }
 }

@@ -22,9 +22,11 @@ export class UsersService {
         .subscribe(
           resp => {
             observer.next({
-              users: User.newCollection(User, resp['users']),
+              users: User.newCollection(User, resp['users'] || []),
               roles: Role.newCollection(Role, resp['meta']['roles']),
-              deletedUsers: User.newCollection(User, resp['deleted_users'])
+              deletedUsers: User.newCollection(
+                User, resp['deleted_users'] || []
+              )
             });
             observer.complete();
           },
