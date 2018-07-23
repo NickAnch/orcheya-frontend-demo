@@ -1,43 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { Update } from '../../models/update';
-import { User } from '../../models/user';
 import { NewUpdateService } from '../../services/new-update.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
 
 @Component({
   selector: 'new-update',
   templateUrl: './new-update.page.html',
   styleUrls: ['./new-update.page.scss']
 })
-export class NewUpdatePage implements OnInit{
-
-  // public update: Update;
-  // update = {
-  //   id: 0,
-  //   made: 'previous',
-  //   planning: '',
-  //   issues: 'problems',
-  //   user: 'user',
-  //   date: 'date',
-  // };
+export class NewUpdatePage implements OnInit {
 
   public update = new Update({
-    made: 'previous',
-    planning: '',
-    issues: 'problems',
-  })
+    made: 'previousssss',
+    planning: '23123',
+    issues: 'problemsss',
+  });
 
-  constructor(private newUpdateService: NewUpdateService) {}
+  constructor(
+    private newUpdateService: NewUpdateService,
+    private activatedRoute: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
-    this.newUpdateService.getLastUpdate()
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.update.date = params['date'];
+    });
+  }
+
+  public sendUpdate(): void {
+    this.newUpdateService.sendNewUpdate(this.update)
       .subscribe(
-        res => {
-          console.log(res);
+        response => {
+          console.log(response);
         }
       )
   }
-
-  // sendUpdate() {
-  //   console.log(this.update);
-  // }
 }
