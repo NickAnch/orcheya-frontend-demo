@@ -1,12 +1,15 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+} from '@angular/core';
 
 import { BaseType, select, Selection } from 'd3-selection';
 import { timeMonths, timeWeek, timeDays } from 'd3-time';
 import { timeFormat } from 'd3-time-format';
 
 import { TimeActivity } from '../../models/time-activity.interface';
-import { UsersListService } from '../../services/users-list.service';
 
 interface DayData {
   date: Date;
@@ -26,11 +29,12 @@ interface ColorData {
   template: ``,
   styleUrls: ['./time-activity.component.scss']
 })
-export class TimeActivityComponent implements OnInit, OnDestroy {
-  @Input() private dateFrom: Date;
-  @Input() private dateTo: Date;
-  @Input() private width = '100%';
-  private activityDataCopy: TimeActivity[] = [];
+export class TimeActivityComponent implements OnChanges {
+  @Input() private activityData: TimeActivity[];
+  private activityDataCopy: TimeActivity[];
+  private dateFrom: Date;
+  private dateTo: Date;
+  private width = '100%';
   private params = {
     cellSize: 12,
     textWeeks: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
@@ -64,42 +68,40 @@ export class TimeActivityComponent implements OnInit, OnDestroy {
     gDays?: Selection<SVGSVGElement, any, null, undefined>,
     days?: Selection<BaseType, any, BaseType, undefined>,
   } = {};
-  private dataCount = 0;
-  private subscriptions: Subscription[] = [];
+  private dataCount = false;
+  private updateWithTimer = false;
 
   constructor(
     element: ElementRef,
-    private usersListService: UsersListService,
   ) {
     this.d3Elements.parent = select(element.nativeElement)
       .append('div');
   }
 
-  ngOnInit() {
+  ngOnChanges(changes) {
+    if (changes.activityData && changes.activityData.firstChange) {
+      this.init();
+    }
+    if (changes.activityData && changes.activityData.currentValue) {
+      this.changeData();
+    }
+  }
+
+  private init() {
     this.d3Elements.parent
       .attr('class', 'time-activity-wrapper')
       .attr('style', `width: ${this.width}`);
-
     this.setParamsDate();
-
-    this.subscriptions.push(
-      this.usersListService.integrationTimeSubject
-        .subscribe(data => {
-          if (this.dataCount) {
-            this.d3Elements.wrapper.remove();
-          }
-
-          this.dataCount += 1;
-          this.activityDataCopy = [...data];
-          this.initD3Logic();
-        })
-    );
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(
-      subscription => subscription.unsubscribe()
-    );
+  private changeData() {
+    if (this.dataCount) {
+      this.d3Elements.wrapper.remove();
+    }
+    this.updateWithTimer = !!this.activityData.find(x => x.time > 0);
+    this.dataCount = true;
+    this.activityDataCopy = [...this.activityData];
+    this.initD3Logic();
   }
 
   private setParamsDate() {
@@ -276,8 +278,14 @@ export class TimeActivityComponent implements OnInit, OnDestroy {
         .color;
     };
     const mouseOverHandler = function (d: DayData): void {
-      const x = +(<HTMLElement>this).getAttribute('x');
-      const y = +(<HTMLElement>this).getAttribute('y');
+      let x = +(<HTMLElement>this).getAttribute('x');
+      if (!x) {
+        x = +(<HTMLElement>this).getAttribute('cx') - 6;
+      }
+      let y = +(<HTMLElement>this).getAttribute('y');
+      if (!y) {
+        y = +(<HTMLElement>this).getAttribute('cy') - 6;
+      }
       // 15 - 45% height of tooltip; 22 - height of tooltip bot arrow + padding
       const top = y - 15 - 22;
       // 25 - calendar padding + width of weeks; 75 - 45% width of tooltip
@@ -322,6 +330,38 @@ export class TimeActivityComponent implements OnInit, OnDestroy {
       .attr('x', calcX)
       .attr('y', calcY)
       .attr('fill', getColor)
+      .on('mouseover', mouseOverHandler)
+      .on('mouseout', () => this.d3Elements.tooltip.attr('class', 'tooltip'));
+
+    const dotes = this.d3Elements.gDays
+      .attr('class', 'days')
+      .selectAll('.dot')
+      .data(data)
+      .enter()
+      .append('circle');
+
+    weekCounter = 0;
+
+    const isExist = (d: DayData) => {
+      let str;
+      const date = timeFormat('%Y-%m-%d')(d.date);
+      const find = this.activityData.find(x => x.date === date);
+      if (find && find.update) {
+        str = this.updateWithTimer ? 'white' : 'black';
+      } else {
+        str = 'transparent';
+      }
+      return str;
+    };
+
+    dotes
+      .attr('class', 'dot')
+      .attr('width', this.params.cellSize)
+      .attr('height', this.params.cellSize)
+      .attr('cx', (d) => calcX(d) + 6)
+      .attr('cy', (d) => calcY(d) + 6)
+      .attr('r', 2)
+      .attr('fill', isExist)
       .on('mouseover', mouseOverHandler)
       .on('mouseout', () => this.d3Elements.tooltip.attr('class', 'tooltip'));
   }

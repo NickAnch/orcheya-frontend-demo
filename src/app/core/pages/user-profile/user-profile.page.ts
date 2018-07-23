@@ -9,11 +9,10 @@ import { BsModalService, ModalOptions, BsModalRef } from 'ngx-bootstrap/modal';
 import { CurrentUserService } from '../../services/current-user.service';
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
-import {
-  WaitingComponent
-} from '../../components/modals/waiting/waiting.component';
+import { WaitingComponent } from '../../components';
 import { TimeGraphTypes, TimeGraphFilter } from '../../models/timegraph-filter';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TimeActivity } from '../../models/time-activity.interface';
 
 @Component({
   selector: 'app-user-profile',
@@ -30,6 +29,7 @@ export class UserProfilePage implements OnInit,
   public isCurrUser = false;
   public filter = new TimeGraphFilter();
   public tgTypes = TimeGraphTypes;
+  public activityData: TimeActivity[];
   private modalOptions = new ModalOptions();
   private modalRef: BsModalRef;
 
@@ -66,7 +66,7 @@ export class UserProfilePage implements OnInit,
 
   ngAfterViewInit() {
     this.checkActiveTab();
-    this.userListService.getIntegrationTime(this.filter);
+    this.getIntegrationTime();
   }
 
   ngAfterViewChecked() {
@@ -86,11 +86,22 @@ export class UserProfilePage implements OnInit,
     ];
   }
 
-  onIntegrationChange() {
-    this.userListService.getIntegrationTime(this.filter);
+  public checkSelected(source, update): boolean {
+    return this.filter.source === source && this.filter.update === update;
   }
 
-  onTabSelect(tab) {
+  public onIntegrationChange(source, update): void {
+    if (this.filter.source === source && this.filter.update === update) {
+      this.filter.source = undefined;
+      this.filter.update = true;
+    } else {
+      this.filter.source = source;
+      this.filter.update = update;
+    }
+    this.getIntegrationTime();
+  }
+
+  public onTabSelect(tab): void {
     this.changeTabUri(tab);
   }
 
@@ -134,7 +145,13 @@ export class UserProfilePage implements OnInit,
     this.modalOptions.class = 'modal-center';
   }
 
-  slackUrl() {
+  private getIntegrationTime() {
+    this.userListService
+      .getIntegrationTime(this.filter)
+      .subscribe(data => this.activityData = data);
+  }
+
+  public slackUrl() {
     return this.sanitizer.bypassSecurityTrustUrl(
       `slack://user?team=${this.user.slackTeamId}&id=${this.user.slackId}`
     );
