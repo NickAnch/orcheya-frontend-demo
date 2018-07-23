@@ -37,6 +37,7 @@ export class TimeActivityComponent implements OnChanges {
   private width = '100%';
   private params = {
     cellSize: 12,
+    cellSizeForCircle: 6,
     textWeeks: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     dateFrom: null,
     dateTo: null,
@@ -280,11 +281,13 @@ export class TimeActivityComponent implements OnChanges {
     const mouseOverHandler = function (d: DayData): void {
       let x = +(<HTMLElement>this).getAttribute('x');
       if (!x) {
-        x = +(<HTMLElement>this).getAttribute('cx') - 6;
+        x = +(<HTMLElement>this).getAttribute('cx') -
+          that.params.cellSizeForCircle;
       }
       let y = +(<HTMLElement>this).getAttribute('y');
       if (!y) {
-        y = +(<HTMLElement>this).getAttribute('cy') - 6;
+        y = +(<HTMLElement>this).getAttribute('cy') -
+          that.params.cellSizeForCircle;
       }
       // 15 - 45% height of tooltip; 22 - height of tooltip bot arrow + padding
       const top = y - 15 - 22;
@@ -358,8 +361,8 @@ export class TimeActivityComponent implements OnChanges {
       .attr('class', 'dot')
       .attr('width', this.params.cellSize)
       .attr('height', this.params.cellSize)
-      .attr('cx', (d) => calcX(d) + 6)
-      .attr('cy', (d) => calcY(d) + 6)
+      .attr('cx', (d) => calcX(d) + this.params.cellSizeForCircle)
+      .attr('cy', (d) => calcY(d) + this.params.cellSizeForCircle)
       .attr('r', 2)
       .attr('fill', isExist)
       .on('mouseover', mouseOverHandler)

@@ -5,13 +5,16 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { BsModalService, ModalOptions, BsModalRef } from 'ngx-bootstrap/modal';
+import { DomSanitizer } from '@angular/platform-browser';
+import {
+  SafeUrl
+} from '@angular/platform-browser/src/security/dom_sanitization_service';
 
 import { CurrentUserService } from '../../services/current-user.service';
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
 import { WaitingComponent } from '../../components';
 import { TimeGraphTypes, TimeGraphFilter } from '../../models/timegraph-filter';
-import { DomSanitizer } from '@angular/platform-browser';
 import { TimeActivity } from '../../models/time-activity.interface';
 
 @Component({
@@ -73,7 +76,7 @@ export class UserProfilePage implements OnInit,
     this.cdr.detectChanges();
   }
 
-  onChange(file: File) {
+  public onChange(file: File): void {
     this.modalRef = this.modalService.show(WaitingComponent, this.modalOptions);
 
     const subscription = this.currentUser
@@ -105,13 +108,13 @@ export class UserProfilePage implements OnInit,
     this.changeTabUri(tab);
   }
 
-  onButtonClick() {
+  public onButtonClick(): void {
     const tab = 'settings';
     this.changeTabUri(tab);
     this.checkActiveTab(tab);
   }
 
-  private checkActiveTab(tab?: string) {
+  private checkActiveTab(tab?: string): void {
     if (!tab && !this.route.snapshot.queryParamMap.has('tab')) {
       return;
     }
@@ -134,7 +137,7 @@ export class UserProfilePage implements OnInit,
     });
   }
 
-  private initModalOptions() {
+  private initModalOptions(): void {
     this.modalOptions.initialState = {
       title: 'Image uploader',
       progressSubject: this.currentUser.progressSubject,
@@ -145,13 +148,13 @@ export class UserProfilePage implements OnInit,
     this.modalOptions.class = 'modal-center';
   }
 
-  private getIntegrationTime() {
+  private getIntegrationTime(): void {
     this.userListService
       .getIntegrationTime(this.filter)
       .subscribe(data => this.activityData = data);
   }
 
-  public slackUrl() {
+  public slackUrl(): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(
       `slack://user?team=${this.user.slackTeamId}&id=${this.user.slackId}`
     );
