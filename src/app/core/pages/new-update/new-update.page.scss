@@ -10,6 +10,11 @@
   width: 70%;
 }
 
+textarea {
+  max-width: 100%;
+  min-width: 100%;
+}
+
 @media (max-width: 767px) {
   .box {
     width: unset;

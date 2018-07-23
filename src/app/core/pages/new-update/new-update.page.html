@@ -7,7 +7,59 @@
             Write a new update
           </h4>
         </div>
-        hello
+        <div class="box-body">
+          <form (ngSubmit)="sendUpdate()">
+            <div class="form-group">
+              <label for="update-today">
+                You have done today:
+              </label>
+              <textarea
+                type="text"
+                class="form-control"
+                placeholder="Finished tasks"
+                name="update-today"
+                required
+                [(ngModel)]="update.made"
+              >
+              </textarea>
+            </div>
+            <div class="form-group has-feedback" [class.has-error]="errors">
+              <label for="update-tomorrow">
+                What are you going to do tomorrow?
+              </label>
+              <textarea
+                type="text"
+                class="form-control"
+                placeholder="Tasks you gonna do"
+                name="update-tomorrow"
+                required
+                [(ngModel)]="update.tomorrow"
+              >
+              </textarea>
+            </div>
+            <div class="form-group has-feedback" [class.has-error]="errors">
+              <label for="update-problems">
+                Problems?
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Problems"
+                name="update-problems"
+                required
+                [(ngModel)]="update.problems"
+              >
+            </div>
+            <div class="row">
+              <div class="col-xs-8"></div>
+              <div class="col-xs-4">
+                <button type="submit" class="btn btn-primary btn-block btn-flat">
+                  Send
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

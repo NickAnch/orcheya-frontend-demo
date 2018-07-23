@@ -64,6 +64,7 @@ import {
 } from './components/notifications/notifications.component';
 import { NotificationsService } from './services/notifications.service';
 import { NewUpdatePage } from './pages/new-update/new-update.page';
+import { NewUpdateService } from './services/new-update.service';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import { NewUpdatePage } from './pages/new-update/new-update.page';
     RolesService,
     TimingsService,
     NotificationsService,
+    NewUpdateService,
   ],
   declarations: [
     HeaderComponent,
