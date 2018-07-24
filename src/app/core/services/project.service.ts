@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Project } from '../models/project';
 import { Observer } from 'rxjs/Observer';
+import { Model } from 'tsmodels';
 
 @Injectable()
 export class ProjectService {
@@ -16,8 +17,7 @@ export class ProjectService {
         .get(this.apiPath)
         .subscribe(
           (res: { projects: Project[] }) => {
-            const projects = res.projects.map(project => new Project(project));
-            observer.next(projects);
+            observer.next(Model.newCollection(Project, res.projects));
             observer.complete();
           },
           err => observer.error(err)
