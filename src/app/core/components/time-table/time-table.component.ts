@@ -1,8 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import {
+  Component,
+  Input,
+  OnChanges,
+} from '@angular/core';
 import * as moment from 'moment';
 
-import { UsersListService } from '../../services/users-list.service';
 import { TimeActivity } from '../../models/time-activity.interface';
 
 interface Month {
@@ -40,10 +42,9 @@ interface Day {
   templateUrl: './time-table.component.html',
   styleUrls: ['./time-table.component.scss']
 })
-export class TimeTableComponent implements OnInit, OnDestroy {
-  @Input() public width = '100%';
-  private yearTime: TimeActivity[] = [];
-  private subscriptions: Subscription[] = [];
+export class TimeTableComponent implements OnChanges {
+  @Input() private yearTime: TimeActivity[];
+  public width = '100%';
   public months: Month[] = [
     { title: 'January', position: 0 },
     { title: 'February', position: 1 },
@@ -64,7 +65,7 @@ export class TimeTableComponent implements OnInit, OnDestroy {
   public nowMonth = new Date().getMonth();
   public nowWeek: number;
 
-  constructor(private usersListService: UsersListService) {}
+  constructor() {}
 
   private static convertTime(time: number): string {
     if (!time) {
@@ -83,23 +84,11 @@ export class TimeTableComponent implements OnInit, OnDestroy {
     return moment().week() - firstMonthDate.week();
   }
 
-  ngOnInit() {
-    this.subscriptions.push(
-      this.usersListService.integrationTimeSubject
-        .subscribe(data => {
-          this.yearTime = data;
-
-          this.calcTime();
-        })
-    );
-
+  ngOnChanges(changes) {
+    if (!this.yearTime) {
+      this.yearTime = [];
+    }
     this.calcTime();
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(
-      subscription => subscription.unsubscribe()
-    );
   }
 
   public onChange(value: string) {
@@ -204,18 +193,6 @@ export class TimeTableComponent implements OnInit, OnDestroy {
       });
 
     week.totalText = TimeTableComponent.convertTime(week.totalMinutes);
-  }
-
-  private sortByPosition(array: { position: number }[]) {
-    array.sort((current, next) => {
-      if (current.position > next.position) {
-        return 1;
-      } else if (current.position < next.position) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
   }
 
   private calcTime() {
