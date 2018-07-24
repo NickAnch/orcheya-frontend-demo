@@ -12,7 +12,8 @@ import { Timing } from '../../models/timing';
 
 @Component({
   selector: 'app-user-settings-form',
-  templateUrl: './user-settings-form.component.html'
+  templateUrl: './user-settings-form.component.html',
+  styleUrls: ['./user-settings-form.component.scss']
 })
 export class UserSettingFormComponent implements OnInit, OnDestroy {
   @Input() private navigateTo: string[] = [];
@@ -62,12 +63,28 @@ export class UserSettingFormComponent implements OnInit, OnDestroy {
   }
 
   private subscribeChanges(): void {
+    let oldForm = this.form.value;
     this._subscription =
       this.form
         .valueChanges
         .debounceTime(500)
-        .subscribe(() => {
+        .subscribe((changedForm) => {
           if (this.form.valid) {
+            Object.keys(changedForm).forEach(key => {
+              if (changedForm[key] !== oldForm[key]) {
+                if (key === 'sex') {
+                  return
+                }
+                let savedMessageEl = document.getElementById(key).nextElementSibling;
+                savedMessageEl
+                  .classList
+                  .add('saved-block-active');
+                  setTimeout(() => {
+                    savedMessageEl.classList.remove('saved-block-active');
+                  }, 1000);
+              }
+            })
+            oldForm = changedForm;
             this.updateSettings();
           }
         });
