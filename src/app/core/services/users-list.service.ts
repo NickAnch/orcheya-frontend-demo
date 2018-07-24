@@ -9,7 +9,6 @@ import { Meta } from '../models/meta.interface';
 import { UserFilter } from '../models/user-filter';
 import { FilterHttpHelper } from '../../shared/helpers/filter-http.helper';
 import { TimeGraphFilter } from '../models/timegraph-filter';
-import { Subject } from 'rxjs/Subject';
 
 export interface UsersListResponse {
   users: User[];
@@ -21,8 +20,6 @@ export class UsersListService {
   private apiPath = '/api/users';
 
   constructor(private http: HttpClient) {}
-
-  public integrationTimeSubject = new Subject<TimeActivity[]>();
 
   public getUsersList(filter?: UserFilter): Observable<UsersListResponse> {
     const query = FilterHttpHelper.getQueryStrByFilter(filter);
@@ -44,14 +41,21 @@ export class UsersListService {
     });
   }
 
-  public getIntegrationTime(filter: TimeGraphFilter): void {
+  public getIntegrationTime(
+    filter: TimeGraphFilter
+  ): Observable<TimeActivity[]> {
     const query = FilterHttpHelper.getQueryStrByFilter(filter);
 
-    this.http
-      .get(`${this.apiPath}/${filter.id}/timegraph${query}`)
-      .subscribe((data: TimeActivity[]) => (
-        this.integrationTimeSubject.next(data)
-      ));
+    return Observable.create((observer: Observer<TimeActivity[]>) => {
+      this.http
+        .get(`${this.apiPath}/${filter.id}/timegraph${query}`)
+        .subscribe(
+          (data: TimeActivity[]) => {
+            observer.next(data);
+            observer.complete();
+          }
+        );
+    });
   }
 
   public getUserTimeStatsById(id: number) {
