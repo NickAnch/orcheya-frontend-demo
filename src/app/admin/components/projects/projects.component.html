@@ -33,9 +33,11 @@
                class="upwork-icon"
                src="/assets/social-icons/upwork-16x16.ico"
                alt="upwork"
-               tooltip="Upwork"
-               >
-          <i *ngIf="project.platform == 'timedoctor'" class="fa fa-clock-o"></i>
+               tooltip="UpWork">
+          <i *ngIf="project.platform == 'timedoctor'"
+             class="fa fa-clock-o"
+             tooltip="TimeDoctor">
+          </i>
         </td>
         <td>{{ project.name }} </td>
         <td>{{ project.createdAt | humanizeDate }}</td>
