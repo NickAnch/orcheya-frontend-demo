@@ -81,8 +81,8 @@ export class UserSettingFormComponent implements OnInit, OnDestroy {
                 setTimeout(() => {
                   this.toggleSavedMessage(savedMessageEl);
                 }, 1000);
-              };
-            })
+              }
+            });
             oldForm = changedForm;
             this.updateSettings();
           }
