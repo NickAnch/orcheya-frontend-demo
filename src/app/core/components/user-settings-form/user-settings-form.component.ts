@@ -73,21 +73,24 @@ export class UserSettingFormComponent implements OnInit, OnDestroy {
             Object.keys(changedForm).forEach(key => {
               if (changedForm[key] !== oldForm[key]) {
                 if (key === 'sex') {
-                  return
+                  return;
                 }
-                let savedMessageEl = document.getElementById(key).nextElementSibling;
-                savedMessageEl
-                  .classList
-                  .add('saved-block-active');
-                  setTimeout(() => {
-                    savedMessageEl.classList.remove('saved-block-active');
-                  }, 1000);
-              }
+                const savedMessageEl =
+                  document.getElementById(key).nextElementSibling;
+                this.toggleSavedMessage(savedMessageEl);
+                setTimeout(() => {
+                  this.toggleSavedMessage(savedMessageEl);
+                }, 1000);
+              };
             })
             oldForm = changedForm;
             this.updateSettings();
           }
         });
+  }
+
+  private toggleSavedMessage(element: Element): void {
+    element.classList.toggle('saved-block-active');
   }
 
   private formatCurrentUserNumber() {
