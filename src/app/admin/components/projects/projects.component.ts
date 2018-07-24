@@ -27,7 +27,7 @@ export class ProjectsComponent implements OnInit {
       .getProjectsList()
       .subscribe(projects => {
         this.projects = projects.sort((a: Project, b: Project) => {
-          return a.createdAt > b.createdAt ? 1 : a.name === b.name ? 0 : -1;
+          return a.createdAt > b.createdAt ? -1 : 1;
         });
         this.filtering();
       });
@@ -39,7 +39,7 @@ export class ProjectsComponent implements OnInit {
       .subscribe();
   }
 
-  filtering() {
+  filtering(): void {
     if (this.filter === undefined) {
       this.displaing = this.projects;
     } else {
