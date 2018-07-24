@@ -10,6 +10,13 @@ import { ProjectService } from '../../../core/services/project.service';
 })
 export class ProjectsComponent implements OnInit {
   public projects: Project[];
+  public displaing: Project[];
+  public filter: string | undefined = undefined;
+
+  tgTypes = {
+    timedoctor: 'timedoctor',
+    upwork: 'upwork'
+  };
 
   constructor(
     private _projectService: ProjectService
@@ -20,8 +27,9 @@ export class ProjectsComponent implements OnInit {
       .getProjectsList()
       .subscribe(projects => {
         this.projects = projects.sort((a: Project, b: Project) => {
-          return a.name > b.name ? 1 : a.name === b.name ? 0 : -1;
+          return a.createdAt > b.createdAt ? 1 : a.name === b.name ? 0 : -1;
         });
+        this.filtering();
       });
   }
 
@@ -29,5 +37,15 @@ export class ProjectsComponent implements OnInit {
     this._projectService
       .updateProject(id, { paid: event.target.checked })
       .subscribe();
+  }
+
+  filtering() {
+    if (this.filter === undefined) {
+      this.displaing = this.projects;
+    } else {
+      this.displaing = this.projects.filter(
+        project => project.platform === this.filter
+      );
+    }
   }
 }
