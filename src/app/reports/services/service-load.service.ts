@@ -12,7 +12,7 @@ import { Model } from 'tsmodels';
 export interface ServiceLoadResponse {
   dash: Dash;
   datesData: string[];
-  loadTable: number[];
+  loadTable: { percent: number, plan: number, real: number }[];
   usersTable: UsersTableRow[];
   projectsTable: ProjectsTableRow[];
 }

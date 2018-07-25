@@ -9,7 +9,17 @@
 
 .filter-controls {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: repeat(3, auto);
+}
+
+.calendar-control {
+  align-items: center;
+  display: flex;
+}
+
+.c-label {
+  font-weight: bold;
+  margin: 0 5px 0 15px;
 }
 
 .tumbler-type-time {
