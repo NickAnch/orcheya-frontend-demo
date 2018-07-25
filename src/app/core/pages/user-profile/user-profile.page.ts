@@ -5,15 +5,17 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { BsModalService, ModalOptions, BsModalRef } from 'ngx-bootstrap/modal';
+import { DomSanitizer } from '@angular/platform-browser';
+import {
+  SafeUrl
+} from '@angular/platform-browser/src/security/dom_sanitization_service';
 
 import { CurrentUserService } from '../../services/current-user.service';
 import { UsersListService } from '../../services/users-list.service';
 import { User } from '../../models/user';
-import {
-  WaitingComponent
-} from '../../components/modals/waiting/waiting.component';
+import { WaitingComponent } from '../../components';
 import { TimeGraphTypes, TimeGraphFilter } from '../../models/timegraph-filter';
-import { DomSanitizer } from '@angular/platform-browser';
+import { TimeActivity } from '../../models/time-activity.interface';
 
 @Component({
   selector: 'app-user-profile',
@@ -30,6 +32,7 @@ export class UserProfilePage implements OnInit,
   public isCurrUser = false;
   public filter = new TimeGraphFilter();
   public tgTypes = TimeGraphTypes;
+  public activityData: TimeActivity[];
   private modalOptions = new ModalOptions();
   private modalRef: BsModalRef;
 
@@ -66,14 +69,14 @@ export class UserProfilePage implements OnInit,
 
   ngAfterViewInit() {
     this.checkActiveTab();
-    this.userListService.getIntegrationTime(this.filter);
+    this.getIntegrationTime();
   }
 
   ngAfterViewChecked() {
     this.cdr.detectChanges();
   }
 
-  onChange(file: File) {
+  public onChange(file: File): void {
     this.modalRef = this.modalService.show(WaitingComponent, this.modalOptions);
 
     const subscription = this.currentUser
@@ -86,21 +89,32 @@ export class UserProfilePage implements OnInit,
     ];
   }
 
-  onIntegrationChange() {
-    this.userListService.getIntegrationTime(this.filter);
+  public checkSelected(source, update): boolean {
+    return this.filter.source === source && this.filter.update === update;
   }
 
-  onTabSelect(tab) {
+  public onIntegrationChange(source, update): void {
+    if (this.filter.source === source && this.filter.update === update) {
+      this.filter.source = undefined;
+      this.filter.update = true;
+    } else {
+      this.filter.source = source;
+      this.filter.update = update;
+    }
+    this.getIntegrationTime();
+  }
+
+  public onTabSelect(tab): void {
     this.changeTabUri(tab);
   }
 
-  onButtonClick() {
+  public onButtonClick(): void {
     const tab = 'settings';
     this.changeTabUri(tab);
     this.checkActiveTab(tab);
   }
 
-  private checkActiveTab(tab?: string) {
+  private checkActiveTab(tab?: string): void {
     if (!tab && !this.route.snapshot.queryParamMap.has('tab')) {
       return;
     }
@@ -123,7 +137,7 @@ export class UserProfilePage implements OnInit,
     });
   }
 
-  private initModalOptions() {
+  private initModalOptions(): void {
     this.modalOptions.initialState = {
       title: 'Image uploader',
       progressSubject: this.currentUser.progressSubject,
@@ -134,7 +148,13 @@ export class UserProfilePage implements OnInit,
     this.modalOptions.class = 'modal-center';
   }
 
-  slackUrl() {
+  private getIntegrationTime(): void {
+    this.userListService
+      .getIntegrationTime(this.filter)
+      .subscribe(data => this.activityData = data);
+  }
+
+  public slackUrl(): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(
       `slack://user?team=${this.user.slackTeamId}&id=${this.user.slackId}`
     );
