@@ -21,50 +21,28 @@
              (ngModelChange)="beforeGetServiceLoad()">
     </div>
 
-    <app-date-step [step]="step"
-                   (changeStep)="changeStep($event)"></app-date-step>
-  </div>
-  <div class="row select-ranges">
-    <div class="col-sm-8">
+    <div class="calendar-control">
+      <div class="c-label">
+        Period:
+      </div>
       <app-date-range [count]="count"
                       [kind]="kind"
                       (changeDates)="changeDates($event)"></app-date-range>
     </div>
-  </div>
-</section>
-
-<section class="wrap">
-  <h1 class="total text-bold">{{ dash?.totalPaid }}%</h1>
-  <div class="foo">
-    <div class="progress">
-      <div class="progress-bar"
-           [class.progress-bar-red]="dash?.totalPaid < 50"
-           [class.progress-bar-yellow]="dash?.totalPaid >= 50 && dash?.totalPaid < 80"
-           [class.progress-bar-green]="dash?.totalPaid >= 80"
-           role="progressbar"
-           aria-valuemin="0"
-           aria-valuemax="100"
-           [style.width]="dash?.totalPaid + '%' | sanitize">
+    <div class="calendar-control">
+      <div class="c-label">
+        Step:
       </div>
+      <app-date-step [step]="step"
+                     (changeStep)="changeStep($event)"></app-date-step>
     </div>
-  </div>
-
-  <div class="dash">
-    <div>Work days: <span class="text-bold">{{ dash?.workdays }}</span></div>
-    <div>Developers: <span class="text-bold">{{ dash?.developers }}</span></div>
-    <div>Others: <span class="text-bold">{{ dash?.other }}</span></div>
-    <div>Hours: <span class="text-bold">{{ dash?.hours | humanizeTime }}</span></div>
-    <div>Worked hours: <span class="text-bold">{{ dash?.workedHours | humanizeTime }}</span></div>
-    <div>Paid hours: <span class="text-bold">{{ dash?.paidHours | humanizeTime }}</span></div>
-    <div>Active projects: <span class="text-bold">{{ dash?.activeProjects }}</span></div>
-    <div>Paid projects: <span class="text-bold">{{ dash?.paidProjects }}</span></div>
   </div>
 </section>
 
 <section class="wrap chart"
          *ngIf="chartOptions">
   <chart [options]="chartOptions"
-         (load)="chart = $event"></chart>
+         (load)="chart = $event.context"></chart>
 </section>
 
 <section class="wrap"
@@ -74,13 +52,27 @@
   </div>
 </section>
 
+<section class="wrap">
+  <div class="dash">
+    <div>Work days: <span class="text-bold">{{ dash?.workdays }}</span></div>
+    <div>Developers: <span class="text-bold">{{ dash?.developers }}</span></div>
+    <div>Others: <span class="text-bold">{{ dash?.other }}</span></div>
+    <div>Hours: <span class="text-bold">{{ dash?.hours | humanizeTime }}</span></div>
+    <div>Worked hours: <span class="text-bold">{{ dash?.workedHours | humanizeTime }}</span></div>
+    <div>Paid hours: <span class="text-bold">{{ dash?.paidHours | humanizeTime }}</span></div>
+    <div>Service load: <span class="text-bold">{{ dash?.totalPaid }}%</span></div>
+    <div>Active projects: <span class="text-bold">{{ dash?.activeProjects }}</span></div>
+    <div>Paid projects: <span class="text-bold">{{ dash?.paidProjects }}</span></div>
+  </div>
+</section>
+
 <section>
   <div class="wrap">
     <tabset #tabset>
 
       <tab class="nav-tabs-custom"
            id="hours"
-           heading="Hours" >
+           heading="Hours">
         <div class="tab-content">
           <table class="table table-bordered table-hover dataTable" role="grid">
             <thead>
@@ -100,6 +92,7 @@
                 <td>{{ row.time | humanizeTime }}</td>
                 <td>
                   <div class="progress">
+                    <span>{{ row.load ? row.load + '%' : null }}</span>
                     <div class="progress-bar progress-bar-red"
                          [class.progress-bar-red]="row.load < 80"
                          [class.progress-bar-yellow]="row.load >= 80 && row.load < 100"
@@ -107,9 +100,7 @@
                          role="progressbar"
                          aria-valuemin="0"
                          aria-valuemax="100"
-                         [style.width]="row.load + '%' | sanitize"
-                    >
-                      <span>{{ row.load > 9 ? row.load : null }}{{ row.load > 20 ? '%' : null }}</span>
+                         [style.width]="row.load + '%' | sanitize">
                     </div>
                   </div>
                 </td>
@@ -121,7 +112,7 @@
 
       <tab class="nav-tabs-custom"
            id="projects"
-           heading="Projects" >
+           heading="Projects">
         <div class="tab-content">
           <table class="table table-bordered table-hover dataTable" role="grid">
             <thead>
