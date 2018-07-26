@@ -3,6 +3,7 @@ import { Update } from '../../models/update';
 import { NewUpdateService } from '../../services/new-update.service';
 import { CurrentUserService } from '../../services/current-user.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class NewUpdatePage implements OnInit {
     private newUpdateService: NewUpdateService,
     private activatedRoute: ActivatedRoute,
     private currentUser: CurrentUserService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +60,8 @@ export class NewUpdatePage implements OnInit {
 
   public sendUpdate(): void {
     this.newUpdateService.sendNewUpdate(this.update)
-      .subscribe();
+      .subscribe(() => {
+        this.router.navigate(['/profile']);
+      });
   }
 }

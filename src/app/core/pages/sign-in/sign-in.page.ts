@@ -27,7 +27,23 @@ export class SignInPage {
           this.currentUser.load().subscribe(
             () => {
               if (this.currentUser.registrationFinished) {
-                this.router.navigate(['/profile']);
+                if (localStorage.pathToUpdate) {
+                  const parsedPath = JSON.parse(localStorage.pathToUpdate);
+                  const pathToUpdate = parsedPath.pathName;
+                  const pathToUpdateParams = parsedPath.params.substring(6, 16);
+
+                  this.router.navigate(
+                    [pathToUpdate],
+                    {
+                      queryParams: {
+                      date: pathToUpdateParams
+                      }
+                    }
+                  );
+                  localStorage.removeItem('pathToUpdate');
+                } else {
+                  this.router.navigate(['/profile']);
+                }
                 this.errors = false;
               } else {
                 this.router.navigate(['/registration']);
