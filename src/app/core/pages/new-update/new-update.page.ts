@@ -6,7 +6,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 
 @Component({
-  selector: 'new-update',
+  selector: 'app-new-update',
   templateUrl: './new-update.page.html',
   styleUrls: ['./new-update.page.scss']
 })
@@ -40,15 +40,15 @@ export class NewUpdatePage implements OnInit {
         .subscribe(response => {
           this.promisedToDo = response.prev_update.planning;
           this.doneTodayTasks = response.worked;
-        })
+        });
     }
   }
 
   public checkIsUpdateAllowed(): void {
-    let updateDate = new Date(this.updateDate);
-    let currentDate = new Date();
-    let timeDiff = Math.abs(currentDate.getTime() - updateDate.getTime());
-    let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    const updateDate = new Date(this.updateDate);
+    const currentDate = new Date();
+    const timeDiff = Math.abs(currentDate.getTime() - updateDate.getTime());
+    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
     if (diffDays > 2) {
       this.isAllowedToSendUpdate = false;
     } else {

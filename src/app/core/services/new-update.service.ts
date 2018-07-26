@@ -6,7 +6,7 @@ import { Update } from '../models/update';
 
 @Injectable()
 export class NewUpdateService {
-  private getUpdatePath = '/api/users/'
+  private getUpdatePath = '/api/users/';
   private apiPath = '/api/updates';
 
   constructor(private http: HttpClient) {}
@@ -20,8 +20,8 @@ export class NewUpdateService {
             observer.next(res);
             observer.complete();
           }
-        )
-    })
+        );
+    });
   }
 
   public sendNewUpdate(update: Update): Observable<any> {
@@ -33,7 +33,7 @@ export class NewUpdateService {
             observer.next(response);
             observer.complete();
           }
-        )
-    })
+        );
+    });
   }
 }
