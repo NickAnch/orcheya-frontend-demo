@@ -2,17 +2,39 @@
   <div class="row">
     <div class="col-md-offset-2 col-md-8">
       <div class="box box-primary">
-        <div class="box-header with-border">
+        <div class="box-header with-border header-with-date">
           <h4 class="title">
             Write a new update
           </h4>
+          <h5 class="date">
+            {{ update.date }}
+          </h5>
         </div>
-        <div class="box-body">
+        <div class="box-body" *ngIf="isAllowedToSendUpdate; else forbiddenToWriteUpdate">
+          <p>
+            <b>
+              You promised to do
+            </b>
+          </p>
+          <p>
+            {{ promisedToDo }}
+          </p>
           <form (ngSubmit)="sendUpdate()">
             <div class="form-group">
               <label for="update-made">
-                You have done today:
+                You have done today
               </label>
+              <ul>
+                <ng-container *ngFor="let task of doneTodayTasks">
+                  <li>
+                    <p>
+                      <a href="{{ task.task_url }}">
+                        {{ task.task_name }}
+                      </a>
+                    </p>
+                  </li>
+                </ng-container>
+              </ul>
               <textarea
                 type="text"
                 class="form-control"
@@ -53,7 +75,11 @@
             <div class="row">
               <div class="col-xs-8"></div>
               <div class="col-xs-4">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-block btn-flat"
+                  [disabled]="!update.issues || !update.planning || !update.made"
+                >
                   Send
                 </button>
               </div>
@@ -61,6 +87,11 @@
           </form>
         </div>
       </div>
+      <ng-template class="box-body" #forbiddenToWriteUpdate>
+        <p class="old-update-message">
+          Sorry, but it is too late to write an update
+        </p>
+      </ng-template>
     </div>
   </div>
 </section>

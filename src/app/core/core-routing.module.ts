@@ -55,6 +55,7 @@ const routes: Routes = [
   {
     path: 'update',
     component: NewUpdatePage,
+    canActivate: [CurrentUserGuard],
   }
 ];
 

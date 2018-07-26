@@ -6,14 +6,15 @@ import { Update } from '../models/update';
 
 @Injectable()
 export class NewUpdateService {
+  private getUpdatePath = '/api/users/'
   private apiPath = '/api/updates';
 
   constructor(private http: HttpClient) {}
 
-  public getLastUpdate(): Observable<any> {
+  public getLastUpdate(id: number): Observable<any> {
     return Observable.create((observer: Observer<any>) => {
       this.http
-        .get(`${this.apiPath}/2018-07-20`)
+        .get(`${this.getUpdatePath}/${id}/day_info`)
         .subscribe(
           res => {
             observer.next(res);

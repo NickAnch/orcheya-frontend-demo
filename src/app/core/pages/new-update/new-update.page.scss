@@ -15,6 +15,25 @@ textarea {
   min-width: 100%;
 }
 
+.header-with-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.box-header:before, .box-header:after {
+  content: none;
+}
+
+.date {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.old-update-message {
+  padding: 10px;
+  font-size: 20px;
+}
+
 @media (max-width: 767px) {
   .box {
     width: unset;
