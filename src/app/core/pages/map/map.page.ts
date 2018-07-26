@@ -1,27 +1,41 @@
 import {
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
-import { geoEquirectangular, geoPath } from 'd3-geo';
+import {
+  geoEquirectangular,
+  GeoPath,
+  geoPath,
+  GeoPermissibleObjects,
+  GeoProjection
+} from 'd3-geo';
 import {
   select,
   Selection,
-  event
+  event,
+  BaseType
 } from 'd3-selection';
 import { zoom } from 'd3-zoom';
 import * as topojson from 'topojson-client';
 import { json, tsv } from 'd3-fetch';
-import { line, curveBasis } from 'd3-shape';
-const SunCalc = require('suncalc');
+import {
+  line,
+  curveBasis
+} from 'd3-shape';
+import * as SunCalc from  'suncalc';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-map',
-  templateUrl: './map.page.html',
+  template: '',
   styleUrls: ['./map.page.scss']
 })
 
-export class MapPage implements OnInit {
+export class MapPage implements OnInit, OnDestroy {
+  private subscriptions: Subscription[] = [];
   private _el: ElementRef;
 
   private _width: number;
@@ -29,23 +43,31 @@ export class MapPage implements OnInit {
   private _d3Elements: {
     svg?: Selection<SVGSVGElement, any, null, undefined>,
     g?: Selection<SVGGElement, any, null, undefined>,
-    nightPath?: any,
-    tooltip?: any
+    nightPath?: Selection<SVGPathElement, any, null, undefined>,
+    tooltip?: Selection<BaseType, any, null, undefined>
   } = {};
 
-  private _countries: any;
-  private _countryNames: any = {};
-  private _projection;
-  private _path;
+  private _countries: Object;
+  private _countryNames: Object = {};
+  private _projection: GeoProjection;
+  private _path: GeoPath<any, GeoPermissibleObjects>;
 
-  private _zoom;
-  private _lineFunction =
-    line().x((d: any) => d.x).y((d: any) => d.y).curve(curveBasis);
+  private _zoom = zoom();
+  private _lineFunction = line<{ x: number, y: number }>()
+    .x((d: any) => d.x)
+    .y((d: any) => d.y)
+    .curve(curveBasis);
 
   constructor(
     element: ElementRef,
   ) {
     this._el = element;
+    this.subscriptions.push(
+      Observable
+        .fromEvent(window, 'resize')
+        .debounceTime(200)
+        .subscribe(() => this._reDraw())
+    );
   }
 
   async ngOnInit() {
@@ -53,17 +75,31 @@ export class MapPage implements OnInit {
     this._initZoom();
     this._createSvg();
     await this._getInfoForMap();
-    this._drawMap();
     this._drawNightMap();
+    this._drawMap();
+    this._everyMinute();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(
+      subscription => subscription.unsubscribe()
+    );
   }
 
   private _initSize(): void {
-    this._width = this._el.nativeElement.offsetWidth;
-    this._height = this._width / 2;
+    const offsetWidth = this._el.nativeElement.offsetWidth;
+    const offsetHeight = this._el.nativeElement.offsetHeight;
+    if (offsetWidth / 2 > offsetHeight) {
+      this._width = offsetHeight * 2;
+      this._height = offsetHeight;
+    } else {
+      this._width = offsetWidth;
+      this._height = offsetWidth / 2;
+    }
   }
 
   private _initZoom(): void {
-    this._zoom = zoom()
+    this._zoom = this._zoom
       .translateExtent([[0, 0], [this._width, this._height]])
       .scaleExtent([1, 8])
       .on(
@@ -83,12 +119,29 @@ export class MapPage implements OnInit {
       .attr('width', this._width)
       .attr('height', this._height)
       .call(this._zoom);
-    this._d3Elements.g = this._d3Elements.svg
-      .append('g');
     this._d3Elements.tooltip = select(this._el.nativeElement)
       .append('div')
       .attr('class', 'svg-tooltip')
       .style('opacity', 0);
+    this._d3Elements.nightPath = this._d3Elements.svg
+      .append('path');
+    this._d3Elements.g = this._d3Elements.svg
+      .append('g');
+  }
+
+  private _removeSvg(): void {
+    this._d3Elements.svg.remove();
+    this._d3Elements.tooltip.remove();
+  }
+
+  private _reDraw(): void {
+    console.log('reDraw');
+    this._initSize();
+    this._initZoom();
+    this._removeSvg();
+    this._createSvg();
+    this._drawNightMap();
+    this._drawMap();
   }
 
   private async _getInfoForMap(): Promise<void> {
@@ -134,27 +187,32 @@ export class MapPage implements OnInit {
 
   private _drawNightMap(): void {
     const path = this._getPathString(this._isNorthSun());
-    this._d3Elements.nightPath = this._d3Elements.svg
-      .append('path')
+    this._d3Elements.nightPath
       .attr('fill', 'rgb(0, 0, 0)')
       .attr('fill-opacity', '.16')
       .attr('d', path);
   }
 
-  private _isDaylight(obj) {
+  private _everyMinute(): void {
+    setInterval(() => {
+      this._drawNightMap();
+    }, 60000);
+  }
+
+  private _isDaylight(obj: { azimuth: number, altitude: number }): boolean {
     return obj.altitude > 0;
   }
 
-  private _isNorthSun() {
+  private _isNorthSun(): boolean {
     return this._isDaylight(SunCalc.getPosition(new Date(), 90, 0));
   }
 
-  private _zoomed(): any {
+  private _zoomed(): void {
     this._d3Elements.g.attr('transform', event.transform);
     this._d3Elements.nightPath.attr('transform', event.transform);
   }
 
-  private _getPathString(northSun) {
+  private _getPathString(northSun: boolean): string {
     let yStart;
     if (northSun) {
       yStart = this._height;
@@ -170,7 +228,7 @@ export class MapPage implements OnInit {
     return pathStr;
   }
 
-  private _getPath(northSun) {
+  private _getPath(northSun: boolean): { x: number, y: number }[] {
     const path = [];
     const coords = this._getAllSunriseSunsetCoords(northSun);
     coords.forEach(val => {
@@ -179,7 +237,7 @@ export class MapPage implements OnInit {
     return path;
   }
 
-  private _getAllSunriseSunsetCoords(northSun) {
+  private _getAllSunriseSunsetCoords(northSun: boolean): [number, number][] {
     let lng = -180;
     const coords = [];
     while (lng < 180) {
@@ -191,7 +249,7 @@ export class MapPage implements OnInit {
     return coords;
   }
 
-  private _getSunriseSunsetLatitude(lng, northSun) {
+  private _getSunriseSunsetLatitude(lng: number, northSun: boolean): number {
     let startLat;
     let endLat;
     let delta;
@@ -212,10 +270,11 @@ export class MapPage implements OnInit {
       }
       lat += delta;
     }
+
     return lat;
   }
 
-  private _coordToXY(coord) {
+  private _coordToXY(coord: [number, number]): { x: number, y: number } {
     const x = (coord[1] + 180) * (this._width / 360);
     const y = this._height - (coord[0] + 90) * (this._height / 180);
     return {

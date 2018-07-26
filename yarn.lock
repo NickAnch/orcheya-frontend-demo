@@ -7926,10 +7926,6 @@ worker-farm@^1.5.2:
   dependencies:
     errno "~0.1.7"
 
-world-atlas@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/world-atlas/-/world-atlas-1.1.4.tgz#0f53c44f31b66daa245cf673ccfab5c338903682"
-
 wrap-ansi@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-2.1.0.tgz#d8fc3d284dd05794fe84973caecdd1cf824fdd85"
