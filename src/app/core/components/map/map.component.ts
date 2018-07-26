@@ -31,10 +31,10 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-map',
   template: '',
-  styleUrls: ['./map.page.scss']
+  styleUrls: ['./map.component.scss']
 })
 
-export class MapPage implements OnInit, OnDestroy {
+export class MapComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private _el: ElementRef;
 

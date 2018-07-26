@@ -11,4 +11,7 @@ export * from './modals/waiting/waiting.component';
 /* tslint:disable */
 export * from './social-buttons/slack/slack-button.component';
 export * from './social-buttons/timedoctor/timedoctor-button.component';
+export * from './social-buttons/upwork/upwork-button.component';
 /* tslint:enable */
+export * from './map/map.component';
+export * from './footer/footer.component';

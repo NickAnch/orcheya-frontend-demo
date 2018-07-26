@@ -33,6 +33,7 @@ import {
   ProjectsComponent,
   UserDeleteComponent
 } from './components';
+import { MapComponent } from '../core/components';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import {
     RoleDeleteComponent,
     TimingsComponent,
     LibsPage,
-    UserDeleteComponent
+    UserDeleteComponent,
+    MapComponent,
   ],
   entryComponents: [
     UserEditComponent,
