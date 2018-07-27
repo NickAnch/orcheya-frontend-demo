@@ -1,5 +1,6 @@
 $main-bg: #1a233b;
 $tooltip-bg: #b0c4de;
+$white: white;
 
 :host {
   background-color: $main-bg;
@@ -28,5 +29,12 @@ $tooltip-bg: #b0c4de;
 
   #own-base {
     cursor: pointer;
+  }
+
+  .loading {
+    align-items: center;
+    color: $white;
+    display: flex;
+    justify-content: center;
   }
 }

@@ -42,7 +42,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private _width: number;
   private _height: number;
-  private _d3Elements: {
+  private _elements: {
     svg?: Selection<SVGSVGElement, any, null, undefined>,
     g?: Selection<SVGGElement, any, null, undefined>,
     nightPath?: Selection<SVGPathElement, any, null, undefined>,
@@ -52,6 +52,7 @@ export class MapComponent implements OnInit, OnDestroy {
     gradient?: Selection<SVGLinearGradientElement, any, null, undefined>,
     radialGradient?: Selection<SVGRadialGradientElement, any, null, undefined>,
     ownBase?: Selection<SVGCircleElement, any, null, undefined>,
+    loading?: Selection<BaseType, any, null, undefined>,
   } = {};
 
   private _options = {
@@ -89,22 +90,41 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    this._createLoading();
+    await this._getInfoForMap();
+    this._drawAll();
+    this._everyMinute();
+  }
+
+  private _drawAll(): void {
     this._initSize();
     this._initZoom();
-    this._createSvg();
+    this._drawSvg();
     this._createDefs();
-    await this._getInfoForMap();
     this._drawMap();
     this._drawOwnBase();
     this._drawNightMap();
     this._drawSun();
-    this._everyMinute();
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(
       subscription => subscription.unsubscribe()
     );
+  }
+
+  private _createLoading(): void {
+    this._initSize();
+    this._elements.loading = select(this._el.nativeElement)
+      .append('div');
+    this._elements.loading
+      .attr('class', 'loading')
+      .attr(
+        'style',
+        `width:${this._width}px;height:${this._height}px;`
+      )
+      .append('i')
+      .attr('class', 'fa fa-refresh fa-spin fa-3x');
   }
 
   private _initSize(): void {
@@ -128,84 +148,77 @@ export class MapComponent implements OnInit, OnDestroy {
       );
   }
 
-  private _createSvg(): void {
+  private _drawSvg(): void {
     this._projection = geoEquirectangular()
       .scale(this._height / Math.PI)
       .translate([this._width / 2, this._height / 2]);
     this._path = geoPath()
       .projection(this._projection);
-    this._d3Elements.svg = select(this._el.nativeElement)
+    this._elements.svg = select(this._el.nativeElement)
       .append('svg');
-    this._d3Elements.svg
+    this._elements.svg
       .append('rect')
       .attr('width', this._width)
       .attr('height', this._height)
       .attr('fill', 'url(#gradient)');
-    this._d3Elements.svg
+    this._elements.svg
       .attr('width', this._width)
       .attr('height', this._height)
       .call(this._zoom);
-    this._d3Elements.tooltip = select(this._el.nativeElement)
+    this._elements.tooltip = select(this._el.nativeElement)
       .append('div')
       .attr('class', 'svg-tooltip')
       .style('opacity', 0);
   }
 
   private _removeSvg(): void {
-    this._d3Elements.svg.remove();
-    this._d3Elements.tooltip.remove();
+    this._elements.svg.remove();
+    this._elements.tooltip.remove();
   }
 
   private _reDraw(): void {
     console.log('reDraw');
-    this._initSize();
-    this._initZoom();
     this._removeSvg();
-    this._createSvg();
-    this._createDefs();
-    this._drawMap();
-    this._drawOwnBase();
-    this._drawNightMap();
-    this._drawSun();
+    this._drawAll();
   }
 
   private _createDefs(): void {
-    this._d3Elements.defs = this._d3Elements.svg
+    this._elements.defs = this._elements.svg
       .append('defs');
 
-    this._d3Elements.gradient = this._d3Elements.defs
+    this._elements.gradient = this._elements.defs
       .append('linearGradient');
 
-    this._d3Elements.gradient
+    this._elements.gradient
       .attr('id', 'gradient')
       .attr('x1', '0%')
       .attr('y1', '0%')
       .attr('x2', '100%')
       .attr('y2', '0%');
 
-    this._d3Elements.gradient
+    this._elements.gradient
       .append('stop')
       .attr('offset', '0%')
       .attr('stop-color', this._options.bgColorLeft);
 
-    this._d3Elements.gradient
+    this._elements.gradient
       .append('stop')
       .attr('offset', '100%')
       .attr('stop-color', this._options.bgColorRight);
 
-    this._d3Elements.radialGradient = this._d3Elements.defs
+    this._elements.radialGradient = this._elements.defs
       .append('radialGradient');
 
-    this._d3Elements.radialGradient
+    this._elements.radialGradient
       .attr('id', 'radialGradient');
 
-    this._d3Elements.radialGradient
+    this._elements.radialGradient
       .append('stop')
       .attr('offset', '0%')
       .attr('stop-opacity', this._options.sunOpacity)
       .attr('stop-color', 'rgb(255, 255, 255)');
 
-    this._d3Elements.radialGradient
+    this._elements.radialGradient
       .append('stop')
       .attr('offset', '100%')
       .attr('stop-opacity', 0)
@@ -221,12 +234,13 @@ export class MapComponent implements OnInit, OnDestroy {
     data[1].forEach(x => {
       this._countryNames[x.iso_n3] = x.name;
     });
+    this._elements.loading.remove();
     console.log('loaded');
   }
 
   private _showTooltip(that, d): void {
     const label = that._countryNames[d.id];
-    this._d3Elements.tooltip
+    this._elements.tooltip
       .style('opacity', 1)
       .style('left', (event.pageX) + 'px')
       .style('top', (event.pageY - 28) + 'px')
@@ -235,9 +249,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private _drawMap(): void {
     const that = this;
-    this._d3Elements.g = this._d3Elements.svg
+    this._elements.g = this._elements.svg
       .append('g');
-    this._d3Elements.g
+    this._elements.g
       .selectAll('path')
       .data(
         topojson.feature(
@@ -248,7 +262,7 @@ export class MapComponent implements OnInit, OnDestroy {
       .append('path')
       .on('mousemove', (d) => this._showTooltip(that, d))
       .on('mouseout',  () => {
-        this._d3Elements.tooltip.style('opacity', 0);
+        this._elements.tooltip.style('opacity', 0);
       })
       .attr('d', this._path)
       .attr('fill-opacity', '.4')
@@ -260,9 +274,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private _drawNightMap(): void {
     const path = this._getPathString(this._isNorthSun());
-    this._d3Elements.nightPath = this._d3Elements.svg
+    this._elements.nightPath = this._elements.svg
       .append('path');
-    this._d3Elements.nightPath
+    this._elements.nightPath
       .attr('id', 'night-path')
       .attr('fill', 'rgb(0, 0, 0)')
       .attr('fill-opacity', '.16')
@@ -271,9 +285,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private _drawSun(): void {
     const xy = this._getSunPosition();
-    this._d3Elements.sun = this._d3Elements.svg
+    this._elements.sun = this._elements.svg
       .append('circle');
-    this._d3Elements.sun
+    this._elements.sun
       .attr('id', 'sun')
       .attr('cx', xy.x)
       .attr('cy', xy.y)
@@ -285,23 +299,23 @@ export class MapComponent implements OnInit, OnDestroy {
   private _drawOwnBase(): void {
     const xy = this._coordToXY(this._options.ownBaseCoord);
     const that = this;
-    this._d3Elements.ownBase = this._d3Elements.svg
+    this._elements.ownBase = this._elements.svg
       .append('circle');
-    this._d3Elements.ownBase
+    this._elements.ownBase
       .attr('id', 'own-base')
       .attr('cx', xy.x)
       .attr('cy', xy.y)
       .attr('r', 1)
       .attr('fill', 'red')
       .on('mousemove', () => {
-        this._d3Elements.tooltip
+        this._elements.tooltip
           .style('opacity', 1)
           .style('left', (event.pageX) + 'px')
           .style('top', (event.pageY - 28) + 'px')
           .html('Rostov-on-Don (Own Base)');
       })
       .on('mouseout',  () => {
-        this._d3Elements.tooltip.style('opacity', 0);
+        this._elements.tooltip.style('opacity', 0);
       })
       .on('click', () => {
         alert('This\'s own base!');
@@ -328,10 +342,10 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private _zoomed(): void {
-    this._d3Elements.g.attr('transform', event.transform);
-    this._d3Elements.nightPath.attr('transform', event.transform);
-    this._d3Elements.sun.attr('transform', event.transform);
-    this._d3Elements.ownBase.attr('transform', event.transform);
+    this._elements.g.attr('transform', event.transform);
+    this._elements.nightPath.attr('transform', event.transform);
+    this._elements.sun.attr('transform', event.transform);
+    this._elements.ownBase.attr('transform', event.transform);
   }
 
   private _getPathString(northSun: boolean): string {
