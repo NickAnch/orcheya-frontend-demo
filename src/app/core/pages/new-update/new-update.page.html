@@ -41,8 +41,7 @@
                 placeholder="Finished tasks"
                 name="update-made"
                 required
-                [(ngModel)]="update.made"
-              >
+                [(ngModel)]="update.made">
               </textarea>
             </div>
             <div class="form-group has-feedback" [class.has-error]="errors">
@@ -55,8 +54,7 @@
                 placeholder="Tasks you gonna do"
                 name="update-planning"
                 required
-                [(ngModel)]="update.planning"
-              >
+                [(ngModel)]="update.planning">
               </textarea>
             </div>
             <div class="form-group has-feedback" [class.has-error]="errors">
@@ -69,8 +67,7 @@
                 placeholder="Problems"
                 name="update-issues"
                 required
-                [(ngModel)]="update.issues"
-              >
+                [(ngModel)]="update.issues">
             </div>
             <div class="row">
               <div class="col-xs-8"></div>
@@ -78,8 +75,7 @@
                 <button
                   type="submit"
                   class="btn btn-primary btn-block btn-flat"
-                  [disabled]="!update.issues || !update.planning || !update.made"
-                >
+                  [disabled]="!update.issues || !update.planning || !update.made">
                   Send
                 </button>
               </div>

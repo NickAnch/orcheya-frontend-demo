@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Update } from '../../models/update';
 import { NewUpdateService } from '../../services/new-update.service';
 import { CurrentUserService } from '../../services/current-user.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Router } from '@angular/router';
+import { ISubscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -11,8 +12,9 @@ import { Router } from '@angular/router';
   templateUrl: './new-update.page.html',
   styleUrls: ['./new-update.page.scss']
 })
-export class NewUpdatePage implements OnInit {
+export class NewUpdatePage implements OnInit, OnDestroy {
 
+  private _subsription: ISubscription;
   public promisedToDo: string;
   public doneTodayTasks: Array<object>;
   public isAllowedToSendUpdate: boolean;
@@ -25,25 +27,30 @@ export class NewUpdatePage implements OnInit {
   });
 
   constructor(
-    private newUpdateService: NewUpdateService,
-    private activatedRoute: ActivatedRoute,
-    private currentUser: CurrentUserService,
-    private router: Router,
+    private _newUpdateService: NewUpdateService,
+    private _activatedRoute: ActivatedRoute,
+    private _currentUser: CurrentUserService,
+    private _router: Router,
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.updateDate = params['date'];
-      this.update.date = this.updateDate;
-    });
+    this._subsription = this._activatedRoute.queryParams
+      .subscribe((params: Params) => {
+        this.updateDate = params['date'];
+        this.update.date = this.updateDate;
+      });
     this.checkIsUpdateAllowed();
     if (this.isAllowedToSendUpdate) {
-      this.newUpdateService.getLastUpdate(this.currentUser.id)
+      this._newUpdateService.getLastUpdate(this._currentUser.id)
         .subscribe(response => {
           this.promisedToDo = response.prev_update.planning;
           this.doneTodayTasks = response.worked;
         });
     }
+  }
+
+  ngOnDestroy() {
+    this._subsription.unsubscribe();
   }
 
   public checkIsUpdateAllowed(): void {
@@ -59,9 +66,9 @@ export class NewUpdatePage implements OnInit {
   }
 
   public sendUpdate(): void {
-    this.newUpdateService.sendNewUpdate(this.update)
+    this._newUpdateService.sendNewUpdate(this.update)
       .subscribe(() => {
-        this.router.navigate(['/profile']);
+        this._router.navigate(['/profile']);
       });
   }
 }

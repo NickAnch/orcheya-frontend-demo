@@ -1,5 +1,7 @@
+@import '../../../../styles/variables.scss';
+
 :host {
-  background: #d2d6de;
+  background: $modal-page-bgc;
   display: block;
   min-height: 100%;
 }
@@ -16,22 +18,23 @@ textarea {
 }
 
 .header-with-date {
+  align-items: flex-end;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
 }
 
-.box-header:before, .box-header:after {
+.box-header:before,
+.box-header:after {
   content: none;
 }
 
 .date {
-  color: rgba(0, 0, 0, 0.54);
+  color: $text-color-secondary;
 }
 
 .old-update-message {
-  padding: 10px;
   font-size: 20px;
+  padding: 10px;
 }
 
 @media (max-width: 767px) {

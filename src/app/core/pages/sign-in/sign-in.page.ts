@@ -36,7 +36,7 @@ export class SignInPage {
                     [pathToUpdate],
                     {
                       queryParams: {
-                      date: pathToUpdateParams
+                        date: pathToUpdateParams
                       }
                     }
                   );
