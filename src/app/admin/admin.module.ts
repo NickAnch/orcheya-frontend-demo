@@ -34,6 +34,7 @@ import {
   UserDeleteComponent
 } from './components';
 import { HumanizeDatePipe } from '../core/pipes/humanizeDate.pipe';
+import { MapComponent } from '../core/components';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { HumanizeDatePipe } from '../core/pipes/humanizeDate.pipe';
     LibsPage,
     UserDeleteComponent,
     HumanizeDatePipe,
+    MapComponent,
   ],
   entryComponents: [
     UserEditComponent,
