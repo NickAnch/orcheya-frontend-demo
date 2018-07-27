@@ -46,6 +46,10 @@
   }
 }
 
+.horizontal {
+  overflow-x:auto;
+}
+
 @media only screen and (max-width: 767px) {
 
   .filter-controls {
