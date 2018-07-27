@@ -88,7 +88,13 @@ export class UsersListPage implements OnInit, AfterViewInit, OnDestroy {
       this.usersListService
         .getUsersList(this.filter)
         .subscribe(
-          data => this.usersList = [...this.usersList, ...data.users]
+          data => {
+            if (this.usersList) {
+              this.usersList = [...this.usersList, ...data.users];
+            } else {
+              this.usersList = data.users;
+            }
+          }
         );
     }
   }
