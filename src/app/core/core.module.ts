@@ -46,6 +46,10 @@ import { ProjectService } from './services/project.service';
 import { AdminModule } from '../admin/admin.module';
 import { TimingsService } from './services/timings.service';
 import {
+  NotificationsComponent
+} from './components/notifications/notifications.component';
+import { NotificationsService } from './services/notifications.service';
+import {
   AcceptInvitePage,
   IntegrationsPage,
   RegistrationPage,
@@ -85,7 +89,8 @@ import {
     UpdateService,
     ProjectService,
     RolesService,
-    TimingsService
+    TimingsService,
+    NotificationsService,
   ],
   declarations: [
     HeaderComponent,
@@ -113,6 +118,7 @@ import {
     FooterComponent,
     WaitingComponent,
     IntegrationsPage,
+    NotificationsComponent,
   ],
   entryComponents: [
     WaitingComponent,

@@ -1,6 +1,9 @@
 import { Alias, Model } from 'tsmodels';
 
 export const TimeGraphTypes = {
+  noTimer: {
+    id: 0, title: 'NoTimer'
+  },
   timeDoctor: {
     id: 1, title: 'TimeDoctor'
   },
@@ -11,6 +14,7 @@ export const TimeGraphTypes = {
 
 interface Filter {
   source?: number;
+  update?: boolean;
   startDate?: Date;
   endDate?: Date;
 }
@@ -18,6 +22,7 @@ interface Filter {
 export class TimeGraphFilter extends Model {
   @Alias() public id: number;
   @Alias() public source?: number;
+  @Alias() public update?: boolean;
   @Alias('start_date') public startDate?: string;
   @Alias('end_date') public endDate?: string;
 
@@ -41,5 +46,6 @@ export class TimeGraphFilter extends Model {
     }
 
     this.source = filter.source;
+    this.update = true;
   }
 }

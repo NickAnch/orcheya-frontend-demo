@@ -39,10 +39,11 @@ export class DateRangeComponent implements OnInit {
   ): void {
     this.count = count;
     this.kind = kind;
+    const copyKind = kind === 'week' ? 'isoWeek' : kind;
     if (this.count && this.kind) {
       const dates = [
-        moment().subtract(count, kind).toDate(),
-        moment().subtract(1, 'day').toDate()
+        moment().endOf(copyKind).subtract(count, kind).add(1, 'day').toDate(),
+        moment().endOf(copyKind).toDate()
       ];
       this.changeDates.emit({
         count: this.count,

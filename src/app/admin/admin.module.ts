@@ -33,6 +33,7 @@ import {
   ProjectsComponent,
   UserDeleteComponent
 } from './components';
+import { HumanizeDatePipe } from '../core/pipes/humanizeDate.pipe';
 import { MapComponent } from '../core/components';
 
 
@@ -67,6 +68,7 @@ import { MapComponent } from '../core/components';
     TimingsComponent,
     LibsPage,
     UserDeleteComponent,
+    HumanizeDatePipe,
     MapComponent,
   ],
   entryComponents: [
