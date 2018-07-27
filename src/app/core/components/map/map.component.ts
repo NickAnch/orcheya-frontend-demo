@@ -77,10 +77,10 @@ export class MapComponent implements OnInit, OnDestroy {
     .curve(curveBasis);
 
   constructor(
-    element: ElementRef,
-    private router: Router,
+    private _element: ElementRef,
+    private _router: Router,
   ) {
-    this._el = element;
+    this._el = _element;
     this.subscriptions.push(
       Observable
         .fromEvent(window, 'resize')
@@ -319,7 +319,7 @@ export class MapComponent implements OnInit, OnDestroy {
       })
       .on('click', () => {
         alert('This\'s own base!');
-        that.router.navigate(['/']);
+        that._router.navigate(['/']);
       });
   }
 
