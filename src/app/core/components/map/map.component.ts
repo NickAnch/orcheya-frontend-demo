@@ -27,6 +27,7 @@ import {
 import * as SunCalc from  'suncalc';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -37,6 +38,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class MapComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private _el: ElementRef;
+  private _dateTime: Date = new Date();
 
   private _width: number;
   private _height: number;
@@ -44,8 +46,23 @@ export class MapComponent implements OnInit, OnDestroy {
     svg?: Selection<SVGSVGElement, any, null, undefined>,
     g?: Selection<SVGGElement, any, null, undefined>,
     nightPath?: Selection<SVGPathElement, any, null, undefined>,
-    tooltip?: Selection<BaseType, any, null, undefined>
+    tooltip?: Selection<BaseType, any, null, undefined>,
+    defs?: Selection<SVGDefsElement, any, null, undefined>,
+    sun?: Selection<SVGCircleElement, any, null, undefined>,
+    gradient?: Selection<SVGLinearGradientElement, any, null, undefined>,
+    radialGradient?: Selection<SVGRadialGradientElement, any, null, undefined>,
+    ownBase?: Selection<SVGCircleElement, any, null, undefined>,
   } = {};
+
+  private _options = {
+    shadowOpacity: 0.16,
+    bgColorLeft: '#42448a',
+    bgColorRight: '#376281',
+    lightsColor: '#ffbea0',
+    lightsOpacity: 0.5,
+    sunOpacity: 0.11,
+    ownBaseCoord: <[number, number]> [47.2357137, 39.701505],
+  };
 
   private _countries: Object;
   private _countryNames: Object = {};
@@ -60,6 +77,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   constructor(
     element: ElementRef,
+    private router: Router,
   ) {
     this._el = element;
     this.subscriptions.push(
@@ -74,9 +92,12 @@ export class MapComponent implements OnInit, OnDestroy {
     this._initSize();
     this._initZoom();
     this._createSvg();
+    this._createDefs();
     await this._getInfoForMap();
-    this._drawNightMap();
     this._drawMap();
+    this._drawOwnBase();
+    this._drawNightMap();
+    this._drawSun();
     this._everyMinute();
   }
 
@@ -116,6 +137,11 @@ export class MapComponent implements OnInit, OnDestroy {
     this._d3Elements.svg = select(this._el.nativeElement)
       .append('svg');
     this._d3Elements.svg
+      .append('rect')
+      .attr('width', this._width)
+      .attr('height', this._height)
+      .attr('fill', 'url(#gradient)');
+    this._d3Elements.svg
       .attr('width', this._width)
       .attr('height', this._height)
       .call(this._zoom);
@@ -123,10 +149,6 @@ export class MapComponent implements OnInit, OnDestroy {
       .append('div')
       .attr('class', 'svg-tooltip')
       .style('opacity', 0);
-    this._d3Elements.nightPath = this._d3Elements.svg
-      .append('path');
-    this._d3Elements.g = this._d3Elements.svg
-      .append('g');
   }
 
   private _removeSvg(): void {
@@ -140,8 +162,54 @@ export class MapComponent implements OnInit, OnDestroy {
     this._initZoom();
     this._removeSvg();
     this._createSvg();
-    this._drawNightMap();
+    this._createDefs();
     this._drawMap();
+    this._drawOwnBase();
+    this._drawNightMap();
+    this._drawSun();
+  }
+
+  private _createDefs(): void {
+    this._d3Elements.defs = this._d3Elements.svg
+      .append('defs');
+
+    this._d3Elements.gradient = this._d3Elements.defs
+      .append('linearGradient');
+
+    this._d3Elements.gradient
+      .attr('id', 'gradient')
+      .attr('x1', '0%')
+      .attr('y1', '0%')
+      .attr('x2', '100%')
+      .attr('y2', '0%');
+
+    this._d3Elements.gradient
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', this._options.bgColorLeft);
+
+    this._d3Elements.gradient
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', this._options.bgColorRight);
+
+    this._d3Elements.radialGradient = this._d3Elements.defs
+      .append('radialGradient');
+
+    this._d3Elements.radialGradient
+      .attr('id', 'radialGradient');
+
+    this._d3Elements.radialGradient
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-opacity', this._options.sunOpacity)
+      .attr('stop-color', 'rgb(255, 255, 255)');
+
+    this._d3Elements.radialGradient
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-opacity', 0)
+      .attr('stop-color', 'rgb(255, 255, 255)');
   }
 
   private async _getInfoForMap(): Promise<void> {
@@ -167,6 +235,8 @@ export class MapComponent implements OnInit, OnDestroy {
 
   private _drawMap(): void {
     const that = this;
+    this._d3Elements.g = this._d3Elements.svg
+      .append('g');
     this._d3Elements.g
       .selectAll('path')
       .data(
@@ -181,21 +251,71 @@ export class MapComponent implements OnInit, OnDestroy {
         this._d3Elements.tooltip.style('opacity', 0);
       })
       .attr('d', this._path)
+      .attr('fill-opacity', '.4')
+      .attr('stroke', 'white')
+      .attr('stroke-width', '.1')
       .attr('width', this._width)
       .attr('height', this._height);
   }
 
   private _drawNightMap(): void {
     const path = this._getPathString(this._isNorthSun());
+    this._d3Elements.nightPath = this._d3Elements.svg
+      .append('path');
     this._d3Elements.nightPath
+      .attr('id', 'night-path')
       .attr('fill', 'rgb(0, 0, 0)')
       .attr('fill-opacity', '.16')
       .attr('d', path);
   }
 
+  private _drawSun(): void {
+    const xy = this._getSunPosition();
+    this._d3Elements.sun = this._d3Elements.svg
+      .append('circle');
+    this._d3Elements.sun
+      .attr('id', 'sun')
+      .attr('cx', xy.x)
+      .attr('cy', xy.y)
+      .attr('r', 150)
+      .attr('opacity', 1)
+      .attr('fill', 'url(#radialGradient)');
+  }
+
+  private _drawOwnBase(): void {
+    const xy = this._coordToXY(this._options.ownBaseCoord);
+    const that = this;
+    this._d3Elements.ownBase = this._d3Elements.svg
+      .append('circle');
+    this._d3Elements.ownBase
+      .attr('id', 'own-base')
+      .attr('cx', xy.x)
+      .attr('cy', xy.y)
+      .attr('r', 1)
+      .attr('fill', 'red')
+      .on('mousemove', () => {
+        this._d3Elements.tooltip
+          .style('opacity', 1)
+          .style('left', (event.pageX) + 'px')
+          .style('top', (event.pageY - 28) + 'px')
+          .html('Rostov-on-Don (Own Base)');
+      })
+      .on('mouseout',  () => {
+        this._d3Elements.tooltip.style('opacity', 0);
+      })
+      .on('click', () => {
+        alert('This\'s own base!');
+        that.router.navigate(['/']);
+      });
+  }
+
   private _everyMinute(): void {
     setInterval(() => {
-      this._drawNightMap();
+      if ((new Date()).getMinutes() % 10 === 0) {
+        this._dateTime = new Date();
+        this._drawNightMap();
+        this._drawSun();
+      }
     }, 60000);
   }
 
@@ -204,12 +324,14 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   private _isNorthSun(): boolean {
-    return this._isDaylight(SunCalc.getPosition(new Date(), 90, 0));
+    return this._isDaylight(SunCalc.getPosition(this._dateTime, 90, 0));
   }
 
   private _zoomed(): void {
     this._d3Elements.g.attr('transform', event.transform);
     this._d3Elements.nightPath.attr('transform', event.transform);
+    this._d3Elements.sun.attr('transform', event.transform);
+    this._d3Elements.ownBase.attr('transform', event.transform);
   }
 
   private _getPathString(northSun: boolean): string {
@@ -265,7 +387,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
     let lat = startLat;
     while (lat !== endLat) {
-      if (this._isDaylight(SunCalc.getPosition(new Date(), lat, lng))) {
+      if (this._isDaylight(SunCalc.getPosition(this._dateTime, lat, lng))) {
         return lat;
       }
       lat += delta;
@@ -281,5 +403,39 @@ export class MapComponent implements OnInit, OnDestroy {
       x: x,
       y: y
     };
+  }
+
+  private _getSunPosition(): { x: number, y: number } {
+    let lng = -180;
+    let peak = 0;
+    let result;
+
+    while (lng < 180) {
+      const alt = this._getAllSunPositionsAtLng(lng);
+      if (alt[0] > peak) {
+        peak = alt[0];
+        result = [alt[1], lng];
+      }
+      lng++;
+    }
+
+    return this._coordToXY(result);
+  }
+
+  private _getAllSunPositionsAtLng(lng: number): [number, number] {
+    let lat = -90;
+    let peak = 0;
+    let result;
+
+    while (lat < 90) {
+      const alt = SunCalc.getPosition(this._dateTime, lat, lng).altitude;
+      if (alt > peak) {
+        peak = alt;
+        result = [peak, lat];
+      }
+      lat += 10;
+    }
+
+    return result;
   }
 }
