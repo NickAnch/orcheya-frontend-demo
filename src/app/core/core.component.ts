@@ -6,7 +6,7 @@ import { CurrentUserService } from './services/current-user.service';
 @Component({
   selector: 'app-wrapper',
   templateUrl: './core.component.html',
-  styleUrls: []
+  styleUrls: ['core.component.scss']
 })
 export class CoreComponent implements OnInit {
 
@@ -47,7 +47,8 @@ export class CoreComponent implements OnInit {
             single: false,
             items: [
               { name: 'Users', link: ['/admin', 'users'] },
-              { name: 'Libs', link: ['/admin', 'libs'] }
+              { name: 'Libs', link: ['/admin', 'libs'] },
+              { name: 'Map', link: ['/admin', 'map'] }
             ]
           }
         );

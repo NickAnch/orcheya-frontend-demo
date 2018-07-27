@@ -5,23 +5,19 @@ import { AdminModule } from '../admin/admin.module';
 import { ReportsModule } from '../reports/reports.module';
 
 import { CurrentUserGuard } from './services/current-user.guard';
-
-import { CoreComponent } from './core.component';
-import { SignInPage } from './pages/sign-in/sign-in.page';
-import { UserProfilePage } from './pages/user-profile/user-profile.page';
-import { AcceptInvitePage } from './pages/accept-invite/accept-invite.page';
-import { UsersListPage } from './pages/users-list/users-list.page';
-import {
-  TermsAndConditionsComponent
-} from './pages/terms-and-conditions/terms-and-conditions.component';
-
-import {
-  RegistrationComponent
-} from './pages/registration/registration.component';
 import { RegistrationGuard } from './services/registration.guard';
 import { PermissionGuard } from './services/permission.guard';
-import { UpdatesPage } from './pages/updates/updates.page';
-import { IntegrationsPage } from './pages/integrations/integrations.page';
+import { CoreComponent } from './core.component';
+import {
+  AcceptInvitePage,
+  RegistrationPage,
+  SignInPage,
+  TermsAndConditionsPage,
+  UpdatesPage,
+  UserProfilePage,
+  UsersListPage,
+  IntegrationsPage,
+} from './pages';
 
 const routes: Routes = [
   {
@@ -40,10 +36,10 @@ const routes: Routes = [
   },
   { path: 'sign-in', component: SignInPage },
   { path: 'invitation/:token', component: AcceptInvitePage },
-  { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
+  { path: 'terms-and-conditions', component: TermsAndConditionsPage },
   {
     path: 'registration',
-    component: RegistrationComponent,
+    component: RegistrationPage,
     canActivate: [RegistrationGuard]
   },
   {
