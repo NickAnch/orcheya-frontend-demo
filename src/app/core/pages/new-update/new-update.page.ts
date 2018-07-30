@@ -53,6 +53,11 @@ export class NewUpdatePage implements OnInit, OnDestroy {
     this._subsription.unsubscribe();
   }
 
+  public getTaskName(task: any): string {
+    const splittedUrl = task.task_url.split('/');
+    return `${splittedUrl[splittedUrl.length - 1]}: ${task.task_name}`;
+  }
+
   public checkIsUpdateAllowed(): void {
     const updateDate = new Date(this.updateDate);
     const currentDate = new Date();
