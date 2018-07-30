@@ -31,6 +31,7 @@ import {
   UpdatesComponent,
   RecentUpdateComponent,
   WaitingComponent,
+  UserLinksComponent,
 } from './components';
 
 import { ImageUploadDirective } from './directives/image-upload.directive';
@@ -123,6 +124,7 @@ import { NotificationsService } from './services/notifications.service';
     WaitingComponent,
     IntegrationsPage,
     NotificationsComponent,
+    UserLinksComponent,
   ],
   entryComponents: [
     WaitingComponent,

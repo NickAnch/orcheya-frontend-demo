@@ -1,0 +1,11 @@
+.input-group {
+  padding: 0 12px;
+}
+
+.button-block {
+  display: flex;
+
+  .btn {
+    justify-self: flex-end;
+  }
+}

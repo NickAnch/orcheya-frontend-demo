@@ -12,3 +12,5 @@ export * from './modals/waiting/waiting.component';
 export * from './social-buttons/slack/slack-button.component';
 export * from './social-buttons/timedoctor/timedoctor-button.component';
 /* tslint:enable */
+export * from './user-links/user-links.component';
+
