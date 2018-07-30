@@ -1,16 +1,16 @@
 <div class="btn-group">
   <button type="button"
           class="btn"
-          [class.btn-default]="count != 7 || kind != 'day'"
-          [class.btn-info]="count == 7 && kind == 'day'"
-          (click)="setDates(7, 'day')">
+          [class.btn-default]="count != 1 || kind != 'week'"
+          [class.btn-info]="count == 1 && kind == 'week'"
+          (click)="setDates(1, 'week')">
     Week
   </button>
   <button type="button"
           class="btn"
-          [class.btn-default]="count != 14 || kind != 'day'"
-          [class.btn-info]="count == 14 && kind == 'day'"
-          (click)="setDates(14, 'day')">
+          [class.btn-default]="count != 2 || kind != 'week'"
+          [class.btn-info]="count == 2 && kind == 'week'"
+          (click)="setDates(2, 'week')">
     2 Weeks
   </button>
   <button type="button"

@@ -93,7 +93,7 @@
             <tr>
               <td><i class="fa fa-fw fa-slack"></i></td>
               <td>Slack</td>
-              <td><a *ngIf="user.slackId"
+              <td><a *ngIf="user?.slackId"
                      [href]="slackUrl()"><span>{{ user?.slackName }}</span></a></td>
             </tr>
             </tbody>
@@ -122,19 +122,23 @@
             <div class="tab-content">
               <app-user-activity>
                 <div class="integration-switcher">
-                  <div class="btn-group"
-                       btnRadioGroup
-                       (click)="onIntegrationChange()"
-                       [(ngModel)]="filter.source">
-                    <label class="btn btn-primary" [btnRadio]="tgTypes.timeDoctor.id"
-                           uncheckable tabindex="0" role="button">TimeDoctor</label>
-                    <label class="btn btn-primary" [btnRadio]="tgTypes.upWork.id"
-                           uncheckable tabindex="0" role="button">UpWork</label>
+                  <div class="btn-group">
+                    <label class="btn btn-primary"
+                           [class.active]="checkSelected(tgTypes.timeDoctor.id, false)"
+                           (click)="onIntegrationChange(tgTypes.timeDoctor.id, false)">TimeDoctor</label>
+                    <label class="btn btn-primary"
+                           [class.active]="checkSelected(tgTypes.upWork.id, false)"
+                           (click)="onIntegrationChange(tgTypes.upWork.id, false)">UpWork</label>
+                    <label class="btn btn-primary"
+                           [class.active]="checkSelected(tgTypes.noTimer.id, true)"
+                           (click)="onIntegrationChange(tgTypes.noTimer.id, true)">Updates</label>
                   </div>
                 </div>
-                <app-time-activity width="690px"></app-time-activity>
+                <app-time-activity width="690px"
+                                   [activityData]="activityData"></app-time-activity>
                 <br>
-                <app-time-table width="690px"></app-time-table>
+                <app-time-table width="690px"
+                                [yearTime]="activityData"></app-time-table>
                 <br>
                 <app-recent-update
                   *ngIf="user"

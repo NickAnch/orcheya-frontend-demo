@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  templateUrl: './registration.page.html',
+  styleUrls: ['./registration.page.scss']
 })
-export class RegistrationComponent {
+export class RegistrationPage {
   public navigateTo = ['/integrations'];
 }

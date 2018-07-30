@@ -17,6 +17,7 @@
                id="name"
                placeholder="Enter name"
                formControlName="name">
+        <span class="saved-block">Saved</span>
         <span class="help-block">{{ textError('name') }}</span>
       </div>
     </div>
@@ -29,6 +30,7 @@
                id="surname"
                placeholder="Enter surname"
                formControlName="surname">
+        <span class="saved-block">Saved</span>
         <span class="help-block">{{ textError('surname') }}</span>
       </div>
     </div>
@@ -42,6 +44,7 @@
                id="birthday"
                placeholder="Enter birth date"
                formControlName="birthday">
+        <span class="saved-block">Saved</span>
         <span class="help-block">{{ textError('birthday') }}</span>
       </div>
     </div>
@@ -72,6 +75,7 @@
                placeholder="Enter phone"
                formControlName="phone"
                [appMask]="form.get('phone')">
+        <span class="saved-block">Saved</span>
         <span class="help-block">{{ textError('phone') }}</span>
       </div>
     </div>
@@ -85,6 +89,7 @@
                id="email"
                placeholder="Enter email"
                formControlName="email">
+        <span class="saved-block">Saved</span>
         <span class="help-block">{{ textError('email') }}</span>
       </div>
     </div>
@@ -101,6 +106,7 @@
             {{ timing.time }}
           </option>
         </select>
+        <span class="saved-block">Saved</span>
         <span class="help-block">{{ textError('timingId') }}</span>
       </div>
     </div>
@@ -113,6 +119,7 @@
                id="github"
                placeholder="Enter github"
                formControlName="github">
+        <span class="saved-block">Saved</span>
         <span class="help-block">{{ textError('github') }}</span>
       </div>
     </div>
@@ -125,6 +132,7 @@
                id="bitbucket"
                placeholder="Enter bitbucket"
                formControlName="bitbucket">
+        <span class="saved-block">Saved</span>
         <span class="help-block">{{ textError('bitbucket') }}</span>
       </div>
     </div>
@@ -137,6 +145,7 @@
                id="skype"
                placeholder="Enter skype"
                formControlName="skype">
+        <span class="saved-block">Saved</span>
         <span class="help-block">{{ textError('skype') }}</span>
       </div>
     </div>
