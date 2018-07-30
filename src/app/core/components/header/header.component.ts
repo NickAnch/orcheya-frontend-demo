@@ -28,8 +28,14 @@ export class HeaderComponent {
   public signOut(): void {
     this.currentUser
       .signOut()
-      .subscribe(() => this.router.navigate(['/sign-in']));
+      .subscribe(() => {
+        this.router.navigate(['/sign-in']);
+        if (localStorage.pathToUpdate) {
+          localStorage.removeItem('pathToUpdate');
+        }
+      });
   }
+
   public goToProfile(): void {
     this.router.navigate(['/profile']);
   }

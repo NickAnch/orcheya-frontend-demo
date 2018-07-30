@@ -18,6 +18,7 @@ import {
   UsersListPage,
   IntegrationsPage,
 } from './pages';
+import { NewUpdatePage } from './pages/new-update/new-update.page';
 
 const routes: Routes = [
   {
@@ -31,7 +32,7 @@ const routes: Routes = [
       { path: 'user-profile/:id', component: UserProfilePage },
       { path: 'updates', component: UpdatesPage },
       { path: 'admin', loadChildren: () => AdminModule },
-      { path: 'reports', loadChildren: () => ReportsModule }
+      { path: 'reports', loadChildren: () => ReportsModule },
     ]
   },
   { path: 'sign-in', component: SignInPage },
@@ -47,6 +48,11 @@ const routes: Routes = [
     component: IntegrationsPage,
     canActivate: [CurrentUserGuard, PermissionGuard]
   },
+  {
+    path: 'update',
+    component: NewUpdatePage,
+    canActivate: [CurrentUserGuard],
+  }
 ];
 
 @NgModule({

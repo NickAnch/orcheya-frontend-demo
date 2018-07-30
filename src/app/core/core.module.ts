@@ -59,6 +59,8 @@ import {
   UserProfilePage,
   UsersListPage
 } from './pages';
+import { NewUpdatePage } from './pages/new-update/new-update.page';
+import { NewUpdateService } from './services/new-update.service';
 
 
 @NgModule({
@@ -91,6 +93,7 @@ import {
     RolesService,
     TimingsService,
     NotificationsService,
+    NewUpdateService,
   ],
   declarations: [
     HeaderComponent,
@@ -119,6 +122,7 @@ import {
     WaitingComponent,
     IntegrationsPage,
     NotificationsComponent,
+    NewUpdatePage,
   ],
   entryComponents: [
     WaitingComponent,

@@ -22,6 +22,13 @@ export class CurrentUserGuard implements CanActivate {
     }
 
     return Observable.create((observer: Observer<boolean>) => {
+      if (window.location.pathname === '/update') {
+        const savedPath = {
+          pathName: window.location.pathname,
+          params: window.location.search
+        };
+        localStorage.setItem('pathToUpdate', JSON.stringify(savedPath));
+      }
       this.currentUser.load()
         .subscribe(
           () => {
