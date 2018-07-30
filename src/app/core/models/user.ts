@@ -46,6 +46,7 @@ export class User extends Model {
   @Alias('slack_id') public slackId: string;
   @Alias('slack_team_id') public slackTeamId: string;
   @Alias('slack_name') public slackName: string;
+  @Alias('deleted_at') public deletedAt: Date;
 
   constructor(user?) {
     super();

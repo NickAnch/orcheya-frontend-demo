@@ -117,6 +117,7 @@
               <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Deleted at</th>
                 <th>Role</th>
                 <th>ID</th>
                 <th></th>
@@ -126,6 +127,7 @@
               <tr *ngFor="let user of deletedUsers">
                 <td>{{ user.name }} {{ user.surname }}</td>
                 <td>{{ user.email }}</td>
+                <td>{{ user.deletedAt | humanizeDate }}</td>
                 <td>{{ user.role?.name }}</td>
                 <td>{{ user.id }}</td>
                 <th class="no-padding text-right">
