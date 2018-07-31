@@ -209,9 +209,7 @@ export class TimesheetPage implements OnInit {
   filterChanged() {
     clearTimeout(this.getTimesheetDelay);
     this.getTimesheetDelay = setTimeout(
-      () => {
-        this.getTimesheet();
-      },
+      () => this.getTimesheet(),
       10
     );
   }
