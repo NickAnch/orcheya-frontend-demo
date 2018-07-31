@@ -2,6 +2,11 @@
   padding: 0 12px;
 }
 
+.box-body:before,
+.box-body:after {
+  content: none;
+}
+
 .button-block {
   display: flex;
 
