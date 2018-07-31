@@ -32,6 +32,11 @@ export class TimesheetPage implements OnInit {
 
   private getTimesheetDelay;
 
+  private sorting = {
+    sortBy: '',
+    sortOrder: ''
+  };
+
   constructor(
     private timesheetService: TimesheetService,
     private usersListService: UsersListService,
@@ -51,7 +56,87 @@ export class TimesheetPage implements OnInit {
       .subscribe(data => {
         this.timesheetRows = data.timesheetRows;
         this.days = this.daysRange();
+        this.sorting.sortBy = '';
       });
+  }
+
+  changeSort(column: string): void {
+    if (column === this.sorting.sortBy) {
+      if (this.sorting.sortOrder === 'asc') {
+        this.sorting.sortOrder = 'desc';
+      } else {
+        this.sorting.sortOrder = 'asc';
+      }
+    } else {
+      this.sorting.sortBy = column;
+      this.sorting.sortOrder = 'asc';
+    }
+  }
+
+  changeSortByCountTime() {
+    this.changeSort('countTime');
+    if (this.sorting.sortOrder === 'asc') {
+      this.timesheetRows
+        .sort((a, b) => {
+          const sortTime = this.sortBy(a.time(this.paid), b.time(this.paid));
+          return sortTime !== 0 && sortTime ||
+                 this.sortBy(a.surname, b.surname);
+        });
+    } else {
+      this.timesheetRows
+        .sort((a, b) => {
+          const sortTime = this.sortBy(b.time(this.paid), a.time(this.paid));
+          return sortTime !== 0 && sortTime ||
+                 this.sortBy(a.surname, b.surname);
+        });
+    }
+  }
+
+  changeSortByDate(day: Moment) {
+    this.changeSort(day.toString());
+
+    if (this.sorting.sortOrder === 'asc') {
+      this.timesheetRows
+        .sort((a, b) => {
+          const sortTime = this.sortBy(this.findTime(a, day, this.paid),
+                                       this.findTime(b, day, this.paid));
+          return sortTime !== 0 && sortTime ||
+                 this.sortBy(a.surname, b.surname);
+        });
+    } else {
+      this.timesheetRows
+        .sort((a, b) => {
+          const sortTime = this.sortBy(this.findTime(b, day, this.paid),
+                                       this.findTime(a, day, this.paid));
+          return sortTime !== 0 && sortTime ||
+                 this.sortBy(a.surname, b.surname);
+        });
+    }
+  }
+
+  sortByColumn(column: string): void {
+    this.changeSort(column);
+    if (this.sorting.sortOrder === 'asc') {
+      this.timesheetRows.sort((a, b) => this.sortBy(a[column], b[column]));
+    } else {
+      this.timesheetRows.sort((a, b) => this.sortBy(b[column], a[column]));
+    }
+  }
+
+  sortBy(a: string | number, b: string | number): number {
+    if (a > b) {
+      return 1;
+    } else if (a < b) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
+
+  isSortingColumn(sortBy: string, sortOrder?: string): boolean {
+    return !sortOrder && this.sorting.sortBy === sortBy ||
+           sortOrder && this.sorting.sortBy === sortBy &&
+           this.sorting.sortOrder === sortOrder;
   }
 
   daysRange() {
@@ -71,6 +156,7 @@ export class TimesheetPage implements OnInit {
     const worklog = worklogs.find(
       e => moment(e.date).isSame(moment(day), 'day')
     );
+
     return worklog ? worklog.time : 0;
   }
 
@@ -84,10 +170,10 @@ export class TimesheetPage implements OnInit {
       );
   }
 
-  totalTime(paid) {
+  get totalTime() {
     return this.timesheetRows
       .map(
-        e => e.time(paid)
+        e => e.time(this.paid)
       ).reduce(
         (acc, e) => acc += e,
         0
@@ -123,7 +209,9 @@ export class TimesheetPage implements OnInit {
   filterChanged() {
     clearTimeout(this.getTimesheetDelay);
     this.getTimesheetDelay = setTimeout(
-      () => this.getTimesheet(),
+      () => {
+        this.getTimesheet();
+      },
       10
     );
   }
