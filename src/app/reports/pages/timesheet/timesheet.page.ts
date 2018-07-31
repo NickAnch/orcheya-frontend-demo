@@ -69,11 +69,15 @@ export class TimesheetPage implements OnInit {
       }
     } else {
       this.sorting.sortBy = column;
-      this.sorting.sortOrder = 'asc';
+      if (this.isSortingColumn('surname')) {
+        this.sorting.sortOrder = 'asc';
+      } else {
+        this.sorting.sortOrder = 'desc';
+      }
     }
   }
 
-  changeSortByCountTime() {
+  changeSortByCountTime(): void {
     this.changeSort('countTime');
     if (this.sorting.sortOrder === 'asc') {
       this.timesheetRows
@@ -92,7 +96,7 @@ export class TimesheetPage implements OnInit {
     }
   }
 
-  changeSortByDate(day: Moment) {
+  changeSortByDate(day: Moment): void {
     this.changeSort(day.toString());
 
     if (this.sorting.sortOrder === 'asc') {
