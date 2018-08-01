@@ -9,6 +9,7 @@ export class Update extends Model {
   @Alias() public made: string;
   @Alias() public planning: string;
   @Alias() public issues: string;
+  @Alias('created_at') public createdAt: string;
 
   constructor(update?: Object) {
     super();
