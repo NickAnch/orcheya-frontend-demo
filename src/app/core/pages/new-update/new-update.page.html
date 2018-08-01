@@ -7,13 +7,13 @@
             Write a new update
           </h4>
           <h5 class="date">
-            {{ update.date }}
+            {{ update.date | date }}
           </h5>
         </div>
         <div class="box-body" *ngIf="isAllowedToSendUpdate; else forbiddenToWriteUpdate">
           <p>
             <b>
-              You promised to do
+              You planned to do
             </b>
           </p>
           <p>
@@ -27,47 +27,62 @@
               <ul>
                 <ng-container *ngFor="let task of doneTodayTasks">
                   <li>
-                    <p>
+                    <p *ngIf="task.task_url; else taskWithoutUrl">
                       <a href="{{ task.task_url }}">
                         {{ getTaskName(task) }}
                       </a>
                     </p>
+                    <p #taskWithoutUrl>
+                      {{ task.task_name }}
+                    </p>
+                  </li>
+                </ng-container>
+                <ng-container *ngIf="doneTodayTasks && doneTodayTasks.length === 0">
+                  <li>
+                    You haven't done today anything through tracker
                   </li>
                 </ng-container>
               </ul>
               <textarea
+                autosize
                 type="text"
                 class="form-control"
                 placeholder="Finished tasks"
+                id="update-made"
                 name="update-made"
                 required
                 [(ngModel)]="update.made">
               </textarea>
             </div>
-            <div class="form-group has-feedback" [class.has-error]="errors">
+            <div class="form-group">
               <label for="update-planning">
                 What are you going to do tomorrow?
               </label>
               <textarea
+                autosize
                 type="text"
                 class="form-control"
                 placeholder="Tasks you gonna do"
+                id="update-planning"
                 name="update-planning"
                 required
                 [(ngModel)]="update.planning">
               </textarea>
             </div>
-            <div class="form-group has-feedback" [class.has-error]="errors">
+            <div class="form-group">
               <label for="update-issues">
                 Problems?
               </label>
-              <input
+              <textarea
+                autosize
                 type="text"
                 class="form-control"
                 placeholder="Problems"
+                id="update-issues"
                 name="update-issues"
                 required
                 [(ngModel)]="update.issues">
+              </textarea>
             </div>
             <div class="row">
               <div class="col-xs-8"></div>

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpParams
+} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { Update } from '../models/update';
@@ -11,10 +14,14 @@ export class NewUpdateService {
 
   constructor(private http: HttpClient) {}
 
-  public getLastUpdate(id: number): Observable<any> {
+  public getLastUpdate(id: number, date: string): Observable<any> {
     return Observable.create((observer: Observer<any>) => {
+      const url = `${this.getUpdatePath}/${id}/day_info`;
+      const httpParams = new HttpParams()
+        .set('date', date);
+
       this.http
-        .get(`${this.getUpdatePath}/${id}/day_info`)
+        .get(url, { params: httpParams })
         .subscribe(
           res => {
             observer.next(res);
@@ -28,6 +35,19 @@ export class NewUpdateService {
     return Observable.create((observer: Observer<any>) => {
       this.http
         .post(this.apiPath, update)
+        .subscribe(
+          response => {
+            observer.next(response);
+            observer.complete();
+          }
+        );
+    });
+  }
+
+  public editOldUpdate(update: Update): Observable<any> {
+    return Observable.create((observer: Observer<any>) => {
+      this.http
+        .put(`${this.apiPath}/${update.id}`, update)
         .subscribe(
           response => {
             observer.next(response);
