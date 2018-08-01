@@ -54,109 +54,126 @@
     </label>
   </div>
 
-  <ng-container *ngIf="timesheetRows">
-    <div class="box box-primary">
-      <div class="box-body horizontal">
-        <table class="table table-bordered table-hover dataTable" role="grid">
-          <thead>
-          <tr>
-            <th>Developer</th>
-            <th>Worked time</th>
-            <ng-container *ngFor="let day of days">
-              <th class="text-center" [class.future]="day.isAfter(today)">
-                {{ day.format('dddd, DD.MM') }}
-              </th>
-            </ng-container>
-          </tr>
+  <div *ngIf="timesheetRows"
+        class="box box-primary">
+    <div class="box-body horizontal">
+      <table class="table table-bordered table-hover dataTable" role="grid">
+        <thead>
+        <tr>
+          <th>Developer
+            <i (click)="sortByColumn('surname')"
+               class="fa fa-fw"
+               [class.fa-sort-alpha-asc]="isSortingColumn('surname', 'asc')"
+               [class.fa-sort-alpha-desc]="isSortingColumn('surname', 'desc')"
+               [class.fa-sort]="sorting.sortBy !== 'surname'"></i>
+          </th>
+          <th>Worked time
+            <i (click)="changeSortByCountTime()"
+               class="fa fa-fw"
+               [class.fa-sort-amount-asc]="isSortingColumn('countTime', 'asc')"
+               [class.fa-sort-amount-desc]="isSortingColumn('countTime', 'desc')"
+               [class.fa-sort]="sorting.sortBy !== 'countTime'"></i>
+          </th>
+          <th *ngFor="let day of days"
+              class="text-center"
+              [class.future]="day.isAfter(today)">
+            {{ day.format('dddd, DD.MM') }}
+            <i *ngIf="!day.isAfter(today)"
+               (click)="changeSortByDate(day)"
+               class="fa fa-fw"
+               [class.fa-sort-amount-asc]="isSortingColumn(day.toString(), 'asc')"
+               [class.fa-sort-amount-desc]="isSortingColumn(day.toString(), 'desc')"
+               [class.fa-sort]="sorting.sortBy !== day.toString()"></i>
+          </th>
+        </tr>
 
-          <tr>
-            <th>{{ timesheetRows.length }} users selected</th>
-            <th>{{ totalTime(paid) | humanizeTime }}</th>
-            <ng-container *ngFor="let day of days">
-              <th class="text-center" [class.future]="day.isAfter(today)">
-                <div class="time">
-                  <span *ngIf="paid && findTimeByDay(day, true) !== 0">
-                    {{ findTimeByDay(day, true) | humanizeTime }}
-                  </span>
-                  <span *ngIf="!paid || findTimeByDay(day, true) === 0"
-                        [class.shadow]="paid && findTimeByDay(day, true) === 0">
-                    {{ findTimeByDay(day, false) | humanizeTime }}
-                  </span>
-                </div>
-                <div *ngIf="paid; else all" class="progress">
-                  <div class="progress-bar all-progress-bar"
-                       role="progressbar"
-                       aria-valuemin="0"
-                       aria-valuemax="28800"
-                       [style.width]="totalScrollbarWidth(day, false) + '%' | sanitize"
-                  ></div>
-                  <div class="progress-bar paid-progress-bar"
-                       role="progressbar"
-                       aria-valuemin="0"
-                       aria-valuemax="28800"
-                       [style.width]="totalScrollbarWidth(day, true) + '%' | sanitize"
-                  ></div>
-                </div>
-                <ng-template #all>
-                  <div class="progress">
-                    <div class="progress-bar"
-                         role="progressbar"
-                         aria-valuemin="0"
-                         aria-valuemax="28800"
-                         [style.width]="totalScrollbarWidth(day, false) + '%' | sanitize"
-                    ></div>
-                  </div>
-                </ng-template>
-              </th>
-            </ng-container>
-          </tr>
-          </thead>
+        <tr>
+          <th>{{ timesheetRows.length }} users selected</th>
+          <th>{{ totalTime | humanizeTime }}</th>
+          <th *ngFor="let day of days"
+              class="text-center"
+              [class.future]="day.isAfter(today)">
+            <div class="time">
+              <span *ngIf="paid && findTimeByDay(day, true) !== 0">
+                {{ findTimeByDay(day, true) | humanizeTime }}
+              </span>
+              <span *ngIf="!paid || findTimeByDay(day, true) === 0"
+                    [class.shadow]="paid && findTimeByDay(day, true) === 0">
+                {{ findTimeByDay(day, false) | humanizeTime }}
+              </span>
+            </div>
+            <div *ngIf="paid; else all" class="progress">
+              <div class="progress-bar all-progress-bar"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="28800"
+                    [style.width]="totalScrollbarWidth(day, false) + '%' | sanitize"
+              ></div>
+              <div class="progress-bar paid-progress-bar"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="28800"
+                    [style.width]="totalScrollbarWidth(day, true) + '%' | sanitize"
+              ></div>
+            </div>
+            <ng-template #all>
+              <div class="progress">
+                <div class="progress-bar"
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="28800"
+                      [style.width]="totalScrollbarWidth(day, false) + '%' | sanitize"
+                ></div>
+              </div>
+            </ng-template>
+          </th>
+        </tr>
+        </thead>
 
-          <tbody>
-          <tr *ngFor="let user of timesheetRows">
-            <td>{{ user.name }} {{ user.surname }}</td>
-            <td>{{ user.time(paid) | humanizeTime }}</td>
-            <ng-container *ngFor="let day of days">
-              <td class="text-center" [class.future]="day.isAfter(today)">
-                <div class="time" >
-                  <span *ngIf="paid && findTime(user, day, true) !== 0">
-                    {{ findTime(user, day, true) | humanizeTime }}
-                  </span>
-                  <span *ngIf="!paid || findTime(user, day, true) === 0"
-                        [class.shadow]="paid && findTime(user, day, true) === 0">
-                    {{ findTime(user, day, false) | humanizeTime }}
-                  </span>
-                </div>
-                <div *ngIf="paid; else all" class="progress">
-                  <div class="progress-bar all-progress-bar"
-                       role="progressbar"
-                       aria-valuemin="0"
-                       aria-valuemax="28800"
-                       [style.width]="scrollbarWidth(user, day, false) + '%' | sanitize"
-                  ></div>
-                  <div class="progress-bar paid-progress-bar"
-                       role="progressbar"
-                       aria-valuemin="0"
-                       aria-valuemax="28800"
-                       [style.width]="scrollbarWidth(user, day, true) + '%' | sanitize"
-                  ></div>
-                </div>
-                <ng-template #all>
-                  <div class="progress">
-                    <div class="progress-bar"
-                         role="progressbar"
-                         aria-valuemin="0"
-                         aria-valuemax="28800"
-                         [style.width]="scrollbarWidth(user, day, false) + '%' | sanitize"
-                    ></div>
-                  </div>
-                </ng-template>
-              </td>
-            </ng-container>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+        <tbody>
+        <tr *ngFor="let user of timesheetRows">
+          <td>{{ user.surname }} {{ user.name }}</td>
+          <td>{{ user.time(paid) | humanizeTime }}</td>
+          <td *ngFor="let day of days"
+              class="text-center"
+              [class.future]="day.isAfter(today)">
+            <div class="time" >
+              <span *ngIf="paid && findTime(user, day, true) !== 0">
+                {{ findTime(user, day, true) | humanizeTime }}
+              </span>
+              <span *ngIf="!paid || findTime(user, day, true) === 0"
+                    [class.shadow]="paid && findTime(user, day, true) === 0">
+                {{ findTime(user, day, false) | humanizeTime }}
+              </span>
+            </div>
+            <div *ngIf="paid; else all" class="progress">
+              <div class="progress-bar all-progress-bar"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="28800"
+                    [style.width]="scrollbarWidth(user, day, false) + '%' | sanitize"
+              ></div>
+              <div class="progress-bar paid-progress-bar"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="28800"
+                    [style.width]="scrollbarWidth(user, day, true) + '%' | sanitize"
+              ></div>
+            </div>
+            <ng-template #all>
+              <div class="progress">
+                <div class="progress-bar"
+                      role="progressbar"
+                      aria-valuemin="0"
+                      aria-valuemax="28800"
+                      [style.width]="scrollbarWidth(user, day, false) + '%' | sanitize"
+                ></div>
+              </div>
+            </ng-template>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-  </ng-container>
+  </div>
 </section>
