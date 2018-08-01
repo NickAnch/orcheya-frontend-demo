@@ -40,7 +40,11 @@
           </i>
         </td>
         <td>{{ project.name }} </td>
-        <td>{{ project.createdAt | humanizeDate }}</td>
+        <td>
+          <span tooltip="The date the project appeared in Orcheya ie. when someone started working on a time tracker.">
+            {{ project.createdAt | humanizeDate }}
+          </span>
+        </td>
         <td>
           <input type="checkbox"
                  [checked]="project.paid"
