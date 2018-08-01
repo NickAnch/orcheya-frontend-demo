@@ -64,7 +64,7 @@ import {
   NotificationsComponent
 } from './components/notifications/notifications.component';
 import { NotificationsService } from './services/notifications.service';
-
+import { UserLinksService } from './services/user-links.service';
 
 @NgModule({
   imports: [
@@ -96,6 +96,7 @@ import { NotificationsService } from './services/notifications.service';
     RolesService,
     TimingsService,
     NotificationsService,
+    UserLinksService,
   ],
   declarations: [
     HeaderComponent,

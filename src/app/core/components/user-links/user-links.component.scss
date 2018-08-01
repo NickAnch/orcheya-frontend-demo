@@ -9,8 +9,5 @@
 
 .button-block {
   display: flex;
-
-  .btn {
-    justify-self: flex-end;
-  }
+  justify-content: flex-end;
 }
