@@ -7,6 +7,7 @@ import {
   UsersPage,
   LibsPage
 } from './pages';
+import { MapComponent } from '../core/components';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
     canActivate: [CanActivateAdminGuard],
     children: [
       { path: 'users', component: UsersPage },
-      { path: 'libs', component: LibsPage }
+      { path: 'libs', component: LibsPage },
+      { path: 'map', component: MapComponent }
     ]
   }
 ];

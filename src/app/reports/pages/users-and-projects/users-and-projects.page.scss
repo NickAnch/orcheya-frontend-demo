@@ -9,7 +9,24 @@
 
 .filter-controls {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: repeat(3, auto);
+}
+
+.calendar-control {
+  align-items: center;
+  display: flex;
+}
+
+.c-label {
+  font-weight: bold;
+  margin: 0 5px 0 15px;
+}
+
+.tab-content tr > th:first-child,
+.tab-content tr > td:first-child {
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
 }
 
 .tumbler-type-time {

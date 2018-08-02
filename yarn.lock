@@ -5075,6 +5075,12 @@ ngx-bootstrap@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-2.0.3.tgz#b8ca4be305be4e2e99f60d941cc8a3e906f198d7"
 
+ngx-textarea-autosize@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-textarea-autosize/-/ngx-textarea-autosize-2.0.0.tgz#70d0bf770ebd62b5609c6552233d29c304f92ab8"
+  dependencies:
+    tslib "^1.7.1"
+
 ngx-ui-switch@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/ngx-ui-switch/-/ngx-ui-switch-2.1.0.tgz#8d858a74c8b6ac82c581f28864f9e77ad0156657"
@@ -7097,6 +7103,10 @@ stylus@^0.54.5:
     sax "0.5.x"
     source-map "0.1.x"
 
+suncalc@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/suncalc/-/suncalc-1.8.0.tgz#1d9898109563078750f4994a959e654d876acbf5"
+
 supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
@@ -7257,6 +7267,12 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     extend-shallow "^3.0.2"
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
+
+topojson-client@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/topojson-client/-/topojson-client-3.0.0.tgz#1f99293a77ef42a448d032a81aa982b73f360d2f"
+  dependencies:
+    commander "2"
 
 toposort@^1.0.0:
   version "1.0.6"

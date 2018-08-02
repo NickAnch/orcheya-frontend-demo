@@ -1,3 +1,6 @@
+$white: #fff;
+$black: #000;
+
 .wrap {
   padding: 20px 30px;
 }
@@ -9,13 +12,30 @@
 
 .dash {
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
   grid-auto-flow: column;
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.tab-content tr > th:first-child,
+.tab-content tr > td:first-child {
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
 }
 
 .filter-controls {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: repeat(3, auto);
+}
+
+.calendar-control {
+  align-items: center;
+  display: flex;
+}
+
+.c-label {
+  font-weight: bold;
+  margin: 0 5px 0 15px;
 }
 
 .chart {
@@ -36,9 +56,19 @@ chart {
   justify-content: center;
 }
 
-.select-ranges {
-  align-items: center;
-  display: flex;
+.progress {
+  position: relative;
+
+  > span {
+    color: $black;
+    position: absolute;
+    text-align: center;
+    text-shadow: -1px -1px 0 $white,
+                 1px -1px 0 $white,
+                 -1px 1px 0 $white,
+                 1px 1px 0 $white;
+    width: 100%;
+  }
 }
 
 @media only screen and (max-width: 767px) {
