@@ -27,12 +27,12 @@
               <ul>
                 <ng-container *ngFor="let task of doneTodayTasks">
                   <li>
-                    <p *ngIf="task.task_url; else taskWithoutUrl">
+                    <p *ngIf="task.task_url">
                       <a href="{{ task.task_url }}">
                         {{ getTaskName(task) }}
                       </a>
                     </p>
-                    <p #taskWithoutUrl>
+                    <p *ngIf="!task.task_url">
                       {{ task.task_name }}
                     </p>
                   </li>

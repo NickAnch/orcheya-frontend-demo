@@ -68,6 +68,7 @@
           <table class="table table-bordered table-hover dataTable" role="grid">
             <thead>
             <tr role="row">
+              <th>#</th>
               <th>Name</th>
               <th>Worked time</th>
               <th>Paid time</th>
@@ -88,6 +89,7 @@
             </thead>
             <tbody>
             <tr role="row" *ngFor="let row of usersData; let i = index">
+              <td>{{ i + 1 }}</td>
               <td>{{ row.name }} {{ row.surname }}</td>
               <td>{{ row.workedSum | humanizeTime }}</td>
               <td>{{ row.paidSum | humanizeTime }}</td>
@@ -110,6 +112,7 @@
           <table class="table table-bordered table-hover dataTable" role="grid">
             <thead>
             <tr role="row">
+              <th>#</th>
               <th>Name</th>
               <th>Worked time</th>
               <th>Paid time</th>
@@ -130,6 +133,7 @@
             </thead>
             <tbody>
             <tr role="row" *ngFor="let row of projectsData; let i = index">
+              <td>{{ i + 1 }}</td>
               <td>{{ row.name }}</td>
               <td>{{ row.workedSum | humanizeTime }}</td>
               <td>{{ row.paidSum | humanizeTime }}</td>

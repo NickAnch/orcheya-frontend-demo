@@ -23,3 +23,8 @@
 .nav-tabs-custom {
   position: relative;
 }
+
+.tab-content tr > th:first-child,
+.tab-content tr > td:first-child {
+  text-align: center;
+}
