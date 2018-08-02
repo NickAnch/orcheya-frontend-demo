@@ -22,7 +22,7 @@ export class UserLinksService {
     })
   }
 
-  public newUserLinks(link: UserLink): Observable<any> {
+  public newUserLink(link: UserLink): Observable<any> {
     return Observable.create((observer: Observer<any>) => {
       return this._http
         .post(this._apiUrl, link)
@@ -33,10 +33,21 @@ export class UserLinksService {
     })
   }
 
-  public updateUserLinks(link: UserLink): Observable<object> {
+  public updateUserLink(link: UserLink): Observable<object> {
     return Observable.create((observer: Observer<object>) => {
       return this._http
         .put(`${this._apiUrl}/${link.id}`, link)
+        .subscribe(response => {
+          observer.next(response);
+          observer.complete();
+        })
+    })
+  }
+
+  public removeUserLink(id: number): Observable<object> {
+    return Observable.create((observer: Observer<object>) => {
+      return this._http
+        .delete(`${this._apiUrl}/${id}`)
         .subscribe(response => {
           observer.next(response);
           observer.complete();

@@ -9,6 +9,7 @@
         </label>
         <div class="col-sm-10 input-group">
           <input
+            [class.input-error]="!link.valid"
             formControlName="link"
             placeholder="Your link"
             class="form-control"
@@ -32,4 +33,9 @@
 </form>
 <pre>
   {{ form.value | json }}
+  <hr>
+  {{ form.status }}
 </pre>
+<button (click)="func()">
+  +
+</button>
