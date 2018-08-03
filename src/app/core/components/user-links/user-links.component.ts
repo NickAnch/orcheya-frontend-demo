@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { UserLinksService } from '../../services/user-links.service';
 import { UserLink } from '../../models/userLinks';
-import { Observable } from '../../../../../node_modules/rxjs/Observable';
 
 @Component({
   selector: 'app-user-links',
@@ -61,17 +60,27 @@ export class UserLinksComponent implements OnInit, OnDestroy {
         .valueChanges
         .debounceTime(500)
         .distinctUntilChanged()
-        .subscribe((changedInput: UserLink) => {
-          console.log(changedInput);
-          if (changedInput.id !== null) {
-            console.log('old input data');
-            this._updateUserLinks(changedInput);;
-          } else {
-            console.log('new input data');
-            this._createUserLinks(changedInput, index);
+        .subscribe((changedInput) => {
+          const formControlIndex = this._findUserLinkIndex(changedInput);
+          if (this.userLinks.controls[formControlIndex].valid) {
+            if (changedInput.id !== null) {
+              this._updateUserLinks(changedInput);;
+            } else {
+              this._createUserLinks(changedInput, index);
+            }
           }
         })
     )
+  }
+
+  private _findUserLinkIndex(changedControlValue: UserLink): number {
+    let controlIndex;
+    this.userLinks.controls.forEach((control, index) => {
+      if (control.value === changedControlValue) {
+        controlIndex = index;
+      }
+    });
+    return controlIndex;
   }
 
   public removeUserLink(index: number): void {
@@ -95,7 +104,7 @@ export class UserLinksComponent implements OnInit, OnDestroy {
     this._linksService.updateUserLink(link).subscribe();
   }
 
-  func() {
-    console.log(this.form);
+  func(link) {
+    console.log(this.userLinks)
   }
 }

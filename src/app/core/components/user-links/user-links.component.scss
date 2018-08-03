@@ -15,5 +15,9 @@
 }
 
 .input-error {
-  border-color: $border-red;
+  border-color: $red;
+}
+
+.error-message {
+  color: $red;
 }
