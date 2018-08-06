@@ -5,7 +5,13 @@ import {
   EventEmitter,
   Output
 } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  Validators,
+  AbstractControl
+} from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { UserLinksService } from '../../services/user-links.service';
 import { UserLink } from '../../models/userLinks';
@@ -113,12 +119,14 @@ export class UserLinksComponent implements OnInit, OnDestroy {
 
   public removeUserLink(index: number): void {
     const linkId = this.userLinks.controls[index].value.id;
-    const control = <FormArray>this.form.controls['userLinks'];
-    if (index !== 0) {
-      control.removeAt(index);
+    const formArray = <FormArray>this.form.controls['userLinks'];
+    if (formArray.controls.length > 0) {
+      formArray.removeAt(index);
     }
     this.kinds.splice(index, 1);
-    this._linksService.removeUserLink(linkId).subscribe();
+    if (linkId !== null) {
+      this._linksService.removeUserLink(linkId).subscribe();
+    }
     this._subscriptions[index].unsubscribe();
     this.transmitUserLinksData();
   }

@@ -28,8 +28,6 @@ export class User extends Model {
   @Alias() public birthday: string;
   @Alias() public phone: string;
   @Alias() public skype: string;
-  @Alias() public github: string;
-  @Alias() public bitbucket: string;
   @Alias('timing_id') public timingId: number;
   @Alias('timing', Timing) public timing: Timing;
   @Alias('role_id') public roleId: number;

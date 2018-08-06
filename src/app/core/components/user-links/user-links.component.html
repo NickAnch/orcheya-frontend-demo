@@ -1,5 +1,5 @@
-<form [formGroup]="form" class="form-horizontal">
-  <div class="box-body">
+<div class="box-body">
+  <form [formGroup]="form" class="form-horizontal">
     <ng-container
       formArrayName="userLinks"
       *ngFor="let link of form.get('userLinks').controls; let i = index;">
@@ -32,13 +32,5 @@
         Add field
       </button>
     </div>
-  </div>
-</form>
-<pre>
-  {{ form.value | json }}
-  <hr>
-  {{ form.status }}
-</pre>
-<button (click)="func()">
-  +
-</button>
+  </form>
+</div>
