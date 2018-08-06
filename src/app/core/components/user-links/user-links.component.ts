@@ -1,5 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  EventEmitter,
+  Output
+} from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { UserLinksService } from '../../services/user-links.service';
 import { UserLink } from '../../models/userLinks';
@@ -10,9 +16,23 @@ import { UserLink } from '../../models/userLinks';
   styleUrls: ['./user-links.component.scss']
 })
 export class UserLinksComponent implements OnInit, OnDestroy {
+  @Output() public changeUserLink: EventEmitter<object> = new EventEmitter();
   public form: FormGroup;
   public userLinks: FormArray;
   private _subscriptions: Subscription[] = [];
+  private _services = [
+    'gitlab',
+    'linkedin',
+    'medium',
+    'instagram',
+    'facebook',
+    'vk',
+    'stackoverflow',
+    'steam',
+    'github',
+    'telegram',
+  ];
+  public kinds = [];
 
   constructor(
     private _fb: FormBuilder,
@@ -26,17 +46,24 @@ export class UserLinksComponent implements OnInit, OnDestroy {
     this._linksService.getUserLinks()
       .subscribe(response => {
         if (response.length > 0) {
-          response.forEach((userLink: UserLink) => {
+          response.forEach((userLink: UserLink, index: number) => {
             this.addLink(userLink);
+            this.kinds[index] = userLink.kind;
           });
         } else {
           this.addLink();
         }
+        this.transmitUserLinksData();
       });
   }
 
   ngOnDestroy() {
     this._subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  public transmitUserLinksData() {
+    const data = { links: this.userLinks, kinds: this.kinds };
+    this.changeUserLink.emit(data);
   }
 
   private _createLinkFormGroup(userLink?: UserLink): FormGroup {
@@ -60,51 +87,71 @@ export class UserLinksComponent implements OnInit, OnDestroy {
         .valueChanges
         .debounceTime(500)
         .distinctUntilChanged()
-        .subscribe((changedInput) => {
+        .subscribe((changedInput: UserLink) => {
           const formControlIndex = this._findUserLinkIndex(changedInput);
           if (this.userLinks.controls[formControlIndex].valid) {
             if (changedInput.id !== null) {
-              this._updateUserLinks(changedInput);;
+              this._updateUserLinks(changedInput, index);
             } else {
               this._createUserLinks(changedInput, index);
             }
           }
         })
-    )
+    );
   }
 
   private _findUserLinkIndex(changedControlValue: UserLink): number {
     let controlIndex;
-    this.userLinks.controls.forEach((control, index) => {
-      if (control.value === changedControlValue) {
-        controlIndex = index;
-      }
-    });
+    this.userLinks.controls
+      .forEach((control: AbstractControl, index: number) => {
+        if (control.value === changedControlValue) {
+          controlIndex = index;
+        }
+      });
     return controlIndex;
   }
 
   public removeUserLink(index: number): void {
-    let linkId = this.userLinks.controls[index].value.id;
+    const linkId = this.userLinks.controls[index].value.id;
     const control = <FormArray>this.form.controls['userLinks'];
     if (index !== 0) {
       control.removeAt(index);
     }
+    this.kinds.splice(index, 1);
     this._linksService.removeUserLink(linkId).subscribe();
     this._subscriptions[index].unsubscribe();
+    this.transmitUserLinksData();
   }
 
   private _createUserLinks(link: UserLink, index: number): void {
     this._linksService.newUserLink(link)
-      .subscribe(response => {
-        this.userLinks.controls[index].patchValue({id: response.id});
-      })
+      .subscribe((response: UserLink) => {
+        this.userLinks.controls[index]
+          .patchValue({
+            id: response.id,
+            kind: response.kind,
+          });
+        this.transmitUserLinksData();
+      });
   }
 
-  private _updateUserLinks(link: UserLink): void {
-    this._linksService.updateUserLink(link).subscribe();
-  }
+  private _updateUserLinks(link: UserLink, index: number): void {
+      this._linksService.updateUserLink(link)
+        .subscribe((response: UserLink) => {
+          this.kinds[index] = response.kind;
+          this.transmitUserLinksData();
+        });
+    }
 
-  func(link) {
-    console.log(this.userLinks)
+  public makeIconClassName(kind: string): string {
+    if (this._services.includes(kind)) {
+      if (kind === 'stackoverflow') {
+        return 'fa-stack-overflow';
+      } else {
+        return `fa-${kind}`;
+      }
+    } else {
+      return 'fa-link';
+    }
   }
 }

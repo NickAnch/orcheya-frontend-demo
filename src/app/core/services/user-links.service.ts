@@ -18,8 +18,8 @@ export class UserLinksService {
         .subscribe(response => {
           observer.next(response);
           observer.complete();
-        })
-    })
+        });
+    });
   }
 
   public newUserLink(link: UserLink): Observable<any> {
@@ -29,8 +29,8 @@ export class UserLinksService {
         .subscribe(response => {
           observer.next(response);
           observer.complete();
-        })
-    })
+        });
+    });
   }
 
   public updateUserLink(link: UserLink): Observable<object> {
@@ -40,8 +40,8 @@ export class UserLinksService {
         .subscribe(response => {
           observer.next(response);
           observer.complete();
-        })
-    })
+        });
+    });
   }
 
   public removeUserLink(id: number): Observable<object> {
@@ -51,8 +51,7 @@ export class UserLinksService {
         .subscribe(response => {
           observer.next(response);
           observer.complete();
-        })
-    })
+        });
+    });
   }
-
 }

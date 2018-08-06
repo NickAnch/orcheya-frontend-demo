@@ -96,6 +96,21 @@
               <td><a *ngIf="user?.slackId"
                      [href]="slackUrl()"><span>{{ user?.slackName }}</span></a></td>
             </tr>
+            <tr *ngFor="let link of userLinksData?.links?.controls; let i = index">
+              <td>
+                <i class="fa fa-fw {{ makeIconClassName(userLinksData?.kinds[i]) }}"></i>
+              </td>
+              <td>
+                <a href="{{ link.value.link }}">
+                  <span>
+                    {{ userLinksData?.kinds[i] | titlecase }}
+                  </span>
+                </a>
+              </td>
+              <td>
+                {{ link.value.link }}
+              </td>
+            </tr>
             </tbody>
           </table>
           <div *ngIf="isCurrUser">
@@ -166,7 +181,9 @@
             <div class="tab-content">
               <app-user-settings>
                 <app-user-settings-form></app-user-settings-form>
-                <app-user-links></app-user-links>
+                <app-user-links (changeUserLink)="getUserLinkData($event)">
+
+                </app-user-links>
               </app-user-settings>
             </div>
           </tab>

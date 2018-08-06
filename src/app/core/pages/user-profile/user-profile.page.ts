@@ -35,6 +35,19 @@ export class UserProfilePage implements OnInit,
   public activityData: TimeActivity[];
   private modalOptions = new ModalOptions();
   private modalRef: BsModalRef;
+  public userLinksData = {};
+  private _services = [
+    'gitlab',
+    'linkedin',
+    'medium',
+    'instagram',
+    'facebook',
+    'vk',
+    'stackoverflow',
+    'steam',
+    'github',
+    'telegram',
+  ];
 
   constructor(
     public currentUser: CurrentUserService,
@@ -158,5 +171,21 @@ export class UserProfilePage implements OnInit,
     return this.sanitizer.bypassSecurityTrustUrl(
       `slack://user?team=${this.user.slackTeamId}&id=${this.user.slackId}`
     );
+  }
+
+  public getUserLinkData(event: Event): void {
+    this.userLinksData = event;
+  }
+
+  public makeIconClassName(kind: string): string {
+    if (this._services.includes(kind)) {
+      if (kind === 'stackoverflow') {
+        return 'fa-stack-overflow';
+      } else {
+        return `fa-${kind}`;
+      }
+    } else {
+      return 'fa-link';
+    }
   }
 }
