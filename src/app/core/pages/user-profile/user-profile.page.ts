@@ -16,6 +16,7 @@ import { User } from '../../models/user';
 import { WaitingComponent } from '../../components';
 import { TimeGraphTypes, TimeGraphFilter } from '../../models/timegraph-filter';
 import { TimeActivity } from '../../models/time-activity.interface';
+import { UserLinksService } from '../../services/user-links.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -35,7 +36,7 @@ export class UserProfilePage implements OnInit,
   public activityData: TimeActivity[];
   private modalOptions = new ModalOptions();
   private modalRef: BsModalRef;
-  public userLinksData = {};
+  public userLinksData: any;
   private _services = [
     'gitlab',
     'linkedin',
@@ -47,6 +48,7 @@ export class UserProfilePage implements OnInit,
     'steam',
     'github',
     'telegram',
+    'bitbucket',
   ];
 
   constructor(
@@ -56,7 +58,8 @@ export class UserProfilePage implements OnInit,
     private cdr: ChangeDetectorRef,
     private router: Router,
     private modalService: BsModalService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private _linksService: UserLinksService,
   ) {}
 
   ngOnInit() {
@@ -67,6 +70,10 @@ export class UserProfilePage implements OnInit,
       this.userListService
         .getUserById(this.filter.id)
         .subscribe(user => this.user = user);
+      this._linksService.getUserLinks(this.filter.id)
+        .subscribe(response => {
+          this.userLinksData = response;
+        });
     } else {
       this.user = this.currentUser;
       this.filter.id = this.user.id;
@@ -174,7 +181,7 @@ export class UserProfilePage implements OnInit,
   }
 
   public getUserLinkData(event: Event): void {
-    this.userLinksData = event;
+      this.userLinksData = event;
   }
 
   public makeIconClassName(kind: string): string {

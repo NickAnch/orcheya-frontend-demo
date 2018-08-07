@@ -11,10 +11,11 @@ export class UserLinksService {
 
   constructor(private _http: HttpClient) {}
 
-  public getUserLinks(): Observable<any> {
+  public getUserLinks(user_id?: number): Observable<any> {
+    const url = user_id ? `${this._apiUrl}/?user_id=${user_id}` : this._apiUrl;
     return Observable.create((observer: Observer<any>) => {
       return this._http
-        .get(this._apiUrl)
+        .get(url)
         .subscribe(response => {
           observer.next(response);
           observer.complete();

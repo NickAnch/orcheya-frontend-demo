@@ -86,21 +86,40 @@
               <td><a *ngIf="user?.slackId"
                      [href]="slackUrl()"><span>{{ user?.slackName }}</span></a></td>
             </tr>
-            <tr *ngFor="let link of userLinksData?.links?.controls; let i = index">
-              <td>
-                <i class="fa fa-fw {{ makeIconClassName(userLinksData?.kinds[i]) }}"></i>
-              </td>
-              <td>
-                {{ userLinksData?.kinds[i] | titlecase }}
-              </td>
-              <td>
-                <a href="{{ link.value.link }}">
-                  <span>
-                    {{ link.value.link }}
-                  </span>
-                </a>
-              </td>
-            </tr>
+            <ng-container *ngIf="isCurrUser; else unloggedUserLinks">
+              <tr *ngFor="let link of userLinksData?.links?.controls; let i = index">
+                <td>
+                  <i class="fa fa-fw {{ makeIconClassName(userLinksData?.kinds[i]) }}"></i>
+                </td>
+                <td>
+                  {{ userLinksData?.kinds[i] | titlecase }}
+                </td>
+                <td>
+                  <a href="{{ link.value.link }}">
+                    <span>
+                      {{ link.value.link }}
+                    </span>
+                  </a>
+                </td>
+              </tr>
+            </ng-container>
+            <ng-template #unloggedUserLinks>
+              <tr *ngFor="let link of userLinksData">
+                <td>
+                  <i class="fa fa-fw {{ makeIconClassName(link.kind) }}"></i>
+                </td>
+                <td>
+                  {{ link.kind | titlecase }}
+                </td>
+                <td>
+                  <a href="{{ link.link }}">
+                    <span>
+                      {{ link.link }}
+                    </span>
+                  </a>
+                </td>
+              </tr>
+            </ng-template>
             </tbody>
           </table>
           <div *ngIf="isCurrUser">

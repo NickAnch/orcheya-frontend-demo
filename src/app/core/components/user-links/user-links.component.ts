@@ -37,6 +37,7 @@ export class UserLinksComponent implements OnInit, OnDestroy {
     'steam',
     'github',
     'telegram',
+    'bitbucket',
   ];
   public kinds = [];
 

@@ -28,8 +28,8 @@ export class UserSettingFormComponent implements OnInit, OnDestroy {
               private _formBuilder: FormBuilder,
               private _router: Router) {
     this.user = User.new<User>(User, this._currentUser._toJSON([
-      'name', 'surname', 'birthday', 'sex', 'email', 'github',
-      'bitbucket', 'skype', 'phone', 'timing_id', 'role', 'notify_update']));
+      'name', 'surname', 'birthday', 'sex', 'email',
+      'skype', 'phone', 'timing_id', 'role', 'notify_update']));
     this._currentUser
       .edit()
       .subscribe(x => this.timings = x.timings);
