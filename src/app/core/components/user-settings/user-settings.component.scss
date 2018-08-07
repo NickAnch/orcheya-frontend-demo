@@ -4,6 +4,10 @@
   }
 }
 
+.clearfix {
+  cursor: default;
+}
+
 /deep/ accordion .panel-heading {
   padding: 0 15px;
 }
