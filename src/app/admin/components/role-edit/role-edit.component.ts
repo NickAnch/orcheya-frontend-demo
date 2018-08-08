@@ -32,6 +32,7 @@ export class RoleEditComponent implements OnInit {
       name: [this.role.name, [Validators.required]],
       isAdmin: [this.role.isAdmin, []],
       isDeveloper: [this.role.isDeveloper, []],
+      isBirthdayNotify: [this.role.isBirthdayNotify, []],
     });
   }
 
