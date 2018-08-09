@@ -7,14 +7,28 @@ import { Model } from 'tsmodels';
 
 @Injectable()
 export class ProjectService {
-  private apiPath = '/api/projects';
+  private apiPath = '/api';
 
   constructor(private http: HttpClient) {}
 
   public getProjectsList(): Observable<Project[]> {
     return Observable.create((observer: Observer<Project[]>) => {
       this.http
-        .get(this.apiPath)
+        .get(`${this.apiPath}/projects`)
+        .subscribe(
+          (res: { projects: Project[] }) => {
+            observer.next(Model.newCollection(Project, res.projects));
+            observer.complete();
+          },
+          err => observer.error(err)
+        );
+    });
+  }
+
+  public getProjectsListByUserId(id: number): Observable<Project[]> {
+    return Observable.create((observer: Observer<Project[]>) => {
+      this.http
+        .get(`${this.apiPath}/users/${id}/projects`)
         .subscribe(
           (res: { projects: Project[] }) => {
             observer.next(Model.newCollection(Project, res.projects));
@@ -28,7 +42,7 @@ export class ProjectService {
   public updateProject(id: number, data: object): Observable<Project> {
     return Observable.create((observer: Observer<Project>) => {
       this.http
-        .put(`${this.apiPath}/${id}`, data)
+        .put(`${this.apiPath}/projects/${id}`, data)
         .subscribe(
           project => {
             const projects = new Project(project);
