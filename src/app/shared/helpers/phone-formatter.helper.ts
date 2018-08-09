@@ -1,16 +1,14 @@
-import { FormControl, AbstractControl } from '@angular/forms';
-import { format, ParsedNumber, parseNumber } from 'libphonenumber-js';
-
+import { AbstractControl } from '@angular/forms';
+import { format, parseNumber, AsYouType } from 'libphonenumber-js';
 
 export const formatNumber = (value: string, phoneControl: AbstractControl) => {
   let number = value.trim();
-  if (number && !number.match(/(^\+)|(^\s\+)/)) {
-    number  = `+${number}`;
-    phoneControl.patchValue(number);
-  }
-
   const parsedNumber  = parseNumber(number);
-  if ('phone' in parsedNumber) {
+
+  if (number && !number.match(/(^\+)|(^\s\+)/)) {
+    number = `+${number}`;
+    phoneControl.patchValue(number);
+  } else if ('phone' in parsedNumber) {
     const result = format(parsedNumber, 'International');
     const formattedResult = result.split(' ').map((item, index) => {
       if (index === 1) {
@@ -21,6 +19,9 @@ export const formatNumber = (value: string, phoneControl: AbstractControl) => {
         return ` ${item}`;
       }
     }).join('').trim();
+    phoneControl.patchValue(formattedResult);
+  } else {
+    const formattedResult = new AsYouType().input(number);
     phoneControl.patchValue(formattedResult);
   }
 };

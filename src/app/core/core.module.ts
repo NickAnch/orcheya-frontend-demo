@@ -9,6 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 import { GantgileModule } from '../gantgile/gantgile.module';
 import { UpdaterModule } from '../updater/updater.module';
 import { ReportsModule } from '../reports/reports.module';
+import { AutosizeModule } from 'ngx-autosize';
+
 
 import { CurrentUserService } from './services/current-user.service';
 import { CurrentUserGuard } from './services/current-user.guard';
@@ -74,7 +76,8 @@ import { NewUpdateService } from './services/new-update.service';
     AdminModule,
     GantgileModule,
     UpdaterModule,
-    ReportsModule
+    ReportsModule,
+    AutosizeModule,
   ],
   providers: [
     CurrentUserService,

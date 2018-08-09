@@ -16,6 +16,15 @@
   color: rgba(52, 52, 52, 0.51)
 }
 
+.fa-fw {
+  cursor: pointer;
+  opacity: .4;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .future {
   background-color: #fafafa;
 }

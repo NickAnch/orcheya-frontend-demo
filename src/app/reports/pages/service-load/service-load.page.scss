@@ -16,6 +16,13 @@ $black: #000;
   grid-template-rows: repeat(3, 1fr);
 }
 
+.tab-content tr > th:first-child,
+.tab-content tr > td:first-child {
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+}
+
 .filter-controls {
   display: grid;
   grid-template-columns: repeat(3, auto);

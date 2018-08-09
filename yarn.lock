@@ -5071,6 +5071,12 @@ ng-in-viewport@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ng-in-viewport/-/ng-in-viewport-1.2.0.tgz#ec6f37f9b43f94f718be6d4a1f25f7ad85a33de3"
 
+ngx-autosize@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-autosize/-/ngx-autosize-1.1.1.tgz#f3409169af1456d4575b38b22776360012c061ef"
+  dependencies:
+    tslib "^1.7.1"
+
 ngx-bootstrap@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-2.0.3.tgz#b8ca4be305be4e2e99f60d941cc8a3e906f198d7"
