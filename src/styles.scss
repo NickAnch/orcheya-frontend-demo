@@ -80,14 +80,24 @@ img[appImageUpload] {
   }
 }
 
-.modal-confirmation {
-  display: block;
-  width: 400px;
-  height: max-content;
+.modal-center {
   margin: auto;
   position: absolute;
   bottom: 0;
   top: 0;
   left: 0;
   right: 0;
+}
+
+.modal-simple {
+  min-height: 400px;
+  max-width: 800px;
+  min-width: 700px;
+  width: 60%;
+  height: 30%;
+}
+
+.modal-confirmation {
+  width: 400px;
+  height: max-content;
 }

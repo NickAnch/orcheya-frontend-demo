@@ -14,6 +14,11 @@ import { WorklogsControlService } from '../../services/upwork-tracking.service';
 })
 export class UpworkTrackingPage implements OnInit {
   public worklogControls: WorklogControl[];
+  public tooltipMessages = {
+    edit: 'this action will create new worklog transfer with new data',
+    start: 'this action will create new worklog transfer',
+    stop: 'this action will stop worklog transfer'
+  };
   private sorting = {
     sortBy: '',
     sortOrder: ''
@@ -23,22 +28,18 @@ export class UpworkTrackingPage implements OnInit {
               private worklogsControlService: WorklogsControlService) {}
 
   ngOnInit() {
-    this.getWorklogControlsList();
+    this.getWorklogControlList();
   }
 
-  public getWorklogControlsList(): void {
+  private getWorklogControlList(): void {
     this.worklogsControlService
       .getWorklogsControlList()
       .subscribe(response => {
         this.worklogControls = response;
-        if (this.worklogControls.length > 1) {
-          this.sorting.sortOrder = 'desc';
-          this.sortByColumn('fromUser', 'name');
-        }
       });
   }
 
-  sortByColumn(columnOne: string, columnTwo?: string): void {
+  public sortByColumn(columnOne: string, columnTwo?: string): void {
     this.changeSort(columnOne);
     if (this.sorting.sortOrder === 'asc') {
       this.worklogControls.sort((a, b) => {
@@ -59,7 +60,7 @@ export class UpworkTrackingPage implements OnInit {
     }
   }
 
-  changeSort(column: string): void {
+  private changeSort(column: string): void {
     if (column === this.sorting.sortBy) {
       if (this.sorting.sortOrder === 'asc') {
         this.sorting.sortOrder = 'desc';
@@ -72,7 +73,7 @@ export class UpworkTrackingPage implements OnInit {
     }
   }
 
-  sortBy(a: string, b: string): number {
+  private sortBy(a: string, b: string): number {
     a = a || '';
     b = b || '';
 
@@ -85,7 +86,7 @@ export class UpworkTrackingPage implements OnInit {
     }
   }
 
-  isSortingColumn(sortBy: string, sortOrder?: string): boolean {
+  public isSortingColumn(sortBy: string, sortOrder?: string): boolean {
     return !sortOrder && this.sorting.sortBy === sortBy ||
            sortOrder && this.sorting.sortBy === sortBy &&
            this.sorting.sortOrder === sortOrder;
@@ -94,19 +95,20 @@ export class UpworkTrackingPage implements OnInit {
   public editWorklogControl(worklogControl?: WorklogControl): void {
     const modal = this.modalService
       .show(UpworkTrackingEditComponent,
-            { initialState: { worklogControl: worklogControl || [] }});
+            { initialState: { worklogControl: worklogControl || [] },
+              class: 'modal-center modal-simple'});
     modal.content.onUpdateWorklog
       .subscribe(isUpdate => {
         if (isUpdate) {
-          this.getWorklogControlsList();
+          this.getWorklogControlList();
         }
       });
   }
 
-  startWorklogControl(worklogControl: WorklogControl): void {
+  public startWorklogControl(worklogControl: WorklogControl): void {
     const modal = this.modalService
       .show(ConfirmModalWorklogComponent,
-            { class: 'modal-confirmation' });
+            { class: 'modal-center modal-confirmation' });
     modal.content.onUpdateWorklog
       .subscribe(isAccept => {
         if (isAccept) {
@@ -116,17 +118,17 @@ export class UpworkTrackingPage implements OnInit {
           requestObject.id = null;
           this.worklogsControlService.addWorklogControl(requestObject)
             .subscribe(
-              () => this.getWorklogControlsList(),
+              () => this.getWorklogControlList(),
               () => alert('error')
             );
         }
       });
   }
 
-  stopWorklogControl(worklogControl: WorklogControl): void {
+  public stopWorklogControl(worklogControl: WorklogControl): void {
     const modal = this.modalService
       .show(ConfirmModalWorklogComponent,
-            { class: 'modal-confirmation' });
+            { class: 'modal-center modal-confirmation' });
     modal.content.onUpdateWorklog
       .subscribe(isAccept => {
         if (isAccept) {
@@ -134,7 +136,7 @@ export class UpworkTrackingPage implements OnInit {
           requestObject.ended_at = new Date().toDateString();
           this.worklogsControlService.editWorklogControl(requestObject)
             .subscribe(
-              () => this.getWorklogControlsList(),
+              () => this.getWorklogControlList(),
               () => alert('error')
             );
         }

@@ -1,6 +1,6 @@
 <section class="content-header">
   <h1>Manage Upwork accounts</h1>
-  <button class="btn" (click)="editWorklogControl()">Add</button>
+  <button class="btn btn-primary" (click)="editWorklogControl()">Add</button>
 </section>
 <div class="content">
   <table class="table table-hover">
@@ -53,18 +53,21 @@
         <td>{{ worklogControl.toUser.fullName }}</td>
         <td>{{ worklogControl.startedAt }}</td>
         <td>{{ worklogControl.endedAt }}</td>
-        <th class="no-padding text-right">
+        <th class="no-padding text-right actions">
           <a class="btn btn-primary btn-flat"
+             [tooltip]="tooltipMessages.edit"
              (click)="editWorklogControl(worklogControl)">
             <i class="fa fa-pencil"></i>
           </a>
           <a *ngIf="worklogControl.endedAt"
              class="btn btn-success btn-flat"
+             [tooltip]="tooltipMessages.start"
              (click)="startWorklogControl(worklogControl)">
             <i class="fa fa-play"></i>
           </a>
           <a *ngIf="!worklogControl.endedAt"
              class="btn btn-danger btn-flat"
+             [tooltip]="tooltipMessages.stop"
              (click)="stopWorklogControl(worklogControl)">
             <i class="fa fa-stop"></i>
           </a>

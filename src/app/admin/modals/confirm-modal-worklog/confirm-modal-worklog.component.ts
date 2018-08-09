@@ -12,7 +12,7 @@ export class ConfirmModalWorklogComponent {
 
   constructor(private bsModalRef: BsModalRef) {}
 
-  confirmation(answer: boolean): void {
+  public confirmation(answer: boolean): void {
     this.bsModalRef.hide();
     this.onUpdateWorklog.emit(answer);
   }

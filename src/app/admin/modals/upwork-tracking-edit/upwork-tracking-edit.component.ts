@@ -43,10 +43,10 @@ export class UpworkTrackingEditComponent implements OnInit {
 
   ngOnInit() {
     this.initWorklogDataConfig();
-    this.getProjectsList();
+    this.getProjectList();
   }
 
-  public initWorklogDataConfig(): void {
+  private initWorklogDataConfig(): void {
     if (this.worklogControl && this.worklogControl.id) {
       this.worklogTransferQuery = this.worklogControl.getRequest;
       this.dataForViewing.projectName = this.worklogControl.project.name;
@@ -60,7 +60,7 @@ export class UpworkTrackingEditComponent implements OnInit {
         from_id: null,
         project_id: null,
         to_id: null,
-        started_at: new Date().toDateString(),
+        started_at: null,
         ended_at: null
       };
     }
@@ -82,7 +82,7 @@ export class UpworkTrackingEditComponent implements OnInit {
       });
   }
 
-  public getProjectsList(): void {
+  private getProjectList(): void {
     if (this.worklogTransferQuery.from_id) {
       this.projectService
       .getProjectsListByUserId(this.worklogTransferQuery.from_id)
@@ -111,7 +111,7 @@ export class UpworkTrackingEditComponent implements OnInit {
     switch (field) {
       case 'userOwner':
         this.worklogTransferQuery.from_id = id;
-        this.getProjectsList();
+        this.getProjectList();
         break;
       case 'project':
         this.worklogTransferQuery.project_id = id;
@@ -155,11 +155,11 @@ export class UpworkTrackingEditComponent implements OnInit {
     return this.currentStep >= numberOfStep;
   }
 
-  public submitWorklogControl() {
+  public submitWorklogControl(): void {
     const modal = this.modalService
       .show(ConfirmModalWorklogComponent,
             { initialState: { worklogControlState: this.dataForViewing },
-              class: 'modal-confirmation'});
+              class: 'modal-center modal-confirmation'});
     modal.content.onUpdateWorklog
       .subscribe(isUpdate => {
         if (isUpdate) {
@@ -168,27 +168,15 @@ export class UpworkTrackingEditComponent implements OnInit {
       });
   }
 
-  public updateOrCreate(): void {
-    if (this.worklogTransferQuery.id) {
-      this.worklogsControlService
-        .editWorklogControl(this.worklogTransferQuery)
-        .subscribe(() => {
-          this.onUpdateWorklog.emit(true);
-          this.bsModalRef.hide();
-        },
+  private updateOrCreate(): void {
+    this.worklogsControlService
+      .addWorklogControl(this.worklogTransferQuery)
+      .subscribe(() => {
+        this.onUpdateWorklog.emit(true);
+        this.bsModalRef.hide();
+      },
       err => {
         alert(`Error: ${err}`);
       });
-    } else {
-      this.worklogsControlService
-        .addWorklogControl(this.worklogTransferQuery)
-        .subscribe(() => {
-          this.onUpdateWorklog.emit(true);
-          this.bsModalRef.hide();
-        },
-        err => {
-          alert(`Error: ${err}`);
-        });
-    }
   }
 }
