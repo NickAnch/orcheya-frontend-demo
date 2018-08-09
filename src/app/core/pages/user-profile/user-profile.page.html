@@ -88,7 +88,7 @@
             <tr>
               <td><i class="fa fa-fw fa-skype"></i></td>
               <td>Skype</td>
-              <td><a href="skype:{{ user?.skype }}?call"><span>{{ user?.skype }}</span></a></td>
+              <td><a [href]="skypeUrl()"><span>{{ user?.skype }}</span></a></td>
             </tr>
             <tr>
               <td><i class="fa fa-fw fa-slack"></i></td>

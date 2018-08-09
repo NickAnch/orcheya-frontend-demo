@@ -159,4 +159,10 @@ export class UserProfilePage implements OnInit,
       `slack://user?team=${this.user.slackTeamId}&id=${this.user.slackId}`
     );
   }
+
+  public skypeUrl(): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(
+      `skype:${this.user.skype}?call`
+    );
+  }
 }
