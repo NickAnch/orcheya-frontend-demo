@@ -170,10 +170,6 @@ export class UserProfilePage implements OnInit,
     );
   }
 
-  public getUserLinkData(event: Event): void {
-    this.userLinksData = event;
-  }
-
   public makeIconClassName(kind: string): string {
     if (SERVICES.includes(kind)) {
       if (kind === 'stackoverflow') {
