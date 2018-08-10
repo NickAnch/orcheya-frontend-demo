@@ -16,7 +16,7 @@ export class UpworkTrackingPage implements OnInit {
   public worklogControls: WorklogControl[];
   public tooltipMessages = {
     edit: 'this action will create new worklog transfer with new data',
-    start: 'this action will create new worklog transfer',
+    start: 'this action will create a new worklog transfer with this data',
     stop: 'this action will stop worklog transfer'
   };
   private sorting = {

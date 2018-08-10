@@ -56,18 +56,24 @@
         <th class="no-padding text-right actions">
           <a class="btn btn-primary btn-flat"
              [tooltip]="tooltipMessages.edit"
+             placement="left"
+             container="body"
              (click)="editWorklogControl(worklogControl)">
             <i class="fa fa-pencil"></i>
           </a>
           <a *ngIf="worklogControl.endedAt"
              class="btn btn-success btn-flat"
              [tooltip]="tooltipMessages.start"
+             placement="left"
+             container="body"
              (click)="startWorklogControl(worklogControl)">
             <i class="fa fa-play"></i>
           </a>
           <a *ngIf="!worklogControl.endedAt"
              class="btn btn-danger btn-flat"
              [tooltip]="tooltipMessages.stop"
+             placement="left"
+             container="body"
              (click)="stopWorklogControl(worklogControl)">
             <i class="fa fa-stop"></i>
           </a>
