@@ -4,7 +4,7 @@
       formArrayName="userLinks"
       *ngFor="let link of form.get('userLinks').controls; let i = index;">
       <div [formGroupName]="i" class="form-group">
-        <label for="link" class="col-sm-2 control-label">
+        <label for="link-{{ i }}" class="col-sm-2 control-label">
           <i
             class="fa icon {{ makeIconClassName(kinds[i]) }}"
             [class.error-message]="link.invalid">
@@ -16,7 +16,8 @@
             formControlName="link"
             placeholder="Your link"
             class="form-control"
-            name="link-{{ i }}">
+            name="link-{{ i }}"
+            id="link-{{ i }}">
           <span
             class="input-group-btn"
             (click)="removeUserLink(i)">
@@ -28,7 +29,7 @@
       </div>
     </ng-container>
     <div class="button-block">
-      <button (click)="addLink(i)" class="btn btn-primary">
+      <button (click)="addLink()" class="btn btn-primary">
         Add field
       </button>
     </div>

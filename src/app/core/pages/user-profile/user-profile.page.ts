@@ -17,6 +17,7 @@ import { WaitingComponent } from '../../components';
 import { TimeGraphTypes, TimeGraphFilter } from '../../models/timegraph-filter';
 import { TimeActivity } from '../../models/time-activity.interface';
 import { UserLinksService } from '../../services/user-links.service';
+import { SERVICES } from '../../components/user-links/allowed-services';
 
 @Component({
   selector: 'app-user-profile',
@@ -37,19 +38,6 @@ export class UserProfilePage implements OnInit,
   private modalOptions = new ModalOptions();
   private modalRef: BsModalRef;
   public userLinksData: any;
-  private _services = [
-    'gitlab',
-    'linkedin',
-    'medium',
-    'instagram',
-    'facebook',
-    'vk',
-    'stackoverflow',
-    'steam',
-    'github',
-    'telegram',
-    'bitbucket',
-  ];
 
   constructor(
     public currentUser: CurrentUserService,
@@ -60,25 +48,27 @@ export class UserProfilePage implements OnInit,
     private modalService: BsModalService,
     private sanitizer: DomSanitizer,
     private _linksService: UserLinksService,
-  ) {}
+  ) {
+    this.route.params.subscribe(item => {
+      this.filter.id = item.id;
+    });
+  }
 
   ngOnInit() {
-    this.filter.id = +this.route.snapshot.params['id'];
     this.isCurrUser = this.filter.id === this.currentUser.id;
-
     if (!this.isCurrUser && this.filter.id) {
       this.userListService
-        .getUserById(this.filter.id)
-        .subscribe(user => this.user = user);
-      this._linksService.getUserLinks(this.filter.id)
-        .subscribe(response => {
-          this.userLinksData = response;
-        });
+      .getUserById(this.filter.id)
+      .subscribe(user => this.user = user);
     } else {
       this.user = this.currentUser;
       this.filter.id = this.user.id;
       this.isCurrUser = true;
     }
+
+    const userId = this.isCurrUser ? this.currentUser.id : this.filter.id;
+    this._linksService.getUserLinks(userId).subscribe();
+    this.userLinksData = this._linksService.userLinksData;
 
     this.userListService
       .getUserTimeStatsById(this.filter.id)
@@ -181,11 +171,11 @@ export class UserProfilePage implements OnInit,
   }
 
   public getUserLinkData(event: Event): void {
-      this.userLinksData = event;
+    this.userLinksData = event;
   }
 
   public makeIconClassName(kind: string): string {
-    if (this._services.includes(kind)) {
+    if (SERVICES.includes(kind)) {
       if (kind === 'stackoverflow') {
         return 'fa-stack-overflow';
       } else {

@@ -86,40 +86,21 @@
               <td><a *ngIf="user?.slackId"
                      [href]="slackUrl()"><span>{{ user?.slackName }}</span></a></td>
             </tr>
-            <ng-container *ngIf="isCurrUser; else unloggedUserLinks">
-              <tr *ngFor="let link of userLinksData?.links?.controls; let i = index">
-                <td>
-                  <i class="fa fa-fw {{ makeIconClassName(userLinksData?.kinds[i]) }}"></i>
-                </td>
-                <td>
-                  {{ userLinksData?.kinds[i] | titlecase }}
-                </td>
-                <td>
-                  <a href="{{ link.value.link }}">
-                    <span>
-                      {{ link.value.link }}
-                    </span>
-                  </a>
-                </td>
-              </tr>
-            </ng-container>
-            <ng-template #unloggedUserLinks>
-              <tr *ngFor="let link of userLinksData">
-                <td>
-                  <i class="fa fa-fw {{ makeIconClassName(link.kind) }}"></i>
-                </td>
-                <td>
-                  {{ link.kind | titlecase }}
-                </td>
-                <td>
-                  <a href="{{ link.link }}">
-                    <span>
-                      {{ link.link }}
-                    </span>
-                  </a>
-                </td>
-              </tr>
-            </ng-template>
+            <tr *ngFor="let link of userLinksData">
+              <td>
+                <i class="fa fa-fw {{ makeIconClassName(link.kind) }}"></i>
+              </td>
+              <td>
+                {{ link.kind | titlecase }}
+              </td>
+              <td>
+                <a href="{{ link.link }}">
+                  <span>
+                    {{ link.link }}
+                  </span>
+                </a>
+              </td>
+            </tr>
             </tbody>
           </table>
           <div *ngIf="isCurrUser">
@@ -191,7 +172,6 @@
               <app-user-settings>
                 <app-user-settings-form></app-user-settings-form>
                 <app-user-links (changeUserLink)="getUserLinkData($event)">
-
                 </app-user-links>
               </app-user-settings>
             </div>
