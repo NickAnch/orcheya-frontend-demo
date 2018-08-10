@@ -57,9 +57,9 @@ export class UpworkTrackingEditComponent implements OnInit {
     } else {
       this.worklogTransferQuery = {
         id: null,
-        from_id: null,
+        from_user_id: null,
         project_id: null,
-        to_id: null,
+        to_user_id: null,
         started_at: null,
         ended_at: null
       };
@@ -83,9 +83,9 @@ export class UpworkTrackingEditComponent implements OnInit {
   }
 
   private getProjectList(): void {
-    if (this.worklogTransferQuery.from_id) {
+    if (this.worklogTransferQuery.from_user_id) {
       this.projectService
-      .getProjectsListByUserId(this.worklogTransferQuery.from_id)
+      .getUpworkProjectsListByUserId(this.worklogTransferQuery.from_user_id)
       .subscribe(projects => {
         this.projects = projects;
       });
@@ -95,13 +95,13 @@ export class UpworkTrackingEditComponent implements OnInit {
   public onChanged(field: string): void {
     switch (field) {
       case 'userOwner':
-        this.worklogTransferQuery.from_id = null;
+        this.worklogTransferQuery.from_user_id = null;
         break;
       case 'project':
         this.worklogTransferQuery.project_id = null;
         break;
       case 'userWorker':
-        this.worklogTransferQuery.to_id = null;
+        this.worklogTransferQuery.to_user_id = null;
         break;
     }
   }
@@ -110,14 +110,14 @@ export class UpworkTrackingEditComponent implements OnInit {
     const id = event.item.id;
     switch (field) {
       case 'userOwner':
-        this.worklogTransferQuery.from_id = id;
+        this.worklogTransferQuery.from_user_id = id;
         this.getProjectList();
         break;
       case 'project':
         this.worklogTransferQuery.project_id = id;
         break;
       case 'userWorker':
-        this.worklogTransferQuery.to_id = id;
+        this.worklogTransferQuery.to_user_id = id;
         break;
     }
   }
@@ -132,11 +132,11 @@ export class UpworkTrackingEditComponent implements OnInit {
 
   get canSubmit(): boolean {
     switch (true) {
-      case (this.currentStep === 0 && !!this.worklogTransferQuery.from_id):
+      case (this.currentStep === 0 && !!this.worklogTransferQuery.from_user_id):
         return true;
       case (this.currentStep === 1 && !!this.worklogTransferQuery.project_id):
         return true;
-      case (this.currentStep === 2 && !!this.worklogTransferQuery.to_id):
+      case (this.currentStep === 2 && !!this.worklogTransferQuery.to_user_id):
         return true;
       default:
         return false;

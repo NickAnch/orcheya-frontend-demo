@@ -4,8 +4,8 @@ import { Project } from './project';
 
 export interface IWorklogControlRequest {
   id?: number;
-  from_id: number;
-  to_id: number;
+  from_user_id: number;
+  to_user_id: number;
   project_id: number;
   started_at: string;
   ended_at: string;
@@ -14,8 +14,8 @@ export interface IWorklogControlRequest {
 export class WorklogControl extends Model {
   @Alias() public id: number;
   @Alias() public project: Project;
-  @Alias('to', User) public toUser: User;
-  @Alias('from', User) public fromUser: User;
+  @Alias('to_user', User) public toUser: User;
+  @Alias('from_user', User) public fromUser: User;
   @Alias('started_at') public startedAt: string;
   @Alias('ended_at') public endedAt: string;
 
@@ -30,9 +30,9 @@ export class WorklogControl extends Model {
   get getRequest(): IWorklogControlRequest {
     const object = {
       id: this.id || null,
-      from_id: this.fromUser.id || null,
+      from_user_id: this.fromUser.id || null,
       project_id: this.project.id || null,
-      to_id: this.toUser.id || null,
+      to_user_id: this.toUser.id || null,
       started_at: this.startedAt || null,
       ended_at: this.endedAt || null
     };

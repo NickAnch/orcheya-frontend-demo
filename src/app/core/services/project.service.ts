@@ -25,10 +25,10 @@ export class ProjectService {
     });
   }
 
-  public getProjectsListByUserId(id: number): Observable<Project[]> {
+  public getUpworkProjectsListByUserId(id: number): Observable<Project[]> {
     return Observable.create((observer: Observer<Project[]>) => {
       this.http
-        .get(`${this.apiPath}/users/${id}/projects`)
+        .get(`${this.apiPath}/users/${id}/upwork_projects`)
         .subscribe(
           (res: { projects: Project[] }) => {
             observer.next(Model.newCollection(Project, res.projects));
