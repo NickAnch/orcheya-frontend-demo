@@ -181,4 +181,10 @@ export class UserProfilePage implements OnInit,
       return 'fa-link';
     }
   }
+
+  get skypeUrl(): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(
+      `skype:${this.user.skype}?call`
+    );
+  }
 }
