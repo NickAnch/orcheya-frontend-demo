@@ -45,7 +45,6 @@ import { PermissionGuard } from './services/permission.guard';
 import { UpdateService } from './services/update.service';
 import { IntegrationsService } from './services/integrations.service';
 import { ProjectService } from './services/project.service';
-import { AdminModule } from '../admin/admin.module';
 import { TimingsService } from './services/timings.service';
 import {
   NotificationsComponent
@@ -73,7 +72,6 @@ import { NewUpdateService } from './services/new-update.service';
     HttpClientModule,
     CoreRoutingModule,
     SharedModule,
-    AdminModule,
     GantgileModule,
     UpdaterModule,
     ReportsModule,
