@@ -2,7 +2,7 @@
   <form [formGroup]="form" class="form-horizontal">
     <ng-container
       formArrayName="userLinks"
-      *ngFor="let link of form.get('userLinks').controls; let i = index;">
+      *ngFor="let link of form.get('userLinks')?.controls; let i = index;">
       <div [formGroupName]="i" class="form-group">
         <label for="link-{{ i }}" class="col-sm-2 control-label">
           <i
