@@ -160,7 +160,7 @@ export class UserProfilePage implements OnInit,
     );
   }
 
-  public skypeUrl(): SafeUrl {
+  get skypeUrl(): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(
       `skype:${this.user.skype}?call`
     );
