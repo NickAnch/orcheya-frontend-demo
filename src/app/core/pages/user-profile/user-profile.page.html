@@ -76,16 +76,6 @@
               <td><span>{{ user?.timing?.time }}</span></td>
             </tr>
             <tr>
-              <td><i class="fa fa-fw fa-github"></i></td>
-              <td>Github</td>
-              <td><a href="{{ user?.github }}"><span>{{ user?.github }}</span></a></td>
-            </tr>
-            <tr>
-              <td><i class="fa fa-fw fa-bitbucket"></i></td>
-              <td>Bitbucket</td>
-              <td><a href="{{ user?.bitbucket }}"><span>{{ user?.bitbucket }}</span></a></td>
-            </tr>
-            <tr>
               <td><i class="fa fa-fw fa-skype"></i></td>
               <td>Skype</td>
               <td><a [href]="user?.skype && skypeUrl"><span>{{ user?.skype }}</span></a></td>
@@ -95,6 +85,21 @@
               <td>Slack</td>
               <td><a *ngIf="user?.slackId"
                      [href]="slackUrl()"><span>{{ user?.slackName }}</span></a></td>
+            </tr>
+            <tr *ngFor="let link of userLinksData">
+              <td>
+                <i class="fa fa-fw {{ makeIconClassName(link.kind) }}"></i>
+              </td>
+              <td>
+                {{ link.kind | titlecase }}
+              </td>
+              <td>
+                <a href="{{ link.link }}">
+                  <span>
+                    {{ link.link }}
+                  </span>
+                </a>
+              </td>
             </tr>
             </tbody>
           </table>
@@ -166,6 +171,8 @@
             <div class="tab-content">
               <app-user-settings>
                 <app-user-settings-form></app-user-settings-form>
+                <app-user-links>
+                </app-user-links>
               </app-user-settings>
             </div>
           </tab>

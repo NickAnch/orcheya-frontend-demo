@@ -31,6 +31,7 @@ import {
   UpdatesComponent,
   RecentUpdateComponent,
   WaitingComponent,
+  UserLinksComponent,
   UpworkButtonComponent,
   FooterComponent,
 } from './components';
@@ -50,6 +51,7 @@ import {
   NotificationsComponent
 } from './components/notifications/notifications.component';
 import { NotificationsService } from './services/notifications.service';
+import { UserLinksService } from './services/user-links.service';
 import {
   AcceptInvitePage,
   IntegrationsPage,
@@ -94,6 +96,7 @@ import { NewUpdateService } from './services/new-update.service';
     RolesService,
     TimingsService,
     NotificationsService,
+    UserLinksService,
     NewUpdateService,
   ],
   declarations: [
@@ -123,6 +126,7 @@ import { NewUpdateService } from './services/new-update.service';
     WaitingComponent,
     IntegrationsPage,
     NotificationsComponent,
+    UserLinksComponent,
     NewUpdatePage,
   ],
   entryComponents: [

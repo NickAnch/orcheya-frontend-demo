@@ -13,5 +13,7 @@ export * from './social-buttons/slack/slack-button.component';
 export * from './social-buttons/timedoctor/timedoctor-button.component';
 export * from './social-buttons/upwork/upwork-button.component';
 /* tslint:enable */
+export * from './user-links/user-links.component';
+
 export * from './map/map.component';
 export * from './footer/footer.component';
