@@ -15,9 +15,9 @@ import { WorklogsControlService } from '../../services/upwork-tracking.service';
 export class UpworkTrackingPage implements OnInit {
   public worklogControls: WorklogControl[];
   public tooltipMessages = {
-    edit: 'this action will create new worklog transfer with new data',
-    start: 'this action will create a new worklog transfer with this data',
-    stop: 'this action will stop worklog transfer'
+    edit: 'This action will create new worklog transfer with new data',
+    start: 'This action will create a new worklog transfer with this data',
+    stop: 'This action will stop worklog transfer'
   };
   private sorting = {
     sortBy: '',
@@ -133,7 +133,11 @@ export class UpworkTrackingPage implements OnInit {
       .subscribe(isAccept => {
         if (isAccept) {
           const requestObject = worklogControl.getRequest;
-          requestObject.ended_at = new Date().toDateString();
+          let date = new Date();
+          if (date < new Date(requestObject.started_at)) {
+            date = new Date(requestObject.started_at);
+          }
+          requestObject.ended_at = date.toDateString();
           this.worklogsControlService.editWorklogControl(requestObject)
             .subscribe(
               () => this.getWorklogControlList(),
