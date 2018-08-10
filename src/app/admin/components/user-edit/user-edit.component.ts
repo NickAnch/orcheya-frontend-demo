@@ -48,8 +48,6 @@ export class UserEditComponent implements OnInit {
       birthday: [new Date(this.user.birthday), [Validators.required]],
       sex: [this.user.sex, []],
       email: [this.user.email, [Validators.required, Validators.email]],
-      github: [this.user.github, []],
-      bitbucket: [this.user.bitbucket, []],
       skype: [this.user.skype, []],
       phone: [this.user.phone, [Validators.required]],
       timingId: [this.user.timingId, [Validators.required]],
