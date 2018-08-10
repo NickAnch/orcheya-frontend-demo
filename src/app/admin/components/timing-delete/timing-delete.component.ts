@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+
 import { TimingsService } from '../../services';
 import { Timing } from '../../../core/models/timing';
 
@@ -20,12 +22,17 @@ export class TimingDeleteComponent implements OnInit {
 
   public errors: string[] = null;
 
-  constructor(private _timingsService: TimingsService) {
+  constructor(private _timingsService: TimingsService,
+              private _bsModalRef: BsModalRef) {
   }
 
   ngOnInit() {
     this.enabledTimings = this.timings
       .filter(timing => timing !== this.timing);
+  }
+
+  public closeModal(): void {
+    this._bsModalRef.hide();
   }
 
   public delete() {
