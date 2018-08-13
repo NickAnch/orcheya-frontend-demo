@@ -15,7 +15,7 @@ import { Project } from '../../../core/models/project';
 
 import {
   ConfirmModalWorklogComponent
-} from '../confirm-modal-worklog/confirm-modal-worklog.component';
+} from '../';
 
 @Component({
   selector: 'app-upwork-tracking-edit',

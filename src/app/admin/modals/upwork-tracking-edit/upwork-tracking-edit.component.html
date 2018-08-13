@@ -69,19 +69,22 @@
 </div>
 <div class="modal-footer">
   <button *ngIf="canPrevStep"
-          class="btn"
+          class="btn btn-primary btn-flat"
           (click)="prevStep()">
     <i class="fa fa-long-arrow-left"></i>
   </button>
   <button *ngIf="canSubmit"
-          class="btn"
+          class="btn btn-primary btn-flat"
+          [class.btn-success]="!canNextStep"
+          [class.btn-primary]="canNextStep"
           (click)="canNextStep ? nextStep() : submitWorklogControl()">
     <i class="fa fa-long-arrow-right"
        [class.fa-save]="!canNextStep"
        [class.fa-long-arrow-right]="canNextStep"></i>
   </button>
   <button *ngIf="!canSubmit"
-          class="btn"
+          class="btn btn-danger btn-flat"
+          placement="left"
           tooltip="field is required">
     <i class="fa fa-question-circle"></i>
   </button>
