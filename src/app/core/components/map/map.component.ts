@@ -327,10 +327,20 @@ export class MapComponent implements OnInit, OnDestroy {
     setInterval(() => {
       if ((new Date()).getMinutes() % 10 === 0) {
         this._dateTime = new Date();
-        this._drawNightMap();
-        this._drawSun();
+        this._removeSunAndShadow();
+        this._drawSunAndShadow();
       }
     }, 60000);
+  }
+
+  private _drawSunAndShadow() {
+    this._drawNightMap();
+    this._drawSun();
+  }
+
+  private _removeSunAndShadow() {
+    this._elements.nightPath.remove();
+    this._elements.sun.remove();
   }
 
   private _isDaylight(obj: { azimuth: number, altitude: number }): boolean {
