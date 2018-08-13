@@ -3,7 +3,6 @@
 }
 
 .main-sidebar {
-  width: 200px;
   position: fixed;
   transition: transform .3s ease-in-out,
               width .3s ease-in-out,
@@ -28,8 +27,7 @@
 }
 
 .sidebar-menu > li:hover {
-
   > a > .pull-right-container {
-    left: 180px !important;
+    left: 160px !important;
   }
 }
