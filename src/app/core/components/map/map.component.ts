@@ -333,12 +333,12 @@ export class MapComponent implements OnInit, OnDestroy {
     }, 60000);
   }
 
-  private _drawSunAndShadow() {
+  private _drawSunAndShadow(): void {
     this._drawNightMap();
     this._drawSun();
   }
 
-  private _removeSunAndShadow() {
+  private _removeSunAndShadow(): void {
     this._elements.nightPath.remove();
     this._elements.sun.remove();
   }
