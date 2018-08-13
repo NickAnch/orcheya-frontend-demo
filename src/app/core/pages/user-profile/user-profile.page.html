@@ -96,6 +96,21 @@
               <td><a *ngIf="user?.slackId"
                      [href]="slackUrl()"><span>{{ user?.slackName }}</span></a></td>
             </tr>
+            <tr *ngFor="let link of userLinksData">
+              <td>
+                <i class="fa fa-fw {{ makeIconClassName(link.kind) }}"></i>
+              </td>
+              <td>
+                {{ link.kind | titlecase }}
+              </td>
+              <td>
+                <a href="{{ link.link }}">
+                  <div class="user-link">
+                    {{ link.link }}
+                  </div>
+                </a>
+              </td>
+            </tr>
             </tbody>
           </table>
           <div *ngIf="isCurrUser">
