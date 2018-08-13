@@ -5,7 +5,8 @@ import { AdminComponent } from './admin.component';
 import { CanActivateAdminGuard } from './services';
 import {
   UsersPage,
-  LibsPage
+  LibsPage,
+  UpworkTrackingPage
 } from './pages';
 import { MapComponent } from '../core/components';
 
@@ -17,6 +18,7 @@ const routes: Routes = [
     children: [
       { path: 'users', component: UsersPage },
       { path: 'libs', component: LibsPage },
+      { path: 'upwork-tracking', component: UpworkTrackingPage },
       { path: 'map', component: MapComponent }
     ]
   }

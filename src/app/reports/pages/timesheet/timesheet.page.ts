@@ -28,8 +28,8 @@ export class TimesheetPage implements OnInit {
 
   public today = moment();
   public days: Moment[];
-  private filter = new TimesheetFilter();
-
+  public filter = new TimesheetFilter();
+  public typeahead;
   private getTimesheetDelay;
 
   private sorting = {

@@ -21,6 +21,13 @@
   }
 }
 
+.user-link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 150px;
+}
+
 @media only screen and (max-width: 800px) {
   .integration-switcher {
     width: auto;

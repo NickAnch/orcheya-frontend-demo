@@ -5,5 +5,6 @@ export class Role extends Model {
   @Alias() public name = '';
   @Alias('is_admin') public isAdmin = false;
   @Alias('is_developer') public isDeveloper = false;
+  @Alias('is_birthday_notify') public isBirthdayNotify = false;
   @Alias('user_count') public userCount: number;
 }

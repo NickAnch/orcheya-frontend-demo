@@ -48,6 +48,7 @@ export class CoreComponent implements OnInit {
             items: [
               { name: 'Users', link: ['/admin', 'users'] },
               { name: 'Libs', link: ['/admin', 'libs'] },
+              { name: 'Upwork tracking', link: ['/admin', 'upwork-tracking'] },
               { name: 'Map', link: ['/admin', 'map'] }
             ]
           }

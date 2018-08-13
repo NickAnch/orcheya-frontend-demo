@@ -16,6 +16,8 @@ import { User } from '../../models/user';
 import { WaitingComponent } from '../../components';
 import { TimeGraphTypes, TimeGraphFilter } from '../../models/timegraph-filter';
 import { TimeActivity } from '../../models/time-activity.interface';
+import { UserLinksService } from '../../services/user-links.service';
+import { SERVICES } from '../../components/user-links/allowed-services';
 
 @Component({
   selector: 'app-user-profile',
@@ -35,6 +37,7 @@ export class UserProfilePage implements OnInit,
   public activityData: TimeActivity[];
   private modalOptions = new ModalOptions();
   private modalRef: BsModalRef;
+  public userLinksData: any;
 
   constructor(
     public currentUser: CurrentUserService,
@@ -43,22 +46,29 @@ export class UserProfilePage implements OnInit,
     private cdr: ChangeDetectorRef,
     private router: Router,
     private modalService: BsModalService,
-    private sanitizer: DomSanitizer
-  ) {}
+    private sanitizer: DomSanitizer,
+    private _linksService: UserLinksService,
+  ) {
+    this.route.params.subscribe(item => {
+      this.filter.id = item.id;
+    });
+  }
 
   ngOnInit() {
-    this.filter.id = +this.route.snapshot.params['id'];
     this.isCurrUser = this.filter.id === this.currentUser.id;
-
     if (!this.isCurrUser && this.filter.id) {
       this.userListService
-        .getUserById(this.filter.id)
-        .subscribe(user => this.user = user);
+      .getUserById(this.filter.id)
+      .subscribe(user => this.user = user);
     } else {
       this.user = this.currentUser;
       this.filter.id = this.user.id;
       this.isCurrUser = true;
     }
+
+    const userId = this.isCurrUser ? this.currentUser.id : this.filter.id;
+    this._linksService.getUserLinks(userId).subscribe();
+    this.userLinksData = this._linksService.userLinksData;
 
     this.userListService
       .getUserTimeStatsById(this.filter.id)
@@ -157,6 +167,24 @@ export class UserProfilePage implements OnInit,
   public slackUrl(): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(
       `slack://user?team=${this.user.slackTeamId}&id=${this.user.slackId}`
+    );
+  }
+
+  public makeIconClassName(kind: string): string {
+    if (SERVICES.includes(kind)) {
+      if (kind === 'stackoverflow') {
+        return 'fa-stack-overflow';
+      } else {
+        return `fa-${kind}`;
+      }
+    } else {
+      return 'fa-link';
+    }
+  }
+
+  get skypeUrl(): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(
+      `skype:${this.user.skype}?call`
     );
   }
 }

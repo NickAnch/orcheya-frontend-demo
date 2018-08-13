@@ -9,7 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 import { GantgileModule } from '../gantgile/gantgile.module';
 import { UpdaterModule } from '../updater/updater.module';
 import { ReportsModule } from '../reports/reports.module';
-import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
+import { AutosizeModule } from 'ngx-autosize';
+
 
 import { CurrentUserService } from './services/current-user.service';
 import { CurrentUserGuard } from './services/current-user.guard';
@@ -30,6 +31,7 @@ import {
   UpdatesComponent,
   RecentUpdateComponent,
   WaitingComponent,
+  UserLinksComponent,
   UpworkButtonComponent,
   FooterComponent,
 } from './components';
@@ -44,12 +46,12 @@ import { PermissionGuard } from './services/permission.guard';
 import { UpdateService } from './services/update.service';
 import { IntegrationsService } from './services/integrations.service';
 import { ProjectService } from './services/project.service';
-import { AdminModule } from '../admin/admin.module';
 import { TimingsService } from './services/timings.service';
 import {
   NotificationsComponent
 } from './components/notifications/notifications.component';
 import { NotificationsService } from './services/notifications.service';
+import { UserLinksService } from './services/user-links.service';
 import {
   AcceptInvitePage,
   IntegrationsPage,
@@ -72,11 +74,10 @@ import { NewUpdateService } from './services/new-update.service';
     HttpClientModule,
     CoreRoutingModule,
     SharedModule,
-    AdminModule,
     GantgileModule,
     UpdaterModule,
     ReportsModule,
-    TextareaAutosizeModule,
+    AutosizeModule,
   ],
   providers: [
     CurrentUserService,
@@ -95,6 +96,7 @@ import { NewUpdateService } from './services/new-update.service';
     RolesService,
     TimingsService,
     NotificationsService,
+    UserLinksService,
     NewUpdateService,
   ],
   declarations: [
@@ -124,6 +126,7 @@ import { NewUpdateService } from './services/new-update.service';
     WaitingComponent,
     IntegrationsPage,
     NotificationsComponent,
+    UserLinksComponent,
     NewUpdatePage,
   ],
   entryComponents: [
