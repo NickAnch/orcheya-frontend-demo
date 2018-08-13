@@ -6,9 +6,12 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { SharedModule } from '../shared/shared.module';
+
 
 import { AdminComponent } from './admin.component';
 import {
@@ -21,6 +24,7 @@ import {
 import {
   UsersPage,
   LibsPage,
+  UpworkTrackingPage,
 } from './pages';
 
 import {
@@ -33,9 +37,15 @@ import {
   ProjectsComponent,
   UserDeleteComponent
 } from './components';
+
+import {
+  UpworkTrackingEditComponent,
+  ConfirmModalWorklogComponent
+} from './modals';
+
 import { HumanizeDatePipe } from '../core/pipes/humanizeDate.pipe';
 import { MapComponent } from '../core/components';
-
+import { WorklogsControlService } from './services/upwork-tracking.service';
 
 @NgModule({
   imports: [
@@ -46,6 +56,8 @@ import { MapComponent } from '../core/components';
     TimepickerModule.forRoot(),
     PopoverModule.forRoot(),
     TooltipModule.forRoot(),
+    CarouselModule.forRoot(),
+    TypeaheadModule.forRoot(),
     SharedModule,
     AdminRoutingModule
   ],
@@ -53,7 +65,8 @@ import { MapComponent } from '../core/components';
     CanActivateAdminGuard,
     UsersService,
     RolesService,
-    TimingsService
+    TimingsService,
+    WorklogsControlService
   ],
   declarations: [
     AdminComponent,
@@ -67,16 +80,21 @@ import { MapComponent } from '../core/components';
     RoleDeleteComponent,
     TimingsComponent,
     LibsPage,
+    UpworkTrackingPage,
     UserDeleteComponent,
     HumanizeDatePipe,
     MapComponent,
+    UpworkTrackingEditComponent,
+    ConfirmModalWorklogComponent,
   ],
   entryComponents: [
     UserEditComponent,
     RoleEditComponent,
     RoleDeleteComponent,
     TimingDeleteComponent,
-    UserDeleteComponent
+    UserDeleteComponent,
+    UpworkTrackingEditComponent,
+    ConfirmModalWorklogComponent
   ]
 })
 export class AdminModule { }

@@ -1,0 +1,91 @@
+<div class="modal-header steps">
+  <span class="step"
+        *ngFor="let step of steps; let i = index">
+    <span class="number-step"
+          [class.active]="checkCurrentStep(i)">{{ i + 1 }}</span>
+    <span class="name-step"
+          [class.active]="checkCurrentStep(i)">{{ step }}</span>
+  </span>
+</div>
+
+<div class="modal-body">
+  <form>
+    <carousel [interval]="false"
+              [showIndicators]="false"
+              [(activeSlide)]="currentStep">
+      <slide>
+        <div class="text-center py-5 bg-dark text-white">
+          <input [(ngModel)]="dataForViewing.userOwnerName.search"
+                 [typeahead]="getUserOwnerList"
+                 typeaheadOptionField="fullName"
+                 [typeaheadScrollable]="true"
+                 [typeaheadOptionsInScrollableView]="5"
+                 [typeaheadMinLength]="0"
+                 typeaheadWaitMs="300"
+                 autocomplete="off"
+                 (input)="onChanged('userOwner')"
+                 (typeaheadOnSelect)="onSelectTypeahead($event, 'userOwner')"
+                 name="userOwner"
+                 class="form-control"
+                 placeholder="Search for user owner">
+        </div>
+      </slide>
+      <slide>
+        <div class="text-center py-5 bg-dark text-white">
+          <input [(ngModel)]="dataForViewing.projectName"
+                 [typeahead]="projects"
+                 typeaheadOptionField="name"
+                 typeaheadWaitMs="300"
+                 [typeaheadScrollable]="true"
+                 [typeaheadOptionsInScrollableView]="5"
+                 [typeaheadMinLength]="0"
+                 autocomplete="off"
+                 (input)="onChanged('project')"
+                 (typeaheadOnSelect)="onSelectTypeahead($event, 'project')"
+                 name="project"
+                 class="form-control"
+                 placeholder="Search for project">
+        </div>
+        <div *ngIf="projects?.length === 0">User owner hasn`t projects</div>
+      </slide>
+      <slide>
+        <div class="text-center py-5 bg-dark text-white">
+          <input [(ngModel)]="dataForViewing.userWorkerName.search"
+                 [typeahead]="getUserWorkerList"
+                 typeaheadOptionField="fullName"
+                 [typeaheadScrollable]="true"
+                 [typeaheadOptionsInScrollableView]="5"
+                 [typeaheadMinLength]="0"
+                 autocomplete="off"
+                 (input)="onChanged('userWorker')"
+                 (typeaheadOnSelect)="onSelectTypeahead($event, 'userWorker')"
+                 name="userWorker"
+                 class="form-control"
+                 placeholder="Search for user worker">
+        </div>
+      </slide>
+    </carousel>
+  </form>
+</div>
+<div class="modal-footer">
+  <button *ngIf="canPrevStep"
+          class="btn btn-primary btn-flat"
+          (click)="prevStep()">
+    <i class="fa fa-long-arrow-left"></i>
+  </button>
+  <button *ngIf="canSubmit"
+          class="btn btn-primary btn-flat"
+          [class.btn-success]="!canNextStep"
+          [class.btn-primary]="canNextStep"
+          (click)="canNextStep ? nextStep() : submitWorklogControl()">
+    <i class="fa fa-long-arrow-right"
+       [class.fa-save]="!canNextStep"
+       [class.fa-long-arrow-right]="canNextStep"></i>
+  </button>
+  <button *ngIf="!canSubmit"
+          class="btn btn-danger btn-flat"
+          placement="left"
+          tooltip="field is required">
+    <i class="fa fa-question-circle"></i>
+  </button>
+</div>
