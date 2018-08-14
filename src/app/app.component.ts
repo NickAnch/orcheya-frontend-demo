@@ -10,13 +10,12 @@ import { Component, HostListener, Renderer2, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public body = document.querySelector('body');;
+  public body = document.querySelector('body');
 
-  @HostListener('window:resize',['$event'])
+  @HostListener('window:resize', ['$event'])
   onResize(event) {
     const windowWidth = event.target.innerWidth;
-    
-    if(windowWidth < 768) {
+    if (windowWidth < 768) {
       this.deleteSidebarCollapse();
     }
   }
@@ -28,7 +27,7 @@ export class AppComponent implements OnInit {
   }
 
   public checkWindowWidth(): void {
-    if(window.innerWidth < 768) {
+    if (window.innerWidth < 768) {
       this.deleteSidebarCollapse();
     }
   }
