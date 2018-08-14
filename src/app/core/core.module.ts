@@ -31,6 +31,7 @@ import {
   UpdatesComponent,
   RecentUpdateComponent,
   WaitingComponent,
+  UserLinksComponent,
   UpworkButtonComponent,
   FooterComponent,
 } from './components';
@@ -45,12 +46,12 @@ import { PermissionGuard } from './services/permission.guard';
 import { UpdateService } from './services/update.service';
 import { IntegrationsService } from './services/integrations.service';
 import { ProjectService } from './services/project.service';
-import { AdminModule } from '../admin/admin.module';
 import { TimingsService } from './services/timings.service';
 import {
   NotificationsComponent
 } from './components/notifications/notifications.component';
 import { NotificationsService } from './services/notifications.service';
+import { UserLinksService } from './services/user-links.service';
 import {
   AcceptInvitePage,
   IntegrationsPage,
@@ -73,7 +74,6 @@ import { NewUpdateService } from './services/new-update.service';
     HttpClientModule,
     CoreRoutingModule,
     SharedModule,
-    AdminModule,
     GantgileModule,
     UpdaterModule,
     ReportsModule,
@@ -96,6 +96,7 @@ import { NewUpdateService } from './services/new-update.service';
     RolesService,
     TimingsService,
     NotificationsService,
+    UserLinksService,
     NewUpdateService,
   ],
   declarations: [
@@ -125,6 +126,7 @@ import { NewUpdateService } from './services/new-update.service';
     WaitingComponent,
     IntegrationsPage,
     NotificationsComponent,
+    UserLinksComponent,
     NewUpdatePage,
   ],
   entryComponents: [

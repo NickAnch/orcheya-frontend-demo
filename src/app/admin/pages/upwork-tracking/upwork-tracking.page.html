@@ -1,0 +1,84 @@
+<section class="content-header">
+  <h1>Manage Upwork accounts</h1>
+  <button class="btn btn-primary" (click)="editWorklogControl()">Add</button>
+</section>
+<div class="content">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th width="35px">#</th>
+        <th>User owner
+          <i (click)="sortByColumn('fromUser', 'name')"
+             class="fa fa-fw"
+             [class.fa-sort-alpha-asc]="isSortingColumn('fromUser', 'asc')"
+             [class.fa-sort-alpha-desc]="isSortingColumn('fromUser', 'desc')"
+             [class.fa-sort]="!isSortingColumn('fromUser')"></i>
+        </th>
+        <th>Project
+          <i (click)="sortByColumn('project', 'name')"
+             class="fa fa-fw"
+             [class.fa-sort-alpha-asc]="isSortingColumn('project', 'asc')"
+             [class.fa-sort-alpha-desc]="isSortingColumn('project', 'desc')"
+             [class.fa-sort]="!isSortingColumn('project')"></i>
+        </th>
+        <th>User worker
+          <i (click)="sortByColumn('toUser', 'name')"
+             class="fa fa-fw"
+             [class.fa-sort-alpha-asc]="isSortingColumn('toUser', 'asc')"
+             [class.fa-sort-alpha-desc]="isSortingColumn('toUser', 'desc')"
+             [class.fa-sort]="!isSortingColumn('toUser')"></i>
+        </th>
+        <th>Start date
+          <i (click)="sortByColumn('startedAt')"
+             class="fa fa-fw"
+             [class.fa-sort-alpha-asc]="isSortingColumn('startedAt', 'asc')"
+             [class.fa-sort-alpha-desc]="isSortingColumn('startedAt', 'desc')"
+             [class.fa-sort]="!isSortingColumn('startedAt')"></i>
+        </th>
+        <th>Stop date
+          <i (click)="sortByColumn('endedAt')"
+             class="fa fa-fw"
+             [class.fa-sort-alpha-asc]="isSortingColumn('endedAt', 'asc')"
+             [class.fa-sort-alpha-desc]="isSortingColumn('endedAt', 'desc')"
+             [class.fa-sort]="!isSortingColumn('endedAt')"></i>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let worklogControl of worklogControls; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ worklogControl.fromUser.fullName }}</td>
+        <td>{{ worklogControl.project.name }}</td>
+        <td>{{ worklogControl.toUser.fullName }}</td>
+        <td>{{ worklogControl.startedAt }}</td>
+        <td>{{ worklogControl.endedAt }}</td>
+        <th class="no-padding text-right actions">
+          <a class="btn btn-primary btn-flat"
+             [tooltip]="tooltipMessages.edit"
+             placement="left"
+             container="body"
+             (click)="editWorklogControl(worklogControl)">
+            <i class="fa fa-pencil"></i>
+          </a>
+          <a *ngIf="worklogControl.endedAt"
+             class="btn btn-success btn-flat"
+             [tooltip]="tooltipMessages.start"
+             placement="left"
+             container="body"
+             (click)="startWorklogControl(worklogControl)">
+            <i class="fa fa-copy"></i>
+          </a>
+          <a *ngIf="!worklogControl.endedAt"
+             class="btn btn-danger btn-flat"
+             [tooltip]="tooltipMessages.stop"
+             placement="left"
+             container="body"
+             (click)="stopWorklogControl(worklogControl)">
+            <i class="fa fa-stop"></i>
+          </a>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>

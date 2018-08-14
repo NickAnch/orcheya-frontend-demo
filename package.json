@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build --prod --aot=false",
+    "build": "ng build --prod --aot",
     "deploy-staging": "pm2 deploy staging --force",
     "deploy-production": "pm2 deploy production --force",
     "test": "ng test",

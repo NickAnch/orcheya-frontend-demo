@@ -52,3 +52,53 @@ img[appImageUpload] {
     width: 100%;
   }
 }
+
+.carousel {
+  .carousel-control.left,
+  .carousel-control.right {
+    display: none;
+  }
+
+  .carousel-inner {
+    overflow: visible;
+
+    & > .item {
+      display: block;
+      opacity: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: -1;
+
+      &.active {
+        transition: .5s;
+        animation-timing-function: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+        position: relative;
+        opacity: 1;
+        z-index: 2;
+      }
+    }
+  }
+}
+
+.modal-center {
+  margin: auto;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.modal-simple {
+  min-height: 400px;
+  max-width: 800px;
+  min-width: 700px;
+  width: 60%;
+  height: 30%;
+}
+
+.modal-confirmation {
+  width: 400px;
+  height: max-content;
+}
