@@ -24,6 +24,16 @@
 .user-link {
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 150px;
+  width: calc(15vw - 20px);
+  display: block;
+}
+
+@media only screen and (max-width: 800px) {
+  .integration-switcher {
+    width: auto;
+  }
+
+  .user-link {
+    width: calc(50vw - 20px);
+  }
 }
