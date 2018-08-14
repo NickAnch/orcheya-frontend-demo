@@ -27,12 +27,7 @@
 }
 
 .sidebar-menu > li:hover {
-  > a > span:not(.pull-right),
-  .treeview-menu {
-    width: 200px;
-  }
-
   > a > .pull-right-container {
-    left: 200px !important;
+    left: 160px;
   }
 }
