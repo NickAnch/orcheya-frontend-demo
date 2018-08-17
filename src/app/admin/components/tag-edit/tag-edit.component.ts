@@ -16,7 +16,7 @@ export class TagEditComponent implements OnInit {
   private _type: String;
   public form: FormGroup;
   public onTagUpdate: EventEmitter<Tag> = new EventEmitter();
-  private _resErrors: Object = {};
+  private _resErrors = {};
 
   constructor(private _tagsService: TagsService,
               private  _formBuilder: FormBuilder,
