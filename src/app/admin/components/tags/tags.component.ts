@@ -23,7 +23,6 @@ export class TagsComponent implements OnInit {
         .subscribe(
           (data) => {
             this.tags = data;
-            console.log(data);
           }
         );
   }

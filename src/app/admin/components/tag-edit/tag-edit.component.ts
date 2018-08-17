@@ -23,7 +23,6 @@ export class TagEditComponent implements OnInit {
               public modalRef: BsModalRef) { }
 
   ngOnInit() {
-    console.log(this.tag);
     this.form = this._formBuilder.group({
       name: [this.tag.name, [Validators.required,
                              Validators.pattern('.*[\\S].*')]]
