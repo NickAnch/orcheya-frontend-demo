@@ -7,8 +7,8 @@ import { Moment } from 'moment';
  */
 export class Timing extends Model {
   @Alias() public id: number;
-  @Alias() public start: Moment;
-  @Alias() public end: Moment;
+  @Alias('from') public start: Moment;
+  @Alias('to') public end: Moment;
   @Alias('flexible') public isFlexible: boolean;
   @Alias('users_count') usersCount: number;
 
