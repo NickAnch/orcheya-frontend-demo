@@ -46,6 +46,11 @@ import {
 import { HumanizeDatePipe } from '../core/pipes/humanizeDate.pipe';
 import { MapComponent } from '../core/components';
 import { WorklogsControlService } from './services/upwork-tracking.service';
+import { TagsComponent } from './components/tags/tags.component';
+import { TagsService } from './services/tags.service';
+import { TagEditComponent } from './components/tag-edit/tag-edit.component';
+// tslint:disable-next-line:max-line-length
+import { TagDeleteComponent } from './components/tag-delete/tag-delete.component';
 
 @NgModule({
   imports: [
@@ -66,7 +71,8 @@ import { WorklogsControlService } from './services/upwork-tracking.service';
     UsersService,
     RolesService,
     TimingsService,
-    WorklogsControlService
+    WorklogsControlService,
+    TagsService
   ],
   declarations: [
     AdminComponent,
@@ -86,6 +92,9 @@ import { WorklogsControlService } from './services/upwork-tracking.service';
     MapComponent,
     UpworkTrackingEditComponent,
     ConfirmModalWorklogComponent,
+    TagsComponent,
+    TagEditComponent,
+    TagDeleteComponent,
   ],
   entryComponents: [
     UserEditComponent,
@@ -94,7 +103,9 @@ import { WorklogsControlService } from './services/upwork-tracking.service';
     TimingDeleteComponent,
     UserDeleteComponent,
     UpworkTrackingEditComponent,
-    ConfirmModalWorklogComponent
+    ConfirmModalWorklogComponent,
+    TagEditComponent,
+    TagDeleteComponent
   ]
 })
 export class AdminModule { }

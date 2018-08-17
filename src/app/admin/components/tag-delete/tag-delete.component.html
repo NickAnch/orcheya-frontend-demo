@@ -1,0 +1,36 @@
+<div class="modal-header" *ngIf="tag.name">
+  <h4 class="modal-title pull-left">
+    {{ tag.name }}
+  </h4>
+  <button type="button" 
+          class="close pull-right" 
+          aria-label="Close" 
+          (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <span>Select new tag:</span>
+  <select [(ngModel)]="newTagId"
+          class="form-control select2 select2-hidden-accessible"
+          style="width: 100%;"
+          tabindex="-1"
+          aria-hidden="true">
+    <ng-container *ngFor="let tag of enabledTags">
+      <option [value]="tag.id">{{ tag.name }}</option>
+    </ng-container>
+  </select>
+  <div *ngIf="errors">
+    <ng-container *ngFor="let error of errors">
+      <span>{{ error }}</span>
+    </ng-container>
+  </div>
+</div>
+<div class="modal-footer">
+  <a class="btn btn-danger" 
+     [class.disabled]="!newTagId" 
+     (click)="deleteTag()">
+    Delete
+  </a>
+</div>
+
