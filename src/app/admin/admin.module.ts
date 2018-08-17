@@ -49,8 +49,9 @@ import { WorklogsControlService } from './services/upwork-tracking.service';
 import { TagsComponent } from './components/tags/tags.component';
 import { TagsService } from './services/tags.service';
 import { TagEditComponent } from './components/tag-edit/tag-edit.component';
-// tslint:disable-next-line:max-line-length
-import { TagDeleteComponent } from './components/tag-delete/tag-delete.component';
+import {
+  TagDeleteComponent
+} from './components/tag-delete/tag-delete.component';
 
 @NgModule({
   imports: [

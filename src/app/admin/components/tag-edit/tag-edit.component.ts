@@ -13,10 +13,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class TagEditComponent implements OnInit {
   public tag: Tag;
-  private type: String;
+  private _type: String;
   public form: FormGroup;
   public onTagUpdate: EventEmitter<Tag> = new EventEmitter();
-  private resErrors: Object = {};
+  private _resErrors: Object = {};
 
   constructor(private _tagsService: TagsService,
               private  _formBuilder: FormBuilder,
@@ -31,31 +31,31 @@ export class TagEditComponent implements OnInit {
 
   public saveData(): void {
     Object.assign(this.tag, this.form.value);
-    if (this.type === 'new') {
+    if (this._type === 'new') {
       this._tagsService
         .addTag(this.tag)
         .subscribe(
           tag => {
-            this.resErrors = {};
+            this._resErrors = {};
             this.onTagUpdate.emit(tag);
           },
           (err: HttpErrorResponse) => {
             if (!err.error['status'] && !err.error['exception']) {
-              this.resErrors = err.error;
+              this._resErrors = err.error;
             }
           });
     }
-    if (this.type === 'edit') {
+    if (this._type === 'edit') {
       this._tagsService
         .editTag(this.tag)
         .subscribe(
           tag => {
-            this.resErrors = {};
+            this._resErrors = {};
             this.onTagUpdate.emit(tag);
           },
           (err: HttpErrorResponse) => {
             if (!err.error['status'] && !err.error['exception']) {
-              this.resErrors = err.error;
+              this._resErrors = err.error;
             }
           });
     }
@@ -65,8 +65,8 @@ export class TagEditComponent implements OnInit {
     if (!this.hasError(controlName)) {
       return '';
     }
-    if (this.resErrors[controlName]) {
-      return this.resErrors[controlName];
+    if (this._resErrors[controlName]) {
+      return this._resErrors[controlName];
     }
     if (this.form.get(controlName).errors) {
       if (this.form.get(controlName).errors['required']) {
@@ -81,7 +81,7 @@ export class TagEditComponent implements OnInit {
     return (
       (this.form.get(controlName).dirty
         && this.form.get(controlName).invalid
-      ) || this.resErrors[controlName]
+      ) || this._resErrors[controlName]
     );
   }
 }

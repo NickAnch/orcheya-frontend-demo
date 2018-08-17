@@ -30,7 +30,7 @@ export class TagsComponent implements OnInit {
   public addTag(): void {
     const initialState = {
       tag: new Tag(),
-      type: 'new'
+      _type: 'new'
     };
     const modal = this._modalService
       .show(TagEditComponent, { initialState });
@@ -46,7 +46,7 @@ export class TagsComponent implements OnInit {
   public editTag(tag: Tag): void {
     const initialState = {
       tag: tag,
-      type: 'edit'
+      _type: 'edit'
     };
     const modal = this._modalService
       .show(TagEditComponent, { initialState });
