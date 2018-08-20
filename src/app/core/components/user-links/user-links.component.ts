@@ -2,8 +2,8 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  EventEmitter,
-  Output
+  ViewChildren,
+  QueryList
 } from '@angular/core';
 import {
   FormBuilder,
@@ -28,11 +28,12 @@ export class UserLinksComponent implements OnInit, OnDestroy {
   public userLinks: FormArray;
   private _subscriptions: Subscription[] = [];
   public kinds = [];
+  @ViewChildren('myInput') myInput: QueryList<any>;
 
   constructor(
     private _fb: FormBuilder,
     private _linksService: UserLinksService,
-    private _currentUser: CurrentUserService,
+    private _currentUser: CurrentUserService
   ) {}
 
   ngOnInit() {
@@ -143,5 +144,11 @@ export class UserLinksComponent implements OnInit, OnDestroy {
     } else {
       return 'fa-link';
     }
+  }
+
+  public setFocusOnInput(): void {
+    setTimeout(() => {
+      this.myInput.last.nativeElement.focus();
+    }, 0);
   }
 }
