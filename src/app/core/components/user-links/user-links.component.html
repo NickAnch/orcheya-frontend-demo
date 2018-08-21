@@ -17,7 +17,8 @@
             placeholder="Your link"
             class="form-control"
             name="link-{{ i }}"
-            id="link-{{ i }}">
+            id="link-{{ i }}"
+            #myInput>
           <span
             class="input-group-btn"
             (click)="removeUserLink(i)">
@@ -29,7 +30,9 @@
       </div>
     </ng-container>
     <div class="button-block">
-      <button (click)="addLink()" class="btn btn-primary">
+      <button (click)="addLink();
+                       setFocusOnInput()"
+              class="btn btn-primary">
         Add field
       </button>
     </div>
