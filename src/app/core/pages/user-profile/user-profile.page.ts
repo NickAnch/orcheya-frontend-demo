@@ -55,7 +55,6 @@ export class UserProfilePage implements OnInit,
   }
 
   ngOnInit() {
-    console.log(SERVICES.gitlab.icon);
     this.isCurrUser = this.filter.id === this.currentUser.id;
     if (!this.isCurrUser && this.filter.id) {
       this.userListService
