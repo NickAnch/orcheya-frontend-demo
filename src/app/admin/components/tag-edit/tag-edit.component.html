@@ -1,12 +1,12 @@
 <div class="modal-header">
-  <h4 *ngIf="tag.name; else adding" 
+  <h4 *ngIf="tag.name; else adding"
        class="modal-title pull-left">
        Editing: {{ tag.name }}
   </h4>
   <ng-template #adding>Adding an event tag</ng-template>
-  <button type="button" 
-          class="close pull-right" 
-          aria-label="Close" 
+  <button type="button"
+          class="close pull-right"
+          aria-label="Close"
           (click)="modalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -24,7 +24,8 @@
           <input class="form-control"
                  id="name"
                  placeholder="Enter name"
-                 formControlName="name">
+                 formControlName="name"
+                 #inputEdit>
           <span class="help-block">{{ textError('name') }}</span>
         </div>
       </div>

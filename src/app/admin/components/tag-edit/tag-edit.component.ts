@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap';
 import { Tag } from '../../../core/models/tag';
@@ -11,12 +18,13 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./tag-edit.component.scss']
 })
 
-export class TagEditComponent implements OnInit {
+export class TagEditComponent implements OnInit, AfterViewInit {
   public tag: Tag;
   private _type: String;
   public form: FormGroup;
   public onTagUpdate: EventEmitter<Tag> = new EventEmitter();
   private _resErrors = {};
+  @ViewChild('inputEdit') inputEdit: ElementRef;
 
   constructor(private _tagsService: TagsService,
               private  _formBuilder: FormBuilder,
@@ -27,6 +35,12 @@ export class TagEditComponent implements OnInit {
       name: [this.tag.name, [Validators.required,
                              Validators.pattern('.*[\\S].*')]]
     });
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.inputEdit.nativeElement.focus();
+    }, 0);
   }
 
   public saveData(): void {
