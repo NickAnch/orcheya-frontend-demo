@@ -55,6 +55,7 @@ export class UserProfilePage implements OnInit,
   }
 
   ngOnInit() {
+    console.log(SERVICES.gitlab.icon);
     this.isCurrUser = this.filter.id === this.currentUser.id;
     if (!this.isCurrUser && this.filter.id) {
       this.userListService
@@ -171,15 +172,11 @@ export class UserProfilePage implements OnInit,
   }
 
   public makeIconClassName(kind: string): string {
-    if (SERVICES.includes(kind)) {
-      if (kind === 'stackoverflow') {
-        return 'fa-stack-overflow';
-      } else {
-        return `fa-${kind}`;
-      }
-    } else {
-      return 'fa-link';
-    }
+    return SERVICES[kind] ? `fa-${SERVICES[kind].icon}` : 'fa-link';
+  }
+
+  public checkKindName(kind: string): string {
+    return SERVICES[kind] ? `${SERVICES[kind].name}` : 'custom';
   }
 
   get skypeUrl(): SafeUrl {
