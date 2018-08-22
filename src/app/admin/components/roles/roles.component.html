@@ -15,6 +15,7 @@
           <th>Admin</th>
           <th>Developer</th>
           <th>Birthday notified</th>
+          <th>Inventory notified</th>
           <th>Count of users</th>
           <th></th>
         </tr>
@@ -26,6 +27,7 @@
           <td> <input type="checkbox" [(ngModel)]="role.isAdmin" disabled></td>
           <td> <input type="checkbox" [(ngModel)]="role.isDeveloper" disabled></td>
           <td> <input type="checkbox" [(ngModel)]="role.isBirthdayNotify" disabled></td>
+          <td> <input type="checkbox" [(ngModel)]="role.isInventoryNotify" disabled></td>
           <td>{{ role.userCount }}</td>
           <th class="no-padding text-right">
             <a class="btn btn-primary btn-flat" (click)="editRole(role)">
