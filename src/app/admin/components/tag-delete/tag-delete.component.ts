@@ -24,7 +24,7 @@ export class TagDeleteComponent implements OnInit {
     this.enabledTags = this.tags.filter((t) => t !== this.tag);
   }
 
-  public deleteTag() {
+  public deleteTag(): void {
     const newTag = this.tags.find((t) => t.id === Number(this.newTagId));
     this._tagsService
       .deleteTag(this.tag, newTag)
