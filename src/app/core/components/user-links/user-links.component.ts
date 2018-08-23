@@ -2,8 +2,8 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  EventEmitter,
-  Output
+  ViewChildren,
+  QueryList
 } from '@angular/core';
 import {
   FormBuilder,
@@ -28,11 +28,12 @@ export class UserLinksComponent implements OnInit, OnDestroy {
   public userLinks: FormArray;
   private _subscriptions: Subscription[] = [];
   public kinds = [];
+  @ViewChildren('myInput') myInput: QueryList<any>;
 
   constructor(
     private _fb: FormBuilder,
     private _linksService: UserLinksService,
-    private _currentUser: CurrentUserService,
+    private _currentUser: CurrentUserService
   ) {}
 
   ngOnInit() {
@@ -56,7 +57,7 @@ export class UserLinksComponent implements OnInit, OnDestroy {
   }
 
   private _createLinkFormGroup(userLink?: UserLink): FormGroup {
-    const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+    const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/+@\\w .-]*/?';
     return this._fb.group({
       link: [
         userLink ? userLink.link : '',
@@ -134,14 +135,12 @@ export class UserLinksComponent implements OnInit, OnDestroy {
   }
 
   public makeIconClassName(kind: string): string {
-    if (SERVICES.includes(kind)) {
-      if (kind === 'stackoverflow') {
-        return 'fa-stack-overflow';
-      } else {
-        return `fa-${kind}`;
-      }
-    } else {
-      return 'fa-link';
-    }
+    return SERVICES[kind] ? `fa-${SERVICES[kind].icon}` : 'fa-link';
+  }
+
+  public setFocusOnInput(): void {
+    setTimeout(() => {
+      this.myInput.last.nativeElement.focus();
+    }, 0);
   }
 }
