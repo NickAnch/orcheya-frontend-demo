@@ -57,7 +57,7 @@ export class UserLinksComponent implements OnInit, OnDestroy {
   }
 
   private _createLinkFormGroup(userLink?: UserLink): FormGroup {
-    const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+    const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/+@\\w .-]*/?';
     return this._fb.group({
       link: [
         userLink ? userLink.link : '',
@@ -135,15 +135,7 @@ export class UserLinksComponent implements OnInit, OnDestroy {
   }
 
   public makeIconClassName(kind: string): string {
-    if (SERVICES.includes(kind)) {
-      if (kind === 'stackoverflow') {
-        return 'fa-stack-overflow';
-      } else {
-        return `fa-${kind}`;
-      }
-    } else {
-      return 'fa-link';
-    }
+    return SERVICES[kind] ? `fa-${SERVICES[kind].icon}` : 'fa-link';
   }
 
   public setFocusOnInput(): void {
