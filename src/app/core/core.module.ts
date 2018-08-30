@@ -64,6 +64,9 @@ import {
 } from './pages';
 import { NewUpdatePage } from './pages/new-update/new-update.page';
 import { NewUpdateService } from './services/new-update.service';
+import {
+  UserInventoryComponent
+} from './components/user-inventory/user-inventory.component';
 
 
 @NgModule({
@@ -97,7 +100,7 @@ import { NewUpdateService } from './services/new-update.service';
     TimingsService,
     NotificationsService,
     UserLinksService,
-    NewUpdateService,
+    NewUpdateService
   ],
   declarations: [
     HeaderComponent,
@@ -128,9 +131,10 @@ import { NewUpdateService } from './services/new-update.service';
     NotificationsComponent,
     UserLinksComponent,
     NewUpdatePage,
+    UserInventoryComponent
   ],
   entryComponents: [
-    WaitingComponent,
+    WaitingComponent
   ]
 })
 export class CoreModule {}

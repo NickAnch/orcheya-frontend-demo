@@ -1,0 +1,32 @@
+<div class="modal-header" *ngIf="inventory.title">
+    <h4 class="modal-title pull-left">
+      {{ inventory.title }}
+    </h4>
+    <button type="button"
+            class="close pull-right"
+            aria-label="Close"
+            (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete this subject?</p>
+    <p>Some info about <b>{{ inventory.title }}</b>:</p>
+    <ul>
+      <li><b>Purchased at</b>: {{ inventory.purchasedAt | date:'MMMM dd, yyyy' }}</li>
+      <li><b>Price</b>: {{ inventory.price }}</li>
+      <li><b>Serial</b>: {{ inventory.serial }}</li>
+      <li><b>Life</b>: {{ inventory.life }}</li>
+    </ul>
+    <div *ngIf="errors">
+      <ng-container *ngFor="let error of errors">
+        <span>{{ error }}</span>
+      </ng-container>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-danger"
+       (click)="deleteInventory()">
+      Delete
+    </a>
+  </div>

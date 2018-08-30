@@ -25,6 +25,7 @@ import {
   UsersPage,
   LibsPage,
   UpworkTrackingPage,
+  InventoriesPage,
 } from './pages';
 
 import {
@@ -46,6 +47,23 @@ import {
 import { HumanizeDatePipe } from '../core/pipes/humanizeDate.pipe';
 import { MapComponent } from '../core/components';
 import { WorklogsControlService } from './services/upwork-tracking.service';
+import {
+  InventoriesComponent
+} from './components/inventories/inventories.component';
+import { InventoriesService } from './services/inventories.service';
+import {
+  InventoryEditComponent
+} from './components/inventory-edit/inventory-edit.component';
+import {
+  InventoryDeleteComponent
+} from './components/inventory-delete/inventory-delete.component';
+import {
+  InventoryAddUserComponent
+} from './components/inventory-add-user/inventory-add-user.component';
+import {
+  InventoryRemoveUserComponent
+} from './components/inventory-remove-user/inventory-remove-user.component';
+import { InventoryAccessGuard } from './services/inventory-access.guard';
 
 @NgModule({
   imports: [
@@ -63,14 +81,17 @@ import { WorklogsControlService } from './services/upwork-tracking.service';
   ],
   providers: [
     CanActivateAdminGuard,
+    InventoryAccessGuard,
     UsersService,
     RolesService,
+    InventoriesService,
     TimingsService,
     WorklogsControlService
   ],
   declarations: [
     AdminComponent,
     UsersPage,
+    InventoriesPage,
     RolesComponent,
     TimingsComponent,
     TimingDeleteComponent,
@@ -86,6 +107,11 @@ import { WorklogsControlService } from './services/upwork-tracking.service';
     MapComponent,
     UpworkTrackingEditComponent,
     ConfirmModalWorklogComponent,
+    InventoriesComponent,
+    InventoryEditComponent,
+    InventoryDeleteComponent,
+    InventoryAddUserComponent,
+    InventoryRemoveUserComponent,
   ],
   entryComponents: [
     UserEditComponent,
@@ -94,7 +120,11 @@ import { WorklogsControlService } from './services/upwork-tracking.service';
     TimingDeleteComponent,
     UserDeleteComponent,
     UpworkTrackingEditComponent,
-    ConfirmModalWorklogComponent
+    ConfirmModalWorklogComponent,
+    InventoryEditComponent,
+    InventoryDeleteComponent,
+    InventoryRemoveUserComponent,
+    InventoryAddUserComponent
   ]
 })
 export class AdminModule { }

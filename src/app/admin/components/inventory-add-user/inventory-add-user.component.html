@@ -1,0 +1,36 @@
+<div class="modal-header" *ngIf="inventory.title">
+    <h4 class="modal-title pull-left">
+      {{ inventory.title }}
+    </h4>
+    <button type="button"
+            class="close pull-right"
+            aria-label="Close"
+            (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <label for="userSelect">Choose user*:</label>
+    <select [(ngModel)]="userId"
+            id="userSelect"
+            class="form-control select2 select2-hidden-accessible"
+            style="width: 100%;"
+            tabindex="-1"
+            aria-hidden="true">
+      <ng-container *ngFor="let user of users">
+        <option [value]="user.id">{{ user.name }} {{ user.surname }}</option>
+      </ng-container>
+    </select>
+    <div *ngIf="errors">
+      <ng-container *ngFor="let error of errors">
+        <span>{{ error }}</span>
+      </ng-container>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-primary"
+       (click)="giveInventory()"
+       [class.disabled]="!userId">
+      Give
+    </a>
+  </div>

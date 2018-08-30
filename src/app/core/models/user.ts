@@ -3,6 +3,7 @@ import { Image } from './image';
 import { Role } from './role';
 import { Timing } from './timing';
 import { Notification } from './notification';
+import { Inventory } from './inventory';
 
 export interface IUsersIndex {
   users: User[];
@@ -45,6 +46,7 @@ export class User extends Model {
   @Alias('slack_team_id') public slackTeamId: string;
   @Alias('slack_name') public slackName: string;
   @Alias('deleted_at') public deletedAt: Date;
+  @Alias('inventories', Inventory) public inventories: Inventory;
 
   constructor(user?) {
     super();

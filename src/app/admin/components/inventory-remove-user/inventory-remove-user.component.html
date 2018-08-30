@@ -1,0 +1,28 @@
+<div class="modal-header" *ngIf="inventory.title">
+  <h4 class="modal-title pull-left">
+    <b>{{ inventory.title }}</b>
+  </h4>
+  <button type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>
+    Are you sure you want to take off the <b>{{ inventory.title }}</b> from
+    <b>{{ getLastUserOfSubject(inventory.given) }}</b>?
+  </p>
+  <div *ngIf="errors">
+    <ng-container *ngFor="let error of errors">
+      <span>{{ error }}</span>
+    </ng-container>
+  </div>
+</div>
+<div class="modal-footer">
+  <a class="btn btn-danger"
+     (click)="takeInventory()">
+    Take off
+  </a>
+</div>
