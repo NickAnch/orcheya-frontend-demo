@@ -91,7 +91,7 @@
                 <i class="fa fa-fw {{ makeIconClassName(link.kind) }}"></i>
               </td>
               <td>
-                {{ link.kind | titlecase }}
+                {{ checkKindName(link.kind) | titlecase }}
               </td>
               <td>
                 <a href="{{ link.link }}" class="user-link">
