@@ -11,7 +11,7 @@
     <tr *ngFor="let inventory of inventories; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ inventory.title }}</td>
-      <td>{{ updateSerial(inventory.serial) }}</td>
+      <td>{{ inventory.serial && updateSerial(inventory.serial) || 'no serial'}}</td>
       <td>
         {{ inventory.given[inventory.given.length - 1]
           .startedAt | date:'dd MMMM yyyy' }}
