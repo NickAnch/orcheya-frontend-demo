@@ -123,14 +123,14 @@ export class InventoriesComponent implements OnInit {
       });
   }
 
-  public showGiveButton(given) {
+  public showGiveButton(given): boolean {
     return given.length === 0 ||
-      (given !== undefined && given[given.length - 1].endedAt) ? true : false;
+      (given !== undefined && given[given.length - 1].endedAt);
   }
 
-  public showTakeButton(given) {
+  public showTakeButton(given): boolean {
     return given.length > 0 &&
-      (given !== undefined && !given[given.length - 1].endedAt) ? true : false;
+      (given !== undefined && !given[given.length - 1].endedAt);
   }
 
   public updateSerial(serial: number): string {

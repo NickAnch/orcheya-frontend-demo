@@ -27,7 +27,7 @@
             <td>{{ i + 1 }}</td>
             <td>{{ inventory.purchasedAt | date:'MMMM dd, yyyy' }}</td>
             <td>{{ inventory.title }}</td>
-            <td>{{ inventory.price }}</td>
+            <td>${{ inventory.price }}</td>
             <td>{{ updateSerial(inventory.serial) }}</td>
             <td>{{ inventory.life }}</td>
             <td>

@@ -31,11 +31,11 @@ export class InventoryEditComponent implements OnInit {
       title: [this.inventory.title, [Validators.required,
                                      Validators.pattern('.*[\\S].*')]],
       price: [this.inventory.price, [Validators.required,
-                                     Validators.pattern('.*[\\S].*')]],
+                                     Validators.pattern(/^\d+(\.\d+)?$/)]],
       serial: [this.inventory.serial, [Validators.required,
-                                     Validators.pattern('.*[\\S].*')]],
+                                     Validators.pattern(/^\d+$/)]],
       life: [this.inventory.life, [Validators.required,
-                                     Validators.pattern('.*[\\S].*')]]
+                                     Validators.pattern(/^\d+$/)]]
     });
   }
 
@@ -82,7 +82,8 @@ export class InventoryEditComponent implements OnInit {
       if (this.form.get(controlName).errors['required']) {
         return `${controlName} is required`;
       } else if (this.form.get(controlName).errors['pattern']) {
-        return `${controlName} can't be empty`;
+        console.log(this.form.get(controlName).errors['pattern']);
+        return 'Invalid characters are used';
       }
     }
   }
