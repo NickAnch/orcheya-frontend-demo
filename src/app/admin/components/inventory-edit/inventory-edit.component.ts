@@ -82,7 +82,6 @@ export class InventoryEditComponent implements OnInit {
       if (this.form.get(controlName).errors['required']) {
         return `${controlName} is required`;
       } else if (this.form.get(controlName).errors['pattern']) {
-        console.log(this.form.get(controlName).errors['pattern']);
         return 'Invalid characters are used';
       }
     }
