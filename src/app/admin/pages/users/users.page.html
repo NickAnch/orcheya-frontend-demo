@@ -55,7 +55,10 @@
                 <td>{{ user.email }}</td>
                 <td class="integrations">
                   <div class="icon-container">
-                    <i class="fa fa-slack" *ngIf="user.slackConnected" tooltip="Slack"></i>
+                    <i class="fa fa-slack"
+                       [class.notifications-off]="!user.notifyUpdate"
+                       *ngIf="user.slackConnected"
+                       [tooltip]="user.notifyUpdate ? 'Slack' : 'Slack notifications - off'"></i>
                   </div>
                   <div class="icon-container">
                     <i class="fa fa-clock-o" *ngIf="user.timedoctorConnected" tooltip="TimeDoctor"></i>
