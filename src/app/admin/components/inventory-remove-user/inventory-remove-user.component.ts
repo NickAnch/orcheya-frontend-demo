@@ -38,7 +38,7 @@ export class InventoryRemoveUserComponent implements OnInit {
       );
   }
 
-  public getFirstUserOfSubject (given: GivenInventory): string {
+  public getFirstUserOfSubject (given: GivenInventory[]): string {
     if (given !== undefined) {
       const userInfo = given[0].user;
       return `${userInfo.name} ${userInfo.surname} `;

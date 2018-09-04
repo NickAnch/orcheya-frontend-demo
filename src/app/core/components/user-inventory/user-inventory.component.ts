@@ -8,7 +8,7 @@ import { Inventory } from '../../models/inventory';
   styleUrls: ['./user-inventory.component.scss']
 })
 export class UserInventoryComponent implements OnInit {
-  public inventories: Inventory;
+  public inventories: Inventory[];
 
   constructor(private _currentUser: CurrentUserService) { }
 
@@ -29,6 +29,10 @@ export class UserInventoryComponent implements OnInit {
     } else {
       return serial.toString();
     }
+  }
+
+  isEmptyObject(obj) {
+    return (obj && (Object.keys(obj).length === 0));
   }
 
 }
