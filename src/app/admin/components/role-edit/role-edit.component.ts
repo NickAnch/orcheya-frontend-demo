@@ -29,7 +29,8 @@ export class RoleEditComponent implements OnInit {
 
   ngOnInit() {
     this.form = this._formBuilder.group({
-      name: [this.role.name, [Validators.required]],
+      name: [this.role.name, [Validators.required,
+                              Validators.pattern('.*[\\S].*')]],
       isAdmin: [this.role.isAdmin, []],
       isDeveloper: [this.role.isDeveloper, []],
       isBirthdayNotify: [this.role.isBirthdayNotify, []],
@@ -83,6 +84,8 @@ export class RoleEditComponent implements OnInit {
     if (this.form.get(controlName).errors) {
       if (this.form.get(controlName).errors['required']) {
         return `${controlName} is required`;
+      } else if (this.form.get(controlName).errors['pattern']) {
+        return `${controlName} can't be empty`;
       } else if (this.form.get(controlName).errors['email']) {
         return `${controlName} is not valid email`;
       } else if (this.form.get(controlName).errors['validLatin']) {
