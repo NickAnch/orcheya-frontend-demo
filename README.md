@@ -36,9 +36,11 @@ $ yarn deploy
 - We write `public` before public things
 - We add `I` before interfaces
 - In other cases, we follow [Angular style guides](https://angular.io/guide/styleguide) and [TSlint](https://github.com/palantir/tslint)
+
 #### HTML
 - HTML doesn't have strict rules, so we follow [Google Style guide](https://google.github.io/styleguide/htmlcssguide.html) and [link to repository](https://github.com/google/styleguide)
-- We don't use formatting html code in jsx style. Especially closing tag on new line. Please follow this [guide](https://google.github.io/styleguide/htmlcssguide.html#HTML_Line-Wrapping) in creating multiline tags. Third example
+- We don't use formatting html code in jsx style. Especially closing tag on new line. Please follow this [guide](https://google.github.io/styleguide/htmlcssguide.html#HTML_Line-Wrapping) in creating multiline tags. Third example.
+
 #### CSS
 - We use [this](https://github.com/brigade/scss-lint) for linting css code. You can integrate it in your redactor
 
