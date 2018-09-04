@@ -24,7 +24,6 @@ import { GivenInventory } from '../../../core/models/given-inventory';
 export class InventoriesComponent implements OnInit {
   public inventories: Inventory[];
   public inventory: Inventory = new Inventory();
-  public zero: string;
   public serialStr: string;
 
   constructor(private _inventoriesService: InventoriesService,
@@ -35,6 +34,9 @@ export class InventoriesComponent implements OnInit {
       .getInventories()
       .subscribe((data) => {
         this.inventories = data;
+        this.inventories.forEach((element) => {
+          element.given.reverse();
+        });
       });
   }
 
@@ -97,7 +99,7 @@ export class InventoriesComponent implements OnInit {
     modal.content
       .onInventoryTake
       .subscribe((data) => {
-        inventory.given[inventory.given.length - 1].endedAt =
+        inventory.given[0].endedAt =
           data.updatedAt;
         modal.hide();
       });
@@ -115,22 +117,22 @@ export class InventoriesComponent implements OnInit {
         const newUserOfInventory = {
           id: data.inventory.id,
           user: data.user,
-          startedAt: data.inventory.updatedAt,
+          startedAt: data.startAt || data.inventory.updatedAt,
           endedAt: null
         } as GivenInventory;
-        inventory.given.push(newUserOfInventory);
+        inventory.given.unshift(newUserOfInventory);
         modal.hide();
       });
   }
 
   public showGiveButton(given): boolean {
     return given.length === 0 ||
-      (given !== undefined && given[given.length - 1].endedAt);
+      (given !== undefined && given[0].endedAt);
   }
 
   public showTakeButton(given): boolean {
     return given.length > 0 &&
-      (given !== undefined && !given[given.length - 1].endedAt);
+      (given !== undefined && !given[0].endedAt);
   }
 
   public updateSerial(serial: number): string {
@@ -145,4 +147,20 @@ export class InventoriesComponent implements OnInit {
     }
   }
 
+  public showToggleBtn(givenInventory: GivenInventory[]): boolean {
+    return givenInventory.length > 2;
+  }
+
+  public showAll(inventory: Inventory): GivenInventory[] {
+      return inventory.showAllGivenInventory && inventory.given ||
+             inventory.given.slice(0, 2);
+  }
+
+  public toggleShowAll(inventory: Inventory): void {
+    inventory.showAllGivenInventory = !inventory.showAllGivenInventory;
+  }
+
+  public stateName(inventory: Inventory): string {
+    return inventory.showAllGivenInventory ? 'hide' : 'show';
+  }
 }

@@ -5,6 +5,7 @@ import { BsModalRef } from 'ngx-bootstrap';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../../core/models/user';
 import { UsersService } from '../../services';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-inventory-add-user',
@@ -18,10 +19,13 @@ export class InventoryAddUserComponent implements OnInit {
   public userId: number;
   public onInventoryGive: EventEmitter<Object> = new EventEmitter();
   public errors: string[] = null;
-  public startAt: Date;
+  public startAt = new Date();
+  public form: FormGroup;
+  private _resErrors = {};
 
   constructor(private _inventoriesService: InventoriesService,
               public modalRef: BsModalRef,
+              private _formBuilder: FormBuilder,
               private _usersService: UsersService) { }
 
   ngOnInit() {
@@ -30,25 +34,53 @@ export class InventoryAddUserComponent implements OnInit {
       .subscribe((data) => {
         this.users = data.users;
       });
+
+    this.form = this._formBuilder.group({
+      userId: [this.userId, [Validators.required]],
+      startAt: [this.startAt, [Validators.required,
+                               Validators.pattern('.*[\\S].*')]]
+    });
   }
 
   public giveInventory() {
-    const user = this.users.find(u => u.id === Number(this.userId));
+    const user = this.users.find(u => u.id === Number(this.form.value.userId));
     this._inventoriesService
-      .giveInventory(this.inventory, this.userId)
+      .giveInventory(this.inventory,
+                     this.form.value.userId,
+                     this.form.value.startAt)
       .subscribe(
         (inventory) => {
           this.onInventoryGive.emit({inventory: inventory,
-            user: user});
+            user: user, startAt: this.form.value.startAt});
         },
         (err: HttpErrorResponse) => {
-          if (err.error && err.error.base && err.error.base.length > 0) {
-            this.errors = err.error.base;
-          } else {
-            this.errors = ['Unknown error'];
+          if (!err.error['status'] && !err.error['exception']) {
+            this._resErrors = err.error;
           }
         }
       );
+  }
+
+  public textError(controlName: string): string {
+    if (!this.hasError(controlName)) {
+      return '';
+    }
+    if (this._resErrors[controlName]) {
+      return this._resErrors[controlName];
+    }
+    if (this.form.get(controlName).errors) {
+      if (this.form.get(controlName).errors['required']) {
+        return `${controlName} is required`;
+      }
+    }
+  }
+
+  public hasError(controlName: string): boolean {
+    return (
+      (this.form.get(controlName).dirty
+        && this.form.get(controlName).invalid
+      ) || this._resErrors[controlName]
+    );
   }
 
 }

@@ -87,11 +87,11 @@ export class InventoriesService {
   }
 
   public giveInventory(inventory: Inventory,
-    userId: Number): Observable<Inventory> {
+    userId: Number, startAt: Date): Observable<Inventory> {
     return Observable.create((observer: Observer<Inventory>) => {
       this._http
         .post(`${ADMIN_INVENTORIES_URL}/${inventory.id}/give`,
-          {user_id: userId})
+          {user_id: userId, started_at: startAt})
         .subscribe(
           (response) => {
             observer.next(Inventory.new(Inventory, response));

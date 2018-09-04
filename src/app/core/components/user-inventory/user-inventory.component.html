@@ -1,4 +1,5 @@
-<table class="table table-hover">
+<table class="table table-hover"
+       *ngIf="inventories?.length > 0; else empty">
   <thead>
     <tr>
       <th>#</th>
@@ -11,7 +12,7 @@
     <tr *ngFor="let inventory of inventories; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ inventory.title }}</td>
-      <td>{{ inventory.serial && updateSerial(inventory.serial) || 'no serial'}}</td>
+      <td>{{ updateSerial(inventory.id) }}</td>
       <td>
         {{ inventory.given[inventory.given.length - 1]
           .startedAt | date:'dd MMMM yyyy' }}
@@ -19,3 +20,6 @@
     </tr>
   </tbody>
 </table>
+<ng-template #empty>
+  <p class="alert-inventory">Sorry, you don't have any inventory.</p>
+</ng-template>

@@ -23,17 +23,15 @@ export class InventoryEditComponent implements OnInit {
 
   ngOnInit() {
     if (this.inventory.purchasedAt) {
-      this. purchased = new Date(this.inventory.purchasedAt);
+      this.purchased = new Date(this.inventory.purchasedAt);
     }
     this.form = this._formBuilder.group({
-      purchasedAt: [this. purchased, [Validators.required,
+      purchasedAt: [this.purchased, [Validators.required,
                                            Validators.pattern('.*[\\S].*')]],
       title: [this.inventory.title, [Validators.required,
                                      Validators.pattern('.*[\\S].*')]],
       price: [this.inventory.price, [Validators.required,
                                      Validators.pattern(/^\d+(\.\d+)?$/)]],
-      serial: [this.inventory.serial, [Validators.required,
-                                     Validators.pattern(/^\d+$/)]],
       life: [this.inventory.life, [Validators.required,
                                      Validators.pattern(/^\d+$/)]]
     });
@@ -87,7 +85,7 @@ export class InventoryEditComponent implements OnInit {
     }
   }
 
-   public hasError(controlName: string): boolean {
+  public hasError(controlName: string): boolean {
     return (
       (this.form.get(controlName).dirty
         && this.form.get(controlName).invalid

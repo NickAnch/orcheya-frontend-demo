@@ -8,6 +8,7 @@ export class Inventory extends Model {
   @Alias() public title: string;
   @Alias() public life: number;
   @Alias() public price: number;
+  @Alias() public showAllGivenInventory = false;
   @Alias('given', GivenInventory) public given: GivenInventory[];
   @Alias('purchased_at') public purchasedAt: string;
   @Alias('updated_at') public updatedAt: Moment;

@@ -12,27 +12,28 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Purchased at</th>
             <th>Title</th>
-            <th>Price</th>
             <th>Serial</th>
+            <th>Price</th>
             <th>Life time</th>
+            <th>Purchased at</th>
             <th>Username history</th>
             <th></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let inventory of inventories; let i = index">
+          <tr *ngFor="let inventory of inventories; let i = index;">
             <td>{{ i + 1 }}</td>
-            <td>{{ inventory.purchasedAt | date:'MMMM dd, yyyy' }}</td>
             <td>{{ inventory.title }}</td>
+            <td>{{ updateSerial(inventory.id) }}</td>
             <td>${{ inventory.price }}</td>
-            <td>{{ updateSerial(inventory.serial) }}</td>
             <td>{{ inventory.life }}</td>
+            <td>{{ inventory.purchasedAt | date:'MMMM dd, yyyy' }}</td>
             <td>
-              <div *ngIf="inventory.given">
-                <div class="area" *ngFor="let give of inventory.given;">
+              <div *ngIf="inventory.given.length > 0; else empty">
+                <div class="area"
+                     *ngFor="let give of showAll(inventory);">
                   <div *ngIf="give.user">
                     <b>user</b>: {{ give.user.name }} {{ give.user.surname }}<br>
                     <b>start using</b>: {{ give.startedAt | date:'dd MMMM yyyy' }} <br>
@@ -41,6 +42,14 @@
                     </div>
                   </div>
                 </div>
+              </div>
+              <ng-template #empty>The story is empty</ng-template>
+              <div *ngIf="showToggleBtn(inventory.given)">
+                <button (click)="toggleShowAll(inventory)"
+                        type="button"
+                        class="btn btn-primary btn-flat btn-sm">
+                      {{ stateName(inventory) }}
+                </button>
               </div>
             </td>
             <td class="no-padding text-right">

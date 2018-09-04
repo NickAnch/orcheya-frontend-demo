@@ -28,8 +28,8 @@ export class InventoryDeleteComponent implements OnInit {
           this.onInventoryDelete.emit({ deleted: this.inventory });
         },
         (err: HttpErrorResponse) => {
-          if (err.error && err.error.base && err.error.base.length > 0) {
-            this.errors = err.error.base;
+          if (!err.error['status'] && !err.error['exception']) {
+            this.errors = err.error;
           } else {
             this.errors = ['Unknown error'];
           }

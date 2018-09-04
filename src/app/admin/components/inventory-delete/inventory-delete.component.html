@@ -15,7 +15,7 @@
     <ul>
       <li><b>Purchased at</b>: {{ inventory.purchasedAt | date:'MMMM dd, yyyy' }}</li>
       <li><b>Price</b>: ${{ inventory.price }}</li>
-      <li><b>Serial</b>: {{ inventory.serial }}</li>
+      <li><b>Serial</b>: {{ inventory.id }}</li>
       <li><b>Life</b>: {{ inventory.life }}</li>
     </ul>
     <div *ngIf="errors">

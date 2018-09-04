@@ -12,7 +12,7 @@
 <div class="modal-body">
   <p>
     Are you sure you want to take off the <b>{{ inventory.title }}</b> from
-    <b>{{ getLastUserOfSubject(inventory.given) }}</b>?
+    <b>{{ getFirstUserOfSubject(inventory.given) }}</b>?
   </p>
   <div *ngIf="errors">
     <ng-container *ngFor="let error of errors">
@@ -21,8 +21,8 @@
   </div>
 </div>
 <div class="modal-footer">
-  <a class="btn btn-danger"
-     (click)="takeInventory()">
+  <button class="btn btn-danger"
+          (click)="takeInventory()">
     Take off
-  </a>
+</button>
 </div>

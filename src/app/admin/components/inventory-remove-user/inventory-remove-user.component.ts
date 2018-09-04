@@ -38,9 +38,9 @@ export class InventoryRemoveUserComponent implements OnInit {
       );
   }
 
-  public getLastUserOfSubject (given): string {
+  public getFirstUserOfSubject (given: GivenInventory): string {
     if (given !== undefined) {
-      const userInfo = given[given.length - 1].user;
+      const userInfo = given[0].user;
       return `${userInfo.name} ${userInfo.surname} `;
     }
   }
