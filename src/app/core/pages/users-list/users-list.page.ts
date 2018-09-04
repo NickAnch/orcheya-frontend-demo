@@ -29,6 +29,7 @@ export class UsersListPage implements OnInit, AfterViewInit, OnDestroy {
   public usersList: User[];
   public filter = new UserFilter();
   public roles: Role[];
+  public canLoadNext = false;
   private subscriptions: Subscription[] = [];
 
   constructor(private usersListService: UsersListService,
@@ -41,7 +42,10 @@ export class UsersListPage implements OnInit, AfterViewInit, OnDestroy {
 
     this.usersListService
       .getUsersList(this.filter)
-      .subscribe(data => this.usersList = data.users);
+      .subscribe(data => {
+        this.usersList = data.users;
+        this.canLoadNext = true;
+      });
   }
 
   ngAfterViewInit() {
