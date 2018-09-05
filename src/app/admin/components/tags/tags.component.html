@@ -1,0 +1,36 @@
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">Event tags</h3>
+    <div class="box-tools">
+      <button type="button" 
+              class="btn btn-primary btn-sm btn-flat" 
+              (click)="addTag()">Add a tag</button>
+    </div>
+  </div>
+  <div class="box-body table-responsive no-padding">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tag of tags; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ tag.name }}</td>
+          <th class="no-padding text-right">
+            <a class="btn btn-primary btn-flat"
+               (click)="editTag(tag)">
+              <i class="fa fa-pencil"></i>
+            </a>
+            <a class="btn btn-danger btn-flat"
+               (click)="deleteTag(tag)">
+              <i class="fa fa-trash"></i>
+            </a>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

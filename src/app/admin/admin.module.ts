@@ -64,6 +64,12 @@ import {
   InventoryRemoveUserComponent
 } from './components/inventory-remove-user/inventory-remove-user.component';
 import { InventoryAccessGuard } from './services/inventory-access.guard';
+import { TagsComponent } from './components/tags/tags.component';
+import { TagsService } from './services/tags.service';
+import { TagEditComponent } from './components/tag-edit/tag-edit.component';
+import {
+  TagDeleteComponent
+} from './components/tag-delete/tag-delete.component';
 
 @NgModule({
   imports: [
@@ -86,7 +92,8 @@ import { InventoryAccessGuard } from './services/inventory-access.guard';
     RolesService,
     InventoriesService,
     TimingsService,
-    WorklogsControlService
+    WorklogsControlService,
+    TagsService
   ],
   declarations: [
     AdminComponent,
@@ -112,6 +119,9 @@ import { InventoryAccessGuard } from './services/inventory-access.guard';
     InventoryDeleteComponent,
     InventoryAddUserComponent,
     InventoryRemoveUserComponent,
+    TagsComponent,
+    TagEditComponent,
+    TagDeleteComponent,
   ],
   entryComponents: [
     UserEditComponent,
@@ -124,7 +134,9 @@ import { InventoryAccessGuard } from './services/inventory-access.guard';
     InventoryEditComponent,
     InventoryDeleteComponent,
     InventoryRemoveUserComponent,
-    InventoryAddUserComponent
+    InventoryAddUserComponent,
+    TagEditComponent,
+    TagDeleteComponent
   ]
 })
 export class AdminModule { }
