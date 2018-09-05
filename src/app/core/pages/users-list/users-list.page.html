@@ -57,6 +57,7 @@
   </div>
 
   <div in-viewport
+       *ngIf="canLoadNext"
        [inViewportOptions]="{ partial: false }"
        (inViewportAction)="action($event)">
   </div>
