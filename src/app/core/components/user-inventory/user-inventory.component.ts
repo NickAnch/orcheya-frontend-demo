@@ -31,8 +31,4 @@ export class UserInventoryComponent implements OnInit {
     }
   }
 
-  isEmptyObject(obj) {
-    return (obj && (Object.keys(obj).length === 0));
-  }
-
 }

@@ -7,10 +7,9 @@ import { GivenInventory } from '../../../core/models/given-inventory';
 
 @Component({
   selector: 'app-inventory-remove-user',
-  templateUrl: './inventory-remove-user.component.html',
-  styleUrls: ['./inventory-remove-user.component.scss']
+  templateUrl: './inventory-remove-user.component.html'
 })
-export class InventoryRemoveUserComponent implements OnInit {
+export class InventoryRemoveUserComponent {
   public inventory: Inventory;
   public onInventoryTake: EventEmitter<Inventory> = new EventEmitter();
   public errors: string[] = null;
@@ -18,10 +17,7 @@ export class InventoryRemoveUserComponent implements OnInit {
   constructor(private _inventoriesService: InventoriesService,
               public modalRef: BsModalRef) { }
 
-  ngOnInit() {
-  }
-
-  public takeInventory() {
+  public takeInventory(): void {
     this._inventoriesService
       .takeInventory(this.inventory)
       .subscribe(

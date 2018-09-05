@@ -42,7 +42,7 @@ export class InventoryAddUserComponent implements OnInit {
     });
   }
 
-  public giveInventory() {
+  public giveInventory(): void {
     const user = this.users.find(u => u.id === Number(this.form.value.userId));
     this._inventoriesService
       .giveInventory(this.inventory,

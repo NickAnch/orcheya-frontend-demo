@@ -7,8 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-inventory-edit',
-  templateUrl: './inventory-edit.component.html',
-  styleUrls: ['./inventory-edit.component.scss']
+  templateUrl: './inventory-edit.component.html'
 })
 export class InventoryEditComponent implements OnInit {
   public inventory: Inventory;

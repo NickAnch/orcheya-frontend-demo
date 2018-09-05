@@ -4,7 +4,6 @@ import { GivenInventory } from './given-inventory';
 
 export class Inventory extends Model {
   @Alias() public id: number;
-  @Alias() public serial: number;
   @Alias() public title: string;
   @Alias() public life: number;
   @Alias() public price: number;

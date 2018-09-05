@@ -24,7 +24,6 @@ import { GivenInventory } from '../../../core/models/given-inventory';
 export class InventoriesComponent implements OnInit {
   public inventories: Inventory[];
   public inventory: Inventory = new Inventory();
-  public serialStr: string;
 
   constructor(private _inventoriesService: InventoriesService,
               private _modalService: BsModalService) { }

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { Inventory } from '../../../core/models/inventory';
 import { InventoriesService } from '../../services/inventories.service';
 import { BsModalRef } from 'ngx-bootstrap';
@@ -6,10 +6,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-inventory-delete',
-  templateUrl: './inventory-delete.component.html',
-  styleUrls: ['./inventory-delete.component.scss']
+  templateUrl: './inventory-delete.component.html'
 })
-export class InventoryDeleteComponent implements OnInit {
+export class InventoryDeleteComponent {
   public inventory: Inventory;
   public onInventoryDelete: EventEmitter<object> = new EventEmitter();
   public errors: string[] = null;
@@ -17,10 +16,7 @@ export class InventoryDeleteComponent implements OnInit {
   constructor(private _inventoriesService: InventoriesService,
               public modalRef: BsModalRef) { }
 
-  ngOnInit() {
-  }
-
-  public deleteInventory() {
+  public deleteInventory(): void {
     this._inventoriesService
       .deleteInventory(this.inventory)
       .subscribe(
