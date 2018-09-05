@@ -38,19 +38,26 @@ export class CoreComponent implements OnInit {
           ]
         }
       ]);
+
     if (this._currentUser.role.isAdmin) {
+      const itemsForAdmin = [
+        { name: 'Users', link: ['/admin', 'users'] },
+        { name: 'Libs', link: ['/admin', 'libs'] },
+        { name: 'Upwork tracking', link: ['/admin', 'upwork-tracking'] },
+        { name: 'Map', link: ['/admin', 'map'] }
+      ];
+
+      if (this._currentUser.role.isInventoryNotify) {
+        itemsForAdmin.push({ name: 'Inventories',
+                             link: ['/admin', 'inventories'] });
+      }
       this.sideBarService
         .add(
           {
             name: 'Administrate',
             icon: 'fa-wheelchair',
             single: false,
-            items: [
-              { name: 'Users', link: ['/admin', 'users'] },
-              { name: 'Libs', link: ['/admin', 'libs'] },
-              { name: 'Upwork tracking', link: ['/admin', 'upwork-tracking'] },
-              { name: 'Map', link: ['/admin', 'map'] }
-            ]
+            items: itemsForAdmin
           }
         );
     }

@@ -32,7 +32,7 @@ const routes: Routes = [
       {
         path: 'reports',
         loadChildren: 'app/reports/reports.module#ReportsModule'
-      },
+      }
     ]
   },
   { path: 'sign-in', component: SignInPage },

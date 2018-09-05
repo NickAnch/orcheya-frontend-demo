@@ -1,0 +1,61 @@
+<div class="modal-header" *ngIf="inventory.title">
+  <h4 class="modal-title pull-left">
+    {{ inventory.title }}
+  </h4>
+  <button type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal"
+        [formGroup]="form"
+        autocomplete="off">
+    <div class="box-body">
+      <div class="form-group"
+            [ngClass]="{ 'has-error': hasError('userId') }">
+        <label for="userSelect"
+                class="col-sm-3 control-label">Choose user*</label>
+        <div class="col-sm-9">
+          <select formControlName="userId"
+                  id="userSelect"
+                  class="form-control select2 select2-hidden-accessible"
+                  tabindex="-1"
+                  aria-hidden="true">
+            <ng-container *ngFor="let user of users">
+              <option [value]="user.id">{{ user.fullName }}</option>
+            </ng-container>
+          </select>
+          <span class="help-block">{{ textError('userId') }}</span>
+        </div>
+      </div>
+      <div class="form-group"
+            [ngClass]="{ 'has-error': hasError('startAt') }">
+        <label for="startAt"
+                class="col-sm-3 control-label">Start of use</label>
+        <div class="col-sm-9">
+          <input bsDatepicker
+                  formControlName="startAt"
+                  class="form-control"
+                  id="startAt"
+                  placeholder="Enter start using">
+          <span class="help-block">{{ textError('startAt') }}</span>
+        </div>
+      </div>
+      <div *ngIf="errors">
+        <ng-container *ngFor="let error of errors">
+          <span>{{ error }}</span>
+        </ng-container>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary"
+      (click)="giveInventory()"
+      [disabled]="form.invalid">
+    Give
+  </button>
+</div>

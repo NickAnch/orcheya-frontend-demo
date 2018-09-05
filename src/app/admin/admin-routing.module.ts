@@ -6,9 +6,11 @@ import { CanActivateAdminGuard } from './services';
 import {
   UsersPage,
   LibsPage,
-  UpworkTrackingPage
+  UpworkTrackingPage,
+  InventoriesPage
 } from './pages';
 import { MapComponent } from '../core/components';
+import { InventoryAccessGuard } from './services/inventory-access.guard';
 
 const routes: Routes = [
   {
@@ -19,7 +21,10 @@ const routes: Routes = [
       { path: 'users', component: UsersPage },
       { path: 'libs', component: LibsPage },
       { path: 'upwork-tracking', component: UpworkTrackingPage },
-      { path: 'map', component: MapComponent }
+      { path: 'map', component: MapComponent },
+      { path: 'inventories',
+        component: InventoriesPage,
+        canActivate: [InventoryAccessGuard] }
     ]
   }
 ];

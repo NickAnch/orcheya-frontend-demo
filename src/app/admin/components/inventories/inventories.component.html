@@ -1,0 +1,81 @@
+<div class="box">
+    <div class="box-header">
+      <h3 class="box-title">Inventories</h3>
+      <div class="box-tools">
+        <button type="button"
+                class="btn btn-primary btn-sm btn-flat"
+                (click)="addInventory()">Add an inventory</button>
+      </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Serial</th>
+            <th>Price</th>
+            <th>Life time</th>
+            <th>Purchased at</th>
+            <th>Username history</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let inventory of inventories; let i = index;">
+            <td>{{ i + 1 }}</td>
+            <td>{{ inventory.title }}</td>
+            <td>{{ updateSerial(inventory.id) }}</td>
+            <td>${{ inventory.price }}</td>
+            <td>{{ inventory.life }}</td>
+            <td>{{ inventory.purchasedAt | date:'MMMM dd, yyyy' }}</td>
+            <td>
+              <div *ngIf="inventory.given.length > 0; else empty">
+                <div class="area"
+                     *ngFor="let give of showAll(inventory);">
+                  <div *ngIf="give.user">
+                    <b>user</b>: {{ give.user.name }} {{ give.user.surname }}<br>
+                    <b>start using</b>: {{ give.startedAt | date:'dd MMMM yyyy' }} <br>
+                    <div *ngIf="give.endedAt">
+                      <b>end using</b>: {{ give.endedAt | date:'dd MMMM yyyy' }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #empty>The story is empty</ng-template>
+              <div *ngIf="showToggleBtn(inventory.given)">
+                <button (click)="toggleShowAll(inventory)"
+                        type="button"
+                        class="btn btn-primary btn-flat btn-sm">
+                      {{ stateName(inventory) }}
+                </button>
+              </div>
+            </td>
+            <td class="no-padding text-right">
+              <a *ngIf="showGiveButton(inventory.given)"
+                  class="btn btn-primary btn-flat"
+                  (click)="giveInventory(inventory)">
+                Give item
+              </a>
+              <a *ngIf="showTakeButton(inventory.given)"
+                  class="btn btn-danger btn-flat"
+                  (click)="takeInventory(inventory)">
+                Take item off
+              </a>
+              </td>
+              <td class="no-padding text-right">
+              <a class="btn btn-primary btn-flat"
+                 (click)="editInventory(inventory)">
+                <i class="fa fa-pencil"></i>
+              </a>
+              <a class="btn btn-danger btn-flat"
+                 (click)="deleteInventory(inventory)">
+                <i class="fa fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
